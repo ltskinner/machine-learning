@@ -4,15 +4,32 @@
 
 ### Index
 
-```python 
+```python
 # Check the index values
 df.index.values
 
 # Check if a certain index exists
 'foo' in df.index.values
 
+# Check if unique items
+df['id'].is_unique
+
 # If index does not exist
 df.set_index('column_to_use', inplace=True)
+```
+
+#### Accessing data with .loc
+
+```python
+# After setting an index, can use loc to grab rows
+df.loc[unique_identifier]
+```
+
+#### Accessing data with .iloc
+
+```python
+# Can always get by position with .iloc
+df.iloc[0]  # Grabs the first value
 ```
 
 ### Columns
@@ -26,7 +43,20 @@ for col in df.columns:
     print(col, df[col].is_unique)
 
 # Drop Columns
-df.drop(lost_of_cols, inplace=True, axis=1)
+df.drop(list_of_cols, inplace=True, axis=1)
+# or
+df.drop(columns=list_of_cols, inplace=True)
+```
+
+#### Renaming Columns
+
+```python
+column_name_map = {
+    'Original_1': 'New_1',
+    'Original_2': 'New_2
+}
+
+df = df.rename(columns=column_name_map, inplace=True)
 ```
 
 ### NaNs
@@ -86,6 +116,16 @@ df['can_drink'] = np.where(df['age'] > 21, True, False)
 df['number_name'] = np.where(df['value'] == 0, 'Zero',
                         np.where(df['value'] == 1, 'One',
                             np.where(df['value'] == 2, 'Two', 'Three')))
+```
+
+### applymap
+
+```python
+def select_before_char(item):
+  if '[' in item:
+    return item[:item.find('[')]
+
+df = df.applymap(select_before_char)
 ```
 
 ## Asserting and Testing Data Expectations
