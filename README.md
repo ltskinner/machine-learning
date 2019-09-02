@@ -6,6 +6,6 @@ Notes and implementations of various things in the ML/AI space
 
 ### [Data Cleaning](./data_munging/DATA_CLEANING.md)
 
-### [Input Formatting](./data_munging/INPUT_FORMATTING.md)
+### [Encoding](./data_munging/ENCODING.md)
 
 ### [Scaling Data](./data_munging/SCALING.md)

@@ -67,7 +67,6 @@ gauss.mean()
 gauss.std()
 ```
 
-
 ### Normalizer
 
 * Normalizer works on the **rows** NOT the columns
