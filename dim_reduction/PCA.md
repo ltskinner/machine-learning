@@ -14,9 +14,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.pipeline import make_pipeline
 
 std_pca_pipeline = make_pipeline(
-  StandardScaler(),
-  PCA(n_components=2, svd_solver='auto'),
-  GaussianNB())
+    StandardScaler(),
+    PCA(n_components=2, svd_solver='auto'),
+    GaussianNB())
 
 std_pca_pipeline.fit(X, y)
 
