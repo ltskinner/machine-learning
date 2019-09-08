@@ -22,7 +22,6 @@ from sklearn import preprocessing
 
 # Scale between 0 and 1
 mm_scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
-mm_scaler.fit(array_of_ints)
 mm_scaler.fit_transform(
     np.array(list_of_ints).reshape(-1, 1))
 ```
@@ -51,7 +50,7 @@ r_Scaler.transform([array_of_ints])
   * `std` of 1
 
 ```python
-s_scaler = preprocrssing.StandardScaler()
+s_scaler = preprocessing.StandardScaler()
 s_scaler.fit([list_of_ints])
 s_scaler.transform([list_of_ints])
 
