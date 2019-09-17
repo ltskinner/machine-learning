@@ -4,8 +4,8 @@ Notes and implementations of various things in the ML/AI space
 
 ## Data Munging
 
-### [Data Cleaning](./data_munging/DATA_CLEANING.md)
+### [Data Cleaning](./other/data_munging/DATA_CLEANING.md)
 
-### [Encoding](./data_munging/ENCODING.md)
+### [Encoding](./other/data_munging/ENCODING.md)
 
-### [Scaling Data](./data_munging/SCALING.md)
+### [Scaling Data](./other/data_munging/SCALING.md)
