@@ -1,11 +1,24 @@
 # machine-learning
 
-Notes and implementations of various things in the ML/AI space
+Notes and implementations of various topics relating to Machine Learning and Artificial Intelligence
 
-## Data Munging
+## Natural Language Processing
 
-### [Data Cleaning](./other/data_munging/DATA_CLEANING.md)
+* NER
+* NRE
+* NLU
 
-### [Encoding](./other/data_munging/ENCODING.md)
+## Timeseries Analysis
 
-### [Scaling Data](./other/data_munging/SCALING.md)
+## Frameworks
+
+* PyTorch Examples
+* Tensorflow Examples
+* Keras Examples
+
+## Math
+
+## Miscellaneous Notes
+
+* Data munging
+* Dimensionality reduction
