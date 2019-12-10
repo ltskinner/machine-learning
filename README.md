@@ -8,6 +8,11 @@ Notes and implementations of various topics relating to Machine Learning and Art
 * NRE
 * NLU
 
+## Network Types
+
+* CNN
+* [RNN](./networks/RNN)
+
 ## Timeseries Analysis
 
 ## Frameworks
