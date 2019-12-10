@@ -13,4 +13,4 @@ These are individual neurons in a layer
 
 ## Input Formatting
 
-![alt text](./inputs_shape.PNG)
+![alt text](./inputs_shape.png)
