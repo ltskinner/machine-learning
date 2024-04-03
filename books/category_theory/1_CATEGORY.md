@@ -140,3 +140,26 @@ To summarize:
 - Arrows can be composed
 - The composition is associative (f.id=f, id.f=f)
 - every object has an identity arrow that serves as a unit under composition
+
+## 1.3 Composition is the Essence of Programming
+
+Functional programmers have a peculiar way of approaching problems. They start by asking very Zen-like questions. For instance, when designing and interactive program, they would ask:
+
+- What is interaction?
+
+When implementing Conways Game of Life, they woudl ponder the meaning of life
+
+What is programming?
+
+How do we solve problems? We decompose bigger problems into smaller problems. If the smaller problems are still too big, we decompose them further, and so on.
+
+We compose pieces of code to create solutoins to larger problems. Decompositions wouldnt make sense if we werent able to put the pieces back together.
+
+The Magincal Number Seven, Plus or Minus Two - number of chunks of information in our mind
+
+Elegant code creates chunks that are just the right size and come in just the right number for our mental digestive system to assimilate them
+
+So what are the right chunks for the composition of programs? Their surface area has to increase slower than their volume (surface area of a geometric object grows with the square of its size - slower than the volume, which grows with the cube of its size). The surface area is the informatio we need in order to compose chunks. The volume is the information we need in order to implement them. The idea is that, once a chunk is implemented, we can forget about the details of its implementation and concentrate on how it interacts with other chunks. In OOP, the surface is the class declaration of the object, or its abstract interface. In functional programming, its the declaration of a function (the gist at least)
+
+Category theory is extreme in the sense that it actively discourages us from looking inside the objects. An object in category theory is an abstract nebulous entity. All you can ever know about it is how it relates to other objects - how it connects with them using arrows. In OOP, an idealized object is only visible through its abstract interface (pure surface, no volume), with methods playing the role of arrows. The moment you have to dig into the implementation of the object in order how to compose it with other objects, youve lost the advantages of your programming paradigm
+
