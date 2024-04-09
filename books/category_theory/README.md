@@ -34,3 +34,5 @@
 - Arrows can be composed
 - The composition is associative (f.id=f, id.f=f)
 - every object has an identity arrow that serves as a unit under composition
+
+### [2. Types and Functions](./2_TYPES_FNS.md)
