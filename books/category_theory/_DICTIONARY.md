@@ -4,6 +4,10 @@
   - consists of `objects` and `arrows` that go between them
   - the essence of a category is `composition`
   - or, the essence of `composition` is a category
+  - formal def: consists of 3 mathematical entities
+    - objects
+    - morphisms (maps, arrows)
+    - composition (associativity, identity)
 - object
 - arrow
   - also called `morphisms`
@@ -17,6 +21,10 @@
 - variables
 - universal quantification
 - `identity morphisms`
+
+## Graphs
+
+- directed graph
 
 ## CS
 
