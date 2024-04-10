@@ -54,3 +54,68 @@ This definition type checks because undefined evaluates to bottom, which is a mo
 Functions that may return bottom are called *partial* as opposed to *total* functions, which return valid results for every possible argument.
 
 Because of the bototm, youll see the category of Haskell types and functions referred to as *Hask* rather than *Set*. From the pragmatic point of view, it is ok to ignore non-terminating functions and bottoms, and treat Hask as a bona fide Set
+
+## 2.4 Why Do We Need a Mathematical Model
+
+When programming, there is syntax and grammar. These aspects of the language are described using formal notation at the begining of the language spec. The meaning, or semantics, is harder to describe
+
+It doesnt matter that programmers never perform formal proofs of correctness. We always "think" that we write correct programs. We are usually quite surprised when it doesnt work as expected
+
+*Denotational semantics* is based on math. Here, every programming construct is given its mathematical interpretation. If you want to prove a property of a program, you just prove a mathematical theorum.
+
+Being able to prove correctness is kindof nice
+
+## 2.5 Pure and Dirty Functions
+
+- *pure functions*: functions that always produce the same result given the same input and have no side effects
+  - In a pure functional language like Haskell, all functions are pure
+  - Becuase of that, its easier to give these languages denotational semantics and model them using category theory
+  - Monads let us model all kinds of effects using only pure functions
+
+## 2.6 Examples of Types
+
+### Void
+
+Once you realize that types are sets, you can think of v exotic types. Whats the type corresponding to an empty set? its not a Void, its a type thats not inhabited by any values. You can define a function that takes Void, but you can never call it. To call it, you would have to procide a value of the type Void, and there just arent any. As for what the function can return, there are no restructions whatsoever. It can return any type (althought it never will , because it cant be called). In other words its a function thats polymorphic in the return type
+
+`absurd :: Void -> a` (remember, `a` is a type variable that can stand for any type)
+
+The name is not coincidental - Curry Howard isomorphisms. Void represents falsity, and the type of the function `absurd` corresponds to the statement that "from falsity follows anything" aka "ex falso sequitur quodlibet"
+
+### Singleton set
+
+- type with only one value
+
+```c
+int f44() { return 44; }
+```
+
+- it looks like this function takes "nothing"
+- a function that takes "nothing" can never be called, because there is no value representing nothing
+- so, conceptually, it takes a dummy value of which there is only one instance ever, so we dont have to mention it explicitly
+- in hs, there is a symbol for this: `()`
+  - this also is the type
+
+```hs
+-- declares f44 takes type () (pronounced unit) into the type Integer
+f44 :: () -> Integer
+-- defines f44 by pattern matching the only constructor for unit
+f44 () = 44
+
+-- to call
+f44 ()
+```
+
+You can use `_` like in python for variables you arent going to use
+
+```hs
+unit :: a -> ()
+unit _ = ()
+```
+
+### Bool
+
+```hs
+data Bool = True | False
+-- Bool is either True or False
+```
