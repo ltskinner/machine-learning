@@ -21,6 +21,25 @@
 - variables
 - universal quantification
 - `identity morphisms`
+- monoid
+- associativity
+  - (a+b)+c = a+(b+c)
+  - aka - we can skip the parentheses when adding numbers
+
+### Orders
+
+- homset
+  - A set of morphism from object a to object b in category C is called a *hom-set* written as C(a, b) or, Hom_C(a, b)
+  - every homset in a preorder is either empty or a singleton
+- preorder
+  - a <= b and b <= c, so a <= c
+  - "thin" category
+  - you may have cycles in a preorder
+- partial order
+  - a <= b, and b <= a, so a == b
+  - cycles are forbidden in a partial order
+- linear order aka total order
+  - condition that any two objects are in a relation with each other, one way or another
 
 ## Graphs
 

@@ -36,3 +36,5 @@
 - every object has an identity arrow that serves as a unit under composition
 
 ### [2. Types and Functions](./2_TYPES_FNS.md)
+
+### [3. Categories Great and Small](./3_CATEGORIES.md)
