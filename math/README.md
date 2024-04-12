@@ -1,11 +1,9 @@
 # Math
 
-## Calculus
+## Numbers
 
-## Linear Algebra
+![alt-text](./types_of_numbers.jpg)
 
-## Statistics
+## Idk where to put
 
-## Gradient Descent
-
-## Optimization
+- Category Theory -> Monoids -> [Binary Operations](./3.1_binary_operations.md)
