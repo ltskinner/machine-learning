@@ -85,5 +85,6 @@ B . B = C
 B . C = A
 
 
-
+Solution:
+https://math.stackexchange.com/questions/1332690/monoid-as-a-single-object-category
 """

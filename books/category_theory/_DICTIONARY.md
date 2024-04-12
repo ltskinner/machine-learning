@@ -22,9 +22,33 @@
 - universal quantification
 - `identity morphisms`
 - monoid
+  - a set with a binary operation
+    - the operation must be associative
+  - there must be a special element that behaves like a `unit` wrt the operation
+  - binary operation -> function -> morphism
+  - *single object* category, with a set of morphisms that follow appropriate rules of composition
+  - categorical monoid (one object category)
+- binary operations
+- unit
+  - the id composition is a unit arrow
+  - unit is like itself
+  - re: f44 :: () -> unit
+    - there are no args, there is just a unit
 - associativity
   - (a+b)+c = a+(b+c)
   - aka - we can skip the parentheses when adding numbers
+- cartesian product
+  - AxB = {(a, b) | a E A and b E B}
+  - set of all ordered pairs (a, b) where a is in A and b is in B
+    - A = {x, y, z}
+    - B = {1, 2, 3}
+    - AxB:
+      - (x, 1), (x, 2), (x, 3)
+      - (y, 1), (y, 2), (y, 3)
+      - (z, 1), (z, 2), (z, 3)
+    - these are ordered pairs: the order matters
+      - some operations (0, 3) v diff than (3, 0)
+        - like: a / b
 
 ### Orders
 
