@@ -38,3 +38,5 @@
 ### [2. Types and Functions](./2_TYPES_FNS.md)
 
 ### [3. Categories Great and Small](./3_CATEGORIES.md)
+
+### [4. Kleisli Categories](./4_KLEISLI.md)

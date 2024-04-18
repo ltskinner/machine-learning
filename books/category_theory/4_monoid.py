@@ -46,7 +46,12 @@ def isOdd(n: int) -> Tuple[bool, str]:
 
 #compose: fn[[bool, str], Tuple[bool, str]] = lambda m1, m2 : m1
 
+# this does work just not with tuple returns
 #compose = lambda m1, m2: (lambda x: m2(m1(x)))
+# like I get what were trying to do, the problem is the return types
+# I feel like I get the tuple return structure well
+# and the question is whether I can abuse notation in python to achieve this
+# or whether its not possible
 
 
 
