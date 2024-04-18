@@ -55,6 +55,7 @@
 - homset
   - A set of morphism from object a to object b in category C is called a *hom-set* written as C(a, b) or, Hom_C(a, b)
   - every homset in a preorder is either empty or a singleton
+  - M(a,b) is like a representation of every possible function(morphism) that we could take on the path of a to b
 - preorder
   - a <= b and b <= c, so a <= c
   - "thin" category
@@ -73,3 +74,8 @@
 
 - polymorphic function
   - a function that can evaluate to or be applied to values of different types
+- pure function
+  - a functions that always produce the same result given the same input and have no side effects
+- non-pure function
+  - a function that has side effects
+  - there is a "side effect" or effective "output" other than the type interface
