@@ -58,5 +58,47 @@ a -> Writer b
 m1 >==> m2 = \x ->
     let (y, s1) = m1 x
       (z, s2) = m2 y
-    in (z, s1 ++ s2) 
+    in (z, s1 ++ s2)
+
+-- identify morphism
+-- in this case, it happens to be named 'return'
+return :: a -> Writer a
+return x = (x, "")
+
+-- the embelleshed functions
+upCase :: String -> Writer String
+upCase s = (map toUpper s, "upCase ")
+-- the function `map`
+-- applies the character function toUpper to the string s
+
+toWords :: String -> Writer [String]
+toWords s = (words s, "toWords ")
+
+-- the composition of the two functions is accomplished with
+-- the help of the fish operator
+process :: String -> Writer [String]
+process = upCase >=> toWords
 ```
+
+## 4.3 Kleisli Categories
+
+Kleisli Category: a category mased on a monad
+
+- a Kleisli category has:
+  - as objects: the types of the underlying programming language
+  - morphisms from type A to type B
+    - why not denote as Hom(a, b)
+  - are functions that go from A to type derived from B
+  - using the particular embellishment
+- each Kleisli category defines its own way of composing such morphisms, as well as the identity morphisms with respect to that composition
+- the imprecise term "embellishment" corresponds to the notion of an `endofunctor` in a cateogry
+- the `Writer` is a particular monad
+  - formally, the *writer monad*
+
+## Challenge
+
+- 1. Construct the Kleisli category for partial functions
+  - Define composition
+  - Define identity
+- 2. Implement the embellished function safe_reciprocal that returns a valid reciprocal of its argument, if its different from zero
+- 3. Compose the functions safe_root and safe_reciprocal to implement safe_root_reciprocal that calculates sqrt(1/x) whenever possible
