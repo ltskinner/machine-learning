@@ -49,6 +49,25 @@
     - these are ordered pairs: the order matters
       - some operations (0, 3) v diff than (3, 0)
         - like: a / b
+- monad
+  - monads are monoids in the category of endofunctors
+  - a monad is one example of a monoid
+- endofunctor
+  - a functor from a category to itself
+- functor
+  - a homomorphism of categories
+- homomorphism
+  - a funciton between `structured sets` that preserves whatever structure there is around
+- magma
+  - a binary operation on a set S is a function (-).(-):SxS->S
+    - from the Cartesian product SxS to S
+  - magma:
+    - aka binary algebraic structur
+    - aka mono-binary algebra
+  - is a set equipped with a binary operation on it
+  - uhh:
+    - a monoid may be thought of as:
+      - a magma with associativity and identity
 
 ### Orders
 
@@ -79,3 +98,6 @@
 - non-pure function
   - a function that has side effects
   - there is a "side effect" or effective "output" other than the type interface
+- partial function:
+  - a function not defined for all possible values of its argument
+  - note: its not really a function in a mathematical sense
