@@ -8,6 +8,9 @@
     - objects
     - morphisms (maps, arrows)
     - composition (associativity, identity)
+- opposite category
+  - C^op
+  - Automatically satisfies all the requirements of a category, as long as we simultaneously redefine composition
 - object
 - arrow
   - also called `morphisms`
@@ -20,6 +23,12 @@
 - expression
 - variables
 - universal quantification
+- universal property
+  - property that characterizes `up to` an isomoprhism the result of some constructions
+  - can be used for defining some objects independently from the method chosen for constructing them
+- `up to`
+  - used in expressions derived from equality, such as uniqueness or count
+  - "x is unique up to R" means that all objects x under consideration are in the same equivalence class with respect to the relation R
 - `identity morphisms`
 - monoid
   - a set with a binary operation
@@ -57,7 +66,8 @@
 - functor
   - a homomorphism of categories
 - homomorphism
-  - a funciton between `structured sets` that preserves whatever structure there is around
+  - a function between `structured sets` that preserves whatever structure there is around
+  - can lose information about the object - NOT reversible (if it were, then would be isomorphism)
 - magma
   - a binary operation on a set S is a function (-).(-):SxS->S
     - from the Cartesian product SxS to S
@@ -68,6 +78,19 @@
   - uhh:
     - a monoid may be thought of as:
       - a magma with associativity and identity
+- initial object
+  - the object that has one and only one morphism going to any object in the category
+  - guarantees uniqueness up to isomorphism
+- isomorphism
+  - iso**morphism**
+  - structure-preserving mapping between two structures of the same type that can be reversed by an inverse mapping
+  - isomorphims preserve all information (re: invertible)
+- terminal object
+  - the object with one and only one morphism coming to it from any object in the category
+  - unique, up to isomorphism
+- predicate
+  - a function from the domain of objects to the truth values True and False
+  - a function that returns a boolean
 
 ### Orders
 
@@ -82,6 +105,7 @@
 - partial order
   - a <= b, and b <= a, so a == b
   - cycles are forbidden in a partial order
+  - *poset* = partially ordered set
 - linear order aka total order
   - condition that any two objects are in a relation with each other, one way or another
 
