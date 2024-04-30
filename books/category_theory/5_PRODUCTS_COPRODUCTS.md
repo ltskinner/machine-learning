@@ -163,6 +163,86 @@ q :: c -> b
 -- all cs that fit this pattern
 -- will be considered candidates for the product
 -- there may be lots of them
+
+p :: (Int, Int, Bool) -> Int
+p (x, _, _) = x
+
+q :: (Int, Int, Bool) -> Bool
+q (_, _, b) = b
 ```
 
 What if we were to explore the ranking (another part of the universal construction). We want to be able to compare two instances of our pattern
+
+We want to compare one candidate object:
+
+- `c` and its two projections `p` and `q`
+  - with another object
+- `c'` and its two projections `p'` and `q'`
+
+We would like to say that `c` is "better" than `c'` if there is a morphism `m` from c' to c - but thats too weak. We also want its projections to be "better" or "more universal" than the projections of c'. What it means that the projections p' and q' can be reconstructed from p and q using m
+
+```hs
+p' = p . m
+q' = q . m
+```
+
+Another way of looking at these equatinos is that m `factorizes` p' and q'. Just pretend that these equatinos are in natural numbers and the dot is multiplicaiton: m is a common factor shared by p' and q'
+
+Example with diagrams:
+
+```hs
+-- mapping m for the first candidate
+m :: Int -> (Int, Bool)
+m x = (x, True)
+
+-- the two projections, p and q, can be reconstructed as
+p x = fst (m x) = x
+q x = snd (m x) = True
+
+-- the m for the second example is similarly uniquely determined:
+
+m (x, _, b) = (x, b)
+```
+
+We were able to show that (Int, Bool) is better than either of the two candidates
+
+Lets see why the opposite is **not** true. Could we find some m' that would help us reconstruct fst and snd from p and q
+
+```hs
+fst = p . m'
+snd = q . m'
+```
+
+In the first example, q always returned True and (yet) we know that there are pairs whose second component is False. We cannot reconstruct snd from q because there are pairs that return False
+
+Second example:
+
+This is different because we retain information after running either p or q, but there is more than one way to factorize fst and snd. Because both p and q ignore the second component of the tripke, our m' can put anything in it. We can have:
+
+```hs
+m' (x, b) = (x, x, b)
+-- or
+m' (x, b) = (x, 42, b)
+```
+
+Putting it all together: given any type c with two projections p and q, there is a unique m from c to the Cartesian product (a, b) that factorizes them. In fact, it just combines p and q into a pair
+
+```hs
+m :: c -> (a, b)
+m x = (p x, q x)
+```
+
+That makes the Cartesian product (a, b) our best match, which means that this universal construction works in the category of sets. It picks the product of any two sets
+
+Now, forget about sets, and define a product of two objects in any category using the same universal construction. Such a product doesnt always exist, but when it does, it is unique up to a uniqu isomorphism
+
+"A product of two objects a and b is the object c equipped with two projections such that for any other object c' equipped with two projections there is a unique morphism m from c' to c that factorizes those projections"
+
+A (higher order) function that produces the factorizing function m from two candidates is sometimes called the factorizer. In our case, it would be the function:
+
+```hs
+factorizer :: (c -> a) -> (c -> b) -> (c -> (a, b))
+factorizer p q = \x -> (p x, q x)
+```
+
+## 5.6 Coproduct

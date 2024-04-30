@@ -91,6 +91,14 @@
 - predicate
   - a function from the domain of objects to the truth values True and False
   - a function that returns a boolean
+- factorization
+  - 3x5 is an `integer` factorization of 15
+  - (x - 2)(x + 2) is a `polynomial` factorization of x^2 - 4
+  - writing a number or another mathematical object as a product of several factors, usually smaller or simpler objects of the same kind
+  - factor:
+    - multiplication
+- product
+  - A product of two objects a and b is the object c equipped with two projections such that for any other object c' equipped with two projections there is a unique morphism m from c' to c that factorizes those projections
 
 ### Orders
 
