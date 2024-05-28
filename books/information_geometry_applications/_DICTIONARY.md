@@ -1,0 +1,93 @@
+# Dictionary
+
+- `topological space`
+  - a geometrical space in which closeness is defined but cannot necessarily be measured by a numeric distance
+  - is a set whose elements are called `points`
+    - along with an additional structure called a topology
+      - which can be defined as a set of `neighbourhoods` for each point that satisfy some axioms formalizing the concept of closeness
+  - Common types of topological spaces:
+    - Euclidian spaces
+    - metric spaces
+    - manifolds
+- `point`
+  - An abstract idealization of an exact position, without size, in a physical space, or its generalization to other kinds of mathematical spaces
+  - are zero-dimensional objects
+  - these are fundamental invisible elements comprising the space
+    - of which 1d curves, 2d surfaces, and higher dimensional objects consist
+    - conversely, a point van be determined by the intersection of two curves or three surfaces, called a vertex or corner
+- `divergence`
+  - represents a degree of separation of two points
+  - but, it is not a distance since it is not symmetric with repsect to the two points
+- `line`
+  - an infinitely long object wiht no width, depth, or curvature (ray of light)
+- `curve`
+  - an object similar to a line ,but that does not have to be straight
+  - A curve is the image of an interval to a topological space by a continuous function
+- `image`
+  - for a function f: X -> Y
+    - the image is the output value produced by f when passed x (an input value of type X)
+    - image of an element
+  - a set, called the "image of A under (or though) f"
+    - is produced by evaluating f at each element of a given subset A of its domain X
+    - image of a subset
+  - The image of the funcion f is the set of all output values it may produce, that is, the image of X
+    - image of a function
+- `interval`
+  - the set of all numbers lying between two fixed endpoints with no gaps
+  - real numbers, including positive and negative infinity
+  - [0,1] - inclusive (of endpoints)
+    - `closed interval` - if *both* are square
+  - (0, inf) - exclusive
+    - `open interval` - if *both* are parentheses
+      - does not include any endpoints
+- `continuous function`
+  - a function such that a small variation of the argument induces a small variation of the value of the function
+  - implies no abrupt changes in value, known as discontinuities
+  - a function is continuous if arbitrarily small changes in its value can be assured by restructing to sufficiently small changes of its argument
+- `neighbourhood`
+  - a neighbourhood of a point is a set of points containing that point where one can move some amount in any direction away from that point without leaving the set
+- `open set`
+  - a generalization of an open interval on the real line
+  - a set that, along with every point P, contains all points that are sufficiently near to P
+    - "sufficiently near" means points whose distance to P is less than < some value, depending on P
+    - like, the set depends on the distances and the value threshold, not a fixed set
+- `closed set`
+  - a set which contains all its `limit points`
+  - do NOT confuse with a closed manifold
+- `limit points` aka `accumulation point` aka `cluster point`
+  - a cluster point of a set S in a topological space XL is:
+  - a point x that can be "approximated" by points of S in the sense that every neighbourhood of x contains a point of S other than x itself
+  - A limit point of set S does not itself have to be an element of S
+- `interior`
+  - the interior of a subset S of a topological space X is the union of all subsets of S that ar open in X
+  - A point that is in the interior of S is an interior point of S
+  The interior of S is the complement of the closure of the complement of s. In this sense interior and closure are `dual` notions
+- `exterior`
+  - the exterior of a set S is the complement of the closure of S
+  - it consists of the points that are in neither the set nor its boundary
+- `boundary`
+  - The boudnary of a subset S of a topological space X is the set of points *in the `closure`* of S not belonging to the interior of S
+  - the interior, boundary, and exterior of a subset together partition the whole space into three blocks
+- `manifold`
+  - a topological space that locally resembles `Euclidian space` near each point
+  - An n-dimensional manifold is a `topological space` with the property that each point has a `neighborhood` that is `homeomorphic` to an `open subset` of n-dimensional Euclidian space
+- `Euclidian space`
+  - Topological spacce is a huge generalization of a Euclidian space
+  - The original intent of the Euclidian space was like the real world around us in 3 dimensions
+- `homeomorphism`
+  - a `bijective` and `continuous function` between topological spaces that ahs a continuous inverse function
+  - also called *topological isomorphism* or *bicontinuous function*
+  - homeomorphisms are the isomorphisms in the category of topological spaces
+    - they are mappings that pereserve all the topological properties of a given space
+- `bijection` aka `bijective function` aka `one-to-one correspondence`
+  - a function between two sets such taht each element of the second set (the codomain) is mapped to from exactly one element of the first set (the domain)
+  - equivalently, a bijection is a relation between two sets such that each element of either set is paired with exactly one element of the other set
+- convex function
+- concave function
+- bregman divergence
+- affine structure
+- Legendre transformation
+- Riemannian metric
+- generalized Pythagorean theorem
+- dual (conjugate) connection
+- non-flat dual affine connection
