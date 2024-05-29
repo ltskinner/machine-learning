@@ -31,7 +31,7 @@ The coordinate sysetm is not unique even in a coordinate neighborhood, and there
 
 ```math
 \xi = f(\zeta_{1}, ..., \zeta_{n})
-\\
+\newline
 \zeta = f(\xi_{1}, ..., \xi_{n})
 ```
 
