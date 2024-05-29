@@ -20,5 +20,5 @@ Intuitively speaking, a manifold is a deformed Euclidian space, like a curved su
 Locally, a manifold M is equivalent to an n-dimensional Euclidian space E_n, which allows a local coordinate system:
 
 ```math
-$\bm{\epsilon} = (\epsilon_{1}, ..., \epsilon_{n})$
+\boldsymbol{\epsilon} = (\epsilon_{1}, ..., \epsilon_{n})
 ```
