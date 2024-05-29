@@ -27,11 +27,12 @@ Which is composed of n components, such that each point is uniquely specified by
 
 Since a manifold may have a topology different from a Euclidian space, in general we need **more than one coordinate neighborhood and coordinate system** to cover all the points of a manifold
 
-The coordinate sysetm is not unique even in a coordinate neighborhood, and there are many coordinate systems. Let $`\zeta = (\zeta_{1}, ..., \zeta_{n})`$ be another coordinate sysetm. When a point $`P \in M`$ is represented in two coordinate systems $`\xi and \zeta`$, there is a one-to-one correspondence betwen them and we have relations:
+The coordinate sysetm is not unique even in a coordinate neighborhood, and there are many coordinate systems. Let $`\zeta = (\zeta_{1}, ..., \zeta_{n})`$ be another coordinate sysetm. When a point $`P \in M`$ is represented in two coordinate systems $`\xi`$ and $`\zeta`$, there is a one-to-one correspondence betwen them and we have relations:
 
 ```math
-\xi = f(\zeta_{1}, ..., \zeta_{n}),
-\zeta = f(\xi_{1}, ..., \xi_{n}),
+\xi = f(\zeta_{1}, ..., \zeta_{n})
+
+\zeta = f(\xi_{1}, ..., \xi_{n})
 ```
 
-Where $`f and f^{-1}`$ are mutually inverse vector-valued functions. They are a coordinate transformation and its inverse transformation. We usually assume that these are differentiable functions of n coordinate variables
+Where $`f`$ and $`f^{-1}`$ are mutually inverse vector-valued functions. They are a coordinate transformation and its inverse transformation. We usually assume that these are differentiable functions of n coordinate variables
