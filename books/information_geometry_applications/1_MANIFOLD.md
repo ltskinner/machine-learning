@@ -22,3 +22,7 @@ Locally, a manifold M is equivalent to an n-dimensional Euclidian space E_n, whi
 ```math
 \boldsymbol{\xi} = (\xi_{1}, ..., \xi_{n})
 ```
+
+Which is composed of n components, such that each point is uniquely specified by its coodinates $`\xi`$ in a neighborhood
+
+Since a manifold may have a topology different from a Euclidian space, in general we need **more than one coordinate neighborhood and coordinate system** to cover all the points of a manifold
