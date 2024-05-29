@@ -9,6 +9,10 @@
     - Euclidian spaces
     - metric spaces
     - manifolds
+- `metric space`
+  - a set together with anotion of distance between its elements (the elements are usually called points)
+  - the distance is measured by a function called a `metric` or a `distance function`
+  - metric spaces are the most general setting for studying many of the concepts of mathematical analysis and geometry
 - `point`
   - An abstract idealization of an exact position, without size, in a physical space, or its generalization to other kinds of mathematical spaces
   - are zero-dimensional objects
@@ -54,6 +58,9 @@
 - `closed set`
   - a set which contains all its `limit points`
   - do NOT confuse with a closed manifold
+- `bounded set`
+  - a set is called bounded if all of its points are within a certain distance of each other
+  - the word "bounded" makes no sense in a general topological space without a corresponding metric
 - `limit points` aka `accumulation point` aka `cluster point`
   - a cluster point of a set S in a topological space XL is:
   - a point x that can be "approximated" by points of S in the sense that every neighbourhood of x contains a point of S other than x itself
@@ -91,3 +98,5 @@
 - generalized Pythagorean theorem
 - dual (conjugate) connection
 - non-flat dual affine connection
+- `compact(ness)`
+  - a property that seeks to generalize the notion of a: closed and bounded subset of Euclidian space
