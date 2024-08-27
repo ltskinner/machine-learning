@@ -89,6 +89,18 @@
 - `bijection` aka `bijective function` aka `one-to-one correspondence`
   - a function between two sets such taht each element of the second set (the codomain) is mapped to from exactly one element of the first set (the domain)
   - equivalently, a bijection is a relation between two sets such that each element of either set is paired with exactly one element of the other set
+- `differential function`
+  - a function whose derivative exists at each point in its domain
+  - a differential function has a graph where at each point on the domain, there exists a non-vertical tangent line
+- `orthonormal`
+  - two vectors in an inner product space are orthonormal if they are orthogonal unit vectors (length of 1/normalized). `orthogonal` means perpedicular
+- `analytic function`
+  - a function that is locally given by a `convergent power series`
+- `convergent power series`
+  - `converget series`
+    - If you have a sequence of numbers, and partial sums of it tend to a limit - a given number
+  - `power series`
+    - infinite sum, with n=0 of a_n (x-c)^n = a_0 + a_1(x-c) + a_2(x-c)^2 + ...
 - convex function
 - concave function
 - bregman divergence
