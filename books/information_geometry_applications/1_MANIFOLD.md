@@ -87,11 +87,11 @@ is referred to as the natural parameters, and is convenient for studying propert
 
 Let $x$ be a discrete random variable taking values on X = {0, 1, ..., n}. A probability distribution p(x) is specified by n+1 probabilities
 
-$p_{i} - Prob\{x=i\}, i=0, 1, ..., n$
+$p_{i} = Prob\{x=i\}, i=0, 1, ..., n$
 
 so that p(x) is represented by a probability vector
 
-$\bold{p} = (p_{0}, p_{1}, ..., p_{n})$
+$\boldsymbol{p} = (p_{0}, p_{1}, ..., p_{n})$
 
 Because of the restriction
 
@@ -137,7 +137,7 @@ Let x be a variable taking values in set N = {1, 2, ..., n}. We assign a positiv
 
 $\xi = (m_{1}, ..., m_{n}), m_{i} > 0$
 
-defines a distribution of measures over N. The set of all such measures sits in the first quadrant $\bold{R}_{+}^n$ of an n-dimensional Euclidian space. The sum
+defines a distribution of measures over N. The set of all such measures sits in the first quadrant $\boldsymbol{R}_{+}^n$ of an n-dimensional Euclidian space. The sum
 
 $m = \sum^{n}_{i=1}m_{i}$
 
@@ -147,13 +147,13 @@ When m satisfies the constraint that the total mass is equal to 1
 
 $\sum m_{i} = 1$
 
-it is a probability distribution belonging to $S_{n-1}$. Hence, $S_{n-1} is included in $\bold{R}_{+}^n$ as its submanifold
+it is a probability distribution belonging to $S_{n-1}$. Hence, $S_{n-1} is included in $\boldsymbol{R}_{+}^n$ as its submanifold
 
 A positive measure (unnormalized probability distribution) appears in many engineering problems. For example, image s(x,y) drawn on the x-y plane is a positive measure when the brightness is positive
 
 s(x,y) > 0
 
-When we discretize the x-y plane into n^2 pixels (i,j), the discretized pictures {s(i,j)} for a positive measure belonging to $\bold{R}_{+}^(n^2)$. Similarly, when we consider a discretized power spectrum of a sound, it is a positive measure. The histogram of observed data defines a positive measure, too
+When we discretize the x-y plane into n^2 pixels (i,j), the discretized pictures {s(i,j)} for a positive measure belonging to $\boldsymbol{R}_{+}^(n^2)$. Similarly, when we consider a discretized power spectrum of a sound, it is a positive measure. The histogram of observed data defines a positive measure, too
 
 #### E. Positive-Definite Matrices
 
@@ -199,7 +199,7 @@ When P and Q are sufficiently close, we define the square of an infinitesimal di
 
 $ds^2 = 2D[\xi : \xi + d\xi] = \sum g_{ij}d\xi_{i}d\xi_{j}$
 
-A manifold M is said to be Riemannian when a positive definite matrix $\bold{G}(\boldsymbol{\xi})$ is defined on M and the square of the local distance between two nearby points $\xi$ and $\xi + d\xi$ is given by 1.27. A divergence D provides M with a Riemannian structure.
+A manifold M is said to be Riemannian when a positive definite matrix $\boldsymbol{G}(\boldsymbol{\xi})$ is defined on M and the square of the local distance between two nearby points $\xi$ and $\xi + d\xi$ is given by 1.27. A divergence D provides M with a Riemannian structure.
 
 ### 1.2.2 Examples of Divergence
 
