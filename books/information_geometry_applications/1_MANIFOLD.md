@@ -206,3 +206,41 @@ A manifold M is said to be Riemannian when a positive definite matrix $\boldsymb
 #### A. Euclidian Divergence
 
 When we use an orthonormal Cartesian coordinate system in a Euclidian space, we define
+
+$D[P : Q] = 1/2 \sum(\xi_{Pi} - \xi_{Qi})^2$
+
+The matrix G is the identity matrix in this case, so that
+
+$ds^2 = \sum(d\xi_{i})^2$
+
+#### B. Kullback-Leibler Divergence
+
+Let p(x) and q(x) be two probability distributions of random variable x in a manifold of probability distributions. The following is called the Kullback-Leibler (KL) divergence:
+
+$D_{KL}[p(x) : q(x)] = \int p(x)log(p(x)/q(x)) \,dx$
+
+When  x is discrete, integration is replaced by summation. We can easily check that it satisfies the criteria divergence. It is asymmetric in general and is useful in statistics, information theory, physics, etx. Many other divergences will be introduced later in a manifold of probability distributions.
+
+#### C. KL-Divergence for Positive Measures
+
+A manifold of positive measures $\boldsymbol{R}_{+}^(n)$ is a subset of a Euclidian space. Hence, we can introduce the Eucldian divercence in it. However, we can extend the KL-divergence to give
+
+$D_{KL}[m_{1} : m_{2}] = \sum m_{1i}log(m_{1i}/m_{2i}) - \sum m_{1i} + \sum m_{2i}$
+
+When the total masses of two measures m_1 and m_2 are 1, they are probability distributions and $D){KL}[m_{1} : m_{2}]$ reduces to the KL divergence D_KL in 1.30
+
+#### D. Divergences for Positive-Definite Matrices
+
+There is a family of useful divergences introduced in the manifold of positive definite matrices. Let P and Q be two positive-definite matrices. The following are typical examples of divergence:
+
+$D[\boldsymbol(P) : \boldsymbol(Q)] = tr(\boldsymbol(P)log\boldsymbol(P) - \boldsymbol(P)log\boldsymbol(Q) -\boldsymbol(P) + \boldsymbol(Q))$
+
+which is related to the **Von Neumann entropy of quantum mechanics**,
+
+$D[\boldsymbol(P) : \boldsymbol(Q)] = tr(\boldsymbol(P)\boldsymbol(Q)^-1) - log|\boldsymbol(P)\boldsymbol(Q)^-1| - n$
+
+which is due to the KL divergence of multivariate Gaussian distribution, and
+
+$D[\boldsymbol(P) : \boldsymbol(Q)] = (4/(1 - \alpha^2)) tr(\boldsymbol(P)^((1-\alpha)/2)\boldsymbol(Q)^((1+\alpha)/2) + ((1-\alpha)/2)\boldsymbol(P) + ((1+\alpha)/2)\boldsymbol(Q))$
+
+which is called the $\alpha$-divergence, where $\alpha$ is a real parameter. Here, $tr\boldsymbol(P)$ denotes the trace of matrix $\boldsymbol(P)$ and $|\boldsymbol(P)|$ is the determinant of $\boldsymbol(P)$.
