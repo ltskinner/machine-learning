@@ -258,3 +258,161 @@ Although memory networks are proposed for better document modeling, it has prodo
 - representaiton learning of memory
 - the matching mechanism between memory and query
 - how to perform memory retrieval based on the input efficiently
+
+#### Hierarchical Document Encoder
+
+The basic idea is to use low-level representations to produce high-level representations. first, the word vectors obtained by pre-training with self-supervised methods can be directly used as the basic word representations. We can also optimize these word representations according to specific tasks. And there are various ways to get the sentence representation through the constituent word representations. Ex. let it pass through a layer of MLP then average over all the hidden states. Or, with LSTM, passing thru, the hidden state of the last time step contains the semantic information of the whole sentence, and can be used as a sentence representation. can stack all the sentences again, and keep last hidden unit as doc represent.
+
+To this end, we introduce basic hierarchical modeling of doc repesentation. When there is a supervised signal, we can use this doc rep directly for nn training with doc level classification. if no supervised signal, we can self-code the doc rep which can be decoded in reverse order, i.e. first decode the edoc rep into a sentence rep then gen words sequentially
+
+#### Hierarchical Attention Network
+
+replace LSTM with more powerful nn with attention mechanisms
+
+HAN = hierarchical attention network
+
+the key insight of this model is that while doing hierarchical modeling, different attention weights are assigned to comopnents (words and sentences) using the attention mechanism to learn the docs rep dynamically
+
+here, use bidirectional GRU - concat fwd and backward pass final hidden state to get final representation
+
+## 4.5 Applications
+
+- classification
+- information retrieval
+- reading comprehension
+- open-domain question answering
+- sequence labeling
+
+### 4.5.1 Text Classification
+
+#### Topic classification
+
+- CNNs are commonly used as representation encoders
+
+#### Sentiment Classification
+
+#### Natural Language Inference
+
+classification task involving two sentences. its objective is to determine whether the first sentence entaisl the second sentence or not
+
+### 4.5.2 Information Retrieval
+
+For the given query q and document d, traditional IR models estimate their relevance through lexical matches
+
+neural information retrieval models pay more attention to garnering the query and document relevance from semantic matches. both lexical and semantic matches are essential for neural information retrieval
+
+Neural ranking models typically fall into two groups:
+
+- representation-based
+  - learn informative representations and match them in the embedding space of queries and documents
+- interaction-based
+  - model the query-document matches from the interactions of their terms
+
+Studies in the early stage primarily focus on representation-based models
+
+### 4.5.3 Reading Comprehension
+
+- Cloze Style
+  - consists of filling in the blank sentences where the quesion contains a placeholder to be filled in
+  - the answer is either from a predefined candidate set or the vocab
+- Multiple-Choice
+  - aims to select the best answer from a set of answer choices
+  - typical to use accuracy to measure the performance on these two tasks:
+    - pct of correctly answered questions
+- Span Prediction
+  - SQuAD
+- Free-Form Answer
+  - aka generative question answering
+
+Wth nns, the machine reading comprehension system is commonly composed of three consecutive phases:
+
+- the embedding phase
+- the reasoning phase
+- the prediction phase
+
+like many other NLP tasks, embedding phase often adopts pre-trained or contextual word embeddings with RNNs, character embedding, or hybrid embedding
+
+the query and the context are separately encoded
+
+the reasoning phase is resp for joint learning based on the two representations and is the focus of most works
+
+while encoding a passage, the model retains the length of the sequence and encodes the question into a fixed-length hidden rep q. the questions hidden vector is then used as a pointer to scan over the passage representation and compute scores on every position in the passage. while maintaining this similar architecture, most machine reading comprehension models vary in the interaction methods betwen the passage and the question. most of them merge two lines of info from the query and the context with the attention mechanism. they mainly differ in two aspects: the *direction* of attention and teh *dimension* of attention. Direction refers to whether using query-to-context attn or both directions. dimension refers to whether attention is only calculated at thesentence representation level, which outputs a single dim vector, or at the word embedding level, where output is an embedding matrix
+
+#### Single Driection and Single Dimension
+
+First attempt to apply nn to mrc constructs a bidirectional LSTM models along with attention mechanisms. Work introduces two reader models, the attentive reader and the impatient reader. after encoding passage and query into hidden states with lstm, *attentive reader* computes a scalar distribution over the passage tokens and uses it to calc the weighted sum of the passages hidden states. the *impatient reader* extends this idea further by repeatedly updating the weighted sum of passage hidden states after seeing each query token. one approach modifys the method to compute attention and simplify the prediction layer in the attentive reader with a simple bilinear term
+
+#### Bidirectional Attention and Single Dimension
+
+The attention-over-attention reader also computes both query-to-context and context-to-query attention but handles them differently. Instead of simply averaging the token-level query-to-context attention to obtain a final vector for prediction, attention-over-attention computes a weighted vector with a query word importance vector. The word importance vector is computed by averaging the context-to-query attention. This operation is considered to learn the contributions of individual question words explicitly
+
+#### Bidirectional Attention Flow and Multi-Dimension
+
+Instead of unifying the doc and query rep into a single vector with query to context attn opnly, BiDAF network computes teh attentive token rep of both query-to-context and context-to-query at each bidirectional LSTM layer to allow fine-grained information flow. it consists of the token embedding layer, the contextual embedding layer, the bidirectional attn flow layer, the lstm modeling layer, the softmax output layer. At each layer, the input is the concat of the previous layers hidden states, the query-to-context rep, and the contex-to-query rep. the rep of multipl granularities and a bidir attn flow can fully capture the interaction bw doc and query for start and end position prediction
+
+The gated-attn reader adops the gated attn module, where each token rep of the passag is scaled by the attended query vector after each BiGRU layer. htis gated attn mech allows the query to interact directly with the token embeddings fo the passage at the semantic level. And such layer-wise interaction enables the model to learn conditional token rep given the question at different rep levels
+
+### 4.5.4 Open-Domain Question Answering
+
+OpenQA aims to anser open-domain questions utilizing external resources such as collections of docs, webpages, structured kgs, or automatically extracted relatinoal triples. REcently, with dev of mrc techniques, researchers attempt to answer open-domain questions via performing reading comprehension on plain texts with neural-based models.
+
+Essentially, two critical applications are combined:
+
+- information retrieval
+- reading comprehension
+
+DrQA has two modules:
+
+- 1. one document retriver module to retrieve relevant articles or paragraphs
+- 2. one document reader to produce the final answers from extracted articles
+
+the doc retriever is used as first quick skim to narrow the search space and focus on potentially relevant docs. this retreiver builds TF-IDF weighted bag-of-words vectors for the docs and the questions and computes similarity scores for ranking. The retriever uses bigram counts with hash to further utilize local word order information while ensuring speed and memory efficiency. The doc reader model takes in the top 5 wiki articles from the doc retriever and extracts the final anser to the question. the doc reader predicts an asnwer span with a conf score for each article. the final pred is made by maximizing the unnormalized exponential pred scores across the docs
+
+given each doc, the doc reader first builds a feature representation for each word in the doc, often the concat of:
+
+- 1. word embeddings (like glove)
+- 2. manual features (POS tagging, Term Frequncies)
+- 3. Exact match: feature indicates whether the word in the doc can be precisely matched to one question word
+- 4. Aligned question embeddings - feature aims to encode a soft alignment between words in the doc and the question in the word embedding space
+
+Then the feature representations of the doc is fed into a multi-layer bidir LSTM to encode the contextual rep. for the question, the contextual rep is simply obtained by encoding the word embeddings using a multi layer bilstm. after that, the contextual rep is aggregated into a fixed-length vector using self-attention. in the answer prediciton phase, the start and end probability distributions are calculated
+
+DrQA is prone to noise in retrieved texts. several approaches to address by using two separate procedures for qa: paragraph selection and answer selection, however they both only select the most relevant para among all retrieved paras to extract ansers and may lose valuable information distributed in other paras
+
+another is strength-based and coverage-based methods for re-ranking, aggregating the answers that existing methods retrieved from all the paras. nevertheless, the challenge of noisy data is still unsolved. to address this issue, a coarse-to-fine denoising OpenQA model is developed to first screen out relevan tparas and then retreive conrrect answers
+
+### 4.5.5 Sequence Labeling
+
+Given an input squence {w1, ..., wN} we need to assign a label yi to each token wi. part of speech tagging and NER are the two most representative tasks
+
+sequence labeling requires the model to caputre the correlations of words in the sequence accurately. Hence, classica pproaches use PGMs to represent the dependency structure of different words. Modern methods use powerful deep NNs to produce richer representations and adopt conditional random field (CRF) or direct token-level classification to conduct sequence labeling
+
+#### POS tagging
+
+#### NER
+
+BIO schema - beginining, inside, outside
+
+dude i really need to play with GliNER, that framing is so interesting
+
+### 4.5.6 Sequence-to-Sequence Generation
+
+Refers to a group of tasks that require sequence generation based on an input sequence, including machine translation, text summarization, question generation, tec. A famous model structure ofr seq2seq is an encoder-decoder structure
+
+#### Metrics
+
+- BLEU
+  - is an adjusted precision calculation based on the count of n-grams
+  - first, extracts all n-grams in the output sequence
+  - then, calculates the sum of occurences of the n-grams in the ref sequence against the total number of n grams in the output squence
+- ROGUE
+  - group of metrics often used in evaluating text summarization systems
+  - ROGUE-N (ROGUE-1 AND ROGUE-2)
+
+#### Machine Translation
+
+#### Text Summarization
+
+typically seq2seq models can be applied to machine translation and text summarization since the task is of the same form
+
+pointer-generator network is one of the most classical text summ models that combine LSTM-attention-based encoder-decoder with pointer network. the basic structure contains a single-layer LSTM decoder. apart from the std encoder-decoder pipeline, it applies an extra pointer while decoding. the pointer depends on the encoder output, the current decoder hidden states, and decoder input and calculates the probability pgen indicating how much we favor the decoder generated results. the final distribution from which the next token is drawn is a weighted sum of distribution given by the decoder dis given by attention weights of the encoder output, weach weighted by pgen and 1 - pgen. so the pointer serves as a mediator between generated tokens and copied tokens from the original input. it is especially beneficial for text summarization as copying original words from the input can help keep the semantics on the right track
