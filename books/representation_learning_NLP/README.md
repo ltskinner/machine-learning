@@ -13,4 +13,6 @@ Essential features of a **good** word representation:
 - Informative Word Representation
 - Interpretable Word Representation
 
-## [Chapter 2 - Representation Learning for Compositional Semantics](./CHAPTER_3.md)
+## [Chapter 3 - Representation Learning for Compositional Semantics](./CHAPTER_3.md)
+
+## [Chapter 4 - Sentence and Document Representation Learning](./CHAPTER_4.md)
