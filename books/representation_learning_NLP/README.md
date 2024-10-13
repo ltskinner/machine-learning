@@ -16,3 +16,7 @@ Essential features of a **good** word representation:
 ## [Chapter 3 - Representation Learning for Compositional Semantics](./CHAPTER_3.md)
 
 ## [Chapter 4 - Sentence and Document Representation Learning](./CHAPTER_4.md)
+
+## [Chapter 5 - Pre-trained Models for Representation Learning](./CHAPTER_5.md)
+
+[Latex hats](https://tex.stackexchange.com/questions/66537/making-hats-and-other-accents-bold)
