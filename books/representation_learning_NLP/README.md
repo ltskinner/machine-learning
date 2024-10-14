@@ -20,3 +20,5 @@ Essential features of a **good** word representation:
 ## [Chapter 5 - Pre-trained Models for Representation Learning](./CHAPTER_5.md)
 
 [Latex hats](https://tex.stackexchange.com/questions/66537/making-hats-and-other-accents-bold)
+
+## [Chapter 6 - Graph Representation Learning](./CHAPTER_6.md)
