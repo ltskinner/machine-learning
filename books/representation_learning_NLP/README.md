@@ -22,3 +22,17 @@ Essential features of a **good** word representation:
 [Latex hats](https://tex.stackexchange.com/questions/66537/making-hats-and-other-accents-bold)
 
 ## [Chapter 6 - Graph Representation Learning](./CHAPTER_6.md)
+
+- binary hashing
+- https://arxiv.org/abs/2001.04451 - Reformer 2020
+- https://arxiv.org/abs/2003.05997 - Routing Transformers 2020
+- MetaDyGNN
+  - combines GNNs with meta-learning for few-shot link prediction in dynamic graphs
+  - https://github.com/BUPT-GAMMA/MetaDyGNN
+  - https://dl.acm.org/doi/abs/10.1145/3488560.3498417
+- contrastive learning
+  - DSGC
+    - instead of contrasting augmented data, conduct views from dual spaces of **hyperbolic and Euclidian**
+    - same node, differnt space - that is super interesting
+    - https://arxiv.org/pdf/2201.07409
+- **shortcut arcs**
