@@ -23,6 +23,8 @@ Essential features of a **good** word representation:
 
 ## [Chapter 6 - Graph Representation Learning](./CHAPTER_6.md)
 
+## [Chapter 7 - Cross-Modal Representation Learning](./CHAPTER_7.md)
+
 - binary hashing
 - https://arxiv.org/abs/2001.04451 - Reformer 2020
 - https://arxiv.org/abs/2003.05997 - Routing Transformers 2020
@@ -36,3 +38,13 @@ Essential features of a **good** word representation:
     - same node, differnt space - that is super interesting
     - https://arxiv.org/pdf/2201.07409
 - **shortcut arcs**
+- like the learned representations are effectively the subconscious?
+  - reasoning is the conscious?
+- tasks of
+  - scene graph generation -> what application areas are under discussed?
+  - document level relation extraction
+  - "both tasks are worthy of exploration for future research"
+- tokenizers
+  - is there a unified text+image tokenizer?
+    - image tokenization is neat
+    - and I think general tokenization was solved "quickly"
