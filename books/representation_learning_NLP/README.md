@@ -27,6 +27,8 @@ Essential features of a **good** word representation:
 
 ## [Chapter 8 - Robust Representation Learning](./CHAPTER_8.md)
 
+## [Chapter 9 - Knowledge Representation Learning and Knowledge-Guided NLP](./CHAPTER_9.md)
+
 - binary hashing
 - https://arxiv.org/abs/2001.04451 - Reformer 2020
 - https://arxiv.org/abs/2003.05997 - Routing Transformers 2020
@@ -50,3 +52,5 @@ Essential features of a **good** word representation:
   - is there a unified text+image tokenizer?
     - image tokenization is neat
     - and I think general tokenization was solved "quickly"
+- ch9: distributed knowledge representations are introduced, i.e. lwo-dimensional continuous embeddings are used to represent symbolic knowledge
+  - i wonder if theres any real sauce here
