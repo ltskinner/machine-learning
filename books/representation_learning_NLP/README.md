@@ -25,6 +25,8 @@ Essential features of a **good** word representation:
 
 ## [Chapter 7 - Cross-Modal Representation Learning](./CHAPTER_7.md)
 
+## [Chapter 8 - Robust Representation Learning](./CHAPTER_8.md)
+
 - binary hashing
 - https://arxiv.org/abs/2001.04451 - Reformer 2020
 - https://arxiv.org/abs/2003.05997 - Routing Transformers 2020
