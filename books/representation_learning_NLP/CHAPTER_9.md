@@ -118,8 +118,369 @@ $f(h, r, t) = -r^{\top} (h \star t)  $
 
 HolE adopts the likelihoood=based loss function to learn representations
 
-The circular correlation operation brings several advantages. First, is noncommutative (i.e. h \star t \ne t \star h) which makes it capable of modeling asymmetric relations in KGs. Second, the circular correlation operation has a lower computational complexity compared to the tensor product operation in RESDCAL. Moreover, the circular correlation operation could be further accelerated with the help of fast Fourier transform (FFT), which is formalized as
+The circular correlation operation brings several advantages. First, is noncommutative (i.e. $h \star t \ne t \star h$) which makes it capable of modeling asymmetric relations in KGs. Second, the circular correlation operation has a lower computational complexity compared to the tensor product operation in RESDCAL. Moreover, the circular correlation operation could be further accelerated with the help of fast Fourier transform (FFT), which is formalized as
 
 $h \star t = \mathcal{F}^{-1} \bar{(\mathcal{F}(h)} \cdot \mathcal{F} (t))  $
 
 Where F(.) and F(.)^-1 represent the FFt operation and its inverse operation. Respectively, F(.)bar denotes the complex conjugate of F(.) and \cdot stands for th element-wise (Hadamard) product. Due to the FFt operation, the computational complexity of the circular correlation operation is O(d log d) which is much lower than that of the tensor product operation.
+
+### 9.3.2 Translation Representation
+
+The primary motivation is that it is natural to consider relations betwen entities as translation operations. For distributed representations, entities are embedded into a low-dimensiona lspace, and ideal representations should embed entities with similar semantics into the nearby regions, while entities with different meanings should belong to distinct clusters. For example, William Shakespeare and Jane Austen may be in the same cluster of writers, Romeo and Juliet and Pride and predjudice may be in another cluster of books. In this case, they share the same relation
+
+The secondary motivation of translation methods derives from the breakthrough in word representation learning. Word2vec proposes two simple models, skip-gram and CBOW. The learned word embeddings perform well in measuring word similarities and analogies. And these word embeddings have some interesting phenomena: if the same semantic or syntactic relations are shared by two word pairs, the translations within the two word pairs are similar (king - man) = (queen - woman)
+
+The last motivation comes from the consideration of the computational complexity. experimental results on model complexity demonstrate that the simpler models perform almost as well as more expressive models in most knowledge-related applications
+
+Modeling relations as translations rather than matrices leads to a better trade-off between effectiveness and efficiency
+
+All translation-based methods extend from TransE
+
+#### TransE
+
+TransE embeds entities as well as relations into the same space. In the embedding space, relations are considered as translations from head entities to tail entities. With this translation assumption, given a triplet <h, r, t> in T, we want h+r to be the neareset neighbor of the tail embedding t. the score function of TransE is defined as:
+
+$f(h, r, t) = - \|h + r - t \| $
+
+TransE uses the margin-based loss fn for training. Although TransE is effective and efficient, it still has several challenges to be further explored
+
+First, considering that there may be multiple correct answers given two elements in a triplet, under the translation assumption in TransE, each entitiy has only one embedding in all triplets, which may lead to reducing the discrimination of entity embeddings. In TransE, according to the entity cardinalities of relations, all relations are classified into four categories:
+
+- 1:1
+  - if one head appears with only one tail
+- 1:many
+- many:1
+- many:many
+  - if multiple heads appear with multiple tails
+
+1:many, many:1, and many:many occupy a large portion. TransE performs well on 1:1 relations, but has problems when handling 1:many, many:1, and many:many
+
+For instance, given head entity William Shakespeare, and the relation Notable Work, we get a list of masterpieces, such as Hamlet, A Midsummer Nights Dream, and Romeo and Juliet. These books share the same writer information while differing in may other fields such as theme, background, and famous roles in the book. Due to the entity Will and relation Notable work, these book may be assigned similar embeddings and become indistiguishable
+
+Second, although the translation operation is intuitive and effective, only considering the simple one-step translation may limit the ability to model KGs. Taking entities and relations as nodes and edges, the nodes that are not directly connected may be linked by a path of more than one edge. However, TransE focuses on minimizing ||h + r - t|| which only utilizes the one step relation information in KGs, regardless of the latent relationships located in long-distance paths. For example, if we know <the forbidden city, located in, beijing> and <beijing, capital of china, china> we can infer that the forbidden city locates in china. TransE can be further enhanced with the favor of multi-step information
+
+Third, the representation and the core function in TransE are oversimplified for the consideration of efficiency. Therefore, TransE may not be capable enough of modeling those complex entities and relations in KGs. There are sill some challenges in how to balance the effectiveness and efficiency as well as avoiding over and underfitting
+
+- TransH, TransR, TransD, and TranSparse
+  - proposed to solve the challenges in modeling complex relations
+- PTransE
+  - proposed to encode long-distance information located in multi-step paths
+- CTransR, TransG, and KG2E
+  - futher extend the oversimplified model of TransE
+
+#### TransH
+
+enables an entitiy to have multiple relation-specific representations to address the issue that TransE cannot do 1:many, many:1, or many:many. TransE entities are embedded to the same semantic embedding space and similar entities tend to be in the same cluster. However, it seems that Will should be in the neighborhood of Isaac newton when talking about Nationality, while it should be close to Mark Twain when talking about Occupation. To accomplish this, entities should have multiple representations in different triplets
+
+TransH proposes a hyperplane w_r for each relation, and computes the translation on the hyperplane w_r. given a triplet <h, r, t>, TransH projects h and t to the corresponding hyperplane w_r to get the projection $h_{\perp} $ and $t_{\perp} $ and r is used to connect $h_{\perp} $ and $t_{\perp} $:
+
+$h_{\perp} = h - w_{r}^{\top} h w_{r}, t_{\perp} = t - w_{r}^{\top} t w_{r}  $
+
+where w_r is a vector and ||w_r||_2 is restricted to 1. The score function is:
+
+$f(h, r, t) = - \|h_{\perp} + r - t_{\perp}  \| $
+
+as for training, TransH also minimizes the margin-based loss function with negative sampling, which is similar to TransE
+
+![alt-text](./TransH_9.7.PNG)
+
+#### TransR
+
+Takes full advantage of linear methods and translation methods. TransH, above, enables entities to have multiple relation-specific representations by projecting them to different hyperplanes, while entity embeddings and relation embeddings are restricted in the same space, which may limit the ability for modeling entities and relations. TransR (this one) assumes that entity embeddings and relation embeddings should be in different spaces.
+
+For triplet <h, r, t>, TransR projects h and t to the relation space of r, defined as:
+
+$h_{r} = h M_{r}, t_{r} = t M_{r}  $
+
+where Mr is the projection matrix. hr and tr atand for relation-specific entity representations in the relatino space of r. This means that each entity has a relation-specific representation for each relation, and all translation operations are processed in the relation-specific space. The score function of TransR is:
+
+$f(h, r, t) = -\|h_{r} + r - t_{r} \|$
+
+TransR constrains the norms of the embeddings and has $\|h \|_{2} \leq 1, \|t \|_{2} \leq 1, \|r \|_{2} \leq 1, \|h_{r} \|_{2} \leq 1  , \|t_{r} \|_{2} \leq 1 $. as for training, TransR uses the same margin-based loss fn as TransE
+
+![alt-text](./TransR_9.8.PNG)
+
+Furthermore, a relation should also have multiple representations since the meanings of a relation with different head and tail entities differ slightly. For example, the relation "contains the location" has head-tail patterns like city-street, country-city, and even, country-university, each conveys different attribute information. To handle these subtle differences, entities for a same relation should also be projected differently.
+
+To this end, **cluster-based TransR (CTransR)** is then proposed, which is an enhanced version of TransR by taking the nuance in meaning for the same relation with different entities into consideration. More specifically, for each relation, all entity pairs of the relation are first clustered into several groups. The clustering process depends on the result of t-h for each entity pair (h, t) and h and t are the embeddings learned by TransE. Then, we assign a distinct sub-relation embedding r_c for each cluster of the relation r according to cluster-specific entity pairs, and the original score function of TransR is modified as:
+
+$f(h, r, t) = - \|h_{r} + r_{c} - t_r \| - \lambda  \|r_{c} - r \|$
+
+where \lambda is a hyperplane to control the regularization term and ||r_c - r|| is to make the sub-relation embedding r_c and the unified relation embeddinf r not too distinct
+
+#### TransD
+
+Is an extension of TransR that uses dynamic mapping matrices to project entities into relation-specific spaces. TransR focuses on learning multiple relation-specific entitiy representations. However, TransR projects entities according to only relations, ignoring the entity diversity. Moreover, the projection operations based on matrix-vector multiplicaiton lead to a higher computational complexity compared to TransE, which is time-consuming when applied on large-scale KGs.
+
+For each entity and relation, TransD defines two vectors:
+
+- one is used as the embedding
+- the other is used to construct projection matrices to map entities to relation spaces
+
+We use h, t, r to deone the embeddings of entities and repations, and hp, tp, rp to represent projection vectors. There are two projection matrices M_rh, M_rt used to project entities to relation spaces, and these projection matrices are dynamically constructed as:
+
+$M_{rh} = r_{p} h_{p}^{\top} + I, M_{rt} = r_{p} t_{p}^{\top} + I  $
+
+which means the projection vectors of both entities and relations are combined to determine dynamics projection matrices. The score function is:
+
+$f(h, r, t) = - \|M_{rh}h + r - M_{rt} t   \|  $
+
+These projection matrices are initialized with identity matrices by setting all the projection vectors to 0 at initialization, and the normalization constraints in TransR are also used for TransD
+
+TransD proposes a dynamic method to construct projection matrices by considering the diversities of both entities and relations, achieving better performance compared to existing methods in knoweldge completion. Morevoer, TransD lowers both computational and spatial complexity compared to TransR
+
+![alt-text](./TransD_9.9.PNG)
+
+#### TranSparse
+
+Is also a subsequent work of TransR. Although TransR has achieved promising results, there are still two challenges remaining. One is the **heterogeneity** challenge. Relations in KGs differ ingranularity. Some relations express complex semantics between entities, while other relations are relatively simple. The other is the **imbalance** challenge. Some relations have more valid head entities and fewer valid tail entities, while some are the opposite. If we consider these challenges rather than merely trating all relations equally, we can obtain better knowledge representations
+
+Existing methods such as TransR build projection matrices for each relation, and these projection matrices have the same parameter scale, regardless of the variety in the complexity of relations. TransSparse is proposed to address this issue. The underlying assumption of TransSparse is that the complex relations should havemore parameters to learn while simple relations should have fewer parameters, where the relation complexity is judged from the number of triplets or entities linked to the relation. To accomplish this, two models are proposed:
+
+- TranSparse-share
+- TranSparse-separate
+
+##### TranSparse-share
+
+Inspired by TransR, given a relation r, TranSparse-share builds a relation-specific projection matrix $M_{r}(\theta_{r} )  $ for the relation. $M_{r}(\theta_{r} )  $ is sparse and the sparse degree \theta_r mainly depends on the number of entity pairs linked to r. Suppose Nr is the number of linked entity pairs, $N_{r}^{*}  $ represents the maximum number of Nr, and \theta_min denotes the minimum sparse degree of projection matrices that 0 <= \theta_min <= 1. The sparse degree of relation r is defined as:
+
+$\theta_{r} = 1 - (1 - \theta_{min}) (N_{r}/N_{r}^{*})  $
+
+Both head and tail entities share the same sparse projection matrix $M_r(\theta_{r} )  $. The score function is:
+
+$f(h, r, t) = - \|M_{r}(\theta_{r}) h + r - M_{r}(\theta_{r}) t  \|  $
+
+##### TranSparse-separate
+
+Builds two different sparse matrices $M_{rh}(\theta_{rh} )  $ and $M_{rt}(\theta_{rt} )  $ for head and tail entities, respectively. Then, the sparse degree \theta_rh (or \theta_rt) depends on the number of head (or tail) enities linked to r. We have N_rh (or N_rt) to represent the number of head (or tail) entities, as well as N_rh^* to represent the maximum number of N_rh (or N_rt). and \theta_min will also be set as the minimum sparse degree of projection matrices that 0 <= \theta_min <= 1. We have:
+
+$\theta_{rh} = 1 - (1 - \theta_{min})N_{rh} / N_{rh}^{*}, \theta_{rt} = 1 - (1 - \theta_{min} N_{rt} / N_{rt}^{*})   $
+
+The final score function of TranSparse-separate is
+
+$f(h, r, t) = - \|M_{rh}(\theta_{rh})h + r - M_{rt}(\theta_{rt})t  \|  $
+
+Through sparse projection matrices, TranSparse solves the heterogeneity challenge and the imbalance challenge simultaneously
+
+#### PTransE
+
+Is an extension of TransE that considers multi-step relational paths. All the above only consider simple one-step paths, ignoring the rich global information
+
+There are two main challanges:
+
+- 1. how to select reliable and meaningful relational paths among enormous path candidates
+- 2. how to model the meaningful relational paths. it is not easy to handle the problem of spemantic composition in relational paths
+
+To select meaningful relational paths, PTransE uses a path-constraint resource allocation (PCRA) algorithm to judge the path reliability. Suppose there is information (or resource) in the head entity h which will flow to the tail entity t through some certain paths. The basic assumption of PCRA is that the reliability of the path l depends on the amount of resource that eventually flows from head to tail
+
+Formally, we denote a certain path between h and t as l = (r1, ..., r2). The resource that travels from h to t following the path could be represented as $(S_{0}/h) \underrightarrow{r_{1}} S_{1} \underrightarrow{r_{2}} ... \underrightarrow{r_{\mathcal{l}}} (S_{\mathcal{l}} / t)   $. For an entity m \in S_i, the amount of resource that belongs to m is defined as
+
+$R_{\mathcal{l}}(m) = \sum_{n \in S_{i-1}(., m)}  (1/ |S_{i}(n, .)|) R_{\mathcal{l}}(n)  $
+
+where S_i-1(., m) indicates all direct predecessors of the entity m along the relation r_i in S_i-1 and S_i(n,.) indicates all the direct successors of n \in S_i-1 with the relation r_i. Finally, the amount of resource that flows to the tail R_l(t) is used to measure the reliability of l, given the triplet <h, l, t>
+
+Once we finish selecting those meaningful relational path candidates, the next challenge is to model the semantic composition of these multi-step paths. PTranseE proposes three composition operations, namely, addition, multiplications, and RNNs, to get the path representation I based on the relations in l = (r1, ..., r2). The score function is:
+
+$f(h, \mathcal{l}, t) = - \|l - (t - h) \| \approx \|l - r \| = f(\mathcal{l}, r)   $
+
+where r indicates the golden relation between h and t. Since PTransE also wants to meet the assumption in TransE that r \approx t - h, PTransE directly utliizes r in training. The optimization obj is:
+
+$argmin_{\theta} \sum_{(h, r, t) \in T}  [L(h, r, t) + (1/Z) \sum_{\mathcal{l} \in P(h, t)}  R(\mathcal{l}| h, t) L(\mathcal{l}, r)   ]   $
+
+where L(h, r, t) is the margin-based loss function with f(h, r, t), L(l, r) is the margin-based score function with f(l, r) and Z = sum (mess) is a normalization factor. The reliability of R(l|h, t) if l in (h, l, t) is well considered in the overall loss function. for the path l, the initial resource is set as R_l(h) = 1 by recursively performing PCRA from h to t through L, the resource R_l(t) can indicate how much information can be well translated, and R_l(t) is thus used to measure the reliability of the path l, i.e. R(l|h, t) = R_l(t). Besides PTransE, similar ideas also consider multistep relational paths and demonstrate that there is plentiful information ocated in multi-step relational paths which could significantly improve knowledge representation
+
+#### KG2E
+
+Introduces multidimensinoal Gaussian distributions to represent KGs. Existing translation methods usually consider entities and relations as vectors in low-dimensional spaces. However, as explained above, entities and relations in KGs are diverse at different granularities. Therefore, the margin in the margin-based loss fn that is used to distinguish positive triplets from negative triplets should be more flexible due to the diversity, and the uncertainties of entities and relations should be taken into consideration
+
+KG2E represents entities and relations with Gaussian distributions. Specifically, the mean vector denotes the central position of an entity or a relation, and the covariance metrix denotes its uncertainties. Following the score function proposed in TransE, for <h, r, t>, the Gaussian distributions of entities and relations are defined as
+
+$h ~ \mathcal{N}(\mu_{h}, \Sigma_{h}), t ~ \mathcal{N}(\mu_{t}, \Sigma_{t}), r ~ \mathcal{N}(\mu_{r}, \Sigma_{r})  $
+
+Note that the covariances are diagonal for efficient computation. KG2E hypothesizes that head and tail entities are independent with specific relations; then, the translation could be defined as:
+
+$e ~ \mathcal{N}(\mu_{h} - \mu_{t}, \Sigma_{h} + \Sigma_{t})   $
+
+To measure the dissimilarity between e and r, KG2E considers both asymmetric similarity and symmetric similarity, and then proposes two methods.
+
+The **assymetric similarity** is based on the KL divergence between e and r, wich is a typical method to measure the similarity between two distributions. The score function is:
+
+$f(h, r, t) = - D_{KL}(e\|r)  $
+
+$f(h, r, t) = - \int_{x \in \mathbb{R}^{d}}  \mathcal{N}(x; \mu_{r}, \Sigma_{r}) log((\mathcal{N}(x; \mu_{e}, \Sigma_{e}))/(\mathcal{N}(x; \mu_{r}, \Sigma_{r}))) dx  $
+
+$f(h, r, t) = - (1/2) \{tr(\Sigma_{r}^{-1} \Sigma_{r}) + (\mu_{r} - \mu_{e})^{\top} \Sigma_{r}^{-1} (\mu_{r} - \mu_{e}) - \log ((\det(\Sigma_{e}))/(\det(\Sigma_{r}))) - d   \}  $
+
+where tr(\Sigma) indicates the trace of \Sigma and \Sigma^{-1} indicates the inverse of \Sigma
+
+The **symmetric similarity** is built on the expected likelihood and probability product kernel. KE2G takes the inner product between the probability density functions of e and r as the measure of similarity. The logarithm score function is defined as:
+
+$f(h, r, t) = - \int_{x \in \mathbb{R}^{d}} \mathcal{N}(x; \mu_{e}, \Sigma_{e})\mathcal{N}(x; \mu_{r}, \Sigma_{r}) dx     $
+
+$f(h, r, t) = -log \mathcal{N}(0; \mu_{e} - \mu_{r}, \Sigma_{e} + \Sigma_{r})     $
+
+$f(h, r, t) = - (1/2) \{(\mu_{e} - \mu_{r})^{\top}(\Sigma_{e} + \Sigma_{r})^{-1}(\mu_{e} - \mu_{r}) + \log \det (\Sigma_{e} + \Sigma_{r}) + d \log(2 \pi)     \}     $
+
+The optimization objective of KG2E is also margin-based similar to TransE. Both asymmetric and symmetric similarities are constrained by some regularizations to avoid overfitting:
+
+$\forall \mathcal{l} \in \mathcal{E} \cup \mathcal{R}, \|\mu_{\mathcal{l}} \|_{2} \leq 1, c_{min} I \leq \Sigma_{\mathcal{l}} \leq c_{max} I, c_{min} > 0    $
+
+where c_min and c_max are the hyperparameters as the restriction values for covariance
+
+#### TransG
+
+discusses the problem that some relations in KGs such as "Contains the Location" or "Part of" may have multiple sub-meanings, which is also discussed in TransR. In fact, these complex relations could be divided into several more precise dub-relations. CTransR is proposed with a preprocessing that clusters sub-relation according to entitiy pairs
+
+TransG assumes that the embeddings containing several semantic comopnents should follow a Gaussian mixture model. The generative process is:
+
+- 1. For each entity $e \in E$, TransG sets a standard normal distribution: $\mu_{e} ~ \mathcal(0, I)  $
+- 2. For a triplet <h, r, t>, TransG uses the Chinese restaraunt process (CRP) (lmao wat) to automatically detect semantic components (i.e., sub-meanings in a relation): $\pi_{r, n} ~ CRP (\beta) $. \pi_{r,n} is the weight of the ith component generated by the CRP from the data
+- 3. Draw the head embeddings from a standard normal distribution: $h ~ \mathcal{N}(\mu_{h}, \sigma_{h}^{2} I)   $
+- 4. Draw the tail embedding from a standard normal distribution: $t ~ \mathcal(\mu_{t}, \sigma_{t}^{2} I)  $
+- 5. Calcualte the relation embedding for this semantic component: $\mu_{r, n} = t - h  $
+
+Finally, the score function is:
+
+$f(h, r, t) \alpha \sum_{n=1}^{n_{r}} \pi_{r, n} \mathcal{N}(\mu_{r, n}; \mu_{t} - \mu_{h}, (\sigma_{h}^{2} + \sigma_{t}^{2}    ) I)   $
+
+in which Nr is the number of semantic components of the relation r
+
+This one is sick actually
+
+![alt-text](./TransG_9.10.PNG)
+
+### 9.3.3 Neural Representation
+
+How to represent KGs with NNs
+
+#### Single Layer Model (SLM)
+
+Inspired by the previous works in representing KGs, SLM represents both entities and relations in low-dimensional spaces, and uses relation-specific matrices to project entities into relation spaces. Similar to the linear method SE, the score function of SLM is:
+
+$f(h, r, t) = r^{\top} \tanh (M_{r,1} h + M_{r,2} t)   $
+
+where h, t \in $\mathbb{R}^{d_{e}}$ represent head and tail embeddings, $r \in \mathbb{R}^{d_{e}}   $ represents relation embeddings, and $M_{r1}, M_{r2} \in \mathbb^{d_{e} \times d_{r}} $ stand for the relation-specific matrices
+
+#### Neural Tensor network (NTN)
+
+Although SLM has introduced relation embeddings as well as a nonlinear neural layer to build the score function, the representation capability is still restricted. NTN is then proposed by introducing tensors into the SLM framework, which can be seen as an enhanced version of SLM. Besides the original linear NN layer that projects entities to the relation space, NTN adds another tensor-based neural layer which combines head and tail embeddings with a relation-specific tensor. The score function of NTN is
+
+$f(h, r, t) = r^{\top} \tanh ( h^{\top} \overrightarrow{M_{r}} t + M_{r,1} h + M_{r,2} t + b_{r} )    $
+
+where $\overrightarrow{M_{r}} \in \mathbb{R}^{d_{e} \times d_{e} \times d_{r}}  $ is a three-way relation-specific tensor, b_r is the bias, and $M_{r,1}, M_{r,2} \in \mathbb{R}^{d_{e} \times d_{r}}   $ are the relation-specific matrices. Note that SLM can be seen as a simplified version of NTN if the tensor and the bias are set to zero
+
+Besides improving the score function, NTN also attempts to utilize the latent textual information located in entitiy names and siccessfully achieves significant improvements. Differing from previous methods that provide each entitiy with a vector, NTN represents each entity as the average of its entity name's word embeddings. For example, the entity *Bengal tiger* will be represented as the average word embeddings of *Bengal* and *tiger*. It is apparent that the entity name will provide valuable information for understanding an entity, since *Bengal tiger* may come from Bengal and be related to tother tigers
+
+NTN utilizes tensor-based NNs to model triplet facts and achieves excellent success. However, the overcomplicated method leads to high computational complexity compared to other methods, and the vast number of parameters limits the performance on sparse and large-scale KGs
+
+#### Neural Association Model (NAM)
+
+Adopts multilayer lonlinear activation to model relations. More specifically, two-structures are used by NAM to represent KGs:
+
+- deep NN (DNN)
+- relation modulated neural network (RMNN)
+
+RAM-DNN adopts a MLP with L layers to operate knowledge embeddings:
+
+$z^{k} = Sigmoid(M^{k} z^{k-1} + b^{k}), k=1, ..., L,  $
+
+where $z^{0} = [h;r]$ is the concatenation of h and r, M^k is the weight matrix of the kth layer, and bk is the bias vector of the kth layer. Finally, NAM-DNN defines the score function as:
+
+$f(h, r, t) = Sigmoid(t^{\top} z^{L})  $
+
+As compared with NAM-DNN, NAM-RMNN additionally feeds the relation embedding r into the model
+
+$z^{k} = Sigmoid(M^{k} z^{k-1} + B^{k} r), k=1, ..., L,  $
+
+where Mk and Bk indicate the weights and bias matrices. Finally, NAM-RMNN defines the score function as
+
+$f(h, r, t) = Sigmoid(t^{\top} z^{L} + B^{L+1} r)  $
+
+#### Convolutional 2D Embeddings (ConvE)
+
+uses 2D convolutional operations over embeddings to model KGs. Specifically, ConvE uses convolutional and fully connected layers to model interactions between entities and relations. After that, the obtained features are flattenend and transformed by a fully connected layer, and the inner product between the final feature and the tail entity embeddings is used to build the score function:
+
+$f(h, r, t) = N (vec (N([\bar{h}; \bar{r}] * \omega)) W) . t  $
+
+where $[\bar{h}; \bar{r}] $ is the conatenation of h_hat and r_hat, N(.) is a neural layer, * denotes the convolution operator, and vec(.) means compressing a matrix into vector. h_hat and r_hat denote the 2D reshaping versions of h and r respectively: if $h, r \in \mathbb{R}^{d}  $, then $\bar{h}, \bar{r} \in \mathbb{R}^{d_{a} \times d_{b}}   $, where $d = d_{a}d_{b}  $
+
+To some extent, ConvE can be seen as an improvement model based on HolE. Compared with HolE, ConvE adopts multiple neural layers to learn nonlinear features and is thus more expressive than HolE
+
+#### Relational Graph Convolutional Networks (RGCN)
+
+Is an extension of GCNs to model KGs. The core idea of RGCN is to formalize modeling KGs as message passing. Therefore, in RGCN, the representations of entities and relations are the results of information propagation and fusion at multiple layers. Specifically, given an entitiy h, its embedding at the (k+1)-th layer is:
+
+$h^{k+1} = Sigmoid (\sum_{r \in \mathcal{R}}  \sum_{t \in \mathcal{N}_{h}^{r}}  (1/(c_{h}^{r})) W_{r}^{k} t^{k} + \tilde{W}^{k} t^{k}     )   $
+
+where $ \mathcal{N}_{h}^{r} $ denotes the neighbor set of h under the relation r and c_{h}^{r} is the normalization factor. c_{h}^{r} can be either learned or preset, and normally $c_{h}^{r} = |\mathcal{N}_{h}^{r}|  $
+
+Note that the RGCN only aims to obtain more expressive features for entities and relations. therefore, based on teh output features of RGCN, any score function mentioned above can be used here, such as comgining the features of RGCN and the score function of TransE to learn knowledge representations
+
+### 9.3.4 Manifold Representation
+
+So far, we have introduced linear methods, translation methods, and neural methods for knowledge representaiton. All these methods project entities and relations into low-dimensional embedding spaces, and seek to improve the flexibility and variety of entity and relation representations. Although these methods have achieved promising results, they assume that the geometry of the embedding spaces for entities and relations are all Euclidian. However, the basic Euclidian geometry may not be the optimal geometry to model the complex structure of KGs. next, we will introduce several typical manifold methods that aim to use more flexible and powerful geometric spaces to carry representations
+
+BRO POG
+
+#### ManifoldE
+
+considers the possible positions of golden candidates for representations in spaces as a manifold rather than a point. The overall score function of ManifoldE is:
+
+$f(h, r, t) = - \|M(h, r, t) - D_{r}^{2}  \|  $
+
+in which $D_{r}^{2}$ is a relation-specific manifold parameter. Two kinds of manifolds are then proposed in ManifoldE.
+
+- ManifoldE-Sphere
+- ManifoldE-Hyperplane
+
+##### ManifoldE-Sphere
+
+ManifoldE-Sphere is a straightforward manifold that supposes t should be located in the sphere which has h + r to be the center and Dr to be the radius. We have:
+
+$M(h, r, t) = \|h + r - t  \|  $
+
+A tail may correspond to many different head-relation pairs, and the manifold assumption requires that the tail lays in all the manifolds of these head-relation pairs, i.e., lays in the intersection of these manifold. However, two spheres can only intersect only some strict conditions. Therefore, the hyperplane is utilized becuase it is easier for two hyperplanes to intersect
+
+##### ManifoldE-Hyperplane
+
+The function of ManifoldE-Hyperplane is:
+
+$M(h, r, t) = (h + r_{h}^{\top})(t+r_{t})  $
+
+in which r_{h} and r_{t} represent the two entity-specific embeddings of the relation r. This indicates that for a triplet <h, r, t>, the tail entity t should locate in the hyperplane whose normal vector is h + r_h and intercept is D_{r}^{2}. Furthermore, ManifoldE-Hyperplane considers absolute values in M(h, r, t) as $|h + r_{h} |^{\top}|t + r_{t}|  $ to double the solution number of possible tail entities. For both manifolds, ManifoldE applies a kernel form on the reproducing kernel **Hilbert space**
+
+#### ComplEx
+
+Employs an eigenvalue decomposition model which makes use of complex-valued embeddings, i.e., $h, r, t \in \mathbb{C}^{d} $. Complex embeddings can well handle binary relations, such as the symmetric and antisymmetric relations. The score function of ComplEx is:
+
+$f(h, r, t) = Re(<r, h, t>)   $
+
+$f(h, r, t) = <Re(r), Re(h), Re(t)  > + <Re(r), Im(h), im(t)  > - <Im(r), Re(h), Im(t)  > - <Im(r), Im(h), Re(t)  >   $
+
+where $<x, y, z> = \sum_{i} x_{i} y_{i} z_{i}  $ denotes the trilinear dot product, Re(x) is the real part of x, and Im(x) is the imaginary part of x. In fact, ComplEx can be viewed as a generalization of RESCAL that uses complex embeddings to model KGs
+
+#### RotatE
+
+Cimilar to ComplEx, RotatE also representes KGs with complex valued embeddings. RotatE defines relations as rotations from head entities to tail entities, **which makes it easier to learn various relation patterns such as symmetry, antisymmetry, inversion, and composition**. The elemnt-wise (Hadamard) product can naturally represent the rotation process in the complex-valued space. Therefore, the score function of RotatE is:
+
+$f(h, r, t) = - \|h \cdot r - t   \|   $
+
+Where $h, r, t \in \mathbb{C}^{d}  $ and \cdot denotes the element-wise (Hadamard) product. RotatE is simple and achieves quite good performance. Compared with previous methods, it is the first model that is theoretically able to model all the above four patterns (symmetry, antisymmetry, inversion, and composition). On the basis of RotatE, Zhang et al. further introduce hypercomplex spaces to represent entities and relations and achieves better performance.
+
+#### MuRP
+
+proposes to embed the entities in the hyperbolic space since hyperbolic space is shown to be more suitable to represent hierarchical data than Euclidian space. Specifically, they embed the entities to the Poincare model (a typical geometric model in hyperbolic space), and explit the Mobius transformations in the Poincare model as the alternatives to vector-matrix multiplication and vector addition in Euclidian space. The score function of MuRP is
+
+$f(h, r, t) = d_{\mathbb{P}}(h^{(r)}, t^{(r)}  )^{2} - b_{h} - b_{t}    $
+
+$f(h, r, t) = d_{\mathbb{P}}(\exp_{0}^{c}(M_{r} \log_{0}^{c}(h)), t \cross r ) - b_{h} - b_{t}     $
+
+where $d_{\mathbb{P}}(.)$ calculates the distance between two points in the Poincare model, Mr is the transformation matrix for the relation r, r is the translation vector of the relation r, and bh and bt are biases for the head and tail entities respectively. \exp_{0}^{c} is the exponential mapping at 0 in the Poincare model of the curvature c, and it maps points in the tangental space at 0 (an euclidian subspace) to the Poincare model. log_{0}^{x} is the logarithmic mapping at 0 in the Poincare model of the curvature c, and is the inverse mapping for \exp_{0}^{c}. MuRP with a dimension as low as 40 achieves comparable results to the Euclidian models with dimensions greater than 100, showing the effectiveness of hyperbolic space in encoding relational knowledge
+
+#### HyboNet
+
+Argues that previous hyperbolic methods such as MuRP only introduce the hyperbolic geometric for embeddings, but still perform linear transformations in tangent spaces (Euclidian subspaces), significantly limiting the capability of hyperbolic models. Inspired by the **Lorentz transformations** in Physics, HyboNet proposes a linear transformation in the Lorentz model (another typical geometric model to build hyperbolic spaces) to avoid the introduction of exponential mapping and logarithmic mapping when transforming embeddings, **significantly speeding up the network and stabilizing the computation**. The score function of HyboNet is
+
+$f(h, r, t) = d_{\mathbb{L}}^{2} (g_{r} (h), t) - b_{h} - b_{t} - \delta   $
+
+where $d_{\mathbb{L}}^{2}$ is the squared Lorentzian distance between two points in Lorentz model, g_r is the relation-specific Lorentz linear transformation, b_h, and b_t are the biases for the head and tail entities, respectively, and \delta is a hyper-parameter used tomake th training process more stable.
