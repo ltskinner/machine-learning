@@ -601,3 +601,509 @@ Five directions:
   - where representations are learned in more flexible and powerful gemoetric spaces instead of the basic Euclidian geometry
 - 5. contextualized methods
   - where representations are learned under complex contexts
+
+## 9.4 Knowledge Guided NLP
+
+Brief pipeline of utilizing knowledge for NLP tasks:
+
+- 1. Extract knowledge from heterogeneous data sources and store the extracted knowledge with knowledge systems (KGs)
+- 2. Project knowledge systems into low-dimensional continuous spaces with knowledge representation learning methods to manipulate the knowledge in a machine-friendly way
+- 3. Apply informative knowledge representations
+
+![alt-text](./pipeline_9.14.PNG)
+
+ML model performance depends on:
+
+- input data
+- model architecture
+- learning objective
+- hypothesis space
+
+The whole goal is to minimize the structural risk
+
+$min_{f \in \mathcal{F}} (1/N) \sum_{i=1}^{N} \mathcal{L}(y_{i}, f(x_{i})) + \lambda \mathcal{J}(f)   $
+
+where x_i is the input data, f is the model function, L is the learning objective, F is the hypothesis space, and J(f) is the regularization term. By applying knowledge to each of these four factors, we can form four directions to perform knowledge guided NLP:
+
+- 1. knoweldge augmentation, which aims to augment the input data xi with knowledge
+- 2. knowledge reformulation, which aims to reformulate the model function f with knowledge
+- 3. knowledge regularization which aims to regularize or modify the learning objectives L with knowledge
+- 4. knowledge transfer, which aims to transfer the pre-trained parameters as prior knowledge to constrain the hypothesis space F
+
+### 9.4.1 Knowledge Augmentation
+
+Aims at using knowledge to augment the input features of models. Formally, after using knowledge k to augment the input, the original function is changed to:
+
+$min_{f \in \mathcal{F}} (1/N) \sum_{i=1}^{N} \mathcal{L}(y_{i}, f(x_{i}, k)) + \lambda \mathcal{J}(f)   $
+
+Two mainstream approaches
+
+#### Augmentation with Knowledge Context
+
+One approach is to directly add knowledge to the input as additional context. Augmenting LMs with retrieval as a representative method, REALM and RAG are examples. These models retrieve background knowledge from additional corpa and then use the retrieved knowledge to provide more information for language modeling.
+
+##### Example: Knowledge Augmentation for the Generation of PTMs
+
+Given the input sequence x to generate the output sequence y, the overall process of the typical autoregressive generation method can be formalized as
+
+$P(y|x) = \prod_{i=1}^{N} P_{\theta}(y_{i}| x, y_{1:i-1})   $
+
+where \theta is the parameters of the generator, N is the length of y, and yi is the ith token of y. To use more knowledge to generate y, RAG first retrieves the external information z according to the input x and then generates the output sequence y based on both x and z. To ensure the retrieved contents can cover the cruicial information required to generate y, the top-K contents retrieved by the retriever are all used to help generate the output sequence y, and thus the overall generation process is:
+
+$P_{RAG-Sequence}(y|x) \approx \sum_{z \in top - K[P_{\eta}(.|x)]}   P_{\eta}(z|x)P_{\theta}(y|x, z)  $
+
+$P_{RAG-Sequence}(y|x) = \sum_{z \in top-K[P_{\eta}(.|x)]} P_{\eta}(z|x) \prod_{i=1}^{N} P_{\theta}(y_{i}|x, z, y_{1:i-1}) $
+
+where \eta is the parameters of the retriever
+
+#### Augmentation with Knowledge Embeddings
+
+Another approach is to design special modules to fuse the original input features and knowledge embeddings and then use the knolwedgeable features as the input to solve NLP tasks. This approach can help to fully utilize heterogeneous knowledge from multiple sources, so may works follow this approach to integrate unstructured text and structured symbolic knowledge in KGs, leading to knowledge guided information retrieval and knowledge guided PTMs.
+
+##### Example: Knowledge Augmentation for Information Retrieval
+
+Information retrieval focuses on obtaining informative representations of queries and documents and then designing effective metrics to compute the similarities between queries and documents.
+
+Word-entity duet is a typical method for entity-oriented information retrieval. Specifically, given a query q and a document d, word-entity duet first constructs bag of words q^w and d^w. By annotating the entities mentioned by the query q and the document d, word-entity duet then constructs bag-of-entities q^e and d^e. Based on bag of words and bag of entities, word-entity duet utilizes the duet representations of bag of words and bag of entities to match the query q and the docuemtn d. Thw rod-entity duet method consists of a four way interactino:
+
+- query words to document words (qw - dw)
+- query words to document entities (qw - de)
+- query entities to document words (qe - dw)
+- query entities to document entities (qe - de)
+
+ARDM further uses distributed representations instead of bag-of-words and bag-of-entities to represent queries and documents for ranking. ERDM first learns the distributed representations of entities according to entity-related information in KGs, such as entity descriptions and entity types. Then, EDRM uses interaction-based neural models to match the query and documents with word-entity duet distributed representations. More specifically, EDRM uses a translation layer that calculates the similarity between query document terms: $v_{w^{q}}^{i} v_{e^{q}}^{i} $ and $v_{w^{d}}^{i} v_{e^{d}}^{i} $. It constructs the interaction matrix $M = \{ M_{ww}, M_{we}, M_{ew}, M_{ee}     \}  $ by denoting $M_{ww}, M_{we}, M_{ew}, M_{ee}$ as the interactions of (qw - dw), (qw - de), (qe - dw), (qe - de). The elements in these matrices are the cosine similarities of the corrsponding terms:
+
+$M_{ww}^{ij} = cos(v_{w^{q}}^{i}, v_{w^{d}}^{j});  $
+$M_{we}^{ij} = cos(v_{w^{q}}^{i}, v_{e^{d}}^{j});  $
+$M_{ew}^{ij} = cos(v_{e^{q}}^{i}, v_{w^{d}}^{j});  $
+$M_{ee}^{ij} = cos(v_{e^{q}}^{i}, v_{e^{d}}^{j});  $
+
+The final ranking feature \Phi(M) is a concatenation of four cross matches:
+
+$\Phi(M) = [\phi(M_{ww}); \phi(M_{we}); \phi(M_{ew}); \phi(M_{ee});  ]  $
+
+where \phi(.) can be any function used in interaction-based neural ranking models, such as Gaussian kernels to extract the matching feature from the matrix M and then pool into a feature vector \phi(M). For more details of designing \phi(.) and using \Phi(M) to compute ranking scores, refer to typical interactin-based information retrieval modules
+
+#### 9.4.2 Knowledge Reformulation
+
+Aims at using knowledge to enhance the model processing the procedure. Formally, after using knowledge to reformulate the model function, the original risk fn is changed to
+
+$min_{f \in \mathcal{F}} (1/N) \sum_{i=1}^{N} \mathcal{L}(y_{i}, f_{k}(x_{i})) + \lambda \mathcal{J}(f_{k})   $
+
+where f_{k}(.) is the model function reformulated by knowledge. Considering the complexity of the model fn f(.), it is difficult for us to comprehensively discuss the construction process of f_k.
+
+Going to look at two things as an intro
+
+#### Knowledgeable Preprocessing
+
+On the one hand, we can use the underlying knowledge-guided model layer for preprocessing to make features more informative. Formally, xi is the first input to the funciton k and then input to the fn f as:
+
+$f_{k}(x_{i}) = f(k(x_{i}))  $
+
+where k(.) is the knowledge guided model fn used for preprocessing and f(.) is the original model function. The knowledge-guided attention mechanism is a representative approach that usually leverages informative knowledge representations to enhance model feature processing
+
+##### Example: Knowledge Reformulation for Knowledge Acquisition
+
+Knowledge acquisition includes two main approaches
+
+- knowledge graph completion (KGC)
+  - aims to perform link prediction on KGs
+- relation extraction (RE)
+  - predict relations between entity pairs based on the sentences containing entity pairs
+
+Formally, given sentences s1, s2, ... containing the entity pairs h, t, RE aims to evaluate the likelihood that a relation r and h,t can form a triplet based on the semantics of these sentences. Different from RE, KGC only uses triplet representations of h, r, t learned by knowledge representation learning methods to compute the score function f(h,r,t) and the score funcion serves knowledge acquisition
+
+Generally, RE and KGC models are learned separately, and these models cannot fully integrate text and knowledge to acquire more knowledge. Propose a joint learning framework, which can jointly learn knowledge and text representations within a unified semantic space via KG-text alignments. For the text part, the sentence with two entities (mark twain, and Florida) is the input to the encoder, and the output is considered to potentially describe specific relations (place of birth). For the KG part, entitiy and relation representations are learned via knowledge representation learning method such as TransE. The learned representations of the KG and text parts are aligned during the training process.
+
+Given sentences {s1, s2, ...} containing the same entity pair h, t, not all of these sentences can help predict the relation between h and t. For a given relation r, there are many triplets {(h1, r, t1), (h2, r, t2), ...} containing the relation, but not all triplets are important enough for learning the representation of r. Therefore, further adopt mutual attention to reformulate the preprocessing of both the text and knowledge models, to select more useful sentences for RE and more important triplets for KGC. Specifically, we use knowledge representations to highlight the more valuable  sentences for predicting the relation between h and t. This process can be formalized as
+
+$\alpha = Softmax(r_{ht}^{\top} W_{KA} S), \hat{s} = S \alpha^{\top}  $
+
+where W_{KA} is a bilinear matrix of the knowledge-guided attention, S = [s1, s2, ...] are the hidden states of the sentences s1, s2, ..., r_{ht}^{\top} is a representation that can indicate the latent relation between h and t, computed based on knowledge representations. \hat{s} is the feature after synthesizing the information of all sentences, which is used to predict the relation between h and t finally
+
+Similar to using knowledge representations to select high-quality sentences, we can also use semantic information to select triples conducive to learning relations. This process can be formalized as:
+
+$\alpha = Softmax(r_{Text}^{\top} W_{SA} R), r_{KG} = R \alpha^{\top}  $
+
+where W_{SA} is a bilinear matrix of the semantics-guided attention, $R = [r_{h_{1}t_{1}}, r_{h_{2}, t_{2}}, ...]  $ are the triplet-specific relation representations of the triplets {(h1, r, t1), (h2, r, t2), ...} r_{Text} is the semantic representation of the relation r used by the RE model. r_{KG} is the final relation representation enhanced with semantic information
+
+##### Example: Knowledge Reformulation for Entity Typing
+
+Entity typing is the task of detecting semantic types for a named entity (or entity mention) in plain text. For example, given a sentence "Jordan played 15 seasons in the NBA", entity typing aims to infer that Jordan in this sentence is a "person", an "athlete" and even a "basketball player". Entity typing is important for named entity disambiguation since it can narrow down the range of candidates for an entity mention. Moreover, entity typing also benefits massive NLP tasks such as relation extraction, QA, and knowledge base population
+
+Neural models have achieved sota for fine-grained entity typing. However, these moethods only consider textual information and ignores the rich informaiton that KGs can provide. For example, "in 1975, Gates, ... Microsoft ... company", even though we have no type information of Microsoft in KGs, other entities similar to Microsoft (e.g. IBM) in KGs can also provide supplementary information to help us determine the type of Microsoft. KNET has been proposed
+
+KNET mainly consists of two parts
+
+- firstly, KNET builds a nn, including a bidirectional LSTM and a fully connected layer, to generate context and named entity mention representations
+- secondly, KNET introduces a knowledge-guided attention mechanism to emphasize those critical words and improve the quality of text represntations
+
+KNET introduces a knowledge-guided attention mechanism to emphasize those cruitical words and improve the quality of the context representations. KNET employs the translation method TransE to obtain entity embedding e for each entity e in KGs. During the training process, given the context words c = {wi, ..., wj}, a named entity mention m and its corresponding entity embedding e, KNET computes the knowledge guided attention as
+
+$\alpha = Softmax (e^{\top} W_{KA} H), c = H \alpha^{\top} $
+
+where W_{KA} is a bilinear matrix of the knowledge-guided attention and H = [h_{i}, ..., h_{j}] are the bidirectinoal LSTM states of {w_{i}, ..., w_{j}}. The context representation c is used as an important feature for the subsequent process of type classification
+
+#### Knowledgeable Post-Processing
+
+Apart from reformulating model functions for pre-processing, on the other hand, knowledge can be used as an expert at the end of models for post-processing, guiding models to obtain more accurate and effective results. Formally, x_{i} is first input to the funciton f and then input to the function k as
+
+$f_{k}(x_{i}) = k(f(x_{i}))  $
+
+where k(.) is the knowledge-guided model function used for post-processing and f(.) is the original model function. Knowledgeable post-processing is widely used by knowledge-guided LMing to improve the word prediciton process
+
+##### Example: Knowledge Post-Processing on Language Models
+
+NKLM aims to perform language modeling by considering both semantics and knowledge to generate text. Specifically, NKLM designs two ways to generate each word in the text.
+
+- the first is the same as conventional auto-regressive models that generate a vocabulary word according to the probabilities over the vocabulary
+- the second is to generate a knowledge word according to external KGs.
+
+NKLM uses the LSTM architecture as the backbone to generate words. For external KGs, NKLM stores knowledge representations to build a knowledgeable module $\mathcal{K} = \{(a_{1}, O_{1}), (a_{2}, O_{2}), ..., (a_{n}, O_{n})    \}  $ in which O_{i} denotes the description of the ith fact, a_{i} denotes the concatenation of the representations of the head entity, relation and tail entity of the ith fact
+
+Given the context {w_{1}, w_{2}, ..., w_{t-1}}, NKLM takes both the vocabulary word representation $w_{t-1}^{v} $, the knowledge word representation $w_{t-1}^{o}  $, and the knowledge guided representation a_{t-1} at the step t-1 as LSTMs input $x_{t} = \{w_{t-1}^{v}, w_{t-1}^{o}, a_{t-1}  \}  $. x_{t} is then fed to LSTM together with the hidden state h_{t-1} to get the output state h_{t}. Next, a two-layer multilayer perceptron f(.) is applied to the concatenation of h_{t} and x_{t} to get the fact key $k_{t} = f(h_{t}, x_{t})  $. k_{t} is then used to extract the most relevant fact representation a_{t} from the knowledgable model. Finally, the selected fact a_{t} is combined with the hidden state h_{t} to output a vocabulary word w_{t}^{v} and knowledge word w_{t}^{o} (which is copied from the entity name in the t-th fact), and then determine which word to generate at the step t
+
+### 9.4.3 Knowledge Regularization
+
+$min_{f \in \mathcal{F}} (1/N) \sum_{i=1}^{N} \mathcal{L}(y_{i}, f(x_{i})) + \lambda_{k}\mathcal{L}_{k}(k, f(x_{i}))  + \lambda \mathcal{J}(f)   $
+
+where $\mathcal{L}_{k}(k, f(x_{i}))$ is the additional predictive targets and learning objectives constructed based on knowledge and \lambda_{k} is a hyperparameter to control the knowledgeable loss term
+
+**Distant supervision** is a representation method that uses external knowledge to heuristically annotate corpa as additional supervision signals. For many vital information extraction tasks, such as RE and entity typing, distant supervision is widely applied for model training
+
+Knowledge regularization is also widely used by knowledge-guided PTMs. To fully integrate knowledge into LMg, these knowledge-guided PTMs design knowledge-specific tasks as their pre-training objectives and use knowledge representations to build additional prediction objectives.
+
+##### Example: Knowledge Regularization for PTMs
+
+PTMs like BERT have great abilities to extract features from text. With informative language representations, PTMs obtain sota results on various tasks. However, the existing PTMs rarely consider inforporating external knowledge, which is essential in providing related background information
+
+Enhanced Language Representation Model with Informative Entities (ERNIE) is proposed. ERNIE first augments the input data using knowledge augmentation from 9.4.1. Specifically, ERNIE recognizes named entity mentions and then aligns these mentions to their corresponding entities in KGs. Based on the alignments between text and KGs, ERNIE takes the informative entity representatinos as additional input features.
+
+Similar to conventional PTMs, ERNIE adopts masked LMg and next sentence prediction as the pre-training oobjectives. To better fuse textual and knowledge feautres, ERNIE proposes *denoising entity auto-encoder (DAE)* by randomly masking some mention-entity alignments in the text and requiring models to select appropriate entities to complete the alignments. Different from the existing PTMs that predict tokens with only using local context, DAE requires ERNIE to aggregate both text and knowledge to predict both tokens and entities, leading to knowledge-guided LM. DAE is clearly a knowledge-guided objective function.
+
+In addition to ERNIE, there are other representative works on knowledge regularization. For example, KEPLER incorporates structured knowledge into its pre-training. Spcecifically, KEPLER encodes the textual description of entities as entity representations and predicts the relation between entities based on these description-based representations. In this way, KEPLER can learn the structured information of entities and relations in KGs in a language modeling manner.
+
+WKLM proposes a pre-training objective type-constrained entity replacement. Specifically, WKLM randomly replaces the named entity mentions in the text with other entities of the same type and requires the model to identify whether an entity mention is replaced or not. Based on the new pre-training objective, WKLM can accurately learn text-related knowledge and capture type information of entities
+
+We can find that ERNIE also adopts knowledg reformulation by adding the new aggregator layers designed for knowledge integration to the original Transformer architecture. To a large extent, the success of knowledge-guided PTMs comes from the fact that these models use knowledge to enhance important factors of model learning
+
+### 9.4.4 Knowledge Transfer
+
+Knowledge transfer aims to use the knowledge to obtain a knowledgeable hypothesis space, reducting the cost of searching optimal parameters and making it easier to train an effective model. There are two typical approaches to transferring knowledge:
+
+- 1. Transfer learning
+  - that focuses on transferring model knowledge learned from *labeled data* to downstream task-specific models
+- 2. self-supervised learning
+  - that focuses on transferring model knowledge learned from *unlabeled data* to downstream task-specific models
+
+More generally, the essense of knowledge transfer is to use prior knowledge to constrain the hypothesis space
+
+$min_{f \in \mathcal{F_{k}}} (1/N) \sum_{i=1}^{N} \mathcal{L}(y_{i}, f(x_{i})) + \lambda \mathcal{J}(f)   $
+
+where \mathcal{F}_{k} is the knowledge-guided hypothesis space
+
+Knowledge transfer is widely used in NLP. The fine-tuning stage of PTMs is a typical scenario, which aims to transfer the versatile knowledge acquired in the pre-training stage to specific tasks. Intuitively, after pre-training a PTM, fine-tuning this PTM can be seen as narrowing down searching the task-specific parameters to a local hypothesis space around the pre-trained parameters rather than a global hypothesis space
+
+Prompt learning has also been widely explored in addition to fine-tuning PTMs. Despite the success of fine-tuning PTMs, it still faces two challenges. On the one hand, there is a gap between the objectives of pre-training and fine-tuning, since most PTMs are learned with language modeling objectives, yet downstream tasks may have quire different objective forms such as classification, regression, and labeling. On the other hand, as the parameter size of PTMs increases rapidly, fine-tuning PTMs has become resource-intensive. In order to alleviate these issues, prompts have been introduced to utilize the knowledge of PTMs in an effective and efficient manner
+
+Prompt learning aims at converting downstream tasks into a **cloze-style task** similar to pre-training objectives so that we can better transfer the knowledge of PTMs to downstream tasks. Taking prompt learning for sentiment classification as an example, a typical prompt consists of a template (e.e. It was [MASK]) and a label word set (e.g. great and terrible) as candidates for predicting [MASK]. By changing the input using the templates to predict [MASK] and mapping the prediction to corresponding labels, we can apply masked language modeling for sentiment classification
+
+the recently proposed large-scale PTM GPT-3 shows excellent performance of prompt learning in various language understanding and generatino tasks. In prompt learning, all downstream tasks are transformed to be the same as the pre-training tasks. And since the parameters of PTMs are frozen during prompt learning, the size of the hypothesis space is much smaller compared to fine-tuning, making more efficient knowledge transfer possible.
+
+PTMs also influence the paradigm of using symbolic knowledge in NLP. Many knowledge probing works show that by designing prompt, PTMs can even complete structured knowledge information. These studies show that PTMs, as good carriers of symbolic knowledge, can memorize symbolic knowledge well. These studies also indicate one factor that may contribute to the power of PTMs: knowledge can be spntaneously abstracted by PTMs from large-scale unstructured data and then used to solve concrete problems, and the abstracted knowledge matches well with the knowledge formed by human beings. INspired by this, we can further delve into how PTMs abstract knowledge and how PTMs store knowledge in their parameters, which is very meaningful for futher advancing the integration of symbolic knowledge and model knowledge. On the other hand, all these studies show the importance of knowledge-guided NLP. Compared with letting models slowly abstract knowledge from large-scale data, direclty injecting symbolic knowledge into models is amore effective solution.
+
+### 9.4.5 Summary
+
+Presented several ways in which knowledge can be used to guide NLP models, 4 categories
+
+- 1. knowledge augmentatino
+  - knowledge is introduced to augment the input data
+- 2. knowledge reformulation
+  - where special models are designed to interact with knowledge
+- 3. knowledge regularization
+  - where knowledge does not directly intervene the forward pass of the model but acts as a regularizer
+- 4. knowledge transfer
+  - whre knowledge helps narrow down the hypothesis space to achieve more efficient and effective model learning
+
+## 9.5 Knowledge Acquisition
+
+The KBs used in early expert systems and the KGs built in recent years both have long relied on manual construction. Ensures constructed with high quality, but is ineffecient, incomplete, and inconsistent (through the annotation process). Just doesnt scale
+
+Generally, we have several approaches to acquireing knowledge.
+
+- Knowledge graph completion (KGC)
+  - aims to obtain new knowledge by reasoning over the internal structure of KGs
+  - relies on the knowledge representation learning methods previously introduced
+- RE
+  - focuses on detecting relations between entities from external plain text
+  - can obtain more and broader knowledge than KGC
+
+As RE is an important way to acquire knowledge, many researchers have devoted extensive efforts to the field. Various statistical RE methods based on:
+
+- feature engineering
+- kernel models
+- probabilistic graphical models
+
+have been proposed and achieved promising results
+
+With the development of deep learning, NNs as a powerful tool for encoding semantics have further advanced the development of RE, incluring RNNs, CNNs, graph NNs.
+
+### 9.5.1 Sentence-Level Relation Extraction
+
+Sentence-level RE is the basis for acquiring knowledge from text to enrich KGs. Based on sentence-level semantics to extract relations between entities. Formally, given an input sentence s = {w1, w2, ..., wn} consisting of n words and an entity pair (e1, e2) in the sentence, sentence-level RE aims to obtain the probability distribution P(r|s, e1, e2) over the relatino set R(r \in R). Based on P(r|s, e1, e2) we can infer all relations between e1 and e2
+
+Learning an effective model to measure P(r|s, e1, e2) requires effort of three different aspects
+
+- first is to encode the input words into informative word-level features {w1, w2, ..., wn} that can well serve the relation classification process
+- train a sentence encoder, which can well encode the word-level features {w1, w2, ..., wn} into the sentence level feature s wrt the entity pair (e1, e2)
+- train a classifier that can well compute the conditional probability distribution P(r|s, e1, e2) over all relations r based on the sentence-level feature s
+
+#### Word-Level Semantics Encoding
+
+given the sentence s = {w1, w2, ..., wn} and entity pair (e1, e2), before encoding sentence semantics and futher classifying relations, we have to projcect the discrete words of the source sentence s into a continuous vector space to get the input representation w = {w1, w2, ..., wn}. widely used wor-level features invlude:
+
+- Word Embeddings
+  - aim to encode the syntactic and semantic information of words into distributed representations
+  - word2vec and GloVe
+- Position Embeddings
+  - aim to encode which input words belong to the target entities and how close each word is to the target entities
+  - for each word w, its position embedding is formalized as the combination of the relative distances from wi to e1 and e2
+  - since RE highly relies on word-level positional information to capture entity-specific spenatics, position embeddings are widely used in RE
+- Part-of-Speech (POS) Tag Embeddings
+  - aim to encode the word-level lexical information (e.g. nouns, verbs) of the sentence
+- Hypernym Embeddings
+  - aim to leverage the prior knowledge of hypernyms in WordNet
+  - compared to POS, hypernyms are finer-grained
+
+#### Sentence-Level Semantics Encoding
+
+Based on word-level features
+
+##### Convolutional Neural Network Encoders
+
+use convolutional layers to extract local features and then use pooling operations to encode all local features intoa fixed-sized vector
+
+PCNN adopts a piecewise max-pooling operation. All hiddne states {p1, p2, p3} are divided into three parts by the positions of e1 and e2. The max-pooling operation is performed on three segments respectively, and s is the concatenation of the three pooling results
+
+##### Recurrent Neural Network Encoders
+
+use recurrent layers to learn temporal features of the input sequence
+
+Besides pooling operations, attention operations can also combine all cocal features. Specifically, given the output states H = [h1, h2, ..., hn] produced by a recurrent model, s can be formalized as
+
+$\alpha = Softmax(q^{\top}f (H)  ), s = H \alpha^{\top}  $
+
+where q is a learnable query vector and f(.) is an ettention transformation function
+
+Some works propose to encode semantics from both the word sequence and tree-structured dependency of a sentence by stacking bidirectinoal path-based recurrent NNs. These path-based methods mainly consider the shortest path between entities in the dependency tree, and utilize stacked layers to encode the path as the sentence representation. Preliminary works have shown that these paths are informative in RE and poposed various recursive NNs for this
+
+##### Recursive NN Encoders
+
+aim to extract features based on syntactic parsing trees, considering that the syntactic information between target entities in a sentence can benefit classifying their relations. Generally, these encoders utilize th eparsing tree as the composition direction to integrate word-level features into sentence-level features. Introduce a recursive matrix-vector model that can capture the structure information by assigning a matrix-vector represetnation for each constituent in parsing trees. The vector can represent the constituent, and the matric can represent how the constituent modifies the word meaning it is combined with
+
+Further propose two tree-structured models, the Child-Sum Tree-LSTM and the N-ary Tree-LSTM. Given the parsing tree of a sentence, the transition equations of the Child-Sum Tree-LSTM are defined as:
+
+$h_{t} = \sum_{k\in C(t)} TLSTM(h_{k} )   $
+
+where C(t) is the children set of the node t, TLSTM(.) indicates a Tree-LSTM cell, which is simply modified from the LSTM cell, and the hidden states of the leaf nodes are the input features.
+
+#### Sentence-Level Relation Classification
+
+After obtainin the representaiton s of the input sentence s, we require a relation classifier to compute the conditional probability P(r|s, e1, e2). this can be obtained with
+
+$P(r|s, e_{1}, e_{2}) = Softmax(Ms + b) $
+
+where M is the relation matrix consisting of relation embeddings and b is a bias vector. Intuitively, using a Softmax layer to compute the conditional probability means that an entity pair has only one corresponding relation. However, sometimes multiple relations may exist between an entity pair. to this end, for each relation r \in R, some works perform relation-specific binary classification
+
+$P(r|s, e_{1}, e_{2}) = Sigmoid(r^{\top}s + b_{r}  )   $
+
+where r is the relation embedding of r and b_{r} is a relation-specific bias value
+
+### 9.5.2 Bag-Level Relation Extraction
+
+Although existing neural methods have achieved promising results in sentence-level RE, these neural methods still suffer from the problem of data scarcity since manually annotating training data is time-consuming and labor intensive. To alleviate, distant supervision has been introduced to automatically annotate training data by aligning existing KGs and plain text.
+
+The main idea of distant supervision is that sentences containing two entities may describe the relation of the two entities recorded in the KG. For example, given (New York, City of, USA) the distant supervision assumption regards all sentences that contain "New York" and USA as positive instances for the relation City of. Besides probiding massive training data, distant supervision also naturally rpvides a way to detect the relations between two given entities based on multiple senteces (bag level) rather than a single sentence (sentence level)
+
+Therefore, bag-level RE aims to predict the relations between two given entities by considering all sentences containing these entities, by highlighting those infomative examples and filtering out noisy ones
+
+Given the input sentence set S = {s1, s2, ..., sm} and an entity pair (e1, e2) contained by these sentence, bag-level RE aim to obtain the probability P(r|S, e1, e2) over the relation set
+
+Learning an effective model to measure P(r|S, e1, e2) requires effort from three different aspects:
+
+- encoding sentence-level semantics (including encoding word-level semantics)
+- encoding bag-level semantics
+- classifying relations
+
+#### Bag-Level Semantics Encoding
+
+For bag level RE, we need to encode bag-level semantics based on sentence-level representations. Formally, given a sentence bag S = {s1, s2, ..., sm} each sentence si has its own sentence representation si; a bag level encoder encodes all sentence representations into a single bag representation \hat{s}.
+
+some typical bag-level encoders:
+
+- Max encoders
+  - aim to select the most confident sentence in the bag S and use the representaiton of the selected sentence as the bag representation
+- Average encoders
+  - use the average of all sentence vectors to represent the bag
+  - the average encoder assumes all sentences contribute equally to the bag representation
+- Attentive Encoders
+  - use attention operations to aggregate all sentence vectors
+  - considering the inevitablle mislabeling problem introduced by distant supervision, average encoders may be affected by those mislabeled sentences
+
+Bag representation \hat{s} is defined as
+
+$\alpha = Softmax(q_{r}^{\top} f(S)), \hat{s} = S\alpha^{\top}  $
+
+where f(.) is an attention transformation fn and qr is the query vector of the related r.
+
+To further improve the attention operation, more sophisticated mechanisms such as:
+
+- knowledge-enhanced stategies
+- soft-labeling strategies
+- reinforcement learning
+- adversarial training
+
+have been explored
+
+#### Bag-Level Relation Classificatino
+
+similar to sentence level methods, when obtaining the bag representation \hat{s}, the probability P(r|S, e1, e2) is computed as
+
+$P(r|\mathcal{S}, e_{1}, e_{2}) = Softmax(M\hat{s} + b)  $
+
+where M is the relation matrix consisting of relation embeddings and b is a bias vector. For those methods performing relation-specific binary classificatino, the relation-specific conditional probability is given by
+
+$P(r|\mathcal{S}, e_{1}, e_{2}) = Sigmoid(r^{\top} \hat{s} b_{r})  $
+
+where r is the relation embedding of r and b_{r} is a relation-specific bias value
+
+### 9.5.3 Document-Level Relation Extraction
+
+A document may contain multiple entities that interact with each other ina complex way
+
+more than 40% of facts in human annotated dataset from Wikipedia requires considering the semantics of multiple sentences for their extraction, which is not negligible
+
+Due to being much more complex that sentence-level and bag-level RE, **document-level RE remains an open problem in terms of benchmarking and methodology**. For benchmarks that can evaluate the performance of document-level RE, existing datasets either:
+
+- only have a few manually annotated examples
+- have noisy distantly supervised annotations
+- serve only a specific domain
+
+Yao et al. manually annotate a large-scale and general-purpose dataset to support the evauation of document-level RE methods, named DocRED. nearly half the facts can only be extracted from multiple sentences
+
+#### Document-Level RE Methods
+
+The preliminary results on DocRED show that existing sentence-level methods cannot work well on docRED, indicating that document-level RE is more challenging that sentence-level RE.
+
+Note these are all within one document
+
+##### PTM-Based Methods
+
+Use PTMs as a backbone to build an effective document-level RE model. Although PTMs can effectively capture contextual semantic information from plain text for document-level RE, PTMs still cannot explicitly handle coreference, which is critical for modeling interactions between entities. Ye et al. introduce a PTM that captures coreference relations between entities to improve document-level RE
+
+##### Graph-Based Methods
+
+Construct document-level graphs based on syntactic trees, coreferences, and some human-designed heuristics to model dependencies in documents. To better model document-level graphs, Zeng et al constuct a path reasoning mechanism using graph NNs to infer relations between entities.
+
+##### Document-Level Distant Supervision
+
+Some works also propose to leverage document-level distant supervision to learn entity and relation representations. Based on well-designed heuristic rules, these distantly supervised methods perform effective data autmentation for document-level RE
+
+#### Cross-Document RE
+
+This is across multiple documents
+
+CodRED aims to acquire knowledge from multiple documents. Cross-document RE presents two main challenges:
+
+- 1. Given and entity pair, models need to retrieve relevant documents to establish multiple reasoning paths
+- 2. Since the head and tail entites come from different documents, models need to perform cross-document reasoning via briding entities to solve the relations
+
+### 9.5.4 Few-Shot Relation Extraction
+
+Although distant supervision can alleviate issues with annotation, the distantly supervised data also exhibits a long-tail distribution, i.e. most relations have very limited instances. Also suffers from mislabeling
+
+#### Few-Shot RE Methods
+
+FewRel is a large-scale supervised dataset for few shot RE, which requires models to handle relation classification with limited training instances. Some works:
+
+- Meta Learning and Metric Learning Methods
+  - demonstrate that meta-learning and metric learning can be well used
+  - Dong et al. propose to leverage meta information of relations (e.g. relation names and aliases) to guide initialization and fast adaptation of meta learning for few-shot RE
+- PTM-Based Methods
+  - utilize PTMs to handle few-shot RE and show surprising results
+  - use of PTMs can transfer the knowledge captured from unlabeled data to help solve the problem of data scarcity
+  - also can use contrastive learning based on PTMs which can be seen as more effective metric learning method.
+  FewRel, Soares' model can achieve comparable results to human performance
+
+#### Domain Adaptation and Out-of-Distribution Detection
+
+some more challenging few-shot scenarios, including domain adaptationa nd our-of-distribution detection.
+
+FewRel 2.0 was built
+
+few-shot RE is still a challenging open problem
+
+### 9.5.5 Open-Domain Relation Extraction
+
+Most RE systems regard the task as relation classification and can only deal with pre-defined relation types. However, relation types in the real-world corpa are typically in rapid growth. Handling emerging relations in the open-domain scenario is a challenging problem
+
+Three types:
+
+- extracting open relation phrases
+- clustering open relation types
+- learning with increasing relation types
+
+#### Extracting Open Relation Phrases
+
+Open information extraction (OpenIE) ains to extract semi-structured relation phrases. can deal with relations that are not predefined
+
+Traditional statistical methods typically design heuristic rules (e.g. syntactic and lexical constraints) to identify relation phrase candidates and filter out noisy ones via a relation discriminator. Neural OpenIE methods typically learn to generate relation phrases in an encoder-decoder architecture, ro identify relation phrases in the sentence via sequence labeling. the supervision for neural OpenIE models typically comes from the high-confidence results from the statistical methods. Advantage is taht minimal human efforts are required in both relation type deisgn and relation instance annotation. The relational phrases also exhibit good readability to humans. However, due to diversity of natural lanugage, the same relation type can have different surface forms in different sentences. Therefore, linking various surface forms of relation phrasese to the standardized relation types could be difficult
+
+#### Clustering Open Relation Types
+
+Aims to discover new relation types by clustering relational instances into groups. OpenRE methods typically learn disciminative representations for relational instances and cluster these open-domain sintances into groups
+
+Compared with OpenIE, OpenRE aims at clustering new types that are out of existing relation types, yet OpenIE only focuses on representing relations with language phrases to get rid of pre-defined types. Generally, the reuslts of OpenIE can be used to support the clustering of OpenRE. Elsahar et al. make an initial ettempt to obtain relational instance representations through rich features, including entity types and re-weighted word embeddings, and cluster these handcrafted representations to discover new relation types. Some works propose to inprove the learning and clustering of relational instance representations by using effective self-supervised signals. Notably, Wu et al. propose to transfer the relational knowledge from the supervised data of existing relations to the unsupervised data of open relations. Given labeled relational instances of existing relations, Wu et al. use a relational Siamese network to learn a metric space. Then, the metric space is transferred to measure the similarities of unlabeled sentences, based on which the clustering is performed. Inspired by Wu et al., Zhang et al. further leverage relation hierarchies to learn more discriminative metric space for the clustering of relational instance representations, where the instances of the nearby relations on hierarchies are encouraged to share similar representations. Moreover, since relational instance representations contain rich hierarchical information, the newly discovered relations can be directly appended to the existing relation hierarchy. OpenRE can deal with the diversity of relation surface forms by clustering. However, the specific semantics of relation clusters sill needs to be summarized through human efforts.
+
+#### Learning with Increasing RElation Types
+
+After discovering novel relations from the open corpa, the relation classifier needs to be updated to deal with both existing and new relations. A straightforward approach is to re-train the relation classifier using all the instances of existing and new relations together from scratch when new relations emerge. Not feasible cause of computational costs
+
+Continual relation learning aims to utilize the instances of novel relations to update a relation classifier continually. A significant challenge of continual relation learning is the catastrophic forgetting, where the performance on existing relations can degrade significantly. to address this problem, some works propose saving several instances for existing classes and re-training the classifier with these memorized instances and new data together. This learning process based on memorized instances is named *memory replay*. However, repeatedly updating the classifier with several memorized instances mya cause overfitting of existing relations. EMAR proposes episodic memory activation and reconsolidation mechanism to prevent the overfitting problem. the key idea is that the prototypes of the existing relations should remain disciminative after each time of replaying and activating memorized relation instances. In this way, EMAR can flexibly handle new relations without forgetting or overfitting existing relations.
+
+### 9.5.6 Contextualized Relation Extraction
+
+To further improve RE performance, many researchers are working on the contextualized RE by integrating multisource information
+
+#### Utilizing External Information
+
+Jointly learn knowledge and text representaitons within a unified semantic space via KG-text alignments. For the text part, word and sentence representations are learned via a CNN encoder. For the KG part, entity and relation representations are learned via translation-based methods. The learned representaitons of the KG and text parts are aligned during the training process, by using entity anchors to share word and entity representations as well as adopting mutual attention to make the sentence representations and knowledge representations enhance each other. Apart from the preliminary attempt, many efforts have been devoted to this direction
+
+#### Incorporating Relational Paths
+
+Existing RE systems still suffer from: models can only directly learn from sentences containing both target entities. however, those sentences containing only one of the target entities could also provide helpful information to help build inference chains. Zeng et al. introduce a path-based RE model incorporating textual relational paths so as to utilize the information of both direct and indirect sentences. The model employs an encoder to represent the semantics of multiple sentences and then builds a relation path encoder to measure the probability distribution of relations given the inverence path in text. Finally, the model combines information from both sentences and relational paths and predicts each relations confidence. This work is the preliminary effort to consider the knowledge relation paths in text RE. There are also several methods later to consider the reasoning paths of sentence semantic meanings for RE, such as using effective neural models like RNNs to learn relations paths, and using distant supervision to annotate implicit relation paths automatically.
+
+### 9.5.7 Summary
+
+There are various approaches to acquiring knowledge, but we typically focus on RE and group into 6 groups:
+
+- 1. sentence-level RE
+  - which focuses on extracting relations from sentences
+- 2. bag-level RE
+  - which focuses on extracting relations from the bags of sentences annotated by distant supervision
+- 3. document-level RE
+  - focuses on extracting relations from documents
+- 4. few-shot RE
+  - focuses on low-resource scenarios
+- 5. open-domain RE
+  - focuses on continually extracting open-domain relations that are not pre-defined
+- 6. contectualized RE
+  - focuses on integrating multi-source information for RE
+
+Note that knowledge acquisition does not JUST mean RE - also includes other methods:
+
+- KGC
+- event extraction
+- etc
+
+Lots of information inother modalities. How to obtain knowledge from these carriers is a problem worth of further consideration by researchers.

@@ -97,3 +97,16 @@ Essential features of a **good** word representation:
   - also, i feel like i need a kg to find who is publishing and the shortest path to someone
   - MuRP with a dimension as low as 40 achieves comparable results to the Euclidian models with dimensions greater than 100, showing the effectiveness of hyperbolic space in encoding relational knowledge
   - HyboNet uses Lorentz model and is an improvement on MuRP w/ Poincare
+- 9.4.1 KNET for entity typing
+- **Distant supervision**
+- **document-level RE remains an open problem in terms of benchmarking and methodology**
+  - DocRED dataset
+  - CodRED is good too
+  - https://arxiv.org/abs/1906.03158
+  - **few-shot RE is still a challenging open problem**
+  - https://aclanthology.org/2021.naacl-main.452/
+  - https://github.com/thunlp/ContinualRE/tree/master
+  - 9.5.6 Contextualized Relation Extraction
+    - combining kgs and text - several works noted, go back and review
+    - https://ojs.aaai.org/index.php/AAAI/article/view/11927
+  "Lots of information inother modalities. How to obtain knowledge from these carriers is a problem worth of further consideration by researchers."
