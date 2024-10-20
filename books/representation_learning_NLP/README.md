@@ -35,6 +35,8 @@ Essential features of a **good** word representation:
 
 ## [Chapter 12 - Biomedical Knowledge Representation Learning](./CHAPTER_12.md)
 
+## [Chapter 13 - OpenBMB: Big Model Systems for Large-Scale Representation Learning](./CHAPTER_13.md)
+
 - binary hashing
 - https://arxiv.org/abs/2001.04451 - Reformer 2020
 - https://arxiv.org/abs/2003.05997 - Routing Transformers 2020
