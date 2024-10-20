@@ -37,6 +37,8 @@ Essential features of a **good** word representation:
 
 ## [Chapter 13 - OpenBMB: Big Model Systems for Large-Scale Representation Learning](./CHAPTER_13.md)
 
+## [Chapter 14 - Ten Key Problems of Pre-trained Models: An Outlook of Representation Learning](./CHAPTER_14.md)
+
 - binary hashing
 - https://arxiv.org/abs/2001.04451 - Reformer 2020
 - https://arxiv.org/abs/2003.05997 - Routing Transformers 2020
@@ -124,3 +126,20 @@ Essential features of a **good** word representation:
   - the inverse dictionary stuff is pretty neat. may be worthwhile to implement as practice
   - sememes appear to be the future
   - honestly, JHUs nlp group with relation to biomedical may be very strong
+- ch 14:
+  - non-Euclidian geometries for neural network architectures
+- deep representation learning for multi-modal information retrieval through directionally augmented queries
+  - hyperplane
+  - orientation
+  - non-euclidian
+- general comment:
+  - there are all these models
+  - each models hidden states are fully relative
+  - like two models that operate on identical data are very, very different
+    - is there something that could be exploited there?
+    - two functionally equivalent models, io to io
+    - while the hidden states are indeed a black box to a human, what if there was an arbitrage process for model to exhange information in their latent spaces or hidden dimensions?
+    - like we have signals based on concrete shared inputs and shared outputs
+    - literally, could even use the same model arch, with weights trained on N different runs
+    - the stochastic nature of training is something to think about
+    - another question though: what is the difference between two distinct models, and two parallel paths within the "same" NN. Why arent neural components modular? well, because we have foregone explicit human understandable interface data structures for machine understandble data structures, with computational efficiency as a defining attribute
