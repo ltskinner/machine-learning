@@ -29,6 +29,8 @@ Essential features of a **good** word representation:
 
 ## [Chapter 9 - Knowledge Representation Learning and Knowledge-Guided NLP](./CHAPTER_9.md)
 
+## [Chapter 10 - Sememe-Based Lexical Knowledge Representation Learning](./CHAPTER_10.md)
+
 - binary hashing
 - https://arxiv.org/abs/2001.04451 - Reformer 2020
 - https://arxiv.org/abs/2003.05997 - Routing Transformers 2020
@@ -110,3 +112,8 @@ Essential features of a **good** word representation:
     - combining kgs and text - several works noted, go back and review
     - https://ojs.aaai.org/index.php/AAAI/article/view/11927
   "Lots of information inother modalities. How to obtain knowledge from these carriers is a problem worth of further consideration by researchers."
+- ch 10 - tokenizers
+  - are the current gen tokenizers sememe-grounded?
+  - can we use some GLINER framing to augment selection of sememe senses?
+  - the inverse dictionary stuff is pretty neat. may be worthwhile to implement as practice
+  - sememes appear to be the future
