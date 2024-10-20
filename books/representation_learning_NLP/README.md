@@ -31,6 +31,8 @@ Essential features of a **good** word representation:
 
 ## [Chapter 10 - Sememe-Based Lexical Knowledge Representation Learning](./CHAPTER_10.md)
 
+## [Chapter 11 - Legal Knowledge Representation Learning](./CHAPTER_11.md)
+
 - binary hashing
 - https://arxiv.org/abs/2001.04451 - Reformer 2020
 - https://arxiv.org/abs/2003.05997 - Routing Transformers 2020
