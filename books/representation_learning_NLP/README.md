@@ -33,6 +33,8 @@ Essential features of a **good** word representation:
 
 ## [Chapter 11 - Legal Knowledge Representation Learning](./CHAPTER_11.md)
 
+## [Chapter 12 - Biomedical Knowledge Representation Learning](./CHAPTER_12.md)
+
 - binary hashing
 - https://arxiv.org/abs/2001.04451 - Reformer 2020
 - https://arxiv.org/abs/2003.05997 - Routing Transformers 2020
@@ -119,3 +121,4 @@ Essential features of a **good** word representation:
   - can we use some GLINER framing to augment selection of sememe senses?
   - the inverse dictionary stuff is pretty neat. may be worthwhile to implement as practice
   - sememes appear to be the future
+  - honestly, JHUs nlp group with relation to biomedical may be very strong
