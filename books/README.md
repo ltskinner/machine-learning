@@ -2,6 +2,9 @@
 
 ## ML In General
 
+- [ ] [Probability and Statistics for Machine Learning](https://www.amazon.com/Probability-Statistics-Machine-Learning-Textbook/dp/3031532813/)
+- [ ] [Linear Algebra and Optimization for Machine Learning](https://www.amazon.com/Linear-Algebra-Optimization-Machine-Learning/dp/3030403432)
+- [ ] [Neural Networks and Deep Learning](https://www.amazon.com/Neural-Networks-Deep-Learning-Textbook/dp/3031296419/)
 - [ ] [Deep Learning: Foundations and Concepts](https://www.amazon.com/Deep-Learning-Foundations-Christopher-Bishop/dp/3031454677/)
 
 ## Representation Learning
