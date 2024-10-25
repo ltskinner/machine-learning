@@ -213,3 +213,54 @@ $min_{\theta} \mathbb{E}_{(x, y)~D} [\max_{x'} \mathcal{L}_{\alpha t}(x, x', b_{
 where D represents an underlying data distribution, and \theta is the network parameter. Herein, the b_{m} is the optimal representative code of the objective class
 
 ## 1.3 Evaluation Datasets and Protocols
+
+### 1.3.1 Publically Available Benchmark Datasets
+
+- Caltech-256
+  - 256 object categories
+- CIFAR-10
+  - 32x32 images of 10 classes
+- ESP-GAME
+  - multilabel 268 tags
+- ImageNet
+  - 1000 categories
+- MIRFlickr-25k
+  - multi-label dataset
+  - 24 labels
+- MNIST
+- MSCOCO
+  - 80 categories
+- NUS-WIDE
+  - 81 concept tags
+- SUN-397
+
+### 1.3.2 Widely Used Evaluation Protocols
+
+5 evaluation metrics
+
+#### Mean Average Precision (MAP)
+
+Good for overall accuracy evaluation.
+
+$AP(x_{q}) = (1/r_{k}) \sum_{k=1}^{m} P(k)I(k)  $
+
+where r_{k} denotes the number of relevant samples to x_{q}. P(k) represents the precision of the top k returned samples, and I(k) is an indicator function that constraints the value. I(k) = 1 IFF the k-th returned sample equals the ground-truth neighbor of x_{q}, else = 0
+
+Map is the mean of this
+
+$MAP(x_{q}) = (1/K) \sum_{q=1}^{K} AP(x_{q})  $
+
+Report MAP accuracy on the whole retrieved database. Can further illustrate MAP accuracy for top K samples as MAP@topK
+
+#### Normalized Discounted Cumulative Gain (NDCG@rankK)
+
+use to weigh the wuality of ranking
+
+$NDCG@rankK = (1/Z) \sum_{i=1}^{K} (2^{rel(i)} -1)/(\log (1+ i))  $
+
+where Z is the normalized constant, rel(i) is the similarity level, K is the number of retrieved images in rank list. In experiments, rel(i) is defined as the relevance indicator of a given rank
+
+#### Precision-Recall Curve
+
+- Precision@topK
+- Recall@topK
