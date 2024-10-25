@@ -8,3 +8,5 @@ Random stuff with no better home
 - normalization
   - A preprocessing step to scale input features to a common range (e.g. [0, 1] or mean 0 and variance 1 aka 'standard normal' distribution)
   - improves model convergence and performance, and ensures features are on comparable scales
+- monotonic
+  - a function that is always only increasing or only decreasing over its domain
