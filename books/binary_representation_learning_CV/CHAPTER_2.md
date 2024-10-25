@@ -210,4 +210,10 @@ In this way, the overall optimization algorithm is to alternatively optimize var
 
 ### 2.2.4 Out-of-Sample Extension
 
+In the query phase, the goal is to find the most similar items from the database, and we need to first compute the binary code b of a query x_{tt} which is outside of the training data. Motivated by the success of two-step learning, we first find the optimal projection matrix \Psi that transforms the high-dimensional nonlinear data points \phi(X) into the binary hashing codes B
 
+For simplicity, we directly use the linear regression model to train \Psi over the training dataset \phi(X). The regularized linear regression model is formulated as
+
+$\min_{\Psi} \|B - \Psi^{\top} \phi(X) \|_{F}^{2} + \lambda \| \Psi  \|_{F}^{2}  $
+
+where \lambda is the regularization parameter
