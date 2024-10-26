@@ -12,6 +12,11 @@ SSAH:
 
 The overall optimization algorithm is to alternatively optimize variables, i.e., W, U, V, R, and B until achieving convergence or reaching the maximum iterations.
 
+## [Chapter 3. Inductive Structure Consistent Hashing](./CHAPTER_3.md)
+
+"consider matrix factorization for hash code learning, since it has been proved to show superior performance in latent space learning"
+
+
 - what other data units? could this be applied to (()) stuff?
 - bro sheit --> is this good enough for some online stuff w F5?
 - hmm interesting paradigm.
@@ -22,3 +27,13 @@ The overall optimization algorithm is to alternatively optimize variables, i.e.,
 - "nonlinear anchor feature embedding"
   - this looks really interesting
   - https://proceedings.mlr.press/v216/shi23a/shi23a.pdf
+- Chapter 2 - SSAH
+  - The asymmetric nature is very strong
+  - I am curious if RNNs have been included? I feel like there is an innate hierarchy to them that may be able to effectively encode the semantic labels
+    - bro lmao peep the ch3 stacking encoder, this is not recurrent but seems to be same principle
+- Chapter 3 - ISCH
+  - spans three domains:
+    - visual
+    - semantic
+    - hamming
+  - ok, what if add 4th or improve upon semantic space and use knowledge graphs here?
