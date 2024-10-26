@@ -217,3 +217,98 @@ For simplicity, we directly use the linear regression model to train \Psi over t
 $\min_{\Psi} \|B - \Psi^{\top} \phi(X) \|_{F}^{2} + \lambda \| \Psi  \|_{F}^{2}  $
 
 where \lambda is the regularization parameter
+
+### 2.25 Convergence Analysis
+
+The convergence of the proposed optimization is guaranteed by:
+
+#### Theorum 2.1
+
+The alternating optimization steps will monotonously decrease the value of the objective function until it converges to a local optimum
+
+by always finding a closed-form or optimal solution for each subproblem, the obj funciton always decreases in each new iteration which is similar to EM optimization
+
+## 2.3 Experiment Evaluation
+
+Compared against:
+
+- unsupervised hashing methods
+  - IQT
+  - scalable graph hashing (SGH)
+  - sensity sensitive hashing (DSH)
+  - circulant binary embedding (CBE)
+- supervised hashing methods
+  - ITQ-CCA
+  - KSH
+  - latent factor hashing (LFH)
+  - COSDISH
+  - SDH
+  - SDH with relaxation (SDHR)
+  - fast SDH (FSDH)
+
+### Takeaways
+
+- supervised methods consistently outperform unsupervised
+- increasing code length boosts retrieval accuracy, but leads to longer training times
+
+#### 2.3.2.3. Convergence Analysis
+
+### 2.3.7 Discussion
+
+#### 2.3.7.1 Comparison with Deep Hashing Methods
+
+Deep NNs have made significant strides across various research areas, delivering promising outcomes. Excelled in feature representation and hash code generation. Produce efficient representations through nonlinear hashing functions
+
+- CNNH
+- DPSH
+  - end-to-end modl
+  - concurrently engage in feature and hash code learning to preserve pairwise dimilarities
+- DSH
+  - focuses on learnin gbinary codes that distinguish similar from dissimilar image pairs
+- group of approaches:
+  - DNNH
+  - DHN
+  - SuBiC
+  - HashNet
+  - ADSH
+  - DVStH
+  - these learn binary codes to preserve similarity
+  - often utilize supervised semantic labels for either constructing pairwise similarities, or classifying final binary codes
+
+SSAH differs in several ways:
+
+- integrate both pairwise similarities and pointwise semantic labels to generate high-quality binary codes, surpassing methods that only use one of these elements
+- preserves full-pairwise similarities in binary codes through a one-step encoding process, which is more effective than the batch-wise learning employed by other methods
+- unlike deep models like DPSH, DNNH and HashNet that use symmetric learning, this methods learns binary codes in an effective asymmetric discrete fashion
+- directly optimize binary codes in our discrete optimization alg, avoiding any relaxation, which sets method apart
+
+The superior performance of SSAH against deep methods is likely attributable to:
+
+- the quantization errors in these deep hashing methods are not effectively minimized due to continuous relaxation, leading to less-than-optimal feature representation for binary hash encoding
+- their failure to simultaneously leverage all principled semantics from both pairwise similarities and pointwise category information, resulting in the generation of suboptimal hash codes
+
+#### 2.3.7.2 Asymmetric Hashing Discussion
+
+Asymmetric hashing involves encoding query and database points using two distinct hash functions
+
+Asymmetric approaches:
+
+- SDH
+- COSDISH
+- SDHR
+- FSDH
+
+binary database codes are derived through discrete optimization, while unseen query codes are directly generated using learned hash functions. this method reduces quantization errors for database samples, leading to improved performance
+
+Asymmetric hashing has also been effective for rapid recommendation systems, such as the discrete collaborative filter, which learns discrete vectors for users and items to reconstruct observed ratings
+
+ADSH - first method to learn deep hash functions exclusively for query points before applying them to database codes
+
+SSAH in contrast, employes dual non-binary embedidngs for more precise full similarity preservation during the learning phase. It also aligns pairwise and pointwise semantics in the quantitiative asymmetric similarity approximation
+
+## 2.4 Conclusion
+
+Achieves superior performance through the development of dual-stream asymmetric hashing functions, derived from two approaches:
+
+- robust semantic information alignment
+- potent latent factor embedding
