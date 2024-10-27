@@ -16,6 +16,7 @@ The overall optimization algorithm is to alternatively optimize variables, i.e.,
 
 "consider matrix factorization for hash code learning, since it has been proved to show superior performance in latent space learning"
 
+## [Chapter 4. Probability Ordinal-Preserving Semantic Hashing](./CHAPTER_4.md)
 
 - what other data units? could this be applied to (()) stuff?
 - bro sheit --> is this good enough for some online stuff w F5?
@@ -37,6 +38,8 @@ The overall optimization algorithm is to alternatively optimize variables, i.e.,
     - semantic
     - hamming
   - ok, what if add 4th or improve upon semantic space and use knowledge graphs here?
+- Chapter 4 - POSH
+  - A significant challenge remains in further uncovering the intricate ordinal triplet correlations among samples while simultaneously constructing flexible semantic embeddings to generate effective hash codes
 
 ## Research Ideas
 
@@ -48,3 +51,6 @@ The overall optimization algorithm is to alternatively optimize variables, i.e.,
   - basically, they take a bunch of features from a VGG net and use it in processing. this pattern could be replicated across other non-image networks likely, depending on the architecture
   - it would be interesting to read into LSH and other dedicated text hashing techniques and see if we can do something similar.
     - note, the search space for "Text Hashing" is going to be an absolute mess my dude haha
+- CH4
+  - 4.2.3 - they use a simple similarity measure $s_{jk}^{i} = d(x_{i}, x_{j}) - d(x_{i}, x_{k})  $
+    - would be interesting to see if a different measures offered improvement
