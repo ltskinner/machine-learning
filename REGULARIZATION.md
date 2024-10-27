@@ -1,9 +1,4 @@
-# Loss
-
-- Normalized Temperature-scaled Cross-Entropy Loss
-  - Discovered in context of SimCSE (Sentence Contrastive Learning)
-
-## Regularization
+# Regularization
 
 A technique to prevent overfitting by adding a penalty term (like L1 or L2) to the loss function, discouraging overly complex models.
 
