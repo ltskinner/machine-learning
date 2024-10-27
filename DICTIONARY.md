@@ -10,3 +10,8 @@ Random stuff with no better home
   - improves model convergence and performance, and ensures features are on comparable scales
 - monotonic
   - a function that is always only increasing or only decreasing over its domain
+- semantics
+  - in text
+    - the meaning of words, sentences, and their relationships in a sentence
+  - in images
+    - the objects, scene, and their relationships in the visual space
