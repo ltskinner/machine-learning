@@ -37,3 +37,14 @@ The overall optimization algorithm is to alternatively optimize variables, i.e.,
     - semantic
     - hamming
   - ok, what if add 4th or improve upon semantic space and use knowledge graphs here?
+
+## Research Ideas
+
+- CH3 mentions BRE
+  - "minimizes the reconstruction error between Euclidian distances of original data and Hamming distances of the corresponding binary codes"
+  - **can we find a dataset with some hierarchical external features and minimize the reconstruction error between hyperbolic distances of original data and Hamming distances of corresponding binary codes?**
+- CH3
+  - see Remark 3.3
+  - basically, they take a bunch of features from a VGG net and use it in processing. this pattern could be replicated across other non-image networks likely, depending on the architecture
+  - it would be interesting to read into LSH and other dedicated text hashing techniques and see if we can do something similar.
+    - note, the search space for "Text Hashing" is going to be an absolute mess my dude haha

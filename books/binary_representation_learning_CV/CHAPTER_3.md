@@ -135,3 +135,230 @@ To preserve the interactive connections between the visual space, the constructe
 $\min_{D, Q, \hat{Z}, V, B, \theta} \|X - DV \|_{F}^{2} + \beta \|B - QV \|_{F}^{2} + \gamma \|X - \hat{Z}B \|_{F}^{2} + \|V - f_{ce}(L;\theta) \|_{F}^{2} s.t. B \in \{-1, 1 \}^{r \times n}, B^{\top}1 = 0, \|d_{i} \|_{2}^{2}, Q^{\top}Q = I, \hat{Z}^{\top}\hat{Z} = I_{r} $
 
 where \beta and \gamma are the weighting parameters to balance the importance of different terms. The objective function aims to minimize the transferring error from visual to semantic features, meanwhile preserving the consistent visual and semantic structures in the learned discrete hashing codes
+
+### 3.2.6 Optimization
+
+The problem is a non-convex problem due to the discrete contraint and non-convex multi-layer encoder. Because there is no direct solution to all variables, we employ an iterative learning scheme to generate a local optimum by alternatively updating each parameter when fixing others. We first randomly initialize varibales \theta, binary codes B, and rothogonal matrices Q and \hat{Z} and then encode the semantic labels L into V. The whole alternating procedure is shown as follows.
+
+#### D-Step
+
+When fixing other variables, problem 3.6 can be degenerated as the following subproblem
+
+$\min_{D} \|X - DV   \|_{F}^{2} s.t. \|d_{i} \|_{2}^{2} \leq 1  $
+
+which is a classical **dictionary learning** problem and can be solved by its Langrange dual.
+
+The Langrange dual function is:
+
+$\mathcal{L}(\labmda) = \inf(\|X - DV \|_{F}^{2} + \sum_{i=1}^{r} \lambda_{i}(\|d_{i} \|^{2} -1) )  $
+
+Where \lambda_{i} is the Lagrange multiplier of the i-th ihnequality constraint of dictionary atoms. The solution of above is:
+
+$D = XV^{\top}(VV^{\top} + \Lambda)^{-1}  $
+
+where \Lambda is a diagonal matrix and its diagonal entry $\Lambda_{ii} = \lambda_{i} (i=1, 2, ..., r) $
+
+#### Q-Step
+
+When fixing other variables, problem wrt Q becomes the following subproblem:
+
+$\min_{Q} \|B - QV  \|_{F}^{2} s.t. Q^{\top}Q = I_{r}  $
+
+which is the well-known Orthogonal Procrustes problem and has a closed-form solution given by the following lemma
+
+##### Lemma 3.1
+
+Suppose U_{0} and P_{0} are the left and right singular matrices of Singular Value Decomposition (SVD) on (BV^{\top}). Then the optimal solution of 3.10 is Q* = U_{0}P_{0}^{\top}
+
+### \hat{Z}-Step
+
+Similarly, when fixing other variables, problem wrt \hat{Z} becomes the following subproblem:
+
+$\min_{\hat{Z}} \| X - \hat{Z}B \|_{F}^{2} s.t. \hat{Z}^{\top}\hat{Z} = I_{r}  $
+
+which has th esame form of problem 3.10. Based on Lemma 3.1, the analytic solution for problem 3.11 is given by:
+
+$\hat{Z} = U_{1}P_{1}^{\top}  $ where U_{1} and P_{1} are the left and right singular matrices of XB^{\top} respectively
+
+### V-Step
+
+V will be reformulated as the following subproblem
+
+$\min_{V} \| X - DV \|_{F}^{2} + \beta \| B - QV \|_{F}^{2} + \| V - f_{ce}(F;\theta)\|_{F}^{2}  $
+
+which has the closed form solution by wetting the gradient of the problem wrt V to zero. We have
+
+$V = (D^{\top}D + (\beta + 1) I_{r})^{-1} (D^{\top}X + Q^{\top}B + f_{ce}(L;\thata) )$
+
+Clearly there is a nonlinear stacking encoder term $\| V - f_{ce}(L;\theta) \|_{F}^{2}  $, which may jeapordize the final efficient convergence of problem 3.13. For seeking a local optimum with fast convergence, we remove the class-encoder term here, and then the following approximated solution is given by:
+
+$D = (D^{\top}D + \beta I_{r} )^{-1} (D^{\top}X + Q^{\top}B  )  $
+
+### B-Step
+
+$min_{B} \beta \| B - QV \|_{F}^{2} + \gamma \| X - \hat{Z}B \|_{F}^{2}  s.t. B \in \{-1, 1 \}^{r \times n}, B^{\top}1 = 0  $
+
+Due to $Tr(BB^{\top}) = rn $, $Q^{\top}Q = I  $, and $\hat{Z}^{\top}Z = I  $, this can be rewritten as the following optimization problem:
+
+$\max_{B} B^{\top} (\beta QV + \gamma \hat{Z}^{\top}X) s.t. B \in \{-1, 1 \}^{r \times n}, B^{\top}1 = 0  $
+
+which means mapping $\Psi = \beta QV + \gamma \hat{Z}^{\top}X  $ onto a balanced Hamming space. The optimal solution for the problem is:
+
+$B = sgn(\Psi - median(\Psi) )  $
+
+where median(\Psi) is the median function of matrix \Psi
+
+### F-Step
+
+When fixing the other variables, we need to update the three-layer stacking class-encoder term, i.e. $\min_{\theta} \| V - f_{ce}(L;\theta)\|_{F}^{2} = \| V - W_{2}^{\top} g(W_{1}^{\top} L) \|_{F}^{2}  $, which can be solved by gradient descent (GD). To avoid the over-fitting of weights, we add the Frobenius norm as the regularization term, and then we need to minimize:
+
+$\mathcal{F}(W_{1}, W_{2}) = \| V - W_{2}^{T} g(W_{1}^{T}L)\|_{F}^{2} + \eta( \|W_{1}\|_{F}^{2} + \|W_{2}\|_{F}^{2} )  $
+
+where \eta is a regularization parameter (\eta = 0.01 in experiments)
+
+Some derivative equations
+
+The optimization algorithm iteratively updates the setps until it reaches either a local optimum or the pre-established max number of iterations. To minimize computational complexity, we opt for a modified approach where the update of the F step is performed after serveral main iteratinos, specifically every three iterations. This adjustment does not compromise the fundamental goal of constructing the inductive semantic space, which is to identify a viable and adaptable latent subspace. Such a subspace is cruicial for facilitating effective communication between the visual space, the semantic class space, and the discrete Hamming space
+
+### 3.2.7 Out-of-Sample Extension
+
+Typically, an effective hashing system should be capable of extending its learning to generate high-quality hash codes for new instances that were not part of the training dataset, without the need to retrain the entire model - this is called the `"out-of-sample" problem`
+
+Thus far, focus has been on learning optimal binary codes B for a predefined set of training data X using our learning algorithm. To address the generation of binary codes for new data points, as inspired bu the successful two-step hashing technique 21, it is necessary to establish a hash mapping function: $F: X \rightarrow B  $. This function is designed to create binary codes for any new data encountered. In this context, our work employs a straightforward linear regression method to learn this requisite hash function.
+
+Specifically, given the learned binary codes B, the mapping function is formulated by optimizing:
+
+$\min_{P} \| P^{T}X - B\|_{F}^{2} + \| P \|_{F}^{2}  $
+
+which has a closed-form solution, i.e.,
+
+$P = (XX^{T} + I)^{-1} XB^{T}  $
+
+As such, we can generate the binary codes for the new query q by using sgn(P^{T}q)
+
+## 3.3 Experiments
+
+### 3.3.1 Datasets
+
+- CIFAR-10
+- NUSWIDE
+- ImageNet
+- MSCOCOC
+
+use two single-label datasets and two multi-label datasets. Use both handcrafted features and deep learning features to thoroughly asses the performance of various methods
+
+For CIFAR-10, extract 512 dimensional GIST features
+
+for NUS-WIDE, use provided 500-dimensional bag of words features
+
+For both datasets, implement 1000-dimensinoal nonlinear anchor features to enhance feature interpretation, following the approach in 27
+
+For ImageNet and MUSCOCO, we evaluate the 4096-dimensional deep CNN features extracted from the pre-trained VGG16-fc7 layer.
+
+### 3.3.2 Experimental Settings
+
+#### 3.3.2.1 Comparison Methods
+
+Unsupervised hashing methods ITQ, SGH, DSH, OCH
+
+- ITQ
+  - Well-known, which constructs an orthogonal rotation matrix to minimize the quantization error of mapping the real-valued features to compact binary codes
+- SGH
+  - graph hashing method that approximates the whole cumbersome large graph through feature transformation and employs a sequential learning model for bit-wise hash functions generation
+- DSH
+  - utilizes the geometric structure of the data to guide and select the random projection functions as the optimal hash functions
+- OCH
+  - considers the permutation relations among samples based on the constructed ordinal graph to preserve the ranking similarities into the objective binary codes
+
+12 sota supervised hashing methods BRE, KSH, ITQ-CCA, FashHash, LFH, SDH, NSH, SDHR, FSDH, BSH, FDCH, and R2SDH
+
+- BRE
+  - minimizes the reconstruction error between Euclidian distances of original data and Hamming distances of the corresponding binary codes
+- KSH
+  - formulates a kernel-based supervised hashing scheme by preserving pairwise correlations between samples into the learned binary codes
+- ITQ-CCA
+  - initializes the lower dimensional features by using the supervised CCA algorithm within the ITQ framework
+- FashHash
+  - employs decision trees as the nonlinear hash functions for supervised hash code learning
+- LFH
+  - learns similarity-preserving binary codes based on latent factor models with stochastic learning
+- SDH
+  - integrates optimal binary codes learning and the linear classification loss
+- NSH
+  - builds the structure-preserving transformation between the label vectors and target binary codes
+- SDHR
+  - optimizes SDH by retargetting the regression space with a large margin constraint
+- FSDH
+  - reformulates SDH by regressing the class labels to the corresponding hash codes
+- BSH
+  - supervised semantic hashing method under the Bayesian probabilistic treatment, which can adaptively figure out the importance of different hash bits and identify the regularization hyper-parameters to generate compact but informative hash codes
+- FDCH
+  - employs the regressive labels as the semantic embeddings with a drift error term for hash code learning
+- R2SDH
+  - improves the robustness of SDH by replacing the original least regression loss by a correntropy loss, meanwhile a rotational transformation on the label matrix is added to promote its flexibility
+
+#### 3.3.2.2 Evaluation Protocols
+
+- Mean Average Precision
+- precision at top 500 results
+- Normalized Discounted Cumulative Gain at rank 100
+
+### 3.3.3 Experimental Results
+
+#### 3.3.3.1 Accuracy Comparison with the State of the Arts
+
+Across the board, retrieval accuracy, as measured by the three metrics, remains consistent regardless of the changes in code lengths
+
+The effectiveness of the method is largely due to the use of induced mid-level semantic representations, which possess clear semantic meanings capable of effectively bridging the gap between low-level visual features and high-level semantic information
+
+#### Remark 3.2
+
+The ISCH models performance can be largely attributed to its effective preservation of semantic consistency across three distinct domains. This is achieved by transforming semantic labels into a malleable inductive space using an efficient stacking class-encoder. Alongside, the thoughfully crafted visual-semantic bridging approach fosters an interactive learning environment for semantic calibration, thereby augmenting the inductive semantics to more accurately reflect key visual semantic elements. Cruically, the comprehensive learning framework of ISCH is adept at retaining rich and discering semantic information from both the visual and category-level semantics. This integration is cruicial for the generation of learned hash codes. It is this capability to encapsulate such informative and discriminative semantic content that underpins the remarkable performance of ISCH on the CIFAR-10 dataset
+
+#### Remark 3.3
+
+is competitive on MSCOCO, but not OP. one potential explanation for this is the inherent challenge posed by the datasets multi-label class-imbalance characteristic. specifically, the inductive space derived from the presence of multiple imbalanced class labels can lead to the complex issue of label coupling. Technically, the visual-semantic bridging module addresses this label bias problem, but the visual features extracted from the VGG network, which was pre-trained on the single-label ImageNet, may predominantly influence the class-encoder toward capturing fundamental semantic information. Consequently, out models learned features tend to preserve the primary semantic components of visual semantics, resulting in impressive top-K ranking accuracy
+
+#### 3.3.3.2 Comparison with Deep Hashing Methods
+
+Deep hashing methods can naturally encode effective deep representations by any nonlinear hashing functions
+
+- CNNH+
+- DLBHC
+- DNNH
+- DHN
+- DSH
+- KSH-CNN
+- DSRH
+- DRSCH
+- BDNN
+- DPSH
+- SuBiC
+- HashNet
+- DVStH
+
+bro, this approach "consistently surpasses all of the deep hashing methods used for comparison"
+
+This compelling performance differential underscores the effectiveness of our proposed learning framework. Several key factors:
+
+- 1. The preservation of structurally consistent semantics within the learned binary codes during a single-step encoding process sets the method apart from deep learning approaches that **rely on multiple batch-wise learning iterations**. This structural consistency enhances the quality of our binary codes
+- 2. the adept transformation of semantic labels into adaptable parameters for hashing function learning. the transformation enables optimizing the semantics used to guide the generation of discriminative binary codes, resulting in hash codes that maintain semantic coherence
+
+### 3.3.4 Further Evaluation
+
+#### 3.3.4.1 Ablation Study
+
+Four degradation variants:
+
+- ISCH-I removes the inductive semantic space and randomly initializes V
+- ISCH-S replaces f_{ce} with a sinle linear projection
+- ISCH-V removes the visual-semantic bridging module
+- ISCH-P removes the prototype binary codes learning part
+
+#### 3.3.4.2 Efficiency Comparison
+
+#### 3.3.4.3 Convergence and Sensitivity Analysis
+
+#### 3.3.4.4 Visualization
+
+## 3.4 Conclusion
