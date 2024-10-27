@@ -18,6 +18,8 @@ The overall optimization algorithm is to alternatively optimize variables, i.e.,
 
 ## [Chapter 4. Probability Ordinal-Preserving Semantic Hashing](./CHAPTER_4.md)
 
+## [Chapter 4. Ordinal-Preserving Latent Graph Hashing](./CHAPTER_5.md)
+
 - what other data units? could this be applied to (()) stuff?
 - bro sheit --> is this good enough for some online stuff w F5?
 - hmm interesting paradigm.
