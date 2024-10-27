@@ -14,6 +14,12 @@
 
 Similarity search --> Information Geometry instead of Euclidian
 
+### Manifold Learning
+
+- [ ] [Manifold Learning: Model Reduction in Engineering](https://www.amazon.com/Manifold-Learning-Reduction-Engineering-SpringerBriefs/dp/3031527631/)
+  - note this is a short boi, only 100 pages
+- [ ] [Elements of Dimensionality Reduction and Manifold Learning](https://www.amazon.com/Elements-Dimensionality-Reduction-Manifold-Learning/dp/3031106016/)
+
 ## Information X
 
 ### Information Geometry
