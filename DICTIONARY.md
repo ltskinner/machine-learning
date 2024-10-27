@@ -24,3 +24,33 @@ Random stuff with no better home
 | NP (Nondeterministic Polynomial Time) | Problems where a given solution can be verified efficiently | Unknown, but may be exponential | Polynomial Time | Sudoku solution verification | Contains P; NP-complete problems are the hardest in NP |
 | NP-Complete | Problems that are both in NP and NP-hard | Unknown, likely exponential | Polynomial Time | 3-SAT, Graph Coloring | Solving any NP-complete problem efficiently would imply P = NP |
 | NP-Hard | Problems that are at least as hard as NP-complete problems, but not necesarily in NP | Unknown, possibly not even verifiable in polynomial time | May not be verifiable in polynomial time | Traveling Salesman Problem | If an NP-hard problem is in NP, its NP-complete |
+
+## Convex and Non-Convex Optimization Problems
+
+### Convex
+
+The feasible region (constraint set) is a convex set (e.g. a line segment connecting any two points in the set lies entirely within the set)
+
+Characteristics:
+
+- Single glboal minimum
+  - no local minima other than the global minimum, making optimization easier
+- Efficient algorithms
+  - Solvers like Gradient Descent can converge reliably
+- P complexity
+  - Many convex problems have efficient solutions
+
+Easier to optimize and guarantee global optimal solutions but may be limited in their expressiveness
+
+### Non-Convex
+
+Some parts of the constraint set may not be connected
+
+Characteristics:
+
+- Multiple local minima
+  - many sub-optimal solutions that gradient-based methods can get stuck in
+- Requires heuristics
+  - methods like random restarts, simulated annealing, and evolutionary algorithms are often used
+
+More expressive but challenging to optimize due to presence of multiple local optima
