@@ -18,7 +18,9 @@ The overall optimization algorithm is to alternatively optimize variables, i.e.,
 
 ## [Chapter 4. Probability Ordinal-Preserving Semantic Hashing](./CHAPTER_4.md)
 
-## [Chapter 4. Ordinal-Preserving Latent Graph Hashing](./CHAPTER_5.md)
+## [Chapter 5. Ordinal-Preserving Latent Graph Hashing](./CHAPTER_5.md)
+
+## [Chapter 6. Deep Collaborative Graph Hashing](./CHAPTER_6.md)
 
 - what other data units? could this be applied to (()) stuff?
 - bro sheit --> is this good enough for some online stuff w F5?
@@ -56,3 +58,11 @@ The overall optimization algorithm is to alternatively optimize variables, i.e.,
 - CH4
   - 4.2.3 - they use a simple similarity measure $s_{jk}^{i} = d(x_{i}, x_{j}) - d(x_{i}, x_{k})  $
     - would be interesting to see if a different measures offered improvement
+- General:
+  - dude is there subsearch?
+  - like if you have a picture of an object and its say 90% of a given image
+  - how to go search for that object in a larger scene, where its only 5% of the image?
+  - what is this problem frame called?
+  - dude the multi-modal angle
+    - start search with either image or text, retrieve either image or text
+    - like imagine "red camry with north dakota license plate PLX-459"
