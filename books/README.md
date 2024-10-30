@@ -10,7 +10,7 @@
 ## Representation Learning
 
 - [x] [Representation Learning for Natural Language Processing](https://www.amazon.com/Representation-Learning-Natural-Language-Processing/dp/9819915996/ref=sr_1_2?)
-- [ ] [Binary Representation Learning on Visual Images: Learning to Hash for Similarity Search](https://www.amazon.com/Binary-Representation-Learning-Visual-Images-ebook/dp/B0CX83R73K/ref=tmm_kin_swatch_0?)
+- [x] [Binary Representation Learning on Visual Images: Learning to Hash for Similarity Search](https://www.amazon.com/Binary-Representation-Learning-Visual-Images-ebook/dp/B0CX83R73K/ref=tmm_kin_swatch_0?)
 
 Similarity search --> Information Geometry instead of Euclidian
 

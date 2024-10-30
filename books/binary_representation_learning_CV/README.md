@@ -22,6 +22,8 @@ The overall optimization algorithm is to alternatively optimize variables, i.e.,
 
 ## [Chapter 6. Deep Collaborative Graph Hashing](./CHAPTER_6.md)
 
+## [Chapter 7. Semantic-Aware Adversarial Training](./CHAPTER_7.md)
+
 - what other data units? could this be applied to (()) stuff?
 - bro sheit --> is this good enough for some online stuff w F5?
 - hmm interesting paradigm.
