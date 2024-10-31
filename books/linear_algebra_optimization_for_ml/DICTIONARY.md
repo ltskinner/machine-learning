@@ -1,0 +1,58 @@
+# Dictionary: Linear Algebra and Optimization
+
+- nxn vector
+  - (column x rows)
+  - abCdef....qRst.... columns come before rows
+- `row vector`
+  - 1xd
+  - 1x2 = (12, 3)
+  - 1x3 = (3, 0, 7)
+- `column vector`
+  - vectors are assumed to be column vectors, unless specified otherwise
+  - nx1
+  - 2x1:
+    - 23
+    - 7
+  - 3x1:
+    - 7
+    - 8
+    - 1
+- `scalars`
+  - individual numerical values typically drawn from the real domain in most ML applications
+- `vectors`
+  - arrays of numerical values (i.e. arrays of scalars)
+  - each numerical value is referred to as a `coordinate`
+  - The individual numerical values of the arrays are referred to as `entries`, `components`, or `dimensions`
+  - the number of `components` is referred to as the vector `dimensionality`
+- `matrices`
+  - rectagular arrays of numerical values containing both rows and column
+  - to access a value, must specify its row index and column index
+  - d properties of n individuals
+    - size is n x d
+  - n rows of individuals
+    - containing d properties
+  - the value of the (i,j)th entry of the matrix is:
+    - jth property of the ith individual
+  - $A = [a_{ij}]_{n \times d}$
+  - `square matrix`
+    - when rows = columns
+  - `rectangular matrix`
+    - a non-square matrix
+    - tall when more rows than columns
+    - wide when more columns than rows
+- `commutative`
+  - the order of numbers does not matter
+  - A + B = B + A
+- `Euclidian norm` aka `squared norm`
+  - The norm defines the vector length and is denoted by $\|.\|$
+  - converts to a unit vector
+- `Manhattan norm` or `L_{1}-norm`
+  - this is basically just taking the sum of the absolute values
+- `attributes` aka `variables`
+  - correspond to dimensions in vector space
+- `vector space`
+  - ex. the infinite set of all possible cartesian coordinates in two dimensions in relation to the origin
+- `Linear algebra`
+  - can be viewed as a generalized form of the geometry of cartesian coordinates in d dimensions
+
+
