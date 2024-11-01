@@ -54,5 +54,10 @@
   - ex. the infinite set of all possible cartesian coordinates in two dimensions in relation to the origin
 - `Linear algebra`
   - can be viewed as a generalized form of the geometry of cartesian coordinates in d dimensions
-
-
+- `orthogonal`
+  - A pair of vectors is `orthogonal` if their dot product is 0 (and the angle between them is 90).
+  - The vector \bar{0} is considered orthogonal to every vector.
+- `orthonormal`
+  - A set of vectors is `orthonormal` if each pair in the set is mutually orthogonal and the norm of each vector is 1.
+- `coordinate transformation` or `projection`
+  - compute a new set of coordinates with respect to a changed set of directions

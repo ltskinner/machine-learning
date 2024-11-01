@@ -72,3 +72,39 @@ $\|\bar{x} - \bar{y}\|^{2} = (\bar{x} - \bar{y}) \cdot (\bar{x}-\bar{y} ) = sum_
 Dot products satisfy the *Cauchy-Schwarz inqeuality*, accoding to which the dot product between a pair of vectors id bounded above by the product of their lengths
 
 $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar{y}\|  $
+
+The ratio between the two quantities is the cosine of the angle between the two vectors
+
+- `polar form`
+  - $[a, \theta]$
+  - a is the length of the vector
+  - \theta is the counter clock wise angle the vector makes with the X axis
+- `cartesian form`
+  - $[a \cos(\theta), a \sin(\theta)]  $
+  - the dot porduct with [0,1] (the X-axis) is $a \cos(\theta)  $
+
+The cosine fn between two vectors is algebraically defined by the dot product between the two vectors *after* scaling them to unit norm:
+
+$\cos(\bar{x}, \bar{y}) = \frac{\bar{x} \cdot \bar{y}}{\sqrt{\bar{x}\cdot \bar{x}} \sqrt{\bar{y}\cdot \bar{y}}} = \frac{\bar{x} \cdot \bar{y}}{\|\bar{x}\| \|\bar{y}\|}  $
+
+`cosine law` from Euclidean geometry:
+
+$\cos(\theta) = \frac{a^{2} + b^{2} - c^{2}}{2ab} = \frac{\|\bar{x}\|^{2} + \|\bar{y}\|^{2} - \| \bar{x} - \bar{y}\|^{2}}{2(\|\bar{x}\|)(\|\bar{y}\|)} = \frac{\bar{x}\bar{y}}{\sqrt{\bar{x}\cdot \bar{x}}\sqrt{\bar{y}\cdot\bar{y}}}  $
+
+A pair of vectors is `orthogonal` if their dot product is 0 (and the angle between them is 90). The vector \bar{0} is considered orthogonal to every vector.
+
+A set of vectors is `orthonormal` if each pair in the set is mutually orthogonal and the norm of each vector is 1.
+
+Orthonormal directions are useful because they are employed for transformations of points across different orthogonal coordinate systems with the use of 1-dimensional `projections` 
+
+- `coordinate transformation` or `projection`
+  - compute a new set of coordinates with respect to a changed set of directions
+
+Consider the point [10, 15]. Imagine given two orthonormal directions [3/5, 4/5] and [-4/5, 3/5] - compute the dot product to project
+
+- x' = 10*(3/5) + 15*(4/5) = 18
+- y' = 10*(-4/5) + 15*(3/5) = 1
+
+These types of transformations of vectors to new representaitons lie at the heart of linear algebra. In many cases, transformed representations of data sets have useful properties, which are exploited by ML applications.
+
+### 1.2.2 Basic Operations with Vectors and Matrices
