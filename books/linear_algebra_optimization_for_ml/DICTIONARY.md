@@ -1,8 +1,6 @@
 # Dictionary: Linear Algebra and Optimization
 
-- nxn vector
-  - (column x rows)
-  - abCdef....qRst.... columns come before rows
+
 - `row vector`
   - 1xd
   - 1x2 = (12, 3)
@@ -61,3 +59,16 @@
   - A set of vectors is `orthonormal` if each pair in the set is mutually orthogonal and the norm of each vector is 1.
 - `coordinate transformation` or `projection`
   - compute a new set of coordinates with respect to a changed set of directions
+- Matrix multiplication is NOT `commutative`, but it is
+  - `associative` - A(BC) = (AB)C
+  - `distributive` - A(B+C) = AB + AC, (B+C)A = BA + CA
+  - takes the dot product of
+    - a row from the first matrix
+    - a column of the second matrix
+  - $C_{ij} = \sum_{k=1}^{n} A_{ik}B_{kj} $
+  - reads as: Each element in C_{ij} is the result of:
+    - summing:
+      - the products of the corresponding elements from:
+        - i-th row of A
+        - j-th column of B
+      - for each index k, up to n number of rows

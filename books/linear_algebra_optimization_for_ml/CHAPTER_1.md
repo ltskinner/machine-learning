@@ -108,3 +108,74 @@ Consider the point [10, 15]. Imagine given two orthonormal directions [3/5, 4/5]
 These types of transformations of vectors to new representaitons lie at the heart of linear algebra. In many cases, transformed representations of data sets have useful properties, which are exploited by ML applications.
 
 ### 1.2.2 Basic Operations with Vectors and Matrices
+
+The `transpose` of a matrix is obtained by flipping its rows and columns. The (i,j)th entry of the transpose is the same as the (j,i)th of the original. comes from an n x d matrix to a d x n matrix, denoted as $A^{\top} $
+
+Like vectors, matrices can be added only if they have the same size
+
+- 3x2 times 2x1 (inner dimensions the same)
+  - --> 3x1 (outer dimensions become dimensions of resultant)
+- 1x3 x 3x2 = 1x2
+
+The multiplication of an nxd matric with a d dimensional column vector creates an n-dimensional column vector, is often interpreted as a *linear transformation* from d-dimensional space to n-dimensional space
+
+the nxd matrix A is occasionally represented in terms of its ordered set of n-dimensional columns $\bar{a}_{1}...\bar{a}_{d} $ as $A [\bar{a}_{1}...\bar{a}_{d}]  $. This results in the following form of *matrix-vector multiplication* using the columns of A and a column vector $\bar{x} = [x_{1}...x_{d}]^{\top}  $ of coefficients:
+
+$A\bar{x} = \sum_{i=1}^{d}x_{i}\bar{a}_{i} = \bar{b}  $
+
+Each x_{i} corresponds to the "weight" of the i-th direction of $\bar{a}_{i}$, which is also referred to as the ith *coordinate* of \bar{b} using the (possibly non-orthogonal) directions contained in the columns of A. This notation is a generalization of the (orthogonal) Cartesian coordinates defined by d-dimensional vectors $\bar{e}_{i}...\bar{e}_{i}  $, where each e is an axis direciton with a single 1 in the ith position and remaining 0s
+
+The dot product between two vectors can be viewed as a special case of matrix-vector multiplication
+
+the outer product between two vectors is a nxn matrix, denoted by $\bar{x} \cross \bar{v}  $. The "tall" matrix is alwasy ordered before the "wide" matrix:
+
+- 3x1 times 1x3 = 3x3
+
+Unlike dot products, the outer product can be performed between two vectors of different lengths.
+
+Conventionally, outer products are defined between two column vectors, and the second vector is transposed into a matrix containing a single row before matmul
+
+$(UV)_{ij} = \sum_{r=1}^{k} u_{ir}v_{rj}  $
+
+### Problem 1.2.2 (Outer Product Properties)
+
+Show that if an nx1 matrix is multipled with a 1xd matrix (which is also an outer product between two vectors), we obtain an nxd matrix with the following properties:
+
+- Every row is a multiple of every other row
+- Every column is a multiple of every other column
+
+Each entry in a matrix product is an `inner product` of two vectors extracted from the matrix. What about outer products? It can be shown that the entire matrix is the sum of as many outer products as the common dimension k of the two multiplied matrices
+
+### Lemma 1.2.1 (Matrix Multiplication as Sum of Outer Products)
+
+The product of an nxk matrix U with a kxd matrix V results in an nxd matrix, which can be expressed as the sum of k outer-product matrices; each of these k matrices is the product of an nx1 matrix with a 1xd matrix. Each nx1 matrix corresponds to the ith column U_{i} of U, and each 1xd matrix corresponds to the ith row V_{i} of V. Therefore, we have the following:
+
+$UV = \sum_{r=1}^{d}U_{r}V_{r} $ where the product dimensions of U_{r}V_{r} is nxd
+
+Matrix multiplication is not *commutative*, but it is *associative* and *distributive*
+
+$[A(BC)]_{ij} = [(AB)C]_{ij} = \sum_{k}\sum_{m} a_{ik}b_{km}c_{mj}  $
+
+### Problem 1.2.3
+
+Express the matrix ABC as the weightes sum of outer products of vectors extracted from A and C. The weights are extracted from matrix B
+
+### Problem 1.2.4
+
+Let A be an 1000000x2 matrix. Suppose you have to compute the 2x100000 matrix A^T AA^T on a computer. would you prefer to compute (A^T A)A^T or A^T (AA^T)
+
+### 1.2.5
+
+Let D be an nxd matrix for which eahc column sums to 0. Let A be an arbitrary dxd matrix. Show that the sum of each column of DA is also zero
+
+The transpose of the product of two matrices is given by the prodcut of their transposes, but the order of multiplication is reversed:
+
+$(AB)^{\top} = B^{\top}A^{\top}  $
+
+### Problem 1.2.6
+
+Show the following result for matrices A_{1}...A_{n}
+
+- $(A_{1}A_{2}A_{3}...A_{n})^{\top} = A_{n}^{\top}A_{n-1}^{\top}...A_{2}^{\top}A_{1}^{\top}  $
+
+### 1.2.3 Special Classes of Matrices
