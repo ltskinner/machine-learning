@@ -71,4 +71,44 @@
       - the products of the corresponding elements from:
         - i-th row of A
         - j-th column of B
-      - for each index k, up to n number of rows
+      - for each index k, up to n number of (rows of A, columns of B)
+  - also note:
+    - A_{*k} denotes a column vector, specifically the kth column of A
+    - B_{m*} denotes a row vector, specifically the mth row of B
+    - c_{km} denotes the element in the k-th row and m-th column of C
+- `symmetric matrix`
+  - is a square matrix that is its own transpose
+- `diagonal`
+  - the set of entries for which the row and column indices are the same
+- `identity matrix` or `I`
+  - a square matrix that has
+    - values of 1 in all entries along the diagonal
+    - values of 0 for all non-diagonal entries
+  - AI = IA = A
+  - AI_{d} = I_{n}A = A
+- `diagonal matrix`
+  - when non-diagonal entries are all 0
+  - but the diagonal entries are not 1
+  - `rectangular diagonal matrix`
+    - non square
+- `triangular matrix`
+  - `upper triangular matrix`
+    - A square matrix is an `upper triangular matrix` if all entries (i,j) below its main diagonal (i.e., satisfying i > j) are zeros
+  - `lower triangular`
+    - A matrix is `lower triangular` if all entries (i,j) above its main diagonal (i.e., satisfying i<j) are zeros
+  - `strictly triangular`
+    - A matrix is said to be *strictly* triangular if its triangular *and* all its diagonal elements are zeros
+    - Basically, all the diagonal elements are zero, but above or below the diagonal has values
+- `sparse matrix`
+  - when most of the entries have 0 values
+- `nilpotent`
+  - when a matrix satisfies $A^{k} = 0 $ for some integer k
+- `inverse`
+  - of a square matrix A is another square matrix A^{-1}
+  - not all matrices have an inverse
+  - $AA^{-1} = A^{-1}A = I  $
+  - $(AB)^{-1} = B^{-1}A^{-1}$ - need to invert the order when bring outside of the parentheses
+    - (ABC)^{-1} = C^{-1}B^{-1}A^{-1}
+- `orthogonal matrix`
+  - square matrix whose inverse is its transpose
+  - $AA^{\top} = A^{\top}A = I  $
