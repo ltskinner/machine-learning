@@ -424,3 +424,214 @@ For any pair of matrices A and B of sizes n \times k and k \times d, respectivel
 Show that the Frobenius norm of the inverse of an nxn matrix with Frobenius norm of ? is at least $\sqrt{n}/\epsilon  $
 
 ## 1.3 Matrix Multiplication as a Decomposable Operator
+
+Matrix multiplication can be viewed as a vector-to-vector function that maps one vector to another. Ex, the multiplicaiton of a d-dimensional column vector $\bar{x}_{*k}  $ with the dxd matrix A maps it to another d-dimensional vector, which is the output of the fn f(\bar{x}):
+
+$f(\bar{x}) = A\bar{x}  $
+
+One can view this fn as a vector-centric generalization of the *univariate linear function*
+
+g(x) = ax
+
+for scalar a. This is one of the reasons that matrices are viewed as `linear operators` on vectors. Much of linear algebra is devoted to understanding this transformation and leveraging it for efficient numerical computations.
+
+One issue with large matrices, it is often hard to interpret wheat the matrix is really doing to the vector in terms of its individual components. This is the reason that **it is often useful to interpret a matrix as a product of simpler matrices**. Because the beautiful property of the associativity of matrix multiplication, one can interpret a product of simple matrices (and a vector) as the *composition of simple operations on the vector*..
+
+A can be decomposed into the product of simpler dxd matrices $B_{1}, B_{2}, ..., B_{k}  $
+
+$A = B_{1}B_{2}...B_{k-1}B_{k}  $
+
+Assume that the B_{i} is simple enough that one can intuitively interpret the effect of multiplying a vector \bar{x} with B_{i} easily (**such as rotating a vector or scaling it**). Then, f(\bar{x}) can be written as follows:
+
+$f(\bar{x}) = A\bar{x} = [B_{1}B_{2}...B_{k-1}B_{k}]\bar{x}  $
+
+$f(\bar{x}) = A\bar{x} = B_{1}(B_{2}...[B_{k-1}(B_{k}\bar{x})])  $  [Associative Property of Matrix Multiplication]
+
+The nested brackets on the right provide an order to the operations. We first apply the operator B_{k} to \bar{x}, then apply B_{k-1}, and so on all the day down to B_{1}. Therefore, as long as we can decompose a matrix into the product of simpler matrices, we can interpret matrix multiplication with a vector as a sequence of simple, easy-to-understand operations on the vector
+
+### 1.3.1 Matrix Multiplication as Decomposable Row and Column Vectors
+
+An important property of matrix multiplication is that the rows and columns of the product can be manipulated by applying the corresponding operations on one of the two matrices. In a product AX of two matrices A and X:
+
+- interchanging the ith and jth *rows* of the *first* matrix A will also interchange the corresponding rows in the product (which has the same number of rows as the first matrix)
+- If we interchange the *columns* of the *second* matrix, this interchange will also occur in the product (which has the same number of columns as the second matrix)
+
+There are three main elementarry operations, corresponding to interchange, addition, and multiplication. The **elementary row operations** on matrices are:
+
+- `interchange operation`
+  - the ith and jth rows of the matrix are interchanged
+  - the operation is fully defined by two indices i and j in any order
+- `addition operation`
+  - a scalar multiple of the jth rows is added to the ith row
+  - this operation is defined by two indices i,j in a specific order, and a scalar multiple c
+- `scaling operation`
+  - the ith row is multiplied with scalar c
+  - the operation is fully defined by the row index i and the scalar c
+
+One can define exactly analogous operations on the columns with **elementary column operations**
+
+- `elementary matrix`
+  - differs from the identity matrix by applying a single row or column operation
+  - pre-multiplying matrix X with an elementary matrix corresponding to an interchange >> results in an interchange of the rows of X.
+  - In other words, if E is the elementary matrix corresponding to an interchange, then a pair of rows of $X' = EX  $ will be interchanged wrt to X. A similar result holds true for other operations like row addition and row scaling
+
+Examples:
+
+Interchange - interchange rows 1, 2
+
+\begin{bmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+
+Addition - add c x(row 2) to row 1
+
+\begin{bmatrix}
+1 & c & 0 \\
+0 & 1 & 0 \\
+0 & 0 1
+\end{bmatrix}
+
+Scaling - multiply row 2 by c
+
+\begin{bmatrix}
+1 & 0 & 0
+0 & c & 0
+0 & 0 & 1
+\end{bmatrix}
+
+These rows are referred to as `elementary matrix operators` because they are used to apply specific row operations on arbitrary matrices. The scalar c is always non-zero in the above matrices, because all elementary matrices are invertible and are different from the identity matrix (albeit in a minor way). Pre-multiplication of X with the appropriate elementary matrix can result in a row exchange, addition, or row-wise scaling being applied to x.
+
+The first and second rows of the matrix X can be exchanged to create X' as follows
+
+0 1 0 | 1 2 3   4 5 6  v interchange v
+1 0 0 | 4 5 6 = 1 2 3  ^ interchange ^
+0 0 1 | 7 8 9   7 8 9
+
+The first row can be scaled up by 2 with:
+
+2 0 0 | 1 2 3   2 4 6  x2
+0 1 0 | 4 5 6 = 4 5 6  
+0 0 1 | 7 8 9   7 8 9
+
+Post-multiplication of matrix X with the following elementary matrices will result in exactly analogous operations on the columns of X to create X'
+
+Interchange - interchange columns 1, 2
+
+\begin{bmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+
+Addition - Add c x (col 2) to col 1
+
+\begin{bmatrix}
+1 & 0 & 0 \\
+c & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+
+Scaling - Multiply col 2 by c
+
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & c & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+
+Only the elementary matrix for the addition operation is slighly different between row and column operations (although the other two matrices are the same.)
+
+Post-multiplication for column exchange
+
+1 2 3 | 0 1 0   2 1 3
+4 5 6 | 1 0 0 = 5 4 6
+7 8 9 | 0 0 1   8 7 9
+
+#### Problem 1.3.1
+
+Define a 4x4 operator matrix so that pre-multiplying matrix X with this matrix will result in addition of c_{i} times the ith row of X to the 2nd row of X for each i \in {1, 2, 3, 4} in one shot. Show that this matrix can be expressed as the product of three elementary addition matrices and a single elementary multiplication matrix
+
+These types of elementary matrices are always invertible
+The inverse of the interchange matrix is itself
+
+#### Observation 1.3.1
+
+The inverse of an elementary matrix is another elementary matrix
+
+#### Problem 1.3.2
+
+Write down one example of each of the three types [i.e., interchange, multiplicaiton, and addition] of elementary matrices for performing row operations on a matrix of size 4x4.
+
+Work out the inverse of these matrices
+
+Repeat this for each of the three types of matrices for performing column operations
+
+- swap/interchange
+  - the inverse is the same
+- scaling
+  - inverse is 1/c, whatever the c scaling factor is on the diagonal
+- addition
+  - inverse is -(c), whatever the c addition factor is not on the diagonal
+
+#### Problem 1.3.3
+
+Let A and B be two matrices. Let A_{ij} be the matrix obtained by exchanging the ith and jth columns of A, and B_{ij} be the matrix obtained by exchanging the ith and jth rows of B. Write each of A_{ij} and B_{ij} in terms of A or b, and an elementary matrix.
+
+Now explain why A_{ij}B_{ij} = AB
+
+The elementary matrix is identical for each, so it
+
+#### Problem 1.3.4
+
+Let A and B be two matrices. Let matrix A' be created by adding c times the jth column of A to its ith column, and matrix B' be created by subtracting c times the ith row of B from its jth row. Explain using the convept of elementary matrices why the matrices AB and A'B' are the same
+
+the elementary matrices are the same
+
+#### main branch
+
+Can also apply elementary operations to matrices that are not square.
+
+For an nxd matrix, the pre-multiplication operator matrix will be of size nxn, whereas the post-multiplication operator matrix will be of size dxd
+
+#### Permutation Matrices
+
+An elementary row (or column) interchange operator matrix is a special case of `permutation matrix`
+
+- `permutation matrix`
+  - contains a single 1 in each row, and a single 1 in each column
+  - pre-multiplying shuffles the rows
+  - post-multiplying shuffles the columns
+  - permutation matrix and its transpose are inverses of one another, because orthonormal columns
+  - any permutation matrix is a product of row interchange operator matrices
+
+#### Applications of Elementary Operator Matrices
+
+The row manipulation property is used to compute the inverses of matrices. This is because matrix A and its inverse X are related as:
+
+$AX = I  $
+
+Row operations are applied on A to convert the matrix to the identity matrix. Results in:
+
+$IX = A^{-1}  $
+
+Elementary matrices are fundamental because *one can decompose any square and invertible matrix into a product of elementary matrices*
+
+Application of finding a solution to the system of equations:
+
+$A\bar{x} = \bar{b}  $
+
+- A is an nxd matrix
+- \bar{x} is a d-dimensional column vector
+- \bar{b} is an n-dimensional row vector
+
+Can convert original system into:
+
+$A'\bar{x} = \bar{b}'  $
+
+Where A' is triangular. Therefore, if we apply a squence E_{1}...E_{k} of elementary row operations to the system of equations, we obtain:
+
+$E_{k}E_{k-1}...E_{1}A\bar{x} = E_{k}E_{k-1}...E_{1}\bar{b}   $
+
+A triangular system of equations is solved by first processing equations with fewer variables and iteratively backsubstituting these values to reduce the system to fewer variables. It is noteworthy that the problem of solving linear equations is a special case of the fundamental ML problem of *linear regression*, in which the best-fit solution is found to an inconsistent sysetm of equations. Linear regression serves as the "parent problem" to many machine learning problems like least-squares classification, support-vector machines, and logistic regression.

@@ -5,6 +5,7 @@
   - 1xd
   - 1x2 = (12, 3)
   - 1x3 = (3, 0, 7)
+  - B_{m*} denotes a row vector, specifically the mth row of B
 - `column vector`
   - vectors are assumed to be column vectors, unless specified otherwise
   - nx1
@@ -15,6 +16,7 @@
     - 7
     - 8
     - 1
+  - A_{*k} denotes a column vector, specifically the kth column of A
 - `scalars`
   - individual numerical values typically drawn from the real domain in most ML applications
 - `vectors`
@@ -47,7 +49,7 @@
 - `Euclidian norm` aka `squared norm`
   - The norm defines the vector length and is denoted by $\|.\|$
   - converts to a unit vector
-  - - $\|\bar{x} \|^{2} = \bar{x} \cdot \bar{x} = \sum_{i=1}^{2} x_{i}^{2} $
+  - $\|\bar{x} \|^{2} = \bar{x} \cdot \bar{x} = \sum_{i=1}^{2} x_{i}^{2} $
 - `Manhattan norm` or `L_{1}-norm`
   - this is basically just taking the sum of the absolute values
 - `attributes` aka `variables`
@@ -130,3 +132,36 @@
     - $\|A\|_{F}^{2} = Energy(A) = tr(AA^{\top}) = tr(A^{\top}A)  $
 - `trace`
   - tr(A) of a square matrix is defined by the sum of its diagonal entries
+- `elementary row operations`
+  - pre-multiplied = OX
+  - `interchange operation`
+    - the ith and jth rows of the matrix are interchanged
+    - the operation is fully defined by two indices i and j in any order
+    - the inverse is the transpose (typically, the same matrix)
+  - `addition operation`
+    - a scalar multiple of the jth rows is added to the ith row
+    - this operation is defined by two indices i,j in a specific order, and a scalar multiple c
+    - inverse is -(c), whatever the c addition factor is not on the diagonal
+  - `scaling operation`
+    - the ith row is multiplied with scalar c
+    - the operation is fully defined by the row index i and the scalar c
+    - inverse is 1/c, whatever the c scaling factor is on the diagonal
+- `elementary column operations`
+  - post-multiplied = XO
+  - exactly analogous operations to the row operations
+- `elementary matrix`
+  - differs from the identity matrix by applying a single row or column operation
+  - These types of elementary matrices are always invertible
+  - The inverse of the interchange matrix is itself
+  - applying to `non-square matrices`
+    - For an *n x d* matrix:
+      - the pre-multiplication operator matrix will be of size *n x n*
+      - the post-multiplication operator matrix will be of size *d x d*
+- `permutation matrix`
+  - contains a single 1 in each row, and a single 1 in each column
+  - elementary interchange matrices are a special case of the permutation matrix
+  - pre-multiplying shuffles the rows
+  - post-multiplying shuffles the columns
+  - permutation matrix and its transpose are inverses of one another
+    - this differs from pure row or pure col operations
+    - well, or the transpose of pure row or pure col is identical as well lol
