@@ -40,10 +40,14 @@
     - wide when more columns than rows
 - `commutative`
   - the order of numbers does not matter
-  - A + B = B + A
+  - `addition` *is commutative*
+    - A + B = B + A
+  - `multiplication` *is NOT commutative* (in general)
+    - $A \times B = \neq B \times A  $
 - `Euclidian norm` aka `squared norm`
   - The norm defines the vector length and is denoted by $\|.\|$
   - converts to a unit vector
+  - - $\|\bar{x} \|^{2} = \bar{x} \cdot \bar{x} = \sum_{i=1}^{2} x_{i}^{2} $
 - `Manhattan norm` or `L_{1}-norm`
   - this is basically just taking the sum of the absolute values
 - `attributes` aka `variables`
@@ -112,3 +116,17 @@
 - `orthogonal matrix`
   - square matrix whose inverse is its transpose
   - $AA^{\top} = A^{\top}A = I  $
+- `Push-Through Identity`
+  - helpful when you want to "push" the *inverses* of A and C outside a product that includes B:
+  - $A^{-1}BC^{-1} = (AC)^{-1}(ABC)  $
+  - $(I + AB)^{-1}A = A(I + BA)^{-1}  $
+  - $(I + AB)^{-1} = I - AB(I + AB)^{-1} = I - A(I + BA)^{-1}B  $
+- `Frobenius norm`
+  - $\|A\|_{F} = \|A^{\top}\|_{F} = \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}^{2}  }  $
+  - The squared Frobenius norm is the sum of squares of the norms of the row-vectors (or, alternatively, column vectors) in the matrix
+- `energy`
+  - another name for the squared Frobenius norm
+  - The energy of a rectangular matrix A is equal to the trace of either AA^{\top} or A^{\top}A
+    - $\|A\|_{F}^{2} = Energy(A) = tr(AA^{\top}) = tr(A^{\top}A)  $
+- `trace`
+  - tr(A) of a square matrix is defined by the sum of its diagonal entries

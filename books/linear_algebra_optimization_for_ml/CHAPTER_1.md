@@ -127,7 +127,7 @@ Each x_{i} corresponds to the "weight" of the i-th direction of $\bar{a}_{i}$, w
 
 The dot product between two vectors can be viewed as a special case of matrix-vector multiplication
 
-the outer product between two vectors is a nxn matrix, denoted by $\bar{x} \cross \bar{v}  $. The "tall" matrix is alwasy ordered before the "wide" matrix:
+the outer product between two vectors is a nxn matrix, denoted by $\bar{x} \times \bar{v}  $. The "tall" matrix is alwasy ordered before the "wide" matrix:
 
 - 3x1 times 1x3 = 3x3
 
@@ -321,3 +321,106 @@ $L^{-1} = I - D^{-1}A + (D^{-1}A)^{2} - (D^{-1}A)^3 + ...  $
 remember, (AB)^3 is the same as (AB)(AB)(AB), so in this case:
 
 $(D^{-1}A)^3 = (D^{-1}A)(D^{-1}A)(D^{-1}A) $
+
+#### Main branch now
+
+If you have the sum of two matrices, can invert that if one of the two is "compact". Here, compactness means that a matrix has so much structure to it that it can be expressed as the product of two much smaller matrices
+
+The matrix inversion lemma is a useful property for computing the inverse of a matrix after incrementally updating it with a matrix created from the outer-product of two vectors. These types of inverses *arise often* in iterative optimizatino algorithms such as the *quasi-Newton method* for incremental linear regression. In these cases, the inverse of the original matrix is already available, and one can cheaply update the inverse with the matrix inversion lemma
+
+#### Lemma 1.2.5 - Matrix Inversion Lemma
+
+Let A be an invertible dxd matrix, and \bar{u} and \bar{v} be non-zero d-dimensional column vectors. Then, $A + \bar{u}\bar{v}^{\top}  $ is invertible if and only if $\bar{v}^{\top}A^{-1}\bar{u} \neq -1  $. In such a case, the inverse is computed as:
+
+$(A+\bar{u}\bar{v}^{\top})^{-1} = A^{-1} - \frac{A^{-1}\bar{u}\bar{v}^{\top}A^{-1}}{1 + \bar{v}^{\top}A^{-1}\bar{u}}  $
+
+Side comment, column vector rep: \bar{u} = U_{*k}
+
+#### New segment
+
+Variants of the matrix inversion lemma are used in various types of iterative updates in ML.
+
+A specific example is incremental linear regressino, where one often wants to invert matrices of the form $C = D^{\top}D  $, where D is an nxd data matrix. When a new d-dimensional data point \bar{v} is received, the size of the data matrix becomes (n+1)xd with the addition of row vector \bar{v}^{-\top} to D. The matrix C is now updated to $D^{\top}D + \bar{v}\bar{v}^{\top}  $, and the mnatrx inversino lemma comes in handy for updating the inverted matrix in O(d^{2}) time. One can even generalize the above result to cases where the vectors \bar{u} and \bar{v} are replaces with "thin" matrices U and V containing a small number k of columns
+
+#### Theorum 1.2.1 - Sherman-Morrison-Woodbury Identity
+
+Let A be an invertible dxd matrix and let U, V be dxk non-zero matrices for some small value of k. Then, the matrix $A + UV^{\top}$ is invertible if and only if the kxk matrix $(I + V^{\top}A^{-1}U)$ is invertible. Furthermore, the inverse is given by the following:
+
+$(A + UV^{\top})^{-1} = A^{-1} - A^{-1}U(I + V^{\top}A^{-1}U)^{-1}V^{\top}A^{-1}  $
+
+This type of update is referred to as *low-rank* update, which will be explained in ch2
+
+#### Problem 1.2.12
+
+Suppose that I and P are two kxk matrices. Show the following result
+
+(I + P)^{-1} = I - (I + P)^{-1}P
+
+#### Problem 1.2.13 - Push-Through Identity
+
+If U and V are two nxd matrices, show the following result:
+
+$U^{\top}(I_{n} + VU^{\top})^{-1} = (I_{d} + U^{\top V})^{-1}U^{\top} $
+
+### Push-Through Identity
+
+helpful when you want to "push" the *inverses* of A and C outside a product that includes B:
+
+$A^{-1}BC^{-1} = (AC)^{-1}(ABC)  $
+
+or
+
+$(I + AB)^{-1}A = A(I + BA)^{-1}  $
+
+or
+
+$(I + AB)^{-1} = I - AB(I + AB)^{-1} = I - A(I + BA)^{-1}B  $
+
+### 1.2.6 - Frobenius Norm, Trace, and Energy
+
+Like vectors, one can define norms of matrices. For the rectangular n x d matrix A with (i,j)th entry denoted by a_{ij}, its `Frobenius norm` is defined as follows:
+
+$\|A\|_{F} = \|A^{\top}\|_{F} = \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}^{2}  }  $
+
+The squared Frobenius norm is the sum of squares of the norms of the row-vectors (or, alternatively, column vectors) in the matrix
+
+The `energy` if a matrix A is an alternative term used in ML for the squared Frobenius norm
+
+The `trace` of a square matrix A, denoted by tr(A), is defined by the sum of its diagonal entries. The energy of a rectangular matrix A is equal to the trace of either AA^{\top} or A^{\top}A
+
+$\|A\|_{F}^{2} = Energy(A) = tr(AA^{\top}) = tr(A^{\top}A)  $
+
+More generally, the trace of the product of two matrices:
+
+- $C = [c_{ij}]  $
+- $D = [d_{ij}]  $
+
+of sizes nxd is the sum of their entry-wise product
+
+$tr(CD^{\top}) = tr(DC^{\top}) = \sum_{i=1}^{n} \sum_{j=1}^{d} c_{ij}d_{ij}  $
+
+The trace of the product of two matrices $A = [a_{ij}]_{n \times d}  $ and $B = [b_{ij}]_{d \times n}  $ is invariant to the order of matrix multiplication:
+
+$tr(AB) = tr(BA) = \sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}b_{ji}  $
+
+#### Problem 1.2.14
+
+Show that the Frobenius norm of the outer product of two vectors is equal to the product of their Euclidean norms
+
+The Frobenius norm shares many properties with vector norms, such as sub-additivity and sub-multiplicativity. These properties are analogous to the triangle inequality and the Cauchy-Schwarz inequality, respectively, in the case of vector norms
+
+#### Lemma 1.2.6 - Sub-additive Frobenius Norm
+
+For any pair of matrices A and B of the same size, the triangle inequality $\|A + B\|_{F} \leq \|A\|_{F} + \|B\|_{F}  $ is satisfied
+
+Hmm, this takes the same form of many of the ordinal distance metrics from binary representation learning
+
+#### Lemma 1.2.7 - Sub-multiplicative Frobenius Norm
+
+For any pair of matrices A and B of sizes n \times k and k \times d, respectively, the sub-multiplicative property $\|AB\|_{F} \leq \|A\|_{F}\|B\|_{}F  $ is satisfied
+
+#### Problem 1.2.15 - Small Matrices Have Large Inverses
+
+Show that the Frobenius norm of the inverse of an nxn matrix with Frobenius norm of ? is at least $\sqrt{n}/\epsilon  $
+
+## 1.3 Matrix Multiplication as a Decomposable Operator
