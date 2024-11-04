@@ -1,5 +1,14 @@
 # Dictionary: Linear Algebra and Optimization
 
+## Notation and assumptions for the book
+
+- Assume have an $n \times d $ data matrix D
+  - contains **n** examples of data
+  - each rowcontains **d**-dimensional data points
+  - a `dimension` or `attribute` is one of the **d** properties of a data point
+  - a **column** of D contains this property for all data instances
+
+## Definitions
 
 - `row vector`
   - 1xd
@@ -157,6 +166,13 @@
     - For an *n x d* matrix:
       - the pre-multiplication operator matrix will be of size *n x n*
       - the post-multiplication operator matrix will be of size *d x d*
+  - there are also `geometric` elementary matrices
+    - Rotation
+      - swapping between pre- and post-multiplication, need to Transpose
+    - Reflection
+      - same between pre- and post-
+    - Scaling
+      - same between pre- and post-
 - `permutation matrix`
   - contains a single 1 in each row, and a single 1 in each column
   - elementary interchange matrices are a special case of the permutation matrix
@@ -165,3 +181,44 @@
   - permutation matrix and its transpose are inverses of one another
     - this differs from pure row or pure col operations
     - well, or the transpose of pure row or pure col is identical as well lol
+
+## ML specifics
+
+### Problem Frames
+
+- `matrix factorization` is an alternative term for `matrix decomposition`
+  - typically refers to an **optimization centric** view of decomposition
+- `clustering`
+  - partiioning the rows of the nxd data matrix D into groups of similar rows
+- `classification`
+  - closely related to clustering, except that more guidance is available for grouping the data with the use of the notion of *supervision*
+  - in addition to the nxd data matrix D, we have an nx1 array of labels denoted by \bar{y}
+  - labels are `categorical`
+- `regression`
+  - identical to classification, except:
+  - labels are `numerical`
+  - `dependent` variable aka:
+    - `response variable`
+    - `target variable`
+    - `regressand`
+  - `independent` variables aka `regressors`
+- `outlier detection`
+  - we would like to find rows of D that are very different from most of the other rows
+  - this has a complementary relationship with the clustering problem
+
+### Misc
+
+- `gradient`
+  - the d-dimensinoal vector of partial derviatives
+- `gradient descent`
+  - use a computaiton algorithm of initializing the parameter set \bar{W} randomly (or a heuristically chosen point)
+  - then change the parameter set in the direction of the negative derivative of the objective fn
+- `learning rate`
+  - the rate at which the parameters are changed
+  - the step size is $\alpha$
+  - Since the gradients change on making a step, one must be careful not to make steps that are too large or else the effects may be unpredictable
+- `gradient vector`
+  - defines an instantaneous direction of best rate of improvement of the objective fn at the current value of the parameter vector
+- `convergence`
+  - steps are repeatedly executed until further improvements become too small to be useful
+  - such a situation will occur when the gradient vector contains near-zero entries

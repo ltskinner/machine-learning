@@ -479,27 +479,33 @@ Examples:
 
 Interchange - interchange rows 1, 2
 
+$
 \begin{bmatrix}
 0 & 1 & 0 \\
 1 & 0 & 0 \\
 0 & 0 & 1
 \end{bmatrix}
+$
 
 Addition - add c x(row 2) to row 1
 
+$
 \begin{bmatrix}
 1 & c & 0 \\
 0 & 1 & 0 \\
 0 & 0 1
 \end{bmatrix}
+$
 
 Scaling - multiply row 2 by c
 
+$
 \begin{bmatrix}
 1 & 0 & 0
 0 & c & 0
 0 & 0 & 1
 \end{bmatrix}
+$
 
 These rows are referred to as `elementary matrix operators` because they are used to apply specific row operations on arbitrary matrices. The scalar c is always non-zero in the above matrices, because all elementary matrices are invertible and are different from the identity matrix (albeit in a minor way). Pre-multiplication of X with the appropriate elementary matrix can result in a row exchange, addition, or row-wise scaling being applied to x.
 
@@ -519,27 +525,33 @@ Post-multiplication of matrix X with the following elementary matrices will resu
 
 Interchange - interchange columns 1, 2
 
+$
 \begin{bmatrix}
 0 & 1 & 0 \\
 1 & 0 & 0 \\
 0 & 0 & 1
 \end{bmatrix}
+$
 
 Addition - Add c x (col 2) to col 1
 
+$
 \begin{bmatrix}
 1 & 0 & 0 \\
 c & 1 & 0 \\
 0 & 0 & 1
 \end{bmatrix}
+$
 
 Scaling - Multiply col 2 by c
 
+$
 \begin{bmatrix}
 1 & 0 & 0 \\
 0 & c & 0 \\
 0 & 0 & 1
 \end{bmatrix}
+$
 
 Only the elementary matrix for the addition operation is slighly different between row and column operations (although the other two matrices are the same.)
 
@@ -635,3 +647,356 @@ Where A' is triangular. Therefore, if we apply a squence E_{1}...E_{k} of elemen
 $E_{k}E_{k-1}...E_{1}A\bar{x} = E_{k}E_{k-1}...E_{1}\bar{b}   $
 
 A triangular system of equations is solved by first processing equations with fewer variables and iteratively backsubstituting these values to reduce the system to fewer variables. It is noteworthy that the problem of solving linear equations is a special case of the fundamental ML problem of *linear regression*, in which the best-fit solution is found to an inconsistent sysetm of equations. Linear regression serves as the "parent problem" to many machine learning problems like least-squares classification, support-vector machines, and logistic regression.
+
+### 1.3.2 Matrix Multiplication as Decomposable Geometric Operators
+
+Aside from decompositions involving elementary matrices, other forms exist
+
+`geometric` interpretations:
+
+- rotation
+  - 90deg counter-clockwise of [2,1] becomes [-1,2]
+- reflection
+  - [2,1] across X axis yields [2,-1]
+- scaling
+  - along X and Y by factors of 2 and 3 respectively yields [4,3]
+
+All these simple transformations on a vector in two dimensions can be defined by pre-multiplication of the corresponding column vector with a 2x2 matrix (or post-multiplied on a row vector with the transpose of this 2x2 matrix)
+
+Ex. consider the column vector of a point with:
+
+- polar coordinates [a,a]
+- cartesian coordinates [a cos(a), a sin(a)]
+
+The point has magnitude a and makes a counter-clockwise angle of a with the X-axis. Then, one can multiply it with the `rotation matrix` to yield a ccw rotation of the vector with the angle theta
+
+Rotation - rotate ccw by \theta
+
+$
+\begin{bmatrix}
+\cos(\theta) & -sin(\theta) \\
+\sin(\theta) & cos(\theta)
+\end{bmatrix}
+$
+
+Reflect - reflect across X-axis
+
+$
+\begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix}
+$
+
+Scale - scale x and y by factors of c_{1} and c_{2}
+
+$
+\begin{bmatrix}
+c_{1} & 0 \\
+0 & c_{2}
+\end{bmatrix}
+$
+
+#### Problem 1.3.5
+
+The above lists matrices for rotation, reflection, and scaling is designed to transform a column vector $\bar{x}_{*k}  $ using the matrix-to-vector product $A\bar{x}$
+
+Write down the corresponding matrices for the case when you want to transform a row vector: $\bar{u}  $ as $\bar{u}B  $
+
+- Rotation - take transpose
+- Reflection - same
+- scaling - same
+
+The matrix for a sequence of transformations can be computed by multiplying the corresponding matrices. This is easy to show by observing that if we have A = A_{1}...A_{k}, then successively pre-multiplying a column-vector \bar{x} with A_{k}...A_{1} is the same as the expression A_{1}(A_{2}(...(A_{k}\bar{x}))). Because of the associativity of matrix multiplication, one can express this matrix as:
+
+$(A_{1}...A_{k})\bar{x} = A\bar{x}  $
+
+Conversely, if a matrix can be expressed as a product of simpler matrices (like the geometric ones from above), then multiplication of a vector with that matrix is equivalent to a sequence of the above geometric transformations
+
+A fundamental result of linear algebra is that any square matrix can be shown to be a product of rotation/reflection/scaling matrices by using a technique called `singular value decomposition`. In other words, *all linear transformations of vectors defined by matrix multiplication correspond to the application of a squence of rotations, reflections, and scaling on the vector*
+
+#### Problem 1.3.6
+
+Suppose that you are told that any invertible square matrix A can be expressed as a product of elementary rotation/reflection/scaling matrices as A = R_{1}R_{2}...R_{k}. Express the invers of A in terms of the easily computable inverses of R_{1}, R_{2}, ...., R_{k}
+
+$A^{-1} = R_{k}^{-1}...R_{2}^{-1}R_{1}^{-1}  $
+
+#### Main
+
+It is also helpful to understand the row addition operator. Consider the 2x2 row addition operator:
+
+A = 1 c
+    0 1
+
+This operator `shears` the space along the direction of the first coordinate. For example, if vector \bar{z} = [x, y]^{\top}, then A\bar{z} yields the new vector [x + cy, y]^{\top}
+
+Here, the y-coordinate remains unchanged, whereas the x-coordinate gets sheared in proportion to its height
+
+An elementary row operator matrix is a very special case of a triangular matrix; correspondingly, a triangular matrix with *unit diagonal entries* corresponds to a sequence of shears. This is because one can convert an identity matrix into any such triangular matrix with a sequnce of elementary row addition operations
+
+#### New section
+
+A linear transformation can be viewed as a succession of simpler transforms. This simpler squence is obtained by `decomposing` a matrix A into the product of simpler matrices B_{1}...B_{k}
+
+$f(\bar{x}) = A\bar{x} = B_{1}(B_{2}...[B_{k-1}(B_{k}\bar{x})])  $
+
+Each B_{i} is typically a group of similar transformations, such as orthogonal matrices (sequence of rotations), diagonal matrices (sequence of scalings), or triangular matrices with unit diagonal entries (sequence of shears). There is considerable flexibility in terms of how these decompositions can be performed. Discussed later are the `LU decomposition`, the `QR decomposition`, and the `singular value decomposition`
+
+## 1.4 Basic Problems in Machine Learning
+
+Machine learning is about constructing models on observed examples in the rows of data matrices, and using these models to make predictions about missing entries of previously unseen examples. This process is also referred to as `learning`, which is where "machine learning" derives its name.
+
+Throughout this book, we assume that we have an *n x d* data matrix D, which contains n examples of d-dimensional data points in its rows. A `dimension` or `attribute` is one of the d properties of a data point
+
+Classical problems in machine learning
+
+### 1.4.1 Matrix Factorization
+
+- `matrix factorization` is an alternative term for `matrix decomposition`
+  - typically refers to an **optimization centric** view of decomposition
+
+matrix factorization decomposes an nxd matrix D into two *factor* matrices:
+
+- U, size nxk
+- V, size dxk
+
+so that $UV^{\top} \approx D$
+
+Here, $k << min\{n,d \}  $ is a parameter referred to as the *rank* of the factorization
+
+The rank controls the "conciseness" of the factorization because the total number of entries in U and V is k(n+d), which is much smaller than the original number of entries in D.
+
+Matrix factorization is a generalization of (real-valued) scalar factorization to matrices. There are an infinite number of factors of the same matrix D, just as scalar can be factored into an infinite number of pairs of real values.
+
+Ex. the scalar 6 can be written as:
+
+- 2x3
+- 1.5x4
+- \sqrt{2} x \sqrt{18}
+
+An example of a matrix factorization of a 3x3 is:
+
+$
+\begin{bmatrix}
+1 & -1 & 1 \\
+-1 & 1 & -1 \\
+2 & -2 & 2
+\end{bmatrix}
+$
+
+$= [1, -1, 2]^{\top}[1, -1, 1] $
+
+In this case, the factorization is exact, although it is often allowed to be *approximately* true in order to minimize the sizes of the factor matrices U and V. If one is willing to allow for a reasonable level of approximation, the value of k can be quite small
+
+A common approach for matrix factorization is to set up the following optimization problem:
+
+Minimize: $J = \|D - UV^{\top}\|_{F}^{2}  $
+
+Frobenius norm, which is the sum of the squares of the entries in the *residual matrix* $(D-UV^{\top} ) $. The objective function J is minimized with the use of gradient descent on the parameter matrices U and V, whose entries are variables of this optimization problem. By minimizing this objective fn, one will ensure that the matrix (D - UV^{\top}) will have entries that are small in magnitude, and therefore $D \approx UV^{\top}  $. These types of objective functions are also referred to as `loss functions`, because they measure how much information $UV^{\top} $ "loses" with respect to the original matrix D.
+
+One can even factorize an incompletely specified matrix D by formulating the optimization function only with the observed entries. This basic principle serves as the foundation of *recommender systems*. For example, consider a setting in which we have n users and d ratings; the (i,j)th entry of D provides the ratings of the user i for item j. Most of the entries of D are unobserved, because users typically rate only a small subset of items. In such a case, the objective fn $\|D-UV^{\top}\|_{F}^{2}  $ will need to be modified, so that we sum up the squared errors only over the *observed* entries in D. This is because the values of the remaining entreis in (D - UV^{\top}) are unknown. Setting up an optimization problem only in terms of a subset of entries allows us to learn fully specified matrices U and V. Therefore, UV^{\top} provides a prediction of the *fully reconstructed* matrix D.
+
+### 1.4.2 Clustering
+
+The problem of clustering is that of partiioning the rows of the nxd data matrix D into groups of similar rows
+
+Often you can use the segmentation created by clustering as a preprocessing step for other analytical goals
+
+- k-means
+- spectral clustering
+
+### 1.4.3 Classification and Regression Modeling
+
+The problem of classification is closely related to clustering, except that more guidance is available for grouping the data with the use of the notion of *supervision*.
+
+- In the case of clustering, the data is partitioned into groups without any regard for the *types* of clusters we wish to find
+- In the case of classification, the *training* data are already partitioned into specific types of groups
+
+Therefore, in addition to the nxd data matrix D, we have an nx1 array of labels denoted by \bar{y}.
+
+The actual segmentation of the rows is done on a separate $n_{t} \times d  $ *test* data matrix D_{t}, in which the labels are not specified. Therefore, for each row of D_{t}, one needs to map it on one of the labels from the set \mathcal{L}. This mapping is done with the use of a classification `model` that was constructed on the training data. The test data is unseen during the process of model construction, as the rows of D and D_{t} are not the same
+
+A common setting in classification is the label set is binary and only contains two possible values. In such a case, it is common to use the label set \mathcal{L} from {0,1} or from {-1,+1}. The goal is to *learn* the ith entry y_{i} in \bar{y} as a function of the ith row \bar{X}_{i} of D:
+
+$y_{i} \approx f(\bar{X}_{i})  $
+
+The function f(\bar{X}_{i}) is often parameterized with a weight vector \bar{W}. Consider the following example of binary classification into the labels {-1,+1}:
+
+$y_{i} \approx f_{\bar{W}}(\bar{X}_{i}) = sign\{\bar{W} \cdot \bar{X}_{i}\}  $
+
+How does one compute \bar{W}? The key idea is to penalize any kind of mismatching between the *observed value* y_{i} and the predicted value f(\bar{X}_{i}) with the use of a carefully constructed *loss function*. therefore, many ML models reduce to the following optimization problem:
+
+$Minimize_{\bar{W}} \sum_{i} Mismatching between y_{i} and f_{\bar{W}}(\bar{X}_{i})  $
+
+Once the weight vector \bar{W} has been computed by solving the optimization model, it is used to predict the value of the class variable y_{i} for instances in which the class variable is not known.
+
+Classification is also referred to as supervised learning. In a sense, the training data serves as the "teacher" providing supervision. The ability to use the knowledge in the training data in order to classify the examples in unseen test data is referred to as *generalization*. There is no utility in classifying the examples of the training data again, because their labels have already been observed.
+
+#### Regression
+
+The label in classification is also referred to as the `dependent` variable, which is *categorical* in nature.
+
+In the regression modeling problem, the nxd training data matrix D is associated with an nx1 vector \bar{y} of dependent variables, which are *numerical*
+
+Therefore, the only difference from classification is that the array \bar{y} contains numerical values (rather than categorical ones), and can therefore be treated as a vector
+
+Binary response variables are closely related to regression, and some models solve binary classification *directly* with the use of a regression model (by pretending that the binary labels are numerical). This is because binary values have the flexibility of being treated as either categorical or as numerical values. However, more than two classes like {red, green, blue} cannot be ordered, and are therefore different from regression
+
+Regression modeling problem closely related to linear algebra, especially when a *linear optimization model* is used
+
+In the linear optimization model, we use a d-dimensional column vector $\bar{W} = [w_{1}...w_{d}]^{\top}  $ to represent the weights of the different dimensions. The ith entry y_{i} of \bar{y} is obtained as the dot product of the ith row \bar{X}_{i} of D and \bar{W}
+
+In other words, the function f(.) to be learned by the optimization problem is as follows:
+
+$y_{i} = f(\bar{X}_{i}) = \bar{X}_{i}\bar{W}  $
+
+One can also state this condition across all training instances using the full nxd data matrix D:
+
+$\bar{y} \approx D \bar{W}  $
+
+Note that this is a matrix representation of n linear equations. In most cases, the value of n is much greater than d, and therefore, is an *over-determined* system of linear equations. In over-determined cases, there is usually no solution for \bar{W} that *exactly* satisfies this system. However, we can minimize the sum of squares of the errors to get as close to this goal as possible:
+
+$J = \frac{1}{2} \|D\bar{W} - \bar{y}\|^{2}  $
+
+The solution \bar{W} can be obtained as follows:
+
+$\bar{W} = (D^{\top}D)^{-1}D^{\top}\bar{y}  $
+
+Then, for each row \bar{Z} of the test data matrix D_{t}, the dot product of \bar{W}^{\top} and \bar{Z} is the corresponding prediction of the real-valued dependent variable.
+
+### 1.4.4 Outlier Detection
+
+We have an nxd data matrix D, and we would like to find rows of D that are very different from most of the other rows. This has a complementary relationship with the clustering problem
+
+Outliers are rows of D that do not naturally fit in with the other rows.
+
+Therefore, clustering methods are often used to find outliers. Matrix factorization methods are also used often for outlier detection
+
+## 1.5 Optimization for Machine Learning
+
+Much of ML uses optimizaitno in order to define parameterized models for learning problems
+
+These models treat dependent variables as functions of indepentend variables. It is assumed that some examples are available containing observed values of both dependent and independent variables for training. These problems define objective fns or `loss functions` which penalize differences between predicted and observed values of dependent variables. Therefore, the training phase od ml methods requires the use of optimization techniques
+
+In most cases, the optimization models are posed in minimization form. The most basic condition for optimality of the fn $f(x_{1}, ..., x_{d})  $ at $[x_{1}...x_{d}]  $ is that each partial detivative is 0:
+
+$\frac{\partial f(x_{1},...,x_{d})}{\partial x_{r}} = \lim_{\partial \rightarrow 0} \frac{f(x_{1},...,x_{r} + \partial,...,x_{d}) - f(x_{1},...,x_{r},...x_{d})}{\partial} = 0 \forall r  $
+
+The basic idea is that the rate of change of the function in any direction is 0, or else one can move in a direction with negative rate of change to further improve the objective fn. This condition is necessary, but not sufficient, for optimization
+
+The d-dimensinoal vector of partial derivatives is referred to as the *gradient*:
+
+$\nabla f(x_{1}, ..., x_{d}) = [\frac{\partial f(.)}{\partial x_{1}} ... \frac{\partial f(.)}{\partial x_{d}} ]^{\top} $
+
+Putting the \nabla in front of the fn refers to the vector of partial derivatives wrt the argument
+
+### 1.5.1 The Taylor Expansion for Function Simplification
+
+Many objective fns in ML are very complicated in comparison with the relatively simple structure of polynomial fns (which are much easier to optimize). Therefore, if one can approximate complex objective fns with simpler polynomials (even within restricted regions of the sapce), it can go a long way toward solving optimization problems in an iterative way
+
+The taylor expansion expresses any smooth fn as a polynomial (with an infinite number of terms). Furthermore, if we only want an approximation of the fn in the small locality of the argument, a small number of polynomial terms (typically no more than 2 or 3) will often suffice.
+
+First, consider the unvariate fn f(w) (univariate = one variable). This fn can be expanded about any point a in the domain of the fn by using:
+
+$f(w) = f(a) + (w - a)f'(a) + \frac{(w - a)^{2}f''(a)}{2!} + ... + \frac{(w-a)^{r}}{r!} [\frac{d^{r}f(w)}{d w^{r}} ]_{w=a}  + ... $
+
+f'(w) is the first derivative at a, f''(w) is the sceond, etc. Note that f(w) could be an arbitrary fn, such as sin(w) or exp(w), and the expansion expresses it as a polynomial with an infinite number of terms
+
+Some functions expressed as an infinite polynomial make sense bc limit as n to inf for w (n/n!) = 0
+
+For some fns like sin(w) and exp(w), the Taylor expansion converges to the true fn by including an increased number of terms. For other fns, like 1/w or log(w), a converging expansion exists in restricted ranges of w at any particular value of a.
+
+More importantly, the Taylor expansion almost alwyas provides a very good approximation of any smooth function *near* w = a, and the approximation is exact at w = a. Furthremore, higher-order terms tend to vanish when |w-a| is small, because (w-a)^{r}/r! rapidly converges to 0 for increasing r. Therefore, one can often obtain good quadratic approximations of a function near w = a by simply including the first three terms
+
+In practical settings like optimization, one is often looking to change the value w from the current point w=a to a "nearby" point in order to improve the objective fn value. In such cases, using onth up to the quadratic term of the Taylor expansion about w = a provides an extellent simplification in the neighborhood of w=a. In gradient-descent algorithms, one is often looking ot move from the current point by a relatively small amount, and therefore lower-order Taylor approximations can be used to guide the steps in order to improve the polynomial approximation rather than the original fn. It is often much easier to optimize polynomials than arbitrarily complex fns.
+
+One can also generalize the Taylor expansion to multivariable functions F(\bar{w}) (w as vector) with d-dimensional arguments of the form $\bar{w} = [w_{1}...w_{d}]^{\top} $
+
+Jesus christ this is a mess of a function im not typing this
+
+![alt-text](./1_1_taylor_expansion_multivariable_fns.PNG)
+
+In the multibariable case, we have O(d^{2}) second-order interaction terms, O(d^{3}), third-order interaction terms, and so on. This gets unwieldy very quickly
+
+Luckily we rarely need to go beyond second-order approximations in practice.
+
+Furthermore, the above expression can be rewritten using the gradients and matrixes compactly. The second order approx can be written in vector form as:
+
+$F(\bar{w}) \approx F(\bar{a}) + [\bar{w} - \bar{a}]^{\top} \nabla F(\bar{w}) + [\bar{w} - \bar{a}]^{\top} H(\bar{a})[\bar{w} - \bar{a}]  $
+
+Here, $\nabla F(\bar{W})$ is the gradient, and $H(\bar{a}) = [h_{ij}]  $ is the dxd matrix of all the second-rder derviatives of the form:
+
+$h_{ij} = [\frac{\partial^{2} F(\bar{w})}{\partial w_{i} \partial w_{j}}]_{\bar{w}=\bar{a}}  $
+
+A third-order expansion would require the use of a *tensor*, which is a generalization of the notion of a matrix. The first- and second-order expansion will be used frequently in this book for developing various types of optimization algorithms, such as the Newton method
+
+#### Problem 1.5.1 (Euler Identity)
+
+The Taylor series is valid for complex fns as well. Use the Taylor series to show the Euler identity $e^{i\theta} = \cos(\theta) + i \sin(\theta)  $
+
+### 1.5.2 Example of Optimization in ML
+
+An example of a parameterized model discussed in an earlier section is that of linear regression, in which we want to determine a d-dimensional vector $\bar{W} = [w_{1}...w_{d}]^{\top}  $ so that we can predict the n-dimensional dependent variable vector \bar{y} as the function $\bar{y} = D\bar{W}  $ of the nxd matrix D of the observed values. In order to minimize the difference between predicted and observed values, the following objective fn is minimized:
+
+$J = \frac{1}{2} \|D\bar{W} - \bar{y}\|^{2}  $
+
+Here, D is an nxd data matrix, whereas \bar{y} is an n-dimensional column vector of dependent variables. Therefore, this is a simple optimization problem in d parameters. Finding the optimal solution requires techniques from differential calculus. The simplest approach is to set the partial derivative wrt to each parameter w_{i} to 0, which provides a necessary (but not sufficient) condition for optimality:
+
+$\frac{\partial J}{\partial w_{i}} = 0, \forall i \in \{1...d \}  $
+
+The partial derivatives can be shown to be the following:
+
+$[\frac{\partial J}{\partial w_{1}}...\frac{\partial J}{\partial w_{d}}  ] = D^{\top} D\bar{W} - D^{\top}\bar{y}   $
+
+For certain types of `convex objective functions` like linear regression, setting the vector of partial derivatives to the zero vector is both necessary and sufficient for minimization. Therefore we have
+
+$D^{top}D\bar{W} = D^{\top}\bar{y}  $
+
+which yields the following:
+
+$\bar{W} = (D^{\top} D)^{-1}D^{\top}\bar{y}  $
+
+Linear regression is a particularly simple probelm because the optimal solution exists in `closed form`. However, in most cases, one cannot solve the resulting optimality conditions in such a form.Rather, the approach of *gradient-descent* is used.
+
+In `gradient descent`, we use a computaiton algorithm of initializing the parameter set \bar{W} randomly (or a heuristically chosen point), and then change the parameter set in the direction of the negative derivative of the objective fn. In ther words, we use the following updates repeatedly with a step-size \alpha , which is also referred to as the `learning rate`
+
+$[w_{1}...w_{d}]^{\top} \Leftarrow [w_{1}...w_{d}]^{\top} - \alpha [\frac{\partial J}{\partial w_{1}}...\frac{\partial J}{\partial w_{d}}]^{\top} = \bar{W} - \alpha [D^{\top} D\bar{W} - D^{\top}\bar{y}]  $
+
+The d-dimensional vector of partial derivatives is referred to as the `gradient vector`, and it defines an instantaneous direction of best rate of improvement of the objective fn at the current value of the parameter vector \bar{W}. Denoted as:
+
+$\nabla J(\bar{W}) = [\frac{\partial J}{\partial w_{1}}...\frac{\partial J}{\partial w_{d}}]^{\top}  $
+
+Therefore, one can succinctly write gradient descent in the form:
+
+$\bar{W} \Leftarrow \bar{W} - \alpha \nabla J (\bar{W})  $
+
+Note that the best rate of improvement is only over a step of infinitesimal size, and does not hold true for larger steps of finite size. Since the gradients change on making a step, one must be careful not to make steps that are too large or else the effects may be unpredictable.
+
+These steps are repeatedly executed to `convergence`, when further improvements become too small to be useful. Such a situation will occur when the gradient vector contains near-zero entries. Therefore, this computational approach will also (eventually) reach a solution approximately satisfying the optimality conditions of Eq 1.33
+
+The gradient descent method (and many other optimization algorithms) can be explained with the use of the Taylor expansion
+
+Using gradient descent for optimization is a tricky exercise, because one does not always converge to an optimal solution for a variety of reasons. One ex, wrong step size may result in unexpected numerical overflows. Another ex, one might terminate at suboptimal solutions, when the obj fn contains multiple minima relative to specific local regions. There is a significant body of work on designing optimization algorithms
+
+### 1.5.3 Optimization in Computational Graphs
+
+Many ML problems can be represented as the process of learning a function of the inputs that matches the observed variables in the data.
+
+For ex. the least-squares optimization problem can be represented as the following sequence of operations:
+
+$Input (d variables) \Rightarrow Dot product with parameter vector \bar{W} \Rightarrow Prediction \Rightarrow Squared loss   $
+
+The model has d input nodes containing the features x_{1}...x_{d} of the data, and a single (computational) output node creating the dot product $\sum_{i=1}^{d} w_{i}x_{i}  $. The weights [w_{1}...w_{d}] are associated with the edges
+
+Therefore, each node computes a fn of its inputs, and the edges associated with the parameters to be learned. By choosing a more complex topology of the computational graph with more nodes, one can create more powerful models, which often do not have direct analogs in traditional ML
+
+How does one compute gradients wrt edge parameters in computational graphs? Achieved through `backpropagation`. Backprop yields exactly the same gradient as is computed in traditional ML. Backprop can compute gradients in more complex cases. Almost all the well-known ML models (based on gradient descent) can be represented as relatively simple computational graphs. Therefore, computational graphs are extemely powerful abstractions, as they include traditional ML as special cases
+
+## 1.6 Summary
+
+Linear algebra and optimization are intimately related because many of the basic problems in linear algebra, such as finding the "best" solution to an over-determined system of linear equations, are solved using optimization techniques. Many optimization models in ML can also be expressed as obj fns and constrains using matrices/vectors. A useful technique that is used in many of these optimization problems is to decompose these matrices into simpler matrices with specific algebraic/geometric properties. In particular, two types of decomposition are commonly used in ML:
+
+- Any square an invertible matrix A can be decomposed into a product of elementary matrix operators. If the matrix A is not invertible, it can still be decomposed with a *relaxed* defintion of matrix operators, which are allowed to be non-invertible
+- Any square matrix A can be decomposed into a product of two rotation matrices and one scaling (diagonal) matrix in the particular order of rotation, scaling, and rotation. This is known as `singular value decomposition`
+
+An alternative view of ML expresses predictions as computational graphs; this idea also forms the basis for the field of *deep learning*

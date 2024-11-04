@@ -21,7 +21,7 @@ print(A)
 print(R)
 """
 
-
+"""
 E = np.array([
     [1, 0, 0],
     [0, 0, 1],
@@ -35,6 +35,36 @@ A = np.array([
 ])
 
 R = np.dot(E, A),
+
+print(E)
+print(A)
+print(R)
+"""
+
+
+E = np.array([
+    [1, 0],
+    [0, -1]
+])
+
+A = np.array([1, 2])
+
+R = np.dot(E, A.T),
+
+print(E)
+print(A)
+print(R)
+
+
+
+E = np.array([
+    [1, 0],
+    [0, -1]
+])
+
+A = np.array([1, 2])
+
+R = np.dot(A, E),
 
 print(E)
 print(A)
