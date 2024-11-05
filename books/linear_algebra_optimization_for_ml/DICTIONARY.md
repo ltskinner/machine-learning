@@ -15,6 +15,7 @@
   - 1x2 = (12, 3)
   - 1x3 = (3, 0, 7)
   - B_{m*} denotes a row vector, specifically the mth row of B
+  - a_{i} = ith row of A
 - `column vector`
   - vectors are assumed to be column vectors, unless specified otherwise
   - nx1
@@ -26,6 +27,10 @@
     - 8
     - 1
   - A_{*k} denotes a column vector, specifically the kth column of A
+  - a_{j} = jth column of A
+- summing operator
+  - \sum_{i} = shorthand for 'sum over the index i'
+  - \sum_{i=1}^{m} = sum over the index i, starting at i = 1, up to index m (number of elements)
 - `scalars`
   - individual numerical values typically drawn from the real domain in most ML applications
 - `vectors`
@@ -54,7 +59,10 @@
   - `addition` *is commutative*
     - A + B = B + A
   - `multiplication` *is NOT commutative* (in general)
-    - $A \times B = \neq B \times A  $
+    - $A x B \neq B x A  $
+- Matrix multiplication is NOT `commutative`, but it is
+  - `associative` - A(BC) = (AB)C
+  - `distributive` - A(B+C) = AB + AC, (B+C)A = BA + CA
 - `Euclidian norm` aka `squared norm`
   - The norm defines the vector length and is denoted by $\|.\|$
   - converts to a unit vector
@@ -70,13 +78,13 @@
 - `orthogonal`
   - A pair of vectors is `orthogonal` if their dot product is 0 (and the angle between them is 90).
   - The vector \bar{0} is considered orthogonal to every vector.
+  - dot product is simple
+    - turn into col vectors
+    - multiply across rows, sum to get the result
 - `orthonormal`
   - A set of vectors is `orthonormal` if each pair in the set is mutually orthogonal and the norm of each vector is 1.
 - `coordinate transformation` or `projection`
   - compute a new set of coordinates with respect to a changed set of directions
-- Matrix multiplication is NOT `commutative`, but it is
-  - `associative` - A(BC) = (AB)C
-  - `distributive` - A(B+C) = AB + AC, (B+C)A = BA + CA
   - takes the dot product of
     - a row from the first matrix
     - a column of the second matrix
@@ -141,6 +149,7 @@
     - $\|A\|_{F}^{2} = Energy(A) = tr(AA^{\top}) = tr(A^{\top}A)  $
 - `trace`
   - tr(A) of a square matrix is defined by the sum of its diagonal entries
+  - tr(A) = \sum_{i=1}^{n} a_{ii}^{2}
 - `elementary row operations`
   - pre-multiplied = OX
   - `interchange operation`

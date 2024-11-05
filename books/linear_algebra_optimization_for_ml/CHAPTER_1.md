@@ -1000,3 +1000,21 @@ Linear algebra and optimization are intimately related because many of the basic
 - Any square matrix A can be decomposed into a product of two rotation matrices and one scaling (diagonal) matrix in the particular order of rotation, scaling, and rotation. This is known as `singular value decomposition`
 
 An alternative view of ML expresses predictions as computational graphs; this idea also forms the basis for the field of *deep learning*
+
+## 1.8 Exercises
+
+1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+8. 
+9. 
+10. 
+11. 
+12. 
+13. 
+14. 
+15. 
