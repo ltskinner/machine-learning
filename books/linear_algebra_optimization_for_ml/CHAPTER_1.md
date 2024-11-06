@@ -1018,3 +1018,7 @@ An alternative view of ML expresses predictions as computational graphs; this id
 13. 
 14. 
 15. 
+16. 
+17. 
+18. 
+

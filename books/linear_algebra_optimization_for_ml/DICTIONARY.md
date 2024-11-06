@@ -140,6 +140,9 @@
   - $A^{-1}BC^{-1} = (AC)^{-1}(ABC)  $
   - $(I + AB)^{-1}A = A(I + BA)^{-1}  $
   - $(I + AB)^{-1} = I - AB(I + AB)^{-1} = I - A(I + BA)^{-1}B  $
+- `Neumann Series Approximation`
+  - $(I + X)^{-1} \approx I - X + X^{2} - X^{3} + X^{4}  $
+  - $(I + AB)^{-1} \approx I - AB + (AB)^{2} - (AB)^{3} + (AB)^{4}  $
 - `Frobenius norm`
   - $\|A\|_{F} = \|A^{\top}\|_{F} = \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}^{2}  }  $
   - The squared Frobenius norm is the sum of squares of the norms of the row-vectors (or, alternatively, column vectors) in the matrix
