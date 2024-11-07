@@ -38,6 +38,8 @@
   - each numerical value is referred to as a `coordinate`
   - The individual numerical values of the arrays are referred to as `entries`, `components`, or `dimensions`
   - the number of `components` is referred to as the vector `dimensionality`
+  - dot products give you scalar projections
+  - cross products give you a new vector
 - `matrices`
   - rectagular arrays of numerical values containing both rows and column
   - to access a value, must specify its row index and column index
