@@ -42,3 +42,9 @@ Tyes of **structures** by space:
 | Riemannian Space | Generalizes Euclidian Space by allowing for curved manifolds with local inner products | Riemannian Geometry | 4 |
 | Hyperbolic Space | A space with constant negative curvature, used for embedding hierarchical data | Hyperbolic Geometry | 4 |
 | Symplectic Space | Describes the phase space in classical mechanics, used in physics and geometry | Symplectic Geometry | 4 |
+
+## Definitions
+
+- `hyperplane`
+  - a "flat" subspace that is one dimension lower than the space its in
+  - e.g. 2d plane in 3d space, or 4d plane in 5d space

@@ -142,12 +142,28 @@
   - $A^{-1}BC^{-1} = (AC)^{-1}(ABC)  $
   - $(I + AB)^{-1}A = A(I + BA)^{-1}  $
   - $(I + AB)^{-1} = I - AB(I + AB)^{-1} = I - A(I + BA)^{-1}B  $
+- `Parallelogram law`
+  - States that the sum of the squares of the sides of a parallelogram is equal to the sum of the squares of its diagonals
+- `Apollonius's Theorum / Apollonius Identity`
+  - AB^{2} + AC^{2} = 2(AD^{2} + BD^{2})
+  - aka
+  - AB^{2} + AC^{2} = 2AD^{2} + 2BD^{2}
+- `Sine Law`
+  - soh cah toa
+  - sin(\theta) = \frac{\|A\crossB\|}{\|a\|\|b\|}
+  - cos(\theta) = \frac{\|A\cdot\|}{\|a\|\|b\|}
+  - tan(\theta) = \frac{\|A\crossB\|}{\|A\cdot\|}
+  - sin^{2}(x) + cos^{2}(x) = 1
+  - \frac{\|a\|}{sin(A)} = \frac{\|b\|}{sin(B)}
+- `trigonometric identity` (one of them)
+  - cos(\theta_{1} \theta_{2}) = cos(\theta_{1}cos(\theta_{2})) - sin(\theta_{1})sin(\theta_{2})
 - `Neumann Series Approximation`
   - $(I + X)^{-1} \approx I - X + X^{2} - X^{3} + X^{4}  $
   - $(I + AB)^{-1} \approx I - AB + (AB)^{2} - (AB)^{3} + (AB)^{4}  $
 - `Frobenius norm`
   - $\|A\|_{F} = \|A^{\top}\|_{F} = \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}^{2}  }  $
   - The squared Frobenius norm is the sum of squares of the norms of the row-vectors (or, alternatively, column vectors) in the matrix
+    - THE POINT OF THIS IS TO GET RID OF SQRT
 - `energy`
   - another name for the squared Frobenius norm
   - The energy of a rectangular matrix A is equal to the trace of either AA^{\top} or A^{\top}A

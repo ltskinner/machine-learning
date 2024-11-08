@@ -384,6 +384,8 @@ $\|A\|_{F} = \|A^{\top}\|_{F} = \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}^{2}  
 
 The squared Frobenius norm is the sum of squares of the norms of the row-vectors (or, alternatively, column vectors) in the matrix
 
+THE ROLE OF SQUARING IS TO GET RID OF THE SQRT
+
 The `energy` if a matrix A is an alternative term used in ML for the squared Frobenius norm
 
 The `trace` of a square matrix A, denoted by tr(A), is defined by the sum of its diagonal entries. The energy of a rectangular matrix A is equal to the trace of either AA^{\top} or A^{\top}A
@@ -1003,29 +1005,72 @@ An alternative view of ML expresses predictions as computational graphs; this id
 
 ## 1.8 Exercises
 
-1. 
-2. 
-3. 
-4. 
-5. 
-6. 
-7. 
-8. 
-9. 
-10. 
-11. 
-12. 
-13. 
-14. 
-15. 
-16. 
-17. 
-18. 
-19. 
-20. 
-21. 
-22. 
-23. 
-24. 
-25. 
-26. 
+- 1. x - y is orthogonal to x + y
+- 2. 
+- 3. if A = -A^{\top}, then diag must be 0
+- 4. 
+- 5. 
+- 6. 
+- 7. 
+- 8. 
+- 9. 
+- 10. where D \approx UV^{\top}, you can adjust dimension k (the rank) to get infinite number of factorizations
+- 11. 
+- 12. After some high enough power of a permutation matrix, the permutation matrix is always the identity
+  eventually, there is a collision where you get a transpose of P where P^{\top} = P^{-1}, which times itself, makes the I
+- 13. for a matrix polynomial \sum_{i=0} a_{i}A^{i}, normally evaluating requires O(t^2)
+  - to reduct this, just nest the terms inside each other so dont need to re-compute
+  - like the chain rule i think, and results in O(t)
+- 14. 
+- 15. Parallelogram law
+  - States that the sum of the squares of the sides of a parallelogram is equal to the sum of the squares of its diagonals
+- 16. Taylor expansion
+- 17. Taylor expansion
+- 18. for matrix P initialized with random values of either -1 or 1, the columns will be mutually orthogonal
+  - two columns in a matrix are othogonal if the dot product is zero
+  - at the limit, 1(1) -1(1) ... 1(-1) 1(1) \approx 0
+- 19. perturbed matrix - Neumann Series Approximation
+  - `Neumann Series Approximation`
+    - $(I + X)^{-1} \approx I - X + X^{2} - X^{3} + X^{4}  $
+    - $(I + AB)^{-1} \approx I - AB + (AB)^{2} - (AB)^{3} + (AB)^{4}  $
+- 20. interchange, addition, scaling
+- 21. parallelogram law
+- 22. 
+- 23. product of upper triangle matrices is the zero matrix
+- 24. Apollonius identity
+  - AB^{2} + AC^{2} = 2(AD^{2} + BD^{2})
+  - closely related to Parallelogram Law
+- 25. Sine law
+  - soh cah toa
+  - sin(\theta) = \frac{\|A\crossB\|}{\|a\|\|b\|}
+  - cos(\theta) = \frac{\|A\cdot\|}{\|a\|\|b\|}
+  - tan(\theta) = \frac{\|A\crossB\|}{\|A\cdot\|}
+  - sin^{2}(x) + cos^{2}(x) = 1
+  - \frac{\|a\|}{sin(A)} = \frac{\|b\|}{sin(B)}
+- 26. Trigonometry with vector algebra
+- 27. find intersection coordinates of two lines by inverting matrix A
+  - A[x, y]^{\top} = b
+  - [x, y]^{\top} = A^{-1}b
+  - use 1/(ad - bc)[[d, -b], [-c, a]] to invert the matrix
+- 28. Inverting matrix of 1s, whose diagonal values = 2
+  - decompose into (I + A)^{-1} form
+  - (I + A)^{-1} = I - A + A^{2} - A^{3} ...
+- 29. Solid geometry with vector algebra
+  - system of linear equations
+  - the closest point on a hyperplane to a point not on the hyperplane, is the orgin of a vector orthogonal to the hyperplane whose head is at the point not on the hyperplane
+- 30. 
+- 31. Matrix centering
+  - basically, use vector of 1s cross a vector of the mean value of each column
+- 32. Energy preservation in orthogonal transformations
+  - orthogonal matrices are like rotation matrices
+  - energy stays same, regardless of orientation
+- 33. Tight sub-mulitplicative case
+  - factorizing sum operations
+- 34. Frobenius othogonality and Pythagorean theorum, trace
+  - trace is sum the diagonal entries
+- 35. Frobenius othogonal vector outer products
+
+GO BACK AND ADD KEYWORDS TO EACH PROBLEM
+
+- bolded words from question
+- specific techniques used, identities, etc

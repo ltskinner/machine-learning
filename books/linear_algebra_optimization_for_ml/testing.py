@@ -111,7 +111,7 @@ print(R)
 """
 
 
-
+"""
 E = np.array([
     [0, 0, 1, 0, 0],
     [1, 0, 0, 0, 0],
@@ -132,5 +132,13 @@ R = np.dot(np.dot(E.T, A), E),
 
 print(E)
 print(A)
+print(R)
+"""
+
+c1 = np.array([1, 1])
+c2 = np.array([1, 1])
+
+R = np.outer(c1, c2)
+
 print(R)
 
