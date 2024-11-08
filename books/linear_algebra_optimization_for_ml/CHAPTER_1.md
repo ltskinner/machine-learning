@@ -1069,8 +1069,3 @@ An alternative view of ML expresses predictions as computational graphs; this id
 - 34. Frobenius othogonality and Pythagorean theorum, trace
   - trace is sum the diagonal entries
 - 35. Frobenius othogonal vector outer products
-
-GO BACK AND ADD KEYWORDS TO EACH PROBLEM
-
-- bolded words from question
-- specific techniques used, identities, etc
