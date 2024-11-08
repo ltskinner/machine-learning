@@ -135,10 +135,31 @@ print(A)
 print(R)
 """
 
+"""
 c1 = np.array([1, 1])
 c2 = np.array([1, 1])
 
 R = np.outer(c1, c2)
 
 print(R)
+"""
+
+E = np.array([
+    [3, 0, 0],
+    [0, 3, 0],
+    [0, 0, 3]
+])
+
+A = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+])
+
+R = np.dot(A, E),
+
+print(E)
+print(A)
+print(R)
+
 

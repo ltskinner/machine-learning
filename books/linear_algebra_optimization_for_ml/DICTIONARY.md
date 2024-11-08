@@ -134,6 +134,11 @@
   - $AA^{-1} = A^{-1}A = I  $
   - $(AB)^{-1} = B^{-1}A^{-1}$ - need to invert the order when bring outside of the parentheses
     - (ABC)^{-1} = C^{-1}B^{-1}A^{-1}
+- `singular`
+  - a matrix that is **not invertible**
+  - non-square matrices
+  - row of zeros, col of zeros
+  - determinant is zero
 - `orthogonal matrix`
   - square matrix whose inverse is its transpose
   - $AA^{\top} = A^{\top}A = I  $
@@ -211,6 +216,9 @@
   - permutation matrix and its transpose are inverses of one another
     - this differs from pure row or pure col operations
     - well, or the transpose of pure row or pure col is identical as well lol
+- `matrix polynomial`
+  - come in the form of:
+    - f(U) = \sum_{i=0}^{k}c_{i}A^{i} = c_{0}I + c_{1}U + c_{2}U^{2} + .. + c_{k}U^{k}
 
 ## ML specifics
 

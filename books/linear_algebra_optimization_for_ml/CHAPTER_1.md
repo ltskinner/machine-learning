@@ -495,7 +495,7 @@ $
 \begin{bmatrix}
 1 & c & 0 \\
 0 & 1 & 0 \\
-0 & 0 1
+0 & 0 & 1
 \end{bmatrix}
 $
 
@@ -1069,3 +1069,57 @@ An alternative view of ML expresses predictions as computational graphs; this id
 - 34. Frobenius othogonality and Pythagorean theorum, trace
   - trace is sum the diagonal entries
 - 35. Frobenius othogonal vector outer products
+- 36. 
+- 37. Any orthogonal upper-triangular matrix is a diagonal matrix
+  - to be orthogonal, the inverse is equal to the Transpose
+  - for this to be true, only values can be on diagonal
+- 38. 
+  - euclidean distance between two vectors
+    - \|u - v \|^{2} = \|u\|^{2} + \|v\|^{2} - 2(u.v)
+  - unit vector u^2 = 1
+- 39. 
+- 40.
+  - EVERY matrix commutes with its inverse
+  - All polynomials of the same matrix A will commute with respect to the multiplication operator
+  - Two polynomials f(A) and g(A) of the same matrix A will always commute
+  - [f(A)]^{-1}g(A) = g(A)[f(A)]^{-1}
+  - sinular matrices
+- 41.
+  - push through fn on polynomials
+  - rectangular matrx / non-square matrix
+  - A^{\top}f(AA^{\top}) = f(A^{\top}A)A^{\top}
+  - [f(A^{\top}A)]^{-1}A^{\top} = A^{\top}[f(AA^{\top})]^{\top}
+- 42.
+  - scalar binomial expansion
+  - vectors multiplication commutes, whereas matrix mutliplication does not
+  - I think because you can then replace B with some A-based matrix, which being the same matrix base lets us skirt non-commutative properties
+- 43.
+  - all strictly upper trianglular matrices are nilpotent
+  - matrix inversion lemma
+  - $(I+A)^{-1} = I - A + A^{2} - A^{3} + A^{4} + ... + Infinite Terms  $
+  - ok but this is sick - because we know A^{4} = 0, we can stop there
+  - so: (I+A)^{-1} = I - A + A^{2} - A^{3}
+- 44.
+  - strictly lower are also nilpotent
+  - 
+- 45. 
+- 46.
+  - basically, if commute, can rewrite as A^{m}B^{n} = B^{n}A^{m}
+  - focus on the powers m, and n
+  - these powers are like the result of polynomials
+  - so the polynomials inheret the comutativity
+- 47. sameas
+- 48.
+- 49.
+  - Inverses behave like matrix polynomials
+  - Cayley-Hamilton theorem: a finite-degree polynomial f(.) always exists for any matrix A satisfying f(A) = 0
+- 50.
+  - sum of matrices = (A + B)
+- 51.
+  - for any non-invertible matrix A, the infinite summation cannot converge to a finite matrix
+- 52.
+- 53. 
+  - basically, if it commutes, then order doesnt matter
+  - elementary matrix for scaling commutes
+  - diagonal matrices commute
+- 54. 
