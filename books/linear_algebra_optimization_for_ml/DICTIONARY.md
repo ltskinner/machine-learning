@@ -142,6 +142,9 @@
 - `orthogonal matrix`
   - square matrix whose inverse is its transpose
   - $AA^{\top} = A^{\top}A = I  $
+  - the `product of orthogonal matrices`
+    - not necessarily commutative in higher dimensions, so assume is NOT commutative
+    - orthogonal matrices that do not correspond to the same `axis of rotation` may not be commutative
 - `Push-Through Identity`
   - helpful when you want to "push" the *inverses* of A and C outside a product that includes B:
   - $A^{-1}BC^{-1} = (AC)^{-1}(ABC)  $
@@ -219,6 +222,45 @@
 - `matrix polynomial`
   - come in the form of:
     - f(U) = \sum_{i=0}^{k}c_{i}A^{i} = c_{0}I + c_{1}U + c_{2}U^{2} + .. + c_{k}U^{k}
+- `Givens Rotations`
+  - of form G(plane_1, plane_2, angle)
+  - take standard rotation matrix, and overlay on top of identity matrix
+  - where rows and columns correspond to plane_1 and plane_2, with cos and sin operators
+  - note, row and col G_{r|c} matrices are inverts of each other
+  - there is usually an elementary reflection included as well
+
+## Linear Transformations
+
+- `Linear Transform`
+  - `translation` is NOT allowed
+  - A vector-to-vector function f(\bar{x}) defines a linear transformation of \bar{x}
+  - A vector-to-vector fn is a generalization of the notion of scalar functions, and it maps a d-dimensional vector to an n-dimensional vector for some d and n
+  - f(x) = Ax is one because accepts a vector, and then returns a vector
+  - all `linear transforms` are special cases of `affine transforms`, but **NOT vice versa**
+  - The class of linear transforms can always be geometrically expressed as a sequence of one or more rotations, reflections, dilations/contractions about the origin. The origin always maps to itself after these operations, and therefore translation is not included
+- `Linear Function`
+  - `translation` IS allowed
+- `vector spaces`
+  - the collection of row vectors and column vectors into data matrices
+- `translation`
+  - the `translation` operator is NOT a linear transform
+  - however, is used for `mean-centering` the data
+  - special case of `affine transformations`
+- `mean-centering`
+  - a constant mean vector is subtracted from each row of the dataset
+  - this way, the mean value of each column is transformed to 0
+- `affine transformations`
+  - a combination of linear transform with a translation
+  - includes any transform of the form:
+    - f(x) = Ax + c
+      - where both x and c are vectors
+      - A is an nxd matrix
+      - x is a d-dimensional vector
+      - c is an n-dimensional column vector
+- `rotreflection`
+  - In some cases, reflections are included with rotations
+  - When a compulsory reflection is included in the sequence, the resulting matrix is referred to as a `rotreflection` matrix
+
 
 ## ML specifics
 
