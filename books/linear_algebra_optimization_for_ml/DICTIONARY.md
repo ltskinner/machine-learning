@@ -62,6 +62,9 @@
     - A + B = B + A
   - `multiplication` *is NOT commutative* (in general)
     - $A x B \neq B x A  $
+- `idempotent`
+  - two unit vector product (vv^{\top}) is idempotent
+  - means, V^n = V - raising to power doesnt change the value
 - Matrix multiplication is NOT `commutative`, but it is
   - `associative` - A(BC) = (AB)C
   - `distributive` - A(B+C) = AB + AC, (B+C)A = BA + CA
@@ -75,6 +78,7 @@
   - correspond to dimensions in vector space
 - `vector space`
   - ex. the infinite set of all possible cartesian coordinates in two dimensions in relation to the origin
+  - an infinite `set` of vectors satisfying certain types of `set closure` properties under addition and scaling operations
 - `Linear algebra`
   - can be viewed as a generalized form of the geometry of cartesian coordinates in d dimensions
 - `orthogonal`
@@ -205,12 +209,17 @@
       - the pre-multiplication operator matrix will be of size *n x n*
       - the post-multiplication operator matrix will be of size *d x d*
   - there are also `geometric` elementary matrices
-    - Rotation
+    - `rotation operation`
       - swapping between pre- and post-multiplication, need to Transpose
-    - Reflection
+    - `reflection operation`
       - same between pre- and post-
-    - Scaling
+      - is a special case of a scaling (diagonal) matrix (by negative values)
+    - `scaling operation`
       - same between pre- and post-
+      - aka:
+        `dilation`
+        `contraction`
+      - `anisotropic` - when scaling factors across different dimensions are different
 - `permutation matrix`
   - contains a single 1 in each row, and a single 1 in each column
   - elementary interchange matrices are a special case of the permutation matrix
@@ -228,6 +237,15 @@
   - where rows and columns correspond to plane_1 and plane_2, with cos and sin operators
   - note, row and col G_{r|c} matrices are inverts of each other
   - there is usually an elementary reflection included as well
+- `Householder reflection matrix`
+  - an orthogonal matrix that reflects a vector \bar{x} into any "mirror" hyperplane of arbitrary orientation
+  - $(I - 2\bar{v}\bar{v}^{\top})$ is an elementary reflection matrix in the hyperplane perpendicular to \bar{v} and passing through the origin.
+  - Householder is a more expressive transformation than Givens because orthogonal matrix can be represented with fewer reflection matrices
+- `rigid` transformations
+  - transformations that preserve distances between pairs of points
+- `singular value decomposition`
+  - states that any square matrix A can be expressed in the form $A = U\Delta V^{\top}  $, where U and V are both orthogonal matrices (which might be different) and $\Delta$ is a *nonnegative* scaling matrix
+  - Therefore, *all linear transformations defined by matrix multiplication can be expressed as a sequence of rotations/reflections, together with a single ansiotripic scaling*
 
 ## Linear Transformations
 

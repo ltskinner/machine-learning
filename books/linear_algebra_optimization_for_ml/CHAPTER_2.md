@@ -40,7 +40,7 @@ An `affine transformation` is a combination of linear transformation with a tran
 
 A vector-to-vector fn f(\bar{x}) defines an affine transformation of \bar{x}, if the following condition is satisfied for any scalar \labmda
 
-$f(\lambda \bar{x} + [1 - \lambda]\bar{y}) = \labmda f(\bar{x}) + [1 - \lambda]f(\bar{y}), \forall \bar{x}, \bar{y} in domain of f(.)  $
+$f(\lambda \bar{x} + [1 - \lambda]\bar{y}) = \lambda f(\bar{x}) + [1 - \lambda]f(\bar{y}), \forall \bar{x}, \bar{y} in domain of f(.)  $
 
 All linear transforms are special cases of affine transforms, but not vice versa. the simplest univariate fn f(x) = m.x + b is widely referred to as "linear", allows a non-zero translation b; this would make it an affine transformation. However, the notion of linear transform from the linear algebra perspective is much more restrictive, and it does not even include the univariate fn, unless the bias term b is zero
 
@@ -76,7 +76,7 @@ The geometric transformation caused by multiplying a vector with V = V_{1}V_{2}.
 
 $\bar{y}V = ([\bar{y}V_{1}V_{2}]...V_{r})\bar{y}  $ For row vector
 
-$V^{\top}\bar{x} = (V_{r}^{\top}[V_{r-1}^{\top}...(V_{1}^{\top})])\bar_{x} = \bar{y}^{\top}  $ For column vector
+$V^{\top}\bar{x} = (V_{r}^{\top}[V_{r-1}^{\top}...(V_{1}^{\top})])\bar{x} = \bar{y}^{\top}  $ For column vector
 
 #### Orthogonal Transformations
 
@@ -135,3 +135,168 @@ All dxd orthogonal matrices can be shown to be products of at most O(d^{2}) Give
 #### Problem 2.2.1
 
 Show that you can express a dxd elementary row interchange matrix as the product of a 90deg rotation and an elementary reflection
+
+Thus far, introduced only diagonal reflection matrices that flip the sign of a vector component.
+
+The `Householder reflection matrix` is an orthogonal matrix that reflects a vector \bar{x} into any "mirror" hyperplane of arbitrary orientation. Such a hyperplane passes through the origin and its orientation is defined by an `arbitrary` normal vector \bar{v} (of unit length)
+
+The distance of \bar{x} from the "mirror" hyperplane is $c = \bar{x} \cdot \bar{v}$. An object and its mirror image are separated by twice this distance (c) along \bar{v}. Therefore, to perform the reflection of \bar{x} and create its mirror image \bar{x}', one must subtract *twice* of cv from x
+
+$(I - 2\bar{v}\bar{v}^{\top}) \bar{x}  $ Householder
+
+For any unit (column) vector \bar{v}, the matrix $(I - 2\bar{v}\bar{v}^{\top})$ is an elementary reflection matrix in the hyperplane perpendicular to \bar{v} and passing through the origin.
+
+Any orthogonal matrix can be represented with fewer Householder reflections than Given rotations, therefore, the Householder is a more expressive transformation
+
+#### Lemma 2.2.4 - Householder Geometric Decomposition
+
+Any orthogonal matrix of size dxd can be expressed as the product of at most d Householder reflection matrices
+
+#### Problem 2.2.2 - Reflection of a Reflection
+
+Verify algebraically that the square of the householder reflection matrix is the I matrix
+
+two unit vectors produce a matrix that is Idempotent
+
+#### Problem 2.2.3
+
+Show that the elementary reflection matrix, which varies from the id matrix only in terms of flipping the sign of the ith diagonal element, is a special case of the householder reflection matrix
+
+#### Problem 2.2.4 - Generalized Householder
+
+Show that a sequence of k mutually orthogonal Householder transformations can be expressed as $I - 2QQ^{\top} $ for a dxk matrix Q containing orthonormal columns. Which (d-k)-dimensional plane is that reflection in
+
+#### Rigidity of Orthogonal Transformations
+
+Dot products and Euclidean distances between vectors are unaffected by multiplicative transformations with orthogonal matrices. This is because an orthogonal transformation is a sequence of rotations and reflections, which **does not change lengths and angles**
+
+This also means that orthogonal transformations preserve the:
+
+- sum of squares of Euclidean distances of the data points (i.e. rows of a data matrix D) about the origin
+  - this is also the (squared) Frobenius norm/energy of the nxd matrix D
+
+When the nxd matrix D is multiplied with the dxd orthogonal matrix V, can express the Frobenius norm of DV in terms of the trace operator:
+
+$\|DV\|_{F}^{2} = tr[(DV)(DV)^{\top}] = tr[D(VV^{\top})D^{\top}] = tr(DD^{\top}) = \|D\|_{F}^{2}   $
+
+- `rigid` transformations
+  - transformations that preserve distances between pairs of points
+  - rotations and reflections not only preserve distances between points, but also absolute distances of points from the origin
+
+Translations (which are not linear transforms) are also not rigid because they preserve distances between pairs of transformed points. However, translations usually do not preserve distances from the origin
+
+#### Scaling: A Non-rigid Transformation
+
+In general, a multiplication of vector x with an arbitrary matrix V might change it length. If such a matrix can be decomposed into simpler geometric operator matrices as $V = V_{1}V_{2}...V_{r} $, it means that there must be some fundamental geometric transformation V_{i} among these operator matrices that does not preserve distances.
+
+This fundamental transformation is that of `dilation/contraction` (or more generally, `scaling`)
+
+It is possible for these values to be negative, which also makes it a reflection operation
+
+#### General Case: Combining Orthogonal and Scaling Transformations
+
+Multiplying an nxd data matrix D with a diagonal matrix \Delta to create D\Delta results in scaling of the ith dimension (column) of the data matrix D with the ith diagonal entry of \Delta. This is an example of axis-parallel scaling, where the directions of scaling are aligned with the axes of representation. Just as axis-parallel scalings are performed with diagonal matrices, scalings along arbitrary directions are performed with `diagonalizable matrices`
+
+Say we want to scale each 2-dimensional row of an nx2 data matrix
+
+- in the direction [cos(-30), sin(-30)]
+  - by a factor of 2
+- in the direction [cos(60), sin(60)]
+  - by a factor of 0.5
+
+Steps:
+
+- i. first rotate the data set D by a 30 degree angle
+  - by multiplying D with orthogonal matrix V to create DV
+  - DV
+- ii. then multiply DV with the diagonal matrix \Delta
+  - which has diagonal entries of 2 and .5
+- iii. finally, rotate the dataset in the reverse direction (i.e. -30)
+  - $(DV\Delta)V^{\top}  $
+
+Transformations of the form $V\Delta V^{\top}  $ are discussed in Ch3
+
+V = 
+$
+\begin{bmatrix}
+\cos(-30) & \cos(60) \\
+\sin(-30) & \sin(60)
+\end{bmatrix}
+$
+
+=
+
+$
+\begin{bmatrix}
+\cos(30) & \sin(30) \\
+-\sin(30) & \cos(30)
+\end{bmatrix}
+$
+
+\Delta = 
+
+$
+\begin{bmatrix}
+2 & 0 \\
+0 & 0.5
+\end{bmatrix}
+$
+
+Not all transformations can be expressed in the form $V\Delta V^{\top}  $. However, a beautiful result, referred to as `singular value decomposition`, states that any square matrix A can be expressed in the form $A = U\Delta V^{\top}  $, where U and V are both orthogonal matrices (which might be different) and $\Delta$ is a *nonnegative* scaling matrix
+
+Therefore, *all linear transformations defined by matrix multiplication can be expressed as a sequence of rotations/reflections, together with a single ansiotripic scaling*
+
+## 2.3 Vector Spaces and Their Geometry
+
+A `vector space` is an infinite `set` of vectors satisfying certain types of `set closure` properties under addition and scaling operations
+
+One of the most important vector spaces in linear algebra is the set of all n-dimensional vectors
+
+#### Definition 2.3.1 - Space of n-Dimensional Vectors
+
+The space $\mathbb{R}^{n} $ consists of the set of all column vectors with n real componments
+
+By convention, the vectors in \mathbb{R}^{n} are assumed to
+
+- be column vectors
+- have tails at the origin
+- contains an infinite set of vectors
+- we can scale any vector or add two vectors from R and still stay in R
+
+#### Definition 2.3.2 Vector Space in $\mathbb{R}^{n} $
+
+A subset of vectors V from $\mathbb{R}^{n}  $ is a vector space if it satisfies the following properties:
+
+1. if $\bar{x} \in V  $ then $c\bar{x} \in V $ for any scalar $c \in \mathbb{R}  $
+2. if $\bar{x}\bar{y} \in V  $, then $\bar{x} + \bar{y} \in V  $
+
+The zero vector $\bar{0}  $ is included in all vector spaces becauase it always satisfies the additive identity
+
+In general, vector spaces that are subsets of $\mathbb{R}  $ correspond to vectors sititng on an **origin-centered hyperplane** of dimensionality at most n. Therefore, vector spaces in R can be nicely mapped to our geometric understanding of lower-dimensional hyperplanes.
+
+The **origina-centered nature of the hyperplanes is important**;
+
+(the set of vectors with tails at the origin and heads on a hyperplane that is NOT origin centered does not define a vector space, because this set of vectors is not closed under scaling and addition)
+
+Other than the zero vector space, all vector spaces contain an infinite set of vectors
+
+A fixed linear transformation of each element of a vector space results in another vector space, because of the way in which linear transformations preserve the properties of addition and scalar multiplication.
+
+The modern notation of a vector space is more general than vectors from R^n, because it allows all kinds of abstract objects to be considered "vectors" and infinite sets of such objects to be considered vector spaces (along with appropriately defined vector addition and scalar multiplication operations on these objects)
+
+A large class of vector spaces over the Real field can be *indirectly* represented using R^n, via the process of `coordinate representation`. Furthermore, staying in R^{n} has the distinct advantage of being able to work with easily understandable operations over matrices and vectors
+
+#### Problem 2.3.1
+
+Let \bar{x} \in R^{d} be a vector and A be an nxd matrix. Is each of the following a vector space?
+
+- All \bar{x} satisfying A\bar{x} = \bar{0}
+  - the zero vector in all vector spaces
+- All \bar{x} satisfying A\bar{x} >= \bar{0}
+  - i think not. I dont like the >= operator in this context
+- All \bar{x} satisfying A\bar{x} = \bar{b} for some non-zero \bar{x} \in \mathbb{R}^{n}
+  - if b could assume the zero vector then it would be a vector space
+- All nxn matrices in which the row sums and column sums are the same for a particular matrix (but not necessarily across matrices)
+  - yeah I think so
+  - a scalar times the row sums must be in the domain
+  - addition an dmultiplication also holds
