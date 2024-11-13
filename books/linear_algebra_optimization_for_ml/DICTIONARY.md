@@ -138,6 +138,10 @@
   - $AA^{-1} = A^{-1}A = I  $
   - $(AB)^{-1} = B^{-1}A^{-1}$ - need to invert the order when bring outside of the parentheses
     - (ABC)^{-1} = C^{-1}B^{-1}A^{-1}
+  - An nxn square matrix A has linearly independent columns/rows if and only if it is invertible
+  - the inverse of an orthogonal matrix is its transpose
+- `left-inverse` of matrix A
+  - $\bar{x} = (A^T A)^{-1} A^T  \bar{v} $
 - `singular`
   - a matrix that is **not invertible**
   - non-square matrices
@@ -260,6 +264,37 @@
   - `translation` IS allowed
 - `vector spaces`
   - the collection of row vectors and column vectors into data matrices
+- `vector subspace`
+  - A vector space S is a subspace of another vector space V, if any vector x \in S is also present in V
+    - $S \subseteq V$ is a subspace
+  - the subspace S is a `proper subspace` of V when V contains vectors not present in S
+    - $S \subset V $ is a proper subspace
+- `linearly dependent`
+  - A set of non-zero vectors $\{\bar{a}_{1}...\bar{a}_{d} \}  $ is linearly dependent, if a set of d scalars $x_{1}...x_{d}  $ can be found so that at least some of the scalars are non-zero, and the following condition is satisfied
+  - $\sum_{i=1}^{d} x_{i}\bar{a}_{i} = \bar{0}  $
+  - `non-trivial` if every scalar in $x_{1}...x_{d}  $ is **NOT zero**
+  - `trivial` if there **ARE** zeros
+  - when you create new vectors or points from two basis vectors, these new points are linearly dependent on the basis vectors
+  - new points are not directly linearly dependent on each other tho
+- `linearly independent`
+  - when no set of non-zero scalars can be found
+  - "contributes a new, independent direction"
+  - if a matrix is invertible, it has linearly independent columns/rows
+- `basis` aka `basis set`
+  - basically like the fundamental axes by which you define a space
+  - for any vector v \in V,, we can find scalars x_1...x_d so that $\bar{v} = \sum_{i=1}^{d} x_{i}\bar{a}_{i}  $
+  - one cannot do this for any proper subset of B
+  - *The vectors in a basis must be linearly independent*
+  - is a **maximal** set of `linearly independent` vectors in it
+  - the coordinates of a vector in any basis must be unique
+  - `standard basis`
+    - is like an `identity matrix`
+    - the identity matrix is a collection of the `standard basis` *vectors*, arranged in matrix form
+    - cannot be used the basis of a `proper` subspace
+- `dimensionality`
+  - The number of members in every possible basis set of a vector space V is always the same. This value is referred to as the **dimensionality** of the vector space
+- `span`
+  - the vector space defined by all possible linear combinations of the vectors in a set
 - `translation`
   - the `translation` operator is NOT a linear transform
   - however, is used for `mean-centering` the data

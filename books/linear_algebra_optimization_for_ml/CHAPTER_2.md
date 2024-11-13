@@ -300,3 +300,205 @@ Let \bar{x} \in R^{d} be a vector and A be an nxd matrix. Is each of the followi
   - yeah I think so
   - a scalar times the row sums must be in the domain
   - addition an dmultiplication also holds
+
+#### Definition 2.3.3 - Subspace
+
+A vector space S is a subspace of another vector space V, if any vector x \in S is also present in V. In addition, when V contains vectors not present in S, the subspace S is a `proper subspace` of V
+
+The requirement that subspaces are vector spaces ensures that subspaces of \mathbb{R}^{n} contain vectors residing on hyperplanes in n-dimensional space passing through the origin
+
+When the hyperplane defining the subspace has dimensionality strictly less than n, the corresponding subspace is a proper sub-space of R^n because non-hyperplane vectors in R^n are not members of the subspace
+
+if you have [1, 0, 0]^T and [1, 2, 1]^T, these can be used to define a 2-dimensional hyperplane V, and each point on the hyperplane is a linear combination of the pair of vectors
+
+then, when using linear combinations to create new points, any subspace between two of these points must be a proper subspace of V
+
+For the vector space R^3, examples of proper subspaces could be the set of vectors sitting on:
+
+- i. any 2-dimensional plane passing through the origin
+- ii. any 1-dimensional line passing through the origin
+- iii. the zero vector
+
+Furthermore, subspace relationships might exist among the lower-dimensional hyperplanes when one of them contains the other (e.g. a 1-dimensional line sitting on a plane in R^3)
+
+A set of vectors {a_1...a_d} is `linearly dependent` if a non-zero linear combination of these vectors sums to zero
+
+#### Definitino 2.3.4 - Linear Dependence
+
+A set of non-zero vectors $\{\bar{a}_{1}...\bar{a}_{d} \}  $ is linearly dependent, if a set of d scalars $x_{1}...x_{d}  $ can be found so that at least some of the scalars are non-zero, and the following condition is satisfied
+
+$\sum_{i=1}^{d} x_{i}\bar{a}_{i} = \bar{0}  $
+
+We emphasize the fact that all scalars x_1...x_d cannot be zero. Such a coefficient set is said to be `non-trivial`
+
+`linearly independent` when no set of non-zero scalars can be found
+
+It is relatively easy to show that a set of vectors a...a that are mutually orthogonal must be linearly independent. If these are linearly dependent, we must have non-trivial coefficients x_1...x_d such that $\sum_{i=1}^{d} x_{i}\bar{a}_{i} = \bar{0}  $
+
+However, taking the dot product of the linear dependence condition with each a_i and setting each a_i \cdot a_j = 0 for i \neq j yields each x_i = 0, which is a `trivial` coefficent set
+
+Building on above example of having two vectors defining a plane, and then using linear combinations to create new points. One only needs 2 of these vectors to define the hyperplane on which all vectors lie. This **minimal set of vectors** is known as a `basis`
+
+#### Definition 2.3.5 - Basis
+
+A `basis` (or `basis set`) of a vector space $V \subseteq \mathbb{R}^{n} $ is a **minimal** set of vectors $\mathbb{B} = \{\bar{a}_{1}...\bar{a}_{d} \} \subseteq V  $, so that all vectors in V can be expressed as linear combinations of a_1...a_d
+
+In other words, for any vector v \in V,, we can find scalars x_1...x_d so that $\bar{v} = \sum_{i=1}^{d} x_{i}\bar{a}_{i}  $, and one cannot do this for any proper subset of B
+
+It is helpful to think of a basis geometrically as a coordinate system of directions or `axes`, and the scalars x_1...x_d as coordinates in order to express vectors
+
+For example, the two commonly used axis directions in the classical 2d plane of Cartesian geometry are [1,0]^T and [0,1]^T, although we could always rotate this axis system by \theta to get a new set of axes
+
+Furthermore, the representative directions need not even be mutually orthogonal. The basis set does not need to be unique
+
+The vectors in a basis must be linearly independent. this is because if the vectors in the basis are linearly dependent, we can drop any vector occuring in the linear dependence condition from B without losing the ability to express all vectors in V in terms of the remaining vectors. "if any vector in a supposed basis were linearly dependent on others, it could be removed without reducing the span. This means that a dependent vector in a basis would be redundant because it doesnt contribute a new, independent direction"
+
+Furthermore, if the linear combination of a set of vectors B cannot express a particular vector in v \in V, one can add v to the basis set without disturbing its linear independence. This process can be continued until all vectors in V are expressed by a linear combination of the set B. Therefore, an alternative definition for `basis` is:
+
+#### Definition 2.3.6 - Basis: Alternative Definition
+
+A basis (or basis set) of a vector space V is a **maximal** set of linearly independent vectors in it
+
+Both definitions of the basis are equivalent and can be derived from one another. An interesting artifact is that the vector space containing only the zero vector has an empty basis
+
+A vector space containing non-zero vectors always has an infinite number of possible basis sets
+
+The `dimension theorem of vector spaces` states that the size of every basis set of a vector space must be the same
+
+#### Theorem 2.3.1 - Dimension Theorem for Vector Spaces
+
+The number of members in every possible basis set of a vector space V is always the same. This value is referred to as the **dimensionality** of the vector space
+
+The notion of subspace dimensionality is identical to that of geometric dimensionality of hyperplanes in R^n
+
+For example, any set of n linearly independent directions in R^n can be used to create a basis (or coordinate system) in R^n
+
+For subspaces corresponding to lower dimensional hyperplanes, we only need as many linearly independent vectors sitting on the hyperplane as are needed to uniquely define it. This value is the same as the geometric dimensionality of the hyperplane
+
+#### Lemma 2.3.1 - Matrix Invertibility and Linear Independence
+
+An nxn square matrix A has linearly independent columns/rows if and only if it is invertible
+
+When vector spaces contain abstract objects like degree-p polynomials of the form $\sum_{i=0}^{p} c_{i}t^{i}  $, the basis contains simple instantiations of these objects like $\{t^0, t^1,...t^p \}  $. Choosing a basis like this allows us to use the coefficients $[c_0...c_p]^T$ of each polynomial as the new vectors space $\mathbb{R}^{p+1} $
+
+Carefully chosen basis sets *allow us to automatically map all d-dimensional vector spaces over real fields to R^d for finite values of d*
+
+For example, V might be a d-dimensional subspace of R^n (for d < n). However, once we select d basis vectors, the set of d-dimensional combination coefficients for these vectors themselves create the "nicer" vector space R^d (opposed to R^n). Therefore, we have a one-to-one isomorphic mapping between any d-dimensional vector space V and R^d
+
+### 2.3.1 Coordinates in a Basis System
+
+Let $\bar{v} \in \subset R^n  $ by a vector drawn from a d-dimensional vector space V for d < n. In other words, the vector space contains all vectors sitting on a d-dimensional hyperplane in R^n. The coefficients in x_1...x_d, in terms of which the vector $\bar{v} = \sum_{i=1}^d x_{i} \bar{a}_i $ is represented in a particular basis are referred to as its coordinates. A particular basis set of the vector space R^n referred to as the *standard basis*, contains the n-dimensional column vectors $\{ \bar{e}_{1}, ... \bar{e}_{n} \}  $ where each e_i contains a 1 in the ith entry and a value of 0 in all other entries
+
+The standard basis set is often chosen by default, where the scalar components of vectors are the same as their coordinates. However, scalar components of vectors are not the same as their coordinates for arbitrary basis sets. The standard basis is restrictive because it cannot be used as the basis of a `proper` subspace of R^n
+
+The coordinates of a vector in any basis must be unique
+
+#### Lemma 2.3.2 - Uniqueness of Coordinates
+
+The coordinates $\bar{x} = [x_1 , ..., x_d]^T  $ of any vector $\bar{v} \in V $ in terms of a basis set $B = \{\bar{a}_{1}...\bar{a}_{d} \}  $ are always unique
+
+How can one find these unique coordinates? When $\bar{a}_{1}...\bar{a}_{d} $ correspond to an **orthogonal** basis of V, the coordinates are simply the dot products of \bar{v} with those vectors
+
+By taking the dot product of both sides of $\bar{v} = \sum_{i=1}^{d} x_{i}\bar{a}_{i}  $ with each $\bar{a}_{j}$ and using orthonormality, it is easy to show that $x_j = \bar{v} \cdot \bar{a}_j$
+
+For non-orthogonal basis systems, it is much harder to find the coordinates. The general problem is that of:
+
+solving the system of equations $A\bar{x} = \bar{v} $ for $\bar{x} = [x_1 ... x_d]^T  $
+
+where the n-dimensional columns of the nxd matrix A contain the (linearly independent) basis vectors. The problem boils down to finding a solution to the system of equations $A\bar{x} = \bar{v} $ where $A = [\bar{a}_{1}...\bar{a}_{d}]  $ contains the basis vectors ofo the d-dimensional vector space $V \subseteq R^n  $. Note that the basis vectors are themselves represented using n components like the vectors of R^n, even though the vector space V is a d-dimensional subspace of R^n and the coordinate vector \bar{x} lies in R^d. If d=n, and the matrix A is square, the solution is simply $\bar{x} = A^{-1}\bar{v} $
+
+However, when A is not square, one may not be able to find valid coordinates, if \bar{v} does not lie in $V \subset R^n  $. This occurs when \bar{v} does not geometrically lie on the hyperplane H_A defined by all possible linear combinations of the columns of A.
+
+However, one can find the *best fit* coordinates \bar{x} by observing that:
+
+- the line joining the closest linear combination $A\bar{x}  $ of the columns of A to \bar{v} must be **orthogonal** to the hyperplane H_A, and is therefore orthogonal to every column of A. The condition that $(A\bar{x} - \bar{v})$ is orthogonal to every column of A can be expressed as the `normal equation` $A^T (A\bar{x} - \bar{v}) = \bar{0} $ which results in:
+
+$\bar{x} = (A^T A)^{-1} A^T  \bar{v} $
+
+The best-fit solution includes the exact solution when it is possible
+
+- `left-inverse` of matrix A
+  - $\bar{x} = (A^T A)^{-1} A^T  \bar{v} $
+  - with linearly dependent columns
+
+![alt-text](./2_3_basis.PNG)
+
+Figure 2.5 - THIS IS NOT MY DIAGRAM ALL CREDIT TO THE AUTHOR
+
+Although the notion of a non-orthogonal coordinate system does exist in analytical geometry, it is rarely used in practice because of loss of visual interpretability of coordinates. However, such non-orthogonal basis systems are very natural to linear algebra, where some loss of geometric intuition is often compensated by algebraic simplicity
+
+### 2.3.2 Coordinate Transformations Between Basis Sets
+
+Previous section talks about how different basis sets correspond to different coordinate systems
+
+What if we have coordinates $\bar{x}_{a}$ defined wrt to the basis set $\{a_{1}, ..., \bar{a}_{n} \}  $ of R^n into the coordinates $\bar{x}_{b}$ defined wrt to the n-dimensional basis set $\{\bar{b}_{1}, ..., \bar{b}_{n} \} $. The goal is to find an nxn matrix $P_{a\rightarrow b}  $ that transforms $\bar{x}_{a} to \bar{x}_{b}  $:
+
+$\bar{x}_b = P_{a \rightarrow b}\bar{x}_{a}  $
+
+For ex: how might one transform the coordinates in the orthogonal basis set of figure 2.5.b into the non-orthogonal system of 2.5.c ?
+
+Here, the key point is to observe that the coordinates x_a and x_b are **representations of the same vector**, and they would therefore have the **same coordinates** in the standard basis.
+
+First, we use the basis sets to construct two nxn matrices: $A = [\bar{a}_{1}...\bar{a}_{n}]  $ and $B = [\bar{b}_{1}...\bar{b}_{n}]  $ since the oordinates \bar{x} of $\bar{x}_{a}  $ and $\bar{x}_{b} $ must be identical in the standard basis, so we have:
+
+$A\bar{x}_a = B\bar{x}_{b} = \bar{x}  $
+
+Already established that square matrices defined by linearly independent vectors are invertible - therefore mulitplying both sides with B^{-1} we obtain:
+
+$\bar{x}_b = [B^{-1}A]\bar{x}_{a}  $ where $[B^{-1}A]$ is $P_{a\rightarrow b}  $
+
+The main computational work involved in the transformation is in inverting the matrix B
+
+One observation is that when B is an orthogonal matrix, the transformation matrix simplifies to B^{T}A
+
+And, when A corresponds to the standard basis, the transformation matrix is B^T (because identity)
+
+Therefore, working with orthonormal bases simplifies computations, which is why the identification of orthonormal basis sets is an important problem in its own right
+
+---
+
+It is also possible to perform coordinate transformations between basis sets that define a particular d-dimensional *subspace* V of R^n, rather than all of R^n.
+
+Let $\{\bar{a}_1...\bar{a}_d \} and \{\bar{b}_1...\bar{b}_d \} $ be two basis sets for this d-dimensional subspace V, such that each of these basis vectors is expressed in terms of the standard basis of R^n.
+
+Furthermore, let $\bar{x}_{a} and \bar{x}_{b}  $ be two d-dimensional coordinates of the same vector \bar{v} \in V in terms of the two basis sets. We want to transform the known coordinates of x_a to the unknown coordinates of x_b in the second basis set (and find a best fit if the two basis sets represent different vector spaces). In this case, because matrix B is not square, it cannot be inverted to solve for x_b in terms of x_a, and we sometimes might have to be content with a best fit
+
+Here, we use the normal equation and $A\bar{x}_a - B\bar{x}_b  $ needs to be orthogonal to every column of B in order to be a best-fit solution. This implies that:
+
+$B^T (A \bar{x}_{a} - B\bar{x}_{b}) = \bar{0}  $
+
+and we have the following:
+
+$\bar{x}_b = (B^T B)^{-1} B^T A \bar{x}_{a}  $ where $(B^T B)^{-1} B^T A $ is $P_{a\rightarrow b}  $
+
+when B is square and invertible, it is easy to show that this solution simplifies to $B^{-1}A \bar{x}_{a}  $
+
+### 2.3.3 Span of a Set of Vectors
+
+Even though a vector space is naturally defined by a basis set (which is linearly independent), one can also define a vector space by using a set of linearly dependent vectors. This achieves the notion of a `span`
+
+#### Definition 2.3.7 - Span
+
+The span of a finite set of vectors $A = \{\bar{a}_1, ..., \bar{a}_{d}  \}  $ is the vector space defined by all possible linear combinations of the vectors in A:
+
+$Span(A) = \{\bar{v}: \bar{v} = \sum_{i=1}^{d} x_{i}\bar{a}_{i}, \forall x_1...x_d \in \mathbb{R}  \}  $
+
+Points that do not lie on the hyperplane defined by two vectors are not in the span. New vectors that are linearly dependent on the basis vectors are naturally in the span
+
+When the set A contains linearly independent vectors, it is also a basis set of its span
+
+If have three vectors that all lie on a hyperplane passing through the origin, their span is all the vectors on the hyperplane
+
+If have three linearly independent vectors, the span is all vectors in R^3. For the linearly indepdnent vectors spanning R^3, these can be used to create a valid coordinate system to represent any vector in R^3 (albeit a non-orthogonal one)
+
+### 2.3.4 Machine Learning Example: Discrete Wavelet Transform
+
+Basis transformations are used frequently in ML of time series
+
+vectors length of n, where each n is a time step, so an hour would be R^3600
+
+a common charactersitic of time series is that consequtive values are very similar in most real applications. therefore, most information would be hidden in a few variations across time. The Haar wavelet transformation performs precisely a basis transformation that extracts the important variations. Typically, only a few such differences will be large, which results in a sparse vector. Aside from the space-efficiency advantages of doings so, some predictive algorithms seem to work better with coordinates that reflect tred differences
+
+consider $\bar{s} = [8, 6, 2, 3, 4, 5, 6, 6, 5]^T in R^8  $ - the representaiton corresponds to the values in the standard basis. however, we want a basis in which the differnces between *continguous* regions of the series are emphaized. Therefore, we define the following set of 8 vectors to create a new basis in R^8 together with an interpretation of what their coefficients represent wo within a proportionality factor
+
+note that all basis vectors are othogonal, though they are not notamized to unit norm. we want to transform the time series from the std basis into the new set of orthogonal vectors
