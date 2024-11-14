@@ -269,6 +269,18 @@
     - $S \subseteq V$ is a subspace
   - the subspace S is a `proper subspace` of V when V contains vectors not present in S
     - $S \subset V $ is a proper subspace
+- `disjoint vector spaces`
+  - two vector spaces are disjoint if and only if the two spaces do not contain any vector in common other than the zero vector
+- `orthogonal vector spaces`
+  - if and only if the dot product between any two vectors of each U and W is zero, then the spaces are orthogonal
+  - Disjoint pairs of vector spaces need not be orthogonal, but orthogonal pairs of vector spaces are always disjoint
+    - you can be disjoint without being orthogonal
+    - but if you are orthogonal, you must be disjoint
+- `orthogonal complementary subspace`
+  - there are many complementary subspaces
+  - but only one *orthogonal* complementary subspace
+  - the union of the basis sets of each subspace form the new basis for R^n
+  - basically, an orthogonal (perpendicular) vector exiting a 2d subspace
 - `linearly dependent`
   - A set of non-zero vectors $\{\bar{a}_{1}...\bar{a}_{d} \}  $ is linearly dependent, if a set of d scalars $x_{1}...x_{d}  $ can be found so that at least some of the scalars are non-zero, and the following condition is satisfied
   - $\sum_{i=1}^{d} x_{i}\bar{a}_{i} = \bar{0}  $
@@ -313,6 +325,36 @@
 - `rotreflection`
   - In some cases, reflections are included with rotations
   - When a compulsory reflection is included in the sequence, the resulting matrix is referred to as a `rotreflection` matrix
+- `column space` aka `column rank`
+  - defined as the vector space spanned by the columns of nxd matrix A, and is a subspace of **R^n**
+- `row space` aka `row rank`
+  - defined as the vector space spanned by the columns of A^T, and is a subspace of **R^d**
+  - the dimensionality of the row rank and column rank of any nxd matrix A **is the same**
+  - given a matrix, remove all linearly dependent rows
+- `full rank`
+  - `positive-definite` full rank square matrices have an empty null space
+    - full rank matrices must be `invertible`
+  - where the rows of a *square matrix* must be linearly independent when the columns are linearly independent, these matrices are of `full rank`
+  - for *rectangular matrices* to be full rank, *either* the rows or columns are linearly independent
+    - `full row rank`
+      - when rows are linearly independent
+    - `full column rank`
+      - when columns are linearly independent
+- `null space`
+  - The null space of a matrix A is the subspace of R^d (cols) containing all column vectors $\bar{x} \in R^d  $, such that $A\bar{x} = \bar{0} $
+  - the **orthogonal complementary subspace of the row space of A**
+  - for square and non-singular matrices, the null space only contains the zero vector
+  - `right null space`
+    - the default null space because the vector x occurs on the right side of matrix A in the product Ax, which must eval to the zero vector
+    - the orthogonal complementary subspace of the `row space` of A
+  - `left null space`
+    - the orthogonal complement of the vector space spanned by the columns of the matrix
+    - the orthogonal complementary subspace of the `column space` of A
+- `four fundamental subspaces of linear algebra`
+  - the row space
+  - the column space
+  - the right null space
+  - the left null space
 
 
 ## ML specifics

@@ -501,4 +501,99 @@ a common charactersitic of time series is that consequtive values are very simil
 
 consider $\bar{s} = [8, 6, 2, 3, 4, 5, 6, 6, 5]^T in R^8  $ - the representaiton corresponds to the values in the standard basis. however, we want a basis in which the differnces between *continguous* regions of the series are emphaized. Therefore, we define the following set of 8 vectors to create a new basis in R^8 together with an interpretation of what their coefficients represent wo within a proportionality factor
 
-note that all basis vectors are othogonal, though they are not notamized to unit norm. we want to transform the time series from the std basis into the new set of orthogonal vectors
+note that all basis vectors are othogonal, though they are not normalized to unit norm. we want to transform the time series from the std basis into the new set of orthogonal vectors
+
+### 2.3.5 Relationships Among Subspaces of a Vector Space
+
+This section makes the assumption that all vector spaces are subspaces of R^n (because of the relevance to ML)
+
+#### Definition 2.3.8 - Disjoint Vector Spaces
+
+Two vector spaces $U \subseteq R^n $ and $W \subseteq R^n  $ are *disjoint* if and only if the two spaces do not contain any vector in common other than the zero vector
+
+If U and W are disjoint with basis sets B_u and B_w, the union B = B_u \union B_w of these basis sets is a linearly independent set. Otherwise, we can apply the linear dependence condition to B and place elements from each of the vector spaces on the two sides of the dependence condition to create a vector that lies in both U and W. This is a contradiction to the pre-condition of disjointedness
+
+Two vector spaces created by any origin-centered planes in R^3 are not disjoint because they must intersect along a 1d line.
+
+The hyperplanes corresponding to two disjoint vector spaces *must intersect only at the origin*, which is a 0d vector space. A special case of disjointedness of vector spaces is that of *orthogonality* of the two spaces
+
+#### Definition 2.3.9 - Orthogonal Vector Spaces
+
+Two vector spaces $U \subseteq R^n  $ and $W \subseteq R^n $ are orthogonal if and only if for any pair of vectors u \in U and w \in W, the dot product of the vectors is zero:
+
+Disjoint pairs of vector spaces need not be orthogonal, but orthogonal pairs of vector spaces are always disjoint
+
+Two orthogonal subspaces such that the union of their basis sets span all of R^n are referred to as `orthogonal complementary subspaces`
+
+#### Definition 2.3.10 - Orthogonal Complementary Subspace
+
+Let U be a subspace of R^n. Then, W is an orthogonal complementary subspace of U if and only if it satisfies these properties:
+
+- The spaces U and W are orthogonal (and therefore disjoint)
+- The union of the basis sets of U and W forms a basis for R^n
+
+The notion of orthogonal complementary subpsace is a special case of that of complementary subspaces. Twoi subspaces are complementary when they are disjoint and the union of their basis sets spans all of R^n, but they dont need to be orthogonal. For a given subspace, there are an infinite number of complementary subspaces. However, there is only one orthogonal complementary subspace
+
+basically, an orthogonal (perpendicular) vector exiting a 2d subspace
+
+#### Problem 2.3.2
+
+{[1, 1, 1]^T} and {[1, 0, 0]^T, [0, 1, 0]^T}, express [0, 1, 1]^T as the sum of two vectors, such that each of them belongs to one of the two subspaces
+
+solve with row operations, [0, 1, 1] = v1 + v2 = a[1, 1, 1] + (b[1, 0, 0] + c[0, 1, 0])
+
+#### Problem 2.3.3
+
+#### Problem 2.3.4
+
+## 2.4 The Linear Algebra of Matrix Rows and Columns
+
+The rows and columns of an nxd matrix A span vector spaces, referred to as *row spaces* and *column spaces*
+
+#### Definition 2.4.1 - Row Spaces and Column Spaces
+
+For an nxd matrix A, its
+
+- `column space` is defined as the vector space spanned by its columns, and is a subspace of R^n
+- `row space` is defined as the vector space spanned by the columns of A^T, and is a subspace of R^d
+
+A remarkable result in linear algebra is that the dimensionality of the row space (aka `row rank`) and that of the column space (aka `column rank`) of any nxd matrix A is the same
+
+For special cases where the rows of a square matrix must be linearly independent when the columns are linearly independent, these matrices are of full rank
+
+Since the columns of an nxd matrix A might span only a subspace of R^n (rows), and the (transposed) rows of A might span only a subspace of R^d, how does one characterize the orthogonal complements of these subspaces? through `null spaces`
+
+#### Definition 2.4.2 - Null Space
+
+The null space of a matrix A is the subspace of R^d (cols) containing all column vectors $\bar{x} \in R^d  $, such that $A\bar{x} = \bar{0} $
+
+The null space of matrix A is essentially the **orthogonal complementary subspace of the row space of A**
+
+if d > n, the d-dimensional rows of A (after transpose to col vectors) will always span a *proper* subspace of R^d, whose orthogonal complement is non empty. Aka, the null space of A will be non-empty in this case
+
+for square and non-singular matrices, the null space only contains the zero vector
+
+the notion of a null space refers to a *right* null space. This is because the vector \bar{x} occurs on the right side of matrix A in the product $A\bar{x}$, which must evaluate to the zero vector.
+
+#### Definition 2.4.3 - Left Null Space
+
+The left null space of an nxd matrix A is the subspace of R^n containing all column vectors $\bar{x} \in R^n $, such that $A^T \bar{x} = \bar{0}  $. The left null space of A is the orthogonal complementary subspace of the column space of A
+
+Alternatively, the left null space of matrix A contains all vectors \bar{x} satisfying $\bar{x}^T A = \bar{0}^T  $
+
+The four fundamental subspaces of linear algebra:
+
+- the row space
+- the column space
+- the right null space
+- the left null space
+
+![alt-text](./2_8_four_fundamental_subspaces.PNG)
+
+#### Problem 2.4.1
+
+#### Problem 2.4.2
+
+when \lambda is greater than zero, guaranteed to have positive values contributed from \lambda I_x. The P and Q are guaranteed to be full rank by the guarantee of adding positive values from \lambda I
+
+## 2.5 The Row Echelon Form of a Matrix
