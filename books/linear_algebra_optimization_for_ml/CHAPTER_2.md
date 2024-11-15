@@ -597,3 +597,387 @@ The four fundamental subspaces of linear algebra:
 when \lambda is greater than zero, guaranteed to have positive values contributed from \lambda I_x. The P and Q are guaranteed to be full rank by the guarantee of adding positive values from \lambda I
 
 ## 2.5 The Row Echelon Form of a Matrix
+
+The row echelon form is useful for transforming matrices to simpler forms with elementary row operations that are *row equivalent* to the original matrix
+
+#### Definition 2.5.1 - Row and Column Equivalence
+
+Two matrices are said to be row equivalent, if one matrix is obtained from the other by a sequence of row operations such as row interchange, row addition, or multiplication of a row with a non-zero scalar
+
+Similarly, two matrices are said to be column eqivalent if one matrix is obtained from the other with a sequence of elementary column operations
+
+Applying elementary row operations does not change the vector space spanned by the rows of a matrix. This is because row interchange and non-zero scaling operations do not fundamentally change the (normalized) row set of the matrix
+
+- row operations change the column space
+- column operations change thw row space
+
+#### Lemma 2.5.1
+
+Elementary row operations do not change the vector space spanned by the rows, whereas elementary operations do not change the vector space spanned by the columns
+
+A particularly convenient row-equivalent conversion of the matrix A is the `row echelon form`, which is useful for soving linear systems of the type Ax = b.
+
+By applying the same row operations to both the matrix A and the vector b in the system of equations Ax = b, one can simplify the matrix A to a form that makes the system easily solvable. This is exactly the row echelon form, and the procedure is equivalent to the `Gaussian elimination` method for solving systems of linear equations
+
+#### Definition 2.5.2 - Row Echelon Form
+
+An nxd matrix A is said to be in row echelon form, if and only if:
+
+- i. the leftmost non-zero entry in each row is 1
+- ii. the column index of the leftmost non-zero entry in each row increases with row index
+- iii. all zero rows (if any) occur at the bottom of the matrix
+
+Basically cascading 1s down the diagonal is ideal, but can push right if needed
+
+$
+\begin{bmatrix}
+1 & 7 & 4 & 3 & 5 \\
+0 & 0 & 1 & 7 & 6 \\
+0 & 0 & 0 & 1 & 3 \\
+0 & 0 & 0 & 0 & 1
+\end{bmatrix}
+$
+
+The increasing column index of the leading non-zero entry ensures that non-zero rows in echelon form are **always** `linearly independent`; adding rows in the order from bottom to top of the matrix to set S always increases the span of S by 1
+
+The bulk of the work in Gaussian elimination is to create a matrix in which the column index of the lef-most non-zero entry is different for each row; further row interchange operations can create a matrix in which the leftmost non-zero entry has an increasing column index, and row scaling operations can change the left-most entry to 1.
+
+Three phases:
+
+- row addition operations
+  - we always choose to perform the operation on the lower of the two rows in order to ensure that the corresponding operator matrix is a lower triangular matrix and the number of leading zeros in the lower row increases by 1
+- row interchange operations
+- row scaling operations
+
+wait bruh can we express these transforms as chains of elementary matrix multiplications?
+
+#### 2.5.1 LU Decomposition
+
+The goal of LU decomopsition is to express a matrix as the product of a (square) lower triangular matrix L and a (rectangular) upper triangular matrix U. Note it is not always possible to create an LU decomopsition of a matrix without permuting its rows first
+
+#### Observation 2.5.1
+
+A non-singular matrix $A = [a_ij]  $ with a_11 = 0 can never be expressed in the form A = LU, where $L = [l_ij]  $ is a lower-triangular and $U = [u_ij]  $ is upper-triangular
+
+The sequence of row interchange operations is a permutation of rows, and therefore can be expressed as the permutation matrix P. Therefore, we can express the first two steps of the Gaussian elimination process in terms of a permutation matrix P and the m row-addition operations defined by lower-triangular matrices L_1...L_m:
+
+$ PL_{m} L_{m-1} ... L_1 A = U  $
+
+Multiplying both sides with P^T and the inverses of the lwoer triangular matrces L_i in the proper sequence, we obtain:
+
+$A = L_{1}^{-1} L_{2}^{-1} ... L_{m}^{-1} P^T U  $
+
+The inverses and products of lower-triangular matrices are lower triangular. Therefore, we can consolidate these matrices to obtain a single lower triangular matrix L of size nxn:
+
+$A = LP^T U  $
+
+However, this is not the standard form of the LU decomposition. With some bookkeeping, it is possible to obtain a decomposition in which the permutation matrix P^T occurs before the lower-triangular matrix L (although these matrices would be different when re-ordered)
+
+$A = P^T LU $
+
+Same as: which is the standard form of LU decomposition
+
+$PA = LU  $
+
+### 2.5.2 Application: Finding a Basis Set
+
+The Gaussian elimination method can be used to find a basis set of a bunch of (possibly linearly dependent vectors). Let $\bar{a}_{1}...\bar{a}_{n}  $ be a set of n row vectors, each of which have d dimensions. Then create nxd matrix A whose rows are the a's. Use the above process to create row echelon form. The non-zero rows in the reduced matrix are **always linearly independent** because of the fact that their leading entries have a different column index.
+
+In cases where the original rows of A are linearly dependent, and the rank k of the corresponding vector space is strictly less than n, the final (n-k) rows of the row echelon matrix will be zero vectors. The reduced row vectors (which are non-zero) correspond to the linearly independent basis set
+
+### 2.5.3 Application: Matrix Inversion
+
+In order to invert a non-singular matrix A, we first perform row operations to convert it to the upper-triangular dxd matrix $U = [u_ij] $ in row echelon form. For invertible/nonsingular matrices like U, it is possible to further convert the matrix U to an identity matrix with the use of only row operations.
+
+A sequence of row operations that transforms A to the identity matrix will transform the identity matrix to $B = A^{-1}  $
+
+### 2.5.4 Application: Solving a System of Linear Equations
+
+Consider the problem where we want to find all solutions $\bar{x} = [x_1, x_2, ..., x_d]^T  $ that satisfy $A\bar{x} = \bar{b}  $ where A is an nxd matrix and b is an n-dimensional column vector. If the columns of the matrix A are $\bar{a}_1 ... \bar{a}_d  $, \bar{b} needs to be expressed as a linear combination of these columns. This is because Ax = b can be rewritten in terms of the columns of A like:
+
+$\sum_{i=1}^{d} x_i \bar{a}_{i} = \bar{b}  $
+
+Depending on A and \bar{b}, three cases arise:
+
+- 1. If the vector \bar{b} does not occur in the column space of A, then no solution exists to this system of linear equations although **best fits** are possible
+  - this arises very commonly in over determined systems of linear equations where the number of rows of the matrix is much greater than the number of columns
+- 2. If the vector $\bar{🅱️}$ occurs in the column space of A, and A has linearly independent columns (which implies that the columns form a basis of a d-dimensional subspace of R^n), the solution is unique. In the special case that A is square, the solution is simply $\bar{x} = A^{-1}\bar{b}  $
+- 3. If the vector \bar{b} occurs in the column space of A and the columns of A are linearly dependent, then an infinite number of solutions exist
+  - note that if x_1 and x_2 are solutions, then $\lambda \bar{x}_{1} + (1 - \lambda)\bar{x}_{2}  $ is also a solution for any real \lambda
+  - occurs more commonly in cases where the number of columns d is greater than the number of rows n
+  - also possible to find linearly dependent column vectors even when d < n
+
+#### Problem 2.5.1
+
+Suppose that no solution exists. Show that an n-dimensional column vector z must exist that satisfies $\bar{z}^{T}A = \bar{0}  $ and $\bar{z}^{T}\bar{b} \neq \bar{0}  $
+
+#### Problem 2.5.2
+
+- [1, 1, 1, 1, 1] = $\sum_{i=1}^{5} x_i = 1 $
+- [-1, -1, 0, 0, 0] = $\sum_{i=1}^{2} x_i = -1 $
+- [0, 0, -1, -1, -1] = $\sum_{i=3}^{5} x_i = -1 $
+
+If there is a row of zeros at the end, the system is inconsistent. Such a system can never have a solution because a zero value on the left is being equated with a non-zero value on the right
+
+**All** zero rows in A' (A after row operations) need to be matched with zero entries in b' for the system to have a solution
+
+Assuming that the system is not inconsistent, how does one detect systems wiht unique solutions? In such cases, each column will contain a leftmost non-zero entry of some rows
+
+consider
+
+- [1 7 4 3 5]
+- [0 1 9 7 6]
+- [0 0 0 1 3]
+- [0 0 0 0 1]
+
+notice how column three doesnt have a 1 value (does not contain the leftmost non-zero entry of any row) - this is a `free column`
+
+If there is no free column, one will obtain a square, triangular, invertible matrix on dropping the zero rows of A' and corresponding zero entries of b'
+
+When dropping zero rows and obtaining a square, triangular, invertible matrix, you can find a unique solution by using *backsubstitution*
+
+When free columns exist, the variables corresponding to the free columns can be set to any value, and a unique solution for the other variables can always be found. In this case, the solution space contains infinitely many solution
+
+consider:
+
+- [1 2 1 -3 | 3]
+- [0 0 1  2 | 2]
+- [0 0 0  0 | 0]
+
+can set x2 and x4 that correspond the the free columns to arbitrary numerical values
+
+so:
+
+- [1 1] x1 = 3 - 2a + 3b
+- [0 1] x3 = 2 - 2b
+
+so final solution is:
+
+- [x1, x2, x3, x4] = [1-2a + 5b, a, 2-2b, b]
+
+#### Problem 2.5.3 - Coordinate Transformations with Row Echelon
+
+## 2.6 The Notion of Matrix Rank
+
+Any matrix can be reduced to a (rectangular) diagonal matrix with only row and column operations
+
+- first use row operations to convert to row echelon (which is upper-triangular)
+- then, reduce to diagonal using column operations
+  - column operations are used to move all free columns to the rightmost end of the matrix
+  - the non-free columns are reduced to a diagonal matrix
+
+any nxd matrix A can be expressed in the form:
+
+$RAC = \Delta  $
+
+- R is an nxn matrix that is the product of elementary row operator matrices
+- C is a dxd matrix that is the product of the elementary column operators
+- \Delta is an nxd rectangular diagonal matrix
+
+This result has the remarkable implication that the ranks of the row space and the column space of a matrix are the same
+
+#### Lemma 2.6.1
+
+The rank of the row space of a matrix is the same as that of its column space
+
+The common value of the rank of the row space and the column space is referred to as the rank of a matrix
+
+#### Definition 2.6.1 - Matrix Rank
+
+The rank of a matrix is equal to the rank of its row space, which is the same as the rank of its column space
+
+##### Corollary 2.6.1
+
+The rank of an nxd matrix is at most min(n,d)
+
+##### Corollary 2.6.2
+
+Consider an nxd matrix A with rank k <= min(n,d). The rank of the *null space* of A is d-k and the rank of the *left null space* of A is (n-k)
+
+### 2.6.1 Effect of Matrix Operations on Rank
+
+It is common to use matrix addition and multiplication operations in ML. In such cases, it is helpful to understand the effect of matrix addition and multiplication on rank.
+
+Here, we establish lower and upper bounds on the results obtained using matrix operations
+
+#### Lemma 2.6.2 - Matrix Addition Upper Bound
+
+Let A and B be two matrices with ranks a and b, respectively. Then, the rank of A + B is at most a + b
+
+#### Lemma 2.6.3 - Matrix Addition Lower Bound
+
+Let A and B be two matrices with ranks a and b, respectively. Then, the rank of A + B is at least |a - b|
+
+#### Lemma 2.6.4 - Matrix Multiplication Upper Bound
+
+Let A and B be two matrices with ranks a and b, respectively. Then the rank of AB is at most min(a,b)
+
+Establishing a lower bound on the rank of the product of two matrices is much harder than establishing an upper bound; a useful bound only exists in some special cases
+
+#### Lemma 2.6.5 - Matrix Multiplication Lower Bound
+
+Let A and B be nxd and dxk matrices of ranks a and b, respectively. Then, the rank of AB is at least a + b - d. Sylvester's inequality
+
+##### Corollary 2.6.3
+
+Multiplying a matrix A with a square matrix B of full rank does not change the rank of matrix A
+
+##### Corollary 2.6.4
+
+Let A and B be two square matrices. Then AB is non-singular if and only if A and B are both non-singular. Aka, the product is of full rank IFF both matrices are of full rank
+
+This result is important from the perspective of invertibility of the `Gram matrix` A^T A of the column space of A. Note the Gram matrix often needs to be inverted in ML applications like linear regression. In such cases, the inversion of the Gram matrix is part of the closed-form solution. It is helpful to know that the invertibility of the Gram matrix is determined by the linear independence of the columns of the underlying dat matrix of feature variables:
+
+#### Lemma 2.6.6 - Linear Independence and Gram Matrix
+
+The matrix $A^{T}A $ is said to be the Gram matrix of the column space of an nxd matrix A. The columns of the matrix A are linearly independent IFF $A^{T}A $ is invertible
+
+The ranks of the matrices A, $A^T A$, and $AA^T  $ are all the same.
+
+- $AA^T$ is the Gram matrix of the `row space` of A
+  - also referred to as the `left Gram matrix`
+
+## 2.7 Generating Orthogonal Basis Sets
+
+Linear algebra is closely related to many problems in linear optimization, which recur frequently in ML. Solving a system of linear equations is a special case of one of the most fundamental problems in ML, which is referred to as `linear regression`
+
+One way of solving the system of equations Ax = b is to view it as an optimization problem in which we want to minimize the objective fn $\|A\bar{x} - \bar{b} \|^{2}  $
+
+This is the classical least-squares regression, which is the genesis of a vast array of models in ML
+
+Least-squares regression tries to find the *best possible fit* to a system of equations (rather than an exact one). The minimum possible value of the obj fn is 0, which occurs when a feasible solution exists for Ax = b
+
+However, if the system of equations is inconsistent, the optimization problem will return the best possible fit with a non-zero (positive) optimal value. Therefore, the goal is to minimize the following obj fn:
+
+$J = \|A\bar{x} - \bar{b} \|^{2}  $
+
+Although one can use calculus to solve the problem, we use a geometric argument. The closest approach from a point to a hyperplane is always orthogonal to the hyperplane. The vector $(b - Ax) \in R^n $ which joins b to its closest appx b' = Ax on the hyperplane defined by the column space of A, must be orthogonal to the hyperplane and therefore every column of A. Hence, we obtain the normal equation $A^T (b - Ax) = \bar{0}  $, which yields:
+
+$x = (A^T A)^{-1} A^T b  $
+
+The assumption here is that A^T A is invertible, which can occur only when the columns of A are linearly independent. This can happen only when A is a "tall" matrix.
+
+The matrix $L = (A^T A )^{-1} A^T  $ is referred to as the `left-inverse` of the matrix A, which is a generalization of the concept of a conventional inverse to rectangular matrices
+
+In such a case, it is evident that we have $LA = (A^T A)^{-1}(A^T A) = I_d  $. Note that the identity matrix I_d is of size dxd. However, AL will be a (possibly larger) nxn matrix, and it can never be the identity matrix when n > d. Therefore, the `left-inverse` is a *one-sided inverse*
+
+An important point is that there are many matrices L' for which $L'A = I_d  $, when the matrix A satisfies d < n and has linearly independent columns, although the choice $(A^{T}A)^{-1} A^{T}  $ is the preferred one.
+
+What happens when n < d or when (A^T A) is not invertible? In such a case, we have an infinite number of possible best-fit solutions, all of which have the same optimal value (which is typically but not necessarily 0). Although there are an infinite number of best-fit solutions, one can discriminate further using a `conciseness criterion`, according to which we want $\|x\|^{2}$ as small as possible (as a secondary criterion) among alternative minima for $\|Ax - b\|^{2} $ (which is the primary criterion)
+
+The `conciseness` criterion is a well-known principle in ML, wherin simple solutions are preferable over complex ones. When the *rows* of A are linearly independent, the most consise solution x is the following:
+
+$x = A^{T}(AA^{T})^{-1}b $
+
+The matrix $R = A^{T}(AA^T)^{-1}  $ is said to be the right inverse of A. The linear independence of the rows also ensures that the column space of A spans all of R^n and therefore the system is consistent for *any* vector b.
+
+#### Problem 2.8.1
+
+What is the left-inverse of a matrix containing a single column-vector [a, b, c]^{T}
+
+#### Problem 2.8.2
+
+If a matrix A is square and invertible, show that its left- and right-inverses both simplify to A^{-1}
+
+#### Problem 2.8.3
+
+Consider an nxd matrix A with linearly independent rows and n < d. How many matrices R are there that satisfy AR = I_n
+
+infinite bc free cols so free variables
+
+### 2.8.1 Moore-Penrose Pseudoinverse
+
+How does one solve inconsistent linear systems of the form Ax = b, when neither the rows nor the columns of A are linearly independent (and, therefore, neither of A^{T}A or AA^{T} is invertible)
+
+A bunch of stuff here that will be formally discussed in later chapters. Just *trust* here
+
+A natural approach to addressing inconsistent linear systems in which neither the rows nor the columns of A are linearly independent is to *combine* the idea of finding a best-fit solution with a *concise* one. This is achieved by minimizing the following obj fn:
+
+$J = \|Ax - b\|^{2} + \lambda(\sum_{i=1}^{d} x_{i}^{2} )  $ J = Best Fit + Concise
+
+The additional term in the obj fn is a regularization term, which tends to favor small absolute components of the vector x. (I think regularization term is the entire concise term). This is precisely the conciseness criterion discussed in the previous section. The value \lambda > 0 is the regularizaiton parameter, which regulates the relative importance of the best-fit term and the conciseness term
+
+These have not been introduced yet, so just *trust*:
+
+The above optimization problem has the following alternative forms of the solution:
+
+- $x = (A^{T}A + \lambda I_{d})^{-1}A^{T}b $  [Regularized left-inverse form]
+- $x = A^{T}(AA^{T} + \lambda I_{n})^{-1}b $  [Regularized right-inverse form]
+
+It is striking how similar both the above forms are to left- and right-inverses introduced in the previous section, and they are referred to as the regularized left inverses and right inverses
+
+Both solutions turn out the *be the same* because of the `push-through identity`
+
+An important difference of the regularized form of the solution from the previous section is that both the matrices (A^{T}A + \lambda I_d) and (AA^{T} + \lambda I_n) are always invertible for \lambda > 0, irrespective of the linear independence of the rows and columns of A.
+
+How should the parameter \lambda > 0 be selected?
+
+If our *primary* goal is to find the best-fit solution, and the (limited) purpose of the regularizaiton term is to play a tie-breaking role among equally good fits (with the *secondary* conciseness criterion), it makes sense to allow \lambda to be infintesimally small
+
+In the limit that \lambda -> 0^{+}, these (equivalent) matrices are the same as the Moore-Penrose pseudoinverse. This provides the following *limit-based definition*:
+
+$\lim_{\lambda \rightarrow O^{+}} (A^{T}A + \lambda I_{d})^{-1} A^{T} = \lim_{\lambda \rightarrow 0^{+}} A^{T}(AA^{T} + \lambda I_{n})^{-1}  $  [Moore-Penrose Pseudoinverse]
+
+Note that \lambda approaches 0 from the right, and the function can be discontinuous at \lambda = 0 in the most general case
+
+The conventional inverse, the left-inverse, and the right-inverse are special cases of the Moore-Penrose pseudoinverse.
+
+When the matrix A is invertible, all four inverses are the same.
+
+The Moore-Penrose pseudoinverse is:
+
+- the left-inverse
+  - When only the columns of A are linearly independent
+- the right inverse
+  - When only the rows of A are linearly independent
+- a generalized inverse
+  - When neither the rows nor columns of A are linearly independent
+  - something that one of these special cases can provide
+
+Therefore, the Moore-Penrose pseudoinverse repsects both the best-fit and the conciseness criteria like the left- and right inverses
+
+The Moore-Penrose pseudoinverse is computed as follows. An nxd matrix A of rank r has a Generalized QR decomposition of the form A = QR, where Q is an nxr matrix with orthogonal columns, and R is a rectangular rxd upper-triangular matrix of full row rank. The matrix RR^{T} is therefore invertible. Then, the pseudoinverse of A is as follows:
+
+$A^{+} = \lim_{\lambda \rightarrow 0^{+} } (R^{T}R + \lambda I_{d})^{-1}R^{T}Q^{T} = \lim_{\lambda \rightarrow 0^{+} } R^{T} (RR^{T} + \lambda I_{n})^{-1} Q^{T} = R^{T}(RR^{T})^{-1}Q^{T}  $
+
+We used $Q^{T}Q = I  $ in the first step and the push-through identity in the second step
+
+### 2.8.2 The Projection Matrix
+
+The optimization-centric solution for solving over-determined systems of equations with d < n is a more general approach (as compared to the row echelon method), because it also provides an approximate solution to the inconsistent system of equations Ax = b. The optimization-centric approach recognizes that the linear system of equations is inconsistent when b does not lie in the span of the columns of A. Tehrefore, it is also able to "solve" this inconsistent system by projecting b on the hyperplane defined by the columns of A and then using this projection b to solve the modified (and consistent) system Ax = b'. After all, b' is the closest approximation of b within the span of the columns of A. Mapping from b to b' can also be understood in the context of a linear transformation by a `projection matrix`. This is a useful linear operator in many settings of linear algebra and optimization
+
+First consider the simple case when the columns of A are orthonormal, and emphasize its orthogonality by using the notation Q = A (which is commonly used for orthogonal matrices). Therefore, the system of equations is Qx = b. The projection of an n-dimensional vector b on a d-dimensional orthonormal basis system (for d < n) is easy to compute
+
+For example, if the nxd matrix Q contains d orthonormal columns, then the coordinates of b on these vectors are given by the dot products with these columns. In other words, the coordinates are represented in the d-dimensional vector x = Q^{T}b. Furthermore, the actual linear combination of the columns of Q with these coordinates is $b' = Qx = QQ^{T}b  $. The vector b' is the projection of b on the d-dimensional plane created by the columns of Q. Nore that if the original matrix Q is square, then its orthonormal columns would imply that $QQ^{T} = Q^{T}Q = I $, and therefore $b' = QQ^{T}b = b  $
+
+This is not particularly suprising because the projection of an n-dimensional vector on the full n-dimensional space is itself. For cases in which the columns of Q are orthonomal but the matrix Q satisfies d < n, the matrix $P = QQ^{T} $ is the projection matrix. Projecting a column vector by pre-multiplying with P might result in a different vector; however, projecting again by pre-multiplying with P will not change the projection further. Ex. projecting a vector in R^3 on a 2d plane will result ina "shadow" of the vector on the plane; projecting that smaller vector again on the same plane will not change it. Therefore, projection matrices always satisfy $P^{2} = P$
+
+Idempotent property of projection matrices:
+
+$P^2 = P = (QQ^{T})(QQ^{T}) = Q(Q^{T}Q)Q^{T} = QQ^{T} $ - note (Q^{T}Q) is an identity
+
+On projection matrix of a more generalized nxd matrix A of full rank - positive definite matrix with full rank, and therefore invertible. If x contains the coordinates of b' in the basis of the column space of A, we have b' = Ax. We want to minimize the squared distance $\|b' b\|^{2} = \|Ax - b\|^{2}  $ because the projection is always the smallest distance to the plane.
+
+This is exactly the same problem as discussed in the optimization-centric view discussed in the previous section. Since we assume linearly independent columns with d < n, one can use the left inverse to obtain:
+
+$x = (A^{T}A)^{-1}A^{T}b  $
+
+Note that x corrsponds to the coordinate vector in terms of the columns of A, which provides the best approcimation Ax = b. The projection of b on the plane defined by the d linearly independent columns of A can also be represented in terms of the projection matrix:
+
+$b' = Ax = A(A^{T}A)^{-1}A^{T}b  $ where $A(A^{T}A)^{-1}A^{T}$ = P
+
+The projection matrix is always symmetric and satisfies P^{T} = P. When the columns of A are orthonormal and d < n, we have $A^{T}A = I$, and it is easy to show that the projection matrix simplifies to AA^{T}. Furthermore, the symmetric projection matrix always satisfies $P^2 = P$
+
+In fact, any symmetric matrix satisfying P^2 = P can be shown to be a projection matrix. The projection matrix is useful for finding the closest approximation of an n-dimensional vector b on a plane defined by fewer than n vectors, when the point does not lie on the plane. In fact, the classical problem of least-squares regression can be viewed as that of trying to project an n-dimensional column vector of *response variables* to its *concisely modeled approximation* on a d-dimensional plane using a coefficient vector containing the d << n coordinates of the projection of the n-dimensional response variables.
+
+Multiplying an nxd matrix A with any non-singular dxd matrix B creates a matrix AB with the same projection matrix as A, because the projection matrix $(AB)([AB]^{T}AB)^{-1}(AB)^{T}  $ can be algebraically simplified to the projection matrix of A after cancelling B and B^{T} with their inverses. This is because *the projection matrix of A only depends on the vector space spanned by the columns of A* an dpost-multiplying A with a non-singular matrix does not change the span of its columns. Therefore, an efficient way of computing the projection matrix and the proejction b' of b is to use QR-decomposition A = QR to compute the projection matrix as P = QQ^{T}. Note that Q is an nxd matrix like A, and R is a dxd upper-triangular matrix. The projection b' can be computed as QQ^{T}b. The best-fit solution x to Ax = b is the solution to QRx = b' as follows:
+
+$Rx = Q^{T}b' = Q^{T}QQ^{T}b = Q^{T}b  $
+
+#### Problem 2.8.4 - Orthogonal Complementary Projections
+
+Suppose that P = QQ^{T} is a projection matrix where Q is an nxd matrix with orthogonal columns. Show that (I - P) is also a projection matrix in the orthogonal complementary vector space as the projection of P.
+
+A hint is to show that (I - P) can be expressed as Q_{1}Q_{1}^{T}
+
+## 2.9 Ill-Conditioned Matrices and Systems

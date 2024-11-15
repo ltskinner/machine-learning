@@ -65,6 +65,8 @@
 - `idempotent`
   - two unit vector product (vv^{\top}) is idempotent
   - means, V^n = V - raising to power doesnt change the value
+- `idempotent property` of `projection matrices`:
+  - $P^2 = P = (QQ^{T})(QQ^{T}) = Q(Q^{T}Q)Q^{T} = QQ^{T} $ - note (Q^{T}Q) is an identity
 - Matrix multiplication is NOT `commutative`, but it is
   - `associative` - A(BC) = (AB)C
   - `distributive` - A(B+C) = AB + AC, (B+C)A = BA + CA
@@ -87,6 +89,8 @@
   - dot product is simple
     - turn into col vectors
     - multiply across rows, sum to get the result
+  - Q = A is a common notation for orthogonal matrices
+    - where Q is an orthogonal matrix
 - `orthonormal`
   - A set of vectors is `orthonormal` if each pair in the set is mutually orthogonal and the norm of each vector is 1.
 - `coordinate transformation` or `projection`
@@ -141,7 +145,13 @@
   - An nxn square matrix A has linearly independent columns/rows if and only if it is invertible
   - the inverse of an orthogonal matrix is its transpose
 - `left-inverse` of matrix A
-  - $\bar{x} = (A^T A)^{-1} A^T  \bar{v} $
+  - $\bar{x} = (A^T A)^{-1} A^T  \bar{b} $
+  - $L = (A^{T}A)^{-1}A^{T} $
+  - $LA = (A^{T}A)^{-1}(A^{T}A) = I_d $
+- `right-inverse` of matrix A
+  - $\bar{x} = A^{T}(AA^{T})^{-1} \bar{b} $
+  - $R = A^T(AA^T)^{-1} $
+  - $AR = (AA^{T})(AA^{T})^{-1} = I_n  $
 - `singular`
   - a matrix that is **not invertible**
   - non-square matrices
@@ -331,6 +341,8 @@
   - defined as the vector space spanned by the columns of A^T, and is a subspace of **R^d**
   - the dimensionality of the row rank and column rank of any nxd matrix A **is the same**
   - given a matrix, remove all linearly dependent rows
+- `matrix rank`
+  - the rank of a matrix is equal to the rank of its row space, which is the same as the rank of its column space
 - `full rank`
   - `positive-definite` full rank square matrices have an empty null space
     - full rank matrices must be `invertible`
@@ -346,16 +358,34 @@
   - for square and non-singular matrices, the null space only contains the zero vector
   - `right null space`
     - the default null space because the vector x occurs on the right side of matrix A in the product Ax, which must eval to the zero vector
-    - the orthogonal complementary subspace of the `row space` of A
+    - the orthogonal complementary subspace of the `row space` of A. defined by the (transposed) rows of A
+    - set the row space = [0, 0, 0, 0] and solve
+      - i want to say this is because the product of the basis produces an orthogonal vector, and something about the zero vector is related to orthogonality. yeah, two vectors or matrices that are orthogonal have a product of zero
+    - Consider an nxd matrix A with rank k <= min(n,d). The rank of the `null space` of A is d-k
   - `left null space`
     - the orthogonal complement of the vector space spanned by the columns of the matrix
     - the orthogonal complementary subspace of the `column space` of A
+    - set the column space = [0, 0, 0, 0] and solve
+    - Consider an nxd matrix A with rank k <= min(n,d). The rank of the `left null space` of A is (n-k)
 - `four fundamental subspaces of linear algebra`
   - the row space
   - the column space
   - the right null space
   - the left null space
-
+- `strictly positive` matrix
+  - only positive and non-zero values
+- `positive definite` matrix
+  - only positive and zero values
+- `Gram matrix`
+  - $A^T A$
+  - the Gram matrix of the `column space` of A
+  - the columns of A are `linearly independent` if the Gram matrix is invertible
+- `left Gram matrix`
+  - $ AA^T $
+  - the Gram matrix of the `row space`
+- `inconsistent`
+  - a matrix with a row of zeros at the end
+  - have no solution bc a zero value on the left is equated with a non-zero value on the right
 
 ## ML specifics
 
