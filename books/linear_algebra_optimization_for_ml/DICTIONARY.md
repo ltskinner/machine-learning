@@ -91,6 +91,7 @@
     - multiply across rows, sum to get the result
   - Q = A is a common notation for orthogonal matrices
     - where Q is an orthogonal matrix
+  - aka `unitary` (in context of complex numbers)
 - `orthonormal`
   - A set of vectors is `orthonormal` if each pair in the set is mutually orthogonal and the norm of each vector is 1.
 - `coordinate transformation` or `projection`
@@ -157,6 +158,10 @@
   - non-square matrices
   - row of zeros, col of zeros
   - determinant is zero
+- `non-singular`
+  - explicitly means the determinant is non-zero
+  - specifically used for **square matrices**
+  - emphasizes the linear independenct of rows/columns
 - `orthogonal matrix`
   - square matrix whose inverse is its transpose
   - $AA^{\top} = A^{\top}A = I  $
@@ -386,6 +391,9 @@
 - `inconsistent`
   - a matrix with a row of zeros at the end
   - have no solution bc a zero value on the left is equated with a non-zero value on the right
+- `conjugate` (of a complex number)
+  - complex number: a + ib
+  - conjugate: a - ib (deadass just swap the sign lmao)
 
 ## ML specifics
 

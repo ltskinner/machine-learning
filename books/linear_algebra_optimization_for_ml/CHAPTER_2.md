@@ -981,3 +981,179 @@ Suppose that P = QQ^{T} is a projection matrix where Q is an nxd matrix with ort
 A hint is to show that (I - P) can be expressed as Q_{1}Q_{1}^{T}
 
 ## 2.9 Ill-Conditioned Matrices and Systems
+
+Ill-conditioned matrices are "almost" singular, and in some cases, their non-singularity is only a result of numerical approximations that some algorithm might already have made during the computation of the matrix. Trying to invert such a matrix will result in very large entries, numerical overflows, and all types of round-off errors.
+
+In other words, the erlier erros will be greatly magnified
+
+When you have an inverse with large values, small variations in b can lead to large and unstable changes in the solution x (for Ax = b, when you have A^{-1} with large values)
+
+The resulting solutions might sometimes not be semantically meaningful, if the non-singularity of A_{\epsilon} was caused by computational errors
+
+One can quantify the ill-conditioning of a square and invertible matrix A with the notion of `condition numbers`
+
+#### Definition 2.9.1 - Condition Number
+
+Let A be a dxd invertible matrix. Let $\frac{\|A\bar{x}\|}{\|\bar{x}\|} $ be the scaling ratio of vector x. Then, the condition number of A is definied as the ratio of the largest scaling ratio of A (over all d-dimensional vectors) to the smallest scaling ratio of all d-dimensional vectors
+
+- the smallest possible `condition number` is 1, which occurs for the I (or any orthogonal matrix)
+- singular matrices have undefined condition numbers, and near-singular matrices have extremely large condition numbers
+
+One can compute the condition number of a matrix using a method called `singular value decomposition`. The intuitive idea is that SVD tells us about the various scale factors in a linear transformation (also referred to as `singular values`). Therefore, the ratio of the largest to smallest scale factor gives us the condition number
+
+## 2.10 Inner Products: A Geometric View
+
+The dot product is a natural approach for measuring similarity in vector spaces. The `inner product` is a generalization of this concept. In some engineering applications, the similarity between two real-valued vectors is obtained as the dot product after stretching the vectors in some "important" directions with the linear transformation A. Therefore, we first provide a practical and easy-to-visualize definition of inner products that works only for R^n
+
+#### Definition 2.10.1 - Inner Products: Restricted Definition
+
+A mapping from $\bar{x}, \bar{y} \in R^n  $ to $<\bar{x}, bar{y} > \in R  $ is an inner product IFF <x, y> is always equal to the dot product between Ax and Ay for some nxn non-singular matrix A. The inner product <x, y> can also be expressed using the Gram matrix $S = A^{T}A$:
+
+$<\bar{x}, \bar{y}> = (A\bar{x})^{T}(A\bar{x}) = \bar{x}^{T}[A^{T}A]\bar{y} = \bar{x}^{T}S\bar{y}  $
+
+When the linear transformation A is a rotoreflection matrix, the matrix S is the identity matrix, and the inner product specializes to the normal dot product. The inner product also induces cosines and distances with respect to transformation A
+
+$\cos_{A}(x, y) = \frac{<x,y>}{\sqrt{<x, x>}\sqrt{<y,y>}} = \frac{x^{T}Sy}{\sqrt{x^{T}Sy}\sqrt{x^{T}Sy}} = \frac{(Ax)^{T}(Ay)}{\|Ax\|_{2}\|Ay\|_{2}}  $
+
+$distance_{A}(x, y)^{2} = <x-y, x-y> = (x-y)^{T}S(x-y) = \|Ax - Ay\|_{2}^{2}  $
+
+It is easy to see that the induced distances and angles correspond to our normal geometric understanding of lengths and angles after using the matrix A to perform linear transformation on the vectors
+
+`metric` = $\sqrt{<x-y, x-y>}  $, which satisfies all laws of Euclidean geometry
+
+A more general definition of inner products that words beyond R^n (e.g. for abstract vector spaces) is based on particular axiomiatic rules that need to be followed
+
+#### Definition 2.10.2 - Inner-Product: General Definition
+
+The real value <\bar{u}, \bar{v}> is an inner product between u and v, if it satisfies the following axioms for all u and v:
+
+- Addivity: $<u, v+w> = <u, v> + <u,w>, <v+w, u> = <v, u> + <w,u>  $
+- Multiplicativity: $<c\bar{u}, \bar{v}> = c<\bar{u}, \bar{v}>, <\bar{u}, c\bar{v}> = c<\bar{u}, \bar{v}> \forall c \in \mathbb{R}  $
+- Commutativity: $<u, v> = <v, u>  $
+- Positive Definiteness: $<u, u> \geq 0 $, with equality only for the zero vector
+
+Every finite-dimensional inner product <x,y> in R^n satisfying the above axioms can be shown to be equivalent to $x^{T}Sy  $ for some carefully chosen Gram matrix $S = A^{T}A  $. therefore, at least for finite dimensional vector spaces in R^n, the linear transformation definition and the axiomatic definition of <x, y> are equivalent
+
+Following exercise shows how such a matrix S can be constructed from the axiomatic definition of an inner product:
+
+#### Problem 2.10.1 - Axiomatic Inner-Product is Transformed Dot Product
+
+#### Problem 2.10.2
+
+## 2.11 Complex Vector Spaces
+
+Vector spaces can be defined over an `field` that satisfies the `field axioms`. One such example of a field is the domain of complex numbers. A complex number is a value of the form:
+
+- a + ib, where i = \sqrt{-1}
+
+Complex numbers are often written in the *polar form*:
+
+- $r[\cos(\theta) + i\sin(\theta)]  $, where
+  - $r = \sqrt{a^2 + b^2}  $
+  - $\theta = \cos^{-1}(a/r)  $
+
+One can also show the following **Euler identity** by comparing the Taylor expansions of the exponential and trigonometric serties:
+
+$\exp(i\thata) = \cos(\theta) + i\sin(\theta)  $
+
+The angle \theta must be expressed in radians for this formula to hold. Therefore, a complex number may be represented as: $ r.\exp(i\theta) $
+
+The polar representation is very convenient in the context of many linear algebra operations. This is because the multiplication of two complex numbers is a simple matter of adding angular exponents and multiplying their magnitudes.
+
+One can define a vector space over the complex domain using the same additive and multiplicative properties over C^n as in R^n (where C^n is the space of complex numbers)
+
+#### Definition 2.11.1 - Vector Space in C^n
+
+A set of vectors V that correspond to a subset of C^n is a vector space, if it satisfies the following properties:
+
+- 1. if $\bar{x} \in V  $ then $c\bar{x} \in V $ for any scalar $c \in C$
+- 2. if $\bar{x}, \bar{y} \in V  $, then $\bar{x} + \bar{y} \in V$
+
+Here, it is important to note that the *multiplicative scalar is drawn from the complex domain*. For example, the value of c could be anumber such as 1+i. This is an important difference from Definition 2.3.2 on real-valued vector spaces. The consequence of this fact is that one can still use the standard basis $\bar{e}_{1}...\bar{e}_{1}  $ to represent any vector in C^n. Here, each $\bar{e}_{i}$ is an n-dimensional vector with a 1 in the ith entry, and a 0 in all other entries. Although $\bar{e}_{i}$ has real components, all real vectors are special cases of complex-valued vectors. Any vector $\bar{x} = [x_{i}...x_{d}]^{T}  $ \in C^n can be expressed in terms of the standard basis, where the ith coordinate is the complex number x_i
+
+The key point is that the coordinates can also be complex values, since the vector space is defined over the complex field. We need to be able to perform operations such as projections in order to create coordinate representations. This is achieved with the notion of complex inner products
+
+As in the case of real inner products, one wants to retain geometric properties of Euclidean spaces (like notions of lengths and angles). Generalizing inner products from the real domain to the complex domain can be tricky.
+
+In real-valued Euclidean spaces, the dot product of the vector with itself profvudes the squared norm. **This definition does not work for complex vectors**
+
+Need to modify the axioms for the complex-valued inner product <u,v>:
+
+- Addivity: $<u, v+w> = <u, v> + <u,w>, <v+w, u> = <v, u> + <w,u>  $
+- Multiplicativity: $<c\bar{u}, \bar{v}> = c*<\bar{u}, \bar{v}>, <\bar{u}, c\bar{v}> = c<\bar{u}, \bar{v}> \forall c \in \mathbb{R}  $
+- Conjugate symmetry: $<u, v> = <v, u>^*  $
+- Positive Definiteness: $<u, u> \geq 0 $, with equality only for the zero vector
+
+The superscript '*' indicates the `conjugate` of a complex number, which is obtained by negating the imaginary part of the number. Basically if you have i^2 coming from a vector inner product, you cant just get rid of it, you need to use the conjugate
+
+For a scalar complex number, its squared norm is defined by its product with its conjugate. For example, the squared norm of:
+
+$a + ib = (a -ib)(a + ib) = a^2 + b^2  $
+
+In the case of vectors, we can combine the transposition with conjugation in order to define inner products
+
+#### Definition 2.11.2 - Conjugate Transpose of Vector and Matrix
+
+The conjugate transpose $\bar{v}^* $ of a complex vector v is obtained by transposing the vector and replacing each entry with its complex conjugate. The conjugate transpose V* of a complex matrix V is obtained by transposing the matrix and replacing each entry with its complex conjugate
+
+- conjugate transpose of [1, 2i]^T = [1, -2i]  (note, no T)
+- conjugate transpose of [1 + i, 2 + 3i]^{T} = [1 - i, 2 - 3i]
+
+A populat way of defining the inner product between vectors u, v \in C^n, which is the direct analog of the dot product, is the following:
+
+<u, v> = u^*v
+
+The inner product can be a complex number. Unlike the vectors in R^n, the inner product is *not* commutative over the complex domain, because <u,v> is the complex conjugate of <v,u> (i.e., conjugate symmetry property). The squared norm of a vector v \in C^n is defined as v*v rather than v^T v; this is the inner product of the vector with itself.
+
+Based on this definition, the squared norm of:
+
+- [1, 2i]^T = [1, -2i][1, 2i]^T = 1^2 + 2^2 = 5
+- [1 + i, 2 + 3i] = (1 + i)(1 - i) + (2 + 3i)(2 - 3i) = 1 + 1 + 4 + 9 = 15
+
+Note that both are positive, which is consistent with the positive definite property
+
+As in the real domain, two complex vectors are orthogonal when their inner product is 0. In such a case, both complex conjugates <u,v> and <v,u> are zero
+
+#### Definition 2.11.3 - Orthogonality in C^n
+
+Two vectors u and v from C^n are orthogonal iff u^* v = v^* u = 0
+
+An orthonormal set of vectors in C^n corresopnds to any set of vectors v_1...v_n, such that v_i^* v_j^* = 1 when i=j, and 0, otherwise
+
+Note that the standard basis is also orthogonal in C^n. As in the real domain, an nxn matrix containing orthogonal columns from C^n is referred to as `orthogonal` or `unitary`
+
+#### Definition 2.11.4 - Orthogonal Matrix with Complex Entries
+
+A matrix V with complex-valued entries is `orthogonal` or `unitary` iff VV^* = V^* V = I
+
+It is relatively easy to compute the inverse of orthogonal matrices by simply computing their conjugate transposes. This idea has applications to the discrete Fourier transform
+
+### 2.11.1 The Discrete Fourier Transform
+
+The discrete Fourier transform is closely related to the discrete cosine transform, and it is capable of finding an orthonormal basis for time-series in the complex domain. As a practical matter, it is used as an alternative to the discrete cosine transform for real valued series with a high level of periodicity
+
+Consider a complex-valued time series $\bar{s} \in C^n  $, which we would like to transform into a complex and orthogonal basis. The Fourier basis uses n mutually orthogonal basis vectors $\bar{b}_{1}...\bar{b}_{n}  $ from C^n, so that the basis vector \bar{b}_{j} is defined as:
+
+$\bar{b}_{j} = [1, \exp(\omega[j-1]i), ..., \exp(\omega[k-1][j-1]i), ..., \exp(\omega[n-1][j-1]i)]^T / \sqrt{n}  $ where the kth component is $\exp(\omega[k-1][j-1]i)$
+
+Note that the value of i in the above does not refer to a variable but to the imaginary number \sqrt{-1}. The value of \omega is 2\pi/n in radians, and therefore each complex number is written in polar form. We make the following assertion:
+
+#### Lemma 2.11.1 - Orthonormality of fourier Basis
+
+The basis vectors $\bar{b}_{i}..\bar{b}_{n}  $ of the Fourier transform are orthonormal
+
+One can, therefore, create a basis matrix B whose columns contain the basis vectors b_1...b_n
+
+The matrix B is orthogona, and therefore the basis transformation is *length preserving*:
+
+$\|B\bar{s}\|^{2} = (Bs)^{*}(Bs) = s^{*}(B^{*}B)s = \|s\|^{2} $, where $I = (B^{*}B)$
+
+Given a *complex-valued* time-series \bar{s}, one can transform it to the Fourier basis by solving the system of equations Bx = s. The solution to this system is simply $\bar{x} = B^{*}\bar{s}  $, which provides the complex coefficents of the series. As a practical matter, the approach is used for real-valued time series
+
+#### Problem 2.11.1
+
+## 2.12 Summary
+
+Machine learning applications often use additive and multiplicative transformations with matrices, which correspond to the fundamental building blocks of linear algebra. These building blocks are utilized for different types of decompositions such as the QR decomposition and the LU decomposition. The decompositions are the workhorses to solution methodologies for many matrix-centric problems in ML. Specific examples include solving systems of linear equations and linear regression.
+
+## 2.14 Exercises
