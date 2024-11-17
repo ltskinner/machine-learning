@@ -1157,3 +1157,36 @@ Given a *complex-valued* time-series \bar{s}, one can transform it to the Fourie
 Machine learning applications often use additive and multiplicative transformations with matrices, which correspond to the fundamental building blocks of linear algebra. These building blocks are utilized for different types of decompositions such as the QR decomposition and the LU decomposition. The decompositions are the workhorses to solution methodologies for many matrix-centric problems in ML. Specific examples include solving systems of linear equations and linear regression.
 
 ## 2.14 Exercises
+
+1. A^2 = I just means that A = A^-1
+2. Gram matrix - A, AA^T, A^T A all have same rank
+  - if set Ax = y, then can replace Ax with y
+  - A^T y = 0
+    --> this means y is orthogonal to all columns
+3. rotate 180 deg
+4. min, max rank - specifically matrix multiplication upper/lower bound
+5. row reduction, gram-schmidt
+  - here, just put all span vectors into a matrix and do row reduction
+  - no setting = 0 on the right side or anything.
+  - then, take the linearly independent columns as the basis (aka, the ones with the furthest left value for a row)
+    - after finding the columns that are linearly independent, go back to the original (non-reduced) matrix and use those vectors as the basis
+  - then for finding best-fit best fit, have to do a projection, *cant* just solve directly
+  - use b' = QQ^T b (Q is an orthogonal matrix, in this case which is a basis)
+6. Gram-Schmidt orthogonalization process
+  - like, pick a coordinate
+  - compute best-fit coordinate with b' = BB^T b
+  - if the spans are the same, then the best fit should be the same
+7. skew symmetric matrix
+  - A^T = -A
+  - diagonal must be zero
+  - to show that each x \in R^d is orthogonal
+    - x.(Ax) = 0 = x^T(Ax)
+8. Givens matrix, householder reflection
+9. Givens matrix, householder reflection
+10. min, max rank
+11. LU decomposition
+12. QR decomposition, Gram-Schmidt method, matrix inverse
+13. 
+14. for basis sets Q, use b' = QQ^T b to compute projections
+  - when projecting arbitrary vector by QQ^T, the projection vector b' should be identical
+  - in form Ax = b, we can use "back substitution"

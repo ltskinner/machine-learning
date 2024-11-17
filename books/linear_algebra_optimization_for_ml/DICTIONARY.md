@@ -112,6 +112,11 @@
     - c_{km} denotes the element in the k-th row and m-th column of C
 - `symmetric matrix`
   - is a square matrix that is its own transpose
+  - A = A^T
+- `skew symmetric matrix`
+  - square matrix
+  - A^T = -A
+  - these are like 90 degree rotation matrices, but work better in higher dimensions
 - `diagonal`
   - the set of entries for which the row and column indices are the same
 - `identity matrix` or `I`
@@ -318,6 +323,8 @@
     - is like an `identity matrix`
     - the identity matrix is a collection of the `standard basis` *vectors*, arranged in matrix form
     - cannot be used the basis of a `proper` subspace
+  - `standard basis vector`
+    - deadass v_std = Bv where you actually plug n chug
 - `dimensionality`
   - The number of members in every possible basis set of a vector space V is always the same. This value is referred to as the **dimensionality** of the vector space
 - `span`
@@ -394,6 +401,13 @@
 - `conjugate` (of a complex number)
   - complex number: a + ib
   - conjugate: a - ib (deadass just swap the sign lmao)
+- `back substitution`
+  - when we have form Ax = b, and A and b are known
+  - 1 0 0 | 4
+  - 0 1 0 | 6
+  - 0 0 1 | 5
+  - for back substitution, sometimes we need to scale items on left by items on right to get to 1
+  - then, the numbers on right become solution
 
 ## ML specifics
 
