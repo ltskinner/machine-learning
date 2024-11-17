@@ -1190,3 +1190,4 @@ Machine learning applications often use additive and multiplicative transformati
 14. for basis sets Q, use b' = QQ^T b to compute projections
   - when projecting arbitrary vector by QQ^T, the projection vector b' should be identical
   - in form Ax = b, we can use "back substitution"
+15. QR method

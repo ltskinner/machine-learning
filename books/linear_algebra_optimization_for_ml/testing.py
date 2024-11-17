@@ -1,3 +1,5 @@
+
+import math
 import numpy as np
 
 
@@ -143,7 +145,7 @@ R = np.outer(c1, c2)
 
 print(R)
 """
-
+"""
 E = np.array([
     [3, 0, 0],
     [0, 3, 0],
@@ -160,6 +162,23 @@ R = np.dot(A, E),
 
 print(E)
 print(A)
+print(R)
+
+"""
+Q = np.array([
+    [3/5, 6/math.sqrt(101)],
+    [0, 0],
+    [4/5, 8/math.sqrt(101)]
+])
+
+A = np.array([
+    [3, 6],
+    [0, 1],
+    [4, 8],
+])
+
+R = np.dot(Q.T, A)
+
 print(R)
 
 
