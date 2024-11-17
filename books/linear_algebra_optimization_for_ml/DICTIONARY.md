@@ -150,6 +150,7 @@
     - (ABC)^{-1} = C^{-1}B^{-1}A^{-1}
   - An nxn square matrix A has linearly independent columns/rows if and only if it is invertible
   - the inverse of an orthogonal matrix is its transpose
+  - if there are no `eigenvalues` then a matrix must be invertible
 - `left-inverse` of matrix A
   - $\bar{x} = (A^T A)^{-1} A^T  \bar{b} $
   - $L = (A^{T}A)^{-1}A^{T} $
@@ -312,6 +313,10 @@
   - when no set of non-zero scalars can be found
   - "contributes a new, independent direction"
   - if a matrix is invertible, it has linearly independent columns/rows
+  - a set of vectors is linearly independent if the only solution to the quation is 0:
+    - c_1.v_1 + c_2.v_2 + ... c_n.v_n = 0
+    - aka Vc = 0
+    - aka no rows of 0s in row operations sequence
 - `basis` aka `basis set`
   - basically like the fundamental axes by which you define a space
   - for any vector v \in V,, we can find scalars x_1...x_d so that $\bar{v} = \sum_{i=1}^{d} x_{i}\bar{a}_{i}  $
@@ -384,6 +389,8 @@
   - the column space
   - the right null space
   - the left null space
+- `Fundamental Theorem of Linear Algebra`
+  - rank of A + null space of A = d, where A is nxd
 - `strictly positive` matrix
   - only positive and non-zero values
 - `positive definite` matrix

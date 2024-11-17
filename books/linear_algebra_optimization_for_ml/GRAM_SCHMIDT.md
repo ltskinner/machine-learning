@@ -78,3 +78,7 @@ $Q = [q_{q}, ..., q_{n}]$
 ## Finally: R
 
 $R = Q^T A $
+
+## Finally: x
+
+$Rx = Q^{T}b' = Q^{T}b  $ to solve for x

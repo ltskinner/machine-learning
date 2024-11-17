@@ -590,6 +590,8 @@ The four fundamental subspaces of linear algebra:
 
 ![alt-text](./2_8_four_fundamental_subspaces.PNG)
 
+![alt-text](./2_8_four_fundamental_subspaces_2.PNG)
+
 #### Problem 2.4.1
 
 #### Problem 2.4.2
@@ -1191,3 +1193,41 @@ Machine learning applications often use additive and multiplicative transformati
   - when projecting arbitrary vector by QQ^T, the projection vector b' should be identical
   - in form Ax = b, we can use "back substitution"
 15. QR method
+16. 
+17. Gram-Schmidt with Projection Matrix
+18. `Fundamental Theorem of Linear Algebra`
+  - rank of A + null space of A = d, where A is nxd
+  - when col space = right null space, rank = null
+  - so 2xnull = d, which is multiple of 2
+19. 
+20. 
+21. 
+  - for projection matrix P, the length of Px is less than x
+  - \|Px\| <= \|x\|
+  - because projects b onto a lower-dimensional hyperplance
+22. matrix multiplication upper/lower bound
+23. 
+24. 
+25. Idempotent Property, rank
+26. 
+27. 
+28. left-inverse right-inverse, QR decomp
+29. Least-squares error by QR decomposition
+30. if c in row space, must be linearly depdendent, so doesnt contribute any new info to error minimization
+  - if not in row space, assume contributes consistent error value
+31. basically, when doing right inverse from QR
+  - we already showed that the len of resulting vectors passed through projection via that method are < original len. So its natural, that the error will be less when taking the error of the right inverse
+  - naturally, this is a more concise solution
+32. givens rotation, householder
+  - for 2x2 matrix, only two dimensions to operate on
+  - so only need two householder reflection matrices
+  - any dxd givens refleciton matrix can be a product of at most d householder reflection matrices
+33. if we have two tall matrices
+  - to be full rank, the cols must be linearly independent (or rows, but since tall it must be cols here)
+  - if they have the same col space, their projection matrices must be the same
+  - col space: the vector space spanned by the columns of nxd matrix A
+  - spans must be the same
+  - because spans are the same, their projections have to the the same
+- 34.
+
+Maybe at end do dedicated page for four fundamental subspaces, come back to q 34, like we did for Gram Schmidt
