@@ -5,6 +5,49 @@
 - right null space
 - left null space
 
+## Bigger Picture
+
+What we are describing is the process by which A maps R^d into R^n:
+
+A = nxd matrix
+
+A maps from R^d (input space) to R^n (the output space), making A act as a linear transformation
+
+- A transforms R^d (input space) into R^n (output space):
+  - that checks out Ax -> x is a column vector of n dimensions
+- The `column space` identifies "reachable outputs in R^n"
+  - is subspace of R^n (output space)
+- The `(right) null space` identifies the "lost inputs" in R^d
+  - is subspace of R^d (input space)
+- The `row space` identifies the constraints on R^d
+  - is subspace of R^d (input space)
+  - the combinations of input vectors that are mapped into the column space
+- The `(left) null space` identifies the "unreachable outputs" in R^n
+  - is subspace of R^n (output space)
+  - identifies outputs in R^n that are orthogonal to the column space (lost outputs)
+  - which directions cannot be reached by input x: directions in output that R^n fails to span
+
+As such:
+
+- Column Space + Left Null Space (outers) = all of R^n
+  - Every vector in R^n can be expressed as the sum of a vector in C(A) and one in N(A^T)
+- Row space + Null Space (inners) = all of R^d
+  - Every vector in R^d can be expressed as the sum of a vector in C(A^T) and one in N(A)
+
+Ax = (nxd)(dx1) = nx1
+
+- n is the output space
+  - "this is where the result Ax lives"
+- d is the input space
+  - d = rank(A) + nullity(A)
+  - d = rank(A) + N(A)
+
+![alt-text](./2_8_four_fundamental_subspaces_3.PNG)
+
+![alt-text](./2_8_four_fundamental_subspaces_4.PNG)
+
+## ---------------- Can kindof just ignore below ------------------------------
+
 The core of studying matrices is to study linear transformations between vector spaces. These can be realized as matrix multiplication on the left of columns, or right of row, vectors
 
 For column vector x: the image of the linear transformation Ax must span the columns of A
@@ -78,40 +121,3 @@ This tells us which output directions in R^d cannot be reached by any input vect
 These are directions in the output space R^d that A fails to span
 
 Note, if all output directions are spanned by the rows of A, then the left null space N(A^T) is trivial
-
-## Bigger Picture
-
-What we are describing is the process by which A maps R^n into R^d:
-
-A = nxd matrix
-
-A maps from R^d (input space) to R^n (the output space), making A act as a linear transformation
-
-- A transforms R^d (input space) into R^n (output space):
-  - that checks out Ax -> x is a column vector of n dimensions
-- The `column space` identifies "reachable outputs in R^n"
-  - is subspace of R^n (output space)
-- The `(right) null space` identifies the "lost inputs" in R^d
-  - is subspace of R^d (input space)
-- The `row space` identifies the constraints on R^d
-  - is subspace of R^d (input space)
-  - the combinations of input vectors that are mapped into the column space
-- The `(left) null space` identifies the "unreachable outputs" in R^n
-  - is subspace of R^n (output space)
-  - identifies outputs in R^n that are orthogonal to the column space (lost outputs)
-  - which directions cannot be reached by input x: directions in output that R^n fails to span
-
-As such:
-
-- Column Space + Left Null Space (outers) = all of R^n
-  - Every vector in R^n can be expressed as the sum of a vector in C(A) and one in N(A^T)
-- Row space + Null Space (inners) = all of R^d
-  - Every vector in R^d can be expressed as the sum of a vector in C(A^T) and one in N(A)
-
-Ax = (nxd)(dx1) = nx1
-
-- n is the output space
-  - "this is where the result Ax lives"
-- d is the input space
-  - d = rank(A) + nullity(A)
-  - d = rank(A) + N(A)
