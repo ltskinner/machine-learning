@@ -1027,7 +1027,7 @@ A more general definition of inner products that words beyond R^n (e.g. for abst
 
 #### Definition 2.10.2 - Inner-Product: General Definition
 
-The real value <\bar{u}, \bar{v}> is an inner product between u and v, if it satisfies the following axioms for all u and v:
+The real value <\bar{u}, \bar{v}> is an inner product between u and v, if it satisfies the following axioms (inner product axioms) for all u and v:
 
 - Addivity: $<u, v+w> = <u, v> + <u,w>, <v+w, u> = <v, u> + <w,u>  $
 - Multiplicativity: $<c\bar{u}, \bar{v}> = c<\bar{u}, \bar{v}>, <\bar{u}, c\bar{v}> = c<\bar{u}, \bar{v}> \forall c \in \mathbb{R}  $
@@ -1228,6 +1228,61 @@ Machine learning applications often use additive and multiplicative transformati
   - col space: the vector space spanned by the columns of nxd matrix A
   - spans must be the same
   - because spans are the same, their projections have to the the same
-- 34.
-
-Maybe at end do dedicated page for four fundamental subspaces, come back to q 34, like we did for Gram Schmidt
+34. 
+35. basically, ro reflect across a line, need to use 2theta
+36. 
+37. because upper triangular, inverse will also be upper triangular
+  - for non-diagonal entries, can simply invert the block
+  - for diagonal, need to chain things together recursively
+38. for a matrix to be invertible, its det(A) != 0
+  - projeciton matrices are idempotent
+  - projeciton are not empty
+39. eigenvalues again
+  - basically, when labmda is 1 or -1, the contribution of \lambda I leads to a situation where R + \labmda I is "dominated" by the Householder -2vv^T term, which is rank one (and thus not invertible as a square matrix)
+40. Length-preserving transforms are orthogonal
+  - for orthogonal matrices A^T = A^-1
+  - \|AX\| = \|x\| == \|Ax\|^2 = \|x\|^2 = (Ax)^T(Ax) = x^T x
+  - push x^T out front
+  - x^T A^T A x = x^T x
+41. the terms of a polynomial can have rank assessed for std addition and multiplication
+42. 
+43. $<\bar{x}, \bar{y}> = (A\bar{x})^{T}(A\bar{x}) = \bar{x}^{T}[A^{T}A]\bar{y} = \bar{x}^{T}S\bar{y}  $
+  - gram matrix - something about invertibility and positive definiteness
+44. Cauchy-Schwarz and triangle inequality for general inner products
+  - |<u,v>|^2 <= <u,u>.<v,v>
+  - |<u,v>| <= \sqrt{<u,u>.<v,v>}
+45. 
+  - at least one c must be non-zero
+  - one of the coefficents must "activate" contributions from higher powers of A^i
+  - the coefficents must aboid trivial linear dependencies
+  - matrices that cannot have their rank increased through the polynomial
+   - strictly upper triangular
+   - diagonal
+46. Symmetric matrices are diagonalizable to QQ^T
+47. 
+48. 
+  - consistent means no 000 rows at end
+  - the column space of AXB is a subspace of A
+  - the row space of AXB is a subspace of the rows of B
+  - This means that A must be consistent wrt the columns
+  - B must be consistent wrt the rows of B
+  - as such
+    - A should be wide
+    - B should be tall
+  - the closed form solution is X, so need to isolate
+  - aka X = ???
+  - basically, take the moore-penrose pseudoinverse here b/c rectangular
+  - then plug n chug until
+  - X = A^{+} C B^{+}
+49. 
+  - this is exactly the stuff happening in Binary Vector Representation Learning
+50. How can you recognize inconsistent systems of equations or systems with an infinite number of solutions?
+  - basically need to look at the ranks and dimensinoality
+  - a system is inconsistent if:
+    - the column space of the solution is not a subspace of the column space of the input
+    - or
+    - the row space of the solution is not a subspace of the row space of the input
+  - a system has infinite solutions (non-unique solutions)
+    - if there are rank deficiencies, aka, there are ranks lower than the dimension which allows for free variables, and thus infinite solutions
+51. 
+  - specifically performs an orthogonal projection onto the column space of A

@@ -151,6 +151,7 @@
   - An nxn square matrix A has linearly independent columns/rows if and only if it is invertible
   - the inverse of an orthogonal matrix is its transpose
   - if there are no `eigenvalues` then a matrix must be invertible
+  - the determinant of A det(A) != 0 if A is invertible
 - `left-inverse` of matrix A
   - $\bar{x} = (A^T A)^{-1} A^T  \bar{b} $
   - $L = (A^{T}A)^{-1}A^{T} $
@@ -425,6 +426,11 @@
     - Rx = Q^T b = Q^T b'
 - see 'gram-schmidt':
   - [GRAM_SCHMIDT.md](./GRAM_SCHMIDT.md)
+- `Moore-Penrose Pseudoinverse`
+  - basically:
+  - A^{+} = $(A^{T}A)^{-1} A^{T} = A^{T}(AA^{T})^{-1}$
+  - there are lambda terms, but as they approach zero, there is no contribution
+  - See Ch2 for full eq
 
 ## ML specifics
 
