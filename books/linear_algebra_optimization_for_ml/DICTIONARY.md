@@ -117,6 +117,11 @@
   - square matrix
   - A^T = -A
   - these are like 90 degree rotation matrices, but work better in higher dimensions
+  - the diagonal entries of A are always 0
+  - det(A) = det(-A^T) = (-1)^{d}det(A)
+    - when d is odd, (-1)^{d} = -1
+    - so det(A) = -det(A) ==> det(A)+det(A) = 0
+    - or 2det(A) = 0 = det(A)
 - `diagonal`
   - the set of entries for which the row and column indices are the same
 - `identity matrix` or `I`
@@ -149,6 +154,7 @@
   - $(AB)^{-1} = B^{-1}A^{-1}$ - need to invert the order when bring outside of the parentheses
     - (ABC)^{-1} = C^{-1}B^{-1}A^{-1}
   - An nxn square matrix A has linearly independent columns/rows if and only if it is invertible
+    - if a square matrix with linearly independent, then invertible
   - the inverse of an orthogonal matrix is its transpose
   - if there are no `eigenvalues` then a matrix must be invertible
   - the determinant of A det(A) != 0 if A is invertible
@@ -431,6 +437,52 @@
   - A^{+} = $(A^{T}A)^{-1} A^{T} = A^{T}(AA^{T})^{-1}$
   - there are lambda terms, but as they approach zero, there is no contribution
   - See Ch2 for full eq
+- QR decomposition
+  - the form A = QR
+  - Q is an nxr matrix with orthogonal columns
+    - orthogonal so det(Q) = +-1
+  - R is a rectangular rxd upper-triangular matrix of full row rank
+    - RR^{T} is invertible
+    - upper-triangular = det(U) is product of diagonal entries
+- `LU Decomposition`
+  - goal is to express a matrix as the product of:
+    - L is a (square) lower triangular matrix
+      - with ones on the diagonal, so det(L) = 1
+    - U is a (rectangular) upper triangular matrix
+      - upper-triangular = det(U) is product of diagonal entries
+
+## Eigenvectors and Diagonalizable Matrices
+
+- `determinant`
+  - the "volume" `scaling factor` of a matrix
+  - the determinant is wrt the `unit hypercube`
+    - all det(A) > 1 dilate
+    - all det(A) = 1 preserve the volume
+    - all det(A) < 1 decreases volume
+    - all det(A) = 0 means singular, parallelogram is collapsed onto plane
+    - all det(A) < 0 flip the orientation (reflection)
+    - |det(A)| = magnitude = amount of scaling (volume scaling factor)
+  - other properties
+    - det(A) = det(A^T)
+    - det(AB) = det(A).det(B)
+    - $\det{(A^{-1})} = \frac{\det{(I)}}/{\det{(A)}} = \frac{1}{\det{(A)}}  $
+  - useful properties
+    - switching two rows (or cols) flips the sign
+    - det(A) is !=0 only if the matrix is non-singular
+    - A matrix with two identical rows has det(A) = 0
+    - multiplying 1 row by c multiplies entire determinant by c
+      - det(A') = c.det(A)
+      - multiplying entire dxd by c creates c^d.det(A)
+    - *NOT* commutative
+  - `determinant of orthogonal matrices`
+    - det(A) = +1 or -1
+- `paralleliped`
+  - a solid body of which each face is a parallelogram
+- `identity matrix`
+  - an orthogonal matrix and orthogonal matrix always forms a unit hypercube
+  - the absolute value of a hypercubes determinant is always 1
+- `non-zero determinant`
+  - requires matrix to be `non-singular` (i.e., invertible)
 
 ## ML specifics
 

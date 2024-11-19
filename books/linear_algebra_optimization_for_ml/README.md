@@ -23,3 +23,5 @@ A observed value $y_{i}$ is distinguised from a predicted value $\hat{y_{i}}$
 ## [Chapter 1. Linear Algebra and Optimization: An Introduction](./CHAPTER_1.md)
 
 ## [Chapter 2. Linear Transformations and Linear Systems](./CHAPTER_2.md)
+
+## [Chapter 3. Eigenvectors and Diagonalizable Matrices](./CHAPTER_3.md)
