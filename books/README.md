@@ -2,10 +2,10 @@
 
 ## ML In General
 
-- [ ] [Probability and Statistics for Machine Learning](https://www.amazon.com/Probability-Statistics-Machine-Learning-Textbook/dp/3031532813/)
 - [ ] [Linear Algebra and Optimization for Machine Learning](https://www.amazon.com/Linear-Algebra-Optimization-Machine-Learning/dp/3030403432)
 - [ ] [Neural Networks and Deep Learning](https://www.amazon.com/Neural-Networks-Deep-Learning-Textbook/dp/3031296419/)
 - [ ] [Deep Learning: Foundations and Concepts](https://www.amazon.com/Deep-Learning-Foundations-Christopher-Bishop/dp/3031454677/)
+- [ ] [Probability and Statistics for Machine Learning](https://www.amazon.com/Probability-Statistics-Machine-Learning-Textbook/dp/3031532813/)
 
 ## Representation Learning
 
@@ -19,6 +19,10 @@ Similarity search --> Information Geometry instead of Euclidian
 - [ ] [Manifold Learning: Model Reduction in Engineering](https://www.amazon.com/Manifold-Learning-Reduction-Engineering-SpringerBriefs/dp/3031527631/)
   - note this is a short boi, only 100 pages
 - [ ] [Elements of Dimensionality Reduction and Manifold Learning](https://www.amazon.com/Elements-Dimensionality-Reduction-Manifold-Learning/dp/3031106016/)
+
+### Hyperbolic Manifolds
+
+- [ ] [Foundations of Hyperbolic Manifolds](https://www.amazon.com/Foundations-Hyperbolic-Manifolds-Graduate-Mathematics-ebook/dp/B07ZJFHMJP/ref=sr_1_9)
 
 ## Information X
 
