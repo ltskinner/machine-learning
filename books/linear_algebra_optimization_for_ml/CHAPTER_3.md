@@ -226,3 +226,143 @@ Show that the absolute value of the det <= (d)^{d/2}
 Provide an example of a 2x2 matrix in which the determinant is equal to this upper bound (hint: think about the geometric view of determinants)
 
 ## 3.3 Diagonalizable Transformations and Eigenvectors
+
+#### Definition 3.3.1 - Eigenvectors and Eigenvalues
+
+A d-dimensional column vector $\bar{x}$ is said to be an `eigenvector` of dxd matrix A, if the following relationship is satisfied for some scalar $\lambda$:
+
+$A\bar{x} = \lambda \bar{x}  $
+
+The scalar $\lambda$ is referred to as its `eigenvalue`
+
+An `eigenvector` can be viewed as "stretching direction" of the matrix, where multiplying the vector with the matrix simply stretches the former. For ex:
+
+- [1, 1]^T and [1, -1]^T are `eigenvectors` of the following matrix
+- 3 and -1 are the eigenvalues, respectfully
+
+![alt-text](./3_3_eigenvectors_eigenvalues.PNG)
+
+Each member of the standard basis is an eigenvector of the diagonal matrix, with eigenvalue equal to the ith diagona entry. All vectors are eigenvectors of the identity matrix
+
+The number of eigenvectors of a dxd matrix A may vary, but only diagonalizable matrices represent `anisotropic` scaling in d linearly independent directions; therefore, *we need to be able to find d A linearly independent eigenvectors*.
+
+Let $\bar{v}_{1}...\bar{v}_{d}  $ be d linearly independent eigenvectors and $\lambda_{1}...\lambda_{d}  $ be the corresponding eigenvalues. Therefore, the eigenvector condition holds in each case
+
+$A\bar{v}_{i} = \lambda_{i}\bar{v}_{i}, \forall i \in \{1...d \} $
+
+one can rewrite the condition in matrix form:
+
+$A[\bar{v}_{1}...\bar{v_{d}}] = [\lambda_{1}\bar{v}_{1}...\lambda_{d}\bar{d}] $
+
+By defining V to be a dxd matrix containing v_{1}...v_{d} in its columns, and $\Delta$ to be a diagonal matrix containing $\lambda_{1}...\lambda_{d}  $ along the idaonals, one can rewrite as:
+
+$AV = V\Delta  $
+
+Post-multiplying with V^{-1}, we obtain the diagonalization of the matrix A:
+
+$A = V\Delta V^{-1}  $
+
+- V is an *invertible* dxd matrix containing *linearly independent* eigenvectors
+  - aka `basis change matrix`
+  - b/c tells us that the linear transformation A is a diagonal matrix $\Delta$ *after changing the basis to the columns of V*
+- $\Delta$ is a dxd diagonal matrix, whose diagonal elements contain the `eigenvalues` of A
+
+The `determinant` of a `diagonalizable matrix` is defined by **the product of its eigenvalues**. Since diagonalizable matrices represent linear transforms corresponding to *anisotropic* scaling in arbitrary directions, a diagonalizable transform should scale up the volume of an object by the product of these scaling factors. It is helpful to think of the matrix A in terms of the transform it performs on the unit parallelepiped corresponding to the orthonormal columns of the identity matrix:
+
+$A = AI  $
+
+The transformation scales this unit parallelepiped with scaling factors $\lambda_{1}...\lambda_{d}  $ in d directions. The ith scaling multiplies the volume of the parallelepiped by $\lambda_{i} $. A a result, the final volume of the parallelepiped defined by the I matrix (after all the scalings) is the product of $\lambda_{1}...\lambda_{d} $. This intuition provides:
+
+#### Lemma 3.3.1
+
+The determinant of a diagonalizable matrix is equal to the product of its eigenvalues
+
+The presence of a zero eigenvalue implies that the matrix A is singular because its determinant is zero. One can also infer this fact from the observation that the corresopnding eigenvector v satisfies Av = \bar{0}. In other words, the matrix A is not of full rank because its null space is nonempty. A nonsingular, diagonalizable matrix can be inverted easily according to:
+
+$(V\Delta V^{-1})^{-1} = V \Delta^{-1}V^{-1} $
+
+Note that the $\Delta^{-1}  $ can be obtained by replacing each eigenvalue in the diagonal of \Delta with its reciprocal. Matrices with zero eigenvalues cannot be inverted; the reciprocal of zero is not defined
+
+#### Problem 3.3.1
+
+Let A be a square, diagonalizable matrix. Consider a situation in which we add \alpha to each diagonal entry of A to create A'. Show that A' has the same eigenvectors as A, and its eigenvalues are related to A by a difference of \alpha
+
+It is noteworthy that the ith eigenvector $\bar{v}_{i}$ belongs to the (right) null space of $A - \lambda_{i}I $ because $(A - \lambda_{i}I)\bar{v}_{i} = 0  $. This polynomial expression that yields the eigenvalue roots is referred to as the `charactersitc polynomial of A`
+
+#### Definition 3.3.2 - Characteristic Polynomial
+
+The characteristic polynomial of a dxd matrix A is the degree-d polynomial in \lambda obtained by expanding $\det{(A - \lambda I)}  $
+
+Note that this is a degree-d polynomial, which always has d roots (including repeated or complex roots). The d roots of the characteristic polynomial of *any* dxd matrix are its eigenvalues
+
+#### Observation 3.3.1
+
+The characteristic polynomial f(\lambda) of a dxd matrix A is a polynomial in the following form, where $\lambda_{1}...\lambda_{d}  $ are `eigenvalues` of A:
+
+$\det{(A - \lambda I)} = (\lambda_{1} - \lambda)(\lambda_{2} - \lambda)...(\lambda_{d} - \lambda)  $
+
+Therefore, the eigenvalues and eigenvectors of a matrix A can be computed as follows:
+
+- 1. The eigenvalues of A can be computed by
+  - expanding $\det{(A - \lambda I)}  $ as a polynomial expression in \lambda
+  - setting it to zero
+  - solving for \lambda
+- 2. For each root \lambda_{i} of the polynomial, we solve the system of equations (A - \lambda_{i} I)\bar{v} = 0 in order to obtain one or more eigenvectors. The linearly independent eigenvectors with eigenvalue \lambda_{i}, therefore, define a basis of the right null space of (A - \lambda_{i} I)
+
+The charactersitic polynomial of the dxd identity matrix is $(1 - \lambda)^{d}  $. This is consistent with the fact that an identity matrix has d repeated eigenvalues of 1, and every d-dimensional vector is an eigenvector belonging to the null space of A - \lambda I. As another example:
+
+![alt-text](./3_3_eigenvectors_eigenvalues_2.PNG)
+
+- The determinant: $(1 - \lambda)^{2} - 4 = \lambda^{2} - 2\lambda - 3  $
+  - equivalent to: $(3 - \lambda)(-1 - \lambda)  $
+  - Setting to 0, we get eigenvalues of:
+    - 3, -1
+- The corresponding eigenvectors are:
+  - [1, 1]^T, [1, -1]^T
+  - which can be obtained from the null spaces of each $(A - \lambda_{i} I)  $
+
+We need to diagonalize B as $V\Delta V^{-1}  $. The matrix V can be constructed by stacking the eigenvectors in columns
+
+The normalization of columns is not unique, although choosing V to have unit columns (which results in V^{-1} having unit rows) is a common practice. Can construct the diagonalization $B = V \Delta V^{-1}  $ as follows:
+
+![alt-text](./3_3_eigenvectors_eigenvalues_3.PNG)
+
+#### Problem 3.3.2
+
+#### Problem 3.3.3
+
+One can compute a polynomial of a square matrix A in the same way as one computes the polynomial of a scalar - the main differences are that non-zero powers of the scalar are replaced with powers of A and that the scalar term c in the polynomial is replaced by cI. When one computes the characteristic polynomial in thers of its matrix, one always obtains the zero matrix - this is the `Cayley-Hamilton Theorem` and is true for all matrices whether they are diagonalizable or not
+
+#### Lemma 3.3.2 - Cayley-Hamilton Theorem
+
+Let A be any matrix with characteristic polynomial $f(\lambda) = \det{(A - \lambda I)}  $. Then, f(A) evaluates to the zero matrix
+
+The Cayley-Hamilton theorem is true in general for any square matrix A, but it can be proved more easily in some special cases. For ex, when A is diagonalizable, it is easy to show the following for any polynomial fn f():
+
+$f(A) = V f(\Delta)V^{-1}  $
+
+Applying a polynomial fn to a diagonal matrix is equivalent to applying a polynomial fn to each diagonal entry (eigenvalue). Applying the characteristic polynomial to an eigenvalue will yield 0. therefore, f(\Delta) is a zero matrix, which implies that f(A) is a zero matrix. One interesting consequence of the Cayley-Hamilton theorem is that the inverse of a non-zero singular matrix can always be expressed as a polynomial of degree (d-1)!
+
+#### Lemma 3.3.3 - Polynomial Representation of Matrix Inverse
+
+The inverse of an invertible dxd matrix A can be expressed as a polynomial of A of degree at most (d-1)
+
+The constant term in the characteristic polynomial is the product of the eigenvalues, which is non-zero in  the case of nonsingular matrices. Therefore, only in the case of nonsingular matrices, we can write the Cayley-Hamilton matrix polynomial in some form:
+
+$f(A) = A[g(A)] + cI  $ where g(A) is a matrix polynomial of degree (d-1)
+
+Rearranging, we get:
+
+$A[-g(A)/c] = I  $ where $[-g(A)/c] = A^{-1}$
+
+#### Problem 3.3.4
+
+AA = A^2
+
+So A[g(A)] where g(A) is a d-1 polynomial is equivalent
+
+The above lemma explains why the inverse shows many special properties (e.g., commutativity of multiplication with inverse) shown by matrix polynomials. Similarly, both polynomials and inverses of triangular matrices are triangular. Triangular matrices contain eigenvalues on the main diagonal
+
+#### Lemma 3.3.4
+
+Let A be a dxd triangular matrix. Then, the entries $\lambda_{1}...\lambda_{d}  $ on its main diagonal are its eigenvalues.

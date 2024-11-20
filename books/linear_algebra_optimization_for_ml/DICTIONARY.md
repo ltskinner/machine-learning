@@ -116,6 +116,7 @@
 - `skew symmetric matrix`
   - square matrix
   - A^T = -A
+  - A = -A^T
   - these are like 90 degree rotation matrices, but work better in higher dimensions
   - the diagonal entries of A are always 0
   - det(A) = det(-A^T) = (-1)^{d}det(A)
@@ -136,6 +137,7 @@
   - `rectangular diagonal matrix`
     - non square
 - `triangular matrix`
+  - triangular matrices contain eigenvalues on the main diagonal
   - `upper triangular matrix`
     - A square matrix is an `upper triangular matrix` if all entries (i,j) below its main diagonal (i.e., satisfying i > j) are zeros
   - `lower triangular`
@@ -483,6 +485,45 @@
   - the absolute value of a hypercubes determinant is always 1
 - `non-zero determinant`
   - requires matrix to be `non-singular` (i.e., invertible)
+- `eigenvector`
+  - *vectors* external to A
+  - eigenvectors are *special inputs*
+  - eigenvectors point in the directions that remain unchanged under transformation
+  - they have a property where when A is multiplied against them, they result in the original vector just being scaled by some scalar value - the `eigenvalue` $\lambda$
+  - the solutions to: (the `characteristic equation`/`characteristic polynomial`)
+    - $\det{(A - \lambda I)} = 0 $
+      - $(2 - \lambda)^{2} - 1 = 0 $
+    - $(A - \lambda I)v = 0  $
+- $V$
+  - contains eigen vectors
+  - to find:
+    - subsitute eigenvalues into A
+    - set A' = 0 and solve for variables
+    - remember, free variables can just be 1
+- $V^{-1} $
+  - $V^{-1} = \frac{1}{\det{(ad-bc)}} \begin{bmatrix}d & -b\\-c & a\end{bmatrix} $
+- `eigenvalue`
+  - the value an eigenvector is scaled by when A is multiplied against it
+  - $|\lambda| > 1$ = stretch
+  - $\lambda = 1$ = unchanged
+  - $|\lambda| < 1$ = shrink
+  - $\lambda < 0$ = flip v's direction
+  - for a dxd matrix, there are *at most* d eigenvalues
+  - triangular matrices contain eigenvalues on the main diagonal
+- $\Delta$
+  - like an identity matrix, but each eigenvalue down the diagonal
+- `characteristic polynomial`
+  - is a degree-d polynomial which always has d roots (including repeated or complex roots)
+  - The characteristic polynomial of a dxd matrix A is the degree-d polynomial in \lambda obtained by expanding $\det{(A - \lambda I)}  $
+  - The d roots of the characteristic polynomial of *any* dxd matrix are its `eigenvalues`
+  - $\det{(A - \lambda I)} = (\lambda_{1} - \lambda)(\lambda_{2} - \lambda)...(\lambda_{d} - \lambda)  $
+- `diagonalization`
+  - $B = V\Delta V^{-1}  $
+- Cayley-Hamilton
+  - the inverse of a `non-singular` matrix can always be expressed as:
+    - a polynomial of degree (d-1)
+  - Let A be any matrix with characteristic polynomial $f(\lambda) = \det{(A - \lambda I)}  $.
+  - Then, f(A) evaluates to the zero matrix
 
 ## ML specifics
 
