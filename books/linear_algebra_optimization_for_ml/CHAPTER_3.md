@@ -366,3 +366,32 @@ The above lemma explains why the inverse shows many special properties (e.g., co
 #### Lemma 3.3.4
 
 Let A be a dxd triangular matrix. Then, the entries $\lambda_{1}...\lambda_{d}  $ on its main diagonal are its eigenvalues.
+
+### 3.3.1 Complex Eigenvalues
+
+It is possible for the characteristic polynomial of a matrix to have complex roots. In such a case, the real values matrix might be diagonalizable with complex eigenvectors/eigenvalues
+
+Consider the case of the rotation transform, which is not diagonalizable with real eigenvalues. After all, it is hard to imagine a real-valued eigenvector that when transformed with a 90deg rotation would point in the same direction as the original vector. However, this is indeed possible when working in complex fields! The key point is that multiplication with the imaginary number i rotates a complex vector to an orthogonal orientation.
+
+One can verify that the complex vector u = a + ib is always orthogonal to the vector $v = i[a + ib] $ using the definition of complex inner products
+
+For the std 90deg rotation matrix:
+
+```
+cos(90) -sin(90) = 0 -1
+sin(90)  cos(90) = 1  0
+```
+
+- Characteristic polynomial is (\lambda^{2} + 1)
+  - which does not have any real valued roots
+  - -i and i
+- eigenvectors are:
+  - [-i, 1]^T and [i,1]^{T}
+
+The use of complex numbers greatly extends the family of matrices that can be diagonalized. One can write the family of 2x2 rotation matrices at an angle \theta (in radians as):
+
+![alt-text](./3_3_eigenvectors_eigenvalues_4.PNG)
+
+From Eulers formula, it is known that $e^{i\theta} = \cos(\theta) + i \sin(\theta)  $
+
+It seems geometrically intuitive that multiplying a vector with the mth power of a \theta-rotation matrix should rotate the vector m times to create an overall rotation of m\theta. The noted diagonalization above makes it algebraically obvious that the mth power of the \theta-rotation matrix yields a rotation of m\theta because the diagonal entries in the mth power become $e^{\frac{+}{-}m\theta}  $
