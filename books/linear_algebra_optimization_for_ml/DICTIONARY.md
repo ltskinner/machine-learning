@@ -217,6 +217,7 @@
 - `trace`
   - tr(A) of a square matrix is defined by the sum of its diagonal entries
   - tr(A) = \sum_{i=1}^{n} a_{ii}^{2}
+  - tr(A) is equal to the sum of the eigenvalues, whether it is diagonalizable or not
 - `elementary row operations`
   - pre-multiplied = OX
   - `interchange operation`
@@ -363,10 +364,12 @@
   - When a compulsory reflection is included in the sequence, the resulting matrix is referred to as a `rotreflection` matrix
 - `column space` aka `column rank`
   - defined as the vector space spanned by the columns of nxd matrix A, and is a subspace of **R^n**
+  - spanned by the `(right) eigenvectors`
 - `row space` aka `row rank`
   - defined as the vector space spanned by the columns of A^T, and is a subspace of **R^d**
   - the dimensionality of the row rank and column rank of any nxd matrix A **is the same**
   - given a matrix, remove all linearly dependent rows
+  - spanned by the `(left) eigenvectors`
 - `matrix rank`
   - the rank of a matrix is equal to the rank of its row space, which is the same as the rank of its column space
 - `full rank`
@@ -486,7 +489,8 @@
 - `non-zero determinant`
   - requires matrix to be `non-singular` (i.e., invertible)
 - `eigenvector`
-  - *vectors* external to A
+  - `column` *vectors* external to A
+  - $A\bar{x} = \lambda A $
   - eigenvectors are *special inputs*
   - eigenvectors point in the directions that remain unchanged under transformation
   - they have a property where when A is multiplied against them, they result in the original vector just being scaled by some scalar value - the `eigenvalue` $\lambda$
@@ -494,8 +498,15 @@
     - $\det{(A - \lambda I)} = 0 $
       - $(2 - \lambda)^{2} - 1 = 0 $
     - $(A - \lambda I)v = 0  $
+  - `right eigenvector` by default
+  - span the `column space`
+- `left eigenvector`
+  - `row` *vectors* external to A
+  - $\bar{y}A = \lambda A  $
+  - If A is symmetric, the left and right eigenvectors are transpositions of each other
+  - span the `row space`
 - $V$
-  - contains eigen vectors
+  - contains eigenvectors
   - to find:
     - subsitute eigenvalues into A
     - set A' = 0 and solve for variables
@@ -510,6 +521,7 @@
   - $\lambda < 0$ = flip v's direction
   - for a dxd matrix, there are *at most* d eigenvalues
   - triangular matrices contain eigenvalues on the main diagonal
+  - `eigenvalues` are the same regarless of `left` or `right` eigenvectors
 - $\Delta$
   - like an identity matrix, but each eigenvalue down the diagonal
 - `characteristic polynomial`
@@ -519,11 +531,38 @@
   - $\det{(A - \lambda I)} = (\lambda_{1} - \lambda)(\lambda_{2} - \lambda)...(\lambda_{d} - \lambda)  $
 - `diagonalization`
   - $B = V\Delta V^{-1}  $
+  - Matrices containing repeated eigenvalues and missing eigenvectors of the repeated eigenvalues are *not diagonalizable*
 - Cayley-Hamilton
   - the inverse of a `non-singular` matrix can always be expressed as:
     - a polynomial of degree (d-1)
   - Let A be any matrix with characteristic polynomial $f(\lambda) = \det{(A - \lambda I)}  $.
   - Then, f(A) evaluates to the zero matrix
+- `eigenspace`
+  - a vector space of eigenvectors, and a basis of this vector space is a valid set of eigenvectors.
+  - This vector space corresponding to a specific eigenvalue is an `eigenspace`
+  - only if r_{i} linearly independent eigenvectors exist (where r_{i} is the algebraic multiplicity)
+- `algebraic multiplicity`
+  - of an `eigenvalue` \lambda_{i} is the number of times (A - \lambda_{i}I) occurs as a factor in the characteristic polynomial
+- `defective` matrix
+  - if a diagonalization *does not exist*
+  - less than r_{i} eigenvectors exist for an eigenvalue with algebraic multiplicity r_{i}
+  - Closest we can get to diagonalization is the `Jordan normal form`
+- `geometric multiplicity`
+  - number of eigenvectors of an eigenvalue
+  - at least 1 and at most the algebraic multiplicity r_{i}
+- `polar decomposition`
+  - Every square matrix can be decomposed into the product of:
+    - a diagonalizable matrix
+    - the "residual" rotation matrix
+- `similar matrices`:
+  - when $B = VAV^{-1} $
+  - similarity is commutitive and transitive
+  - if A and B are similar, B and A are similar as well
+  - if A and B are similar, and B and C are similar, then A and C are similar
+  - similar matrices form a `family` of related matrices
+  - similar matrices have the same eigenvalues
+    - (and their corresponding multiplicities)
+  - similar matrices perform similar operations, but in different basis systems
 
 ## ML specifics
 

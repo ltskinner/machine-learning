@@ -395,3 +395,195 @@ The use of complex numbers greatly extends the family of matrices that can be di
 From Eulers formula, it is known that $e^{i\theta} = \cos(\theta) + i \sin(\theta)  $
 
 It seems geometrically intuitive that multiplying a vector with the mth power of a \theta-rotation matrix should rotate the vector m times to create an overall rotation of m\theta. The noted diagonalization above makes it algebraically obvious that the mth power of the \theta-rotation matrix yields a rotation of m\theta because the diagonal entries in the mth power become $e^{\frac{+}{-}m\theta}  $
+
+#### Problem 3.3.5
+
+### 3.3.2 Left Eigenvectors and Right Eigenvectors
+
+Throughout this book, we have defined an eigenvector as a *column* vector satisfying $Ax = \lambda x$ for some scalar \lambda. Such an eigenvector is a right eigenvector because x occurs on the right side of the product Ax. When a vector is referred to as an "eigenvector" without mention of right or left, it referrs to the `right eigenvector` buy default.
+
+A `left eigenvector` is a *row* eigenvector y, such that $\bar{y}A = \lambda A $.
+
+It is necessary for y to be a row vector for y to occur on the left-hand side of the product yA. It is noteworthy that (the transposed representation) of a right eigenvector of a matrix *need not* be a left eigenvector, and vice versa, unless the matrix A is symmetric.
+
+#### Lemma 3.3.5
+
+If a matrix A is symmetric, then each of its left eigenvectors is a right eigenvector after transposing the row vector into a column vector. Similarly, transposing each right eigenvector results in a row vector that is a left eigenvector.
+
+The relationship between left and right eigenvectors holds only for symmetric matrices. How about the eigenvalues? It  turns out that left and right eigenvalues are the same irrespective of whether or not the matrix is symmetric. This is because the `characteristic polynomial` in both cases is $\det{(A - \lambda I)} = \det{(A^T - \lambda I)}  $
+
+Consider a diagonalizable dxd matrix A, which can be converted to its diagonalized matrix \Delta as follows:
+
+$A = V \Delta V^{-1}  $
+
+In this case, the right eigenvectors are the d columns of the dxd matrix V. However, the left eigenvectors are the rows of the matrix V^{-1}. This is because the left eigenvectors of A are the right eigenvectors of A^T after transposition. Transposing A yields:
+
+$A^{T} = (V\Delta V^{-1})^{T} = (V^{-1})^{T}\Delta V^{T}  $
+
+In other words, the right eigenvectors of A^T are the columns of (V^{-1})^T, which are the transposed rows of V^{-1}
+
+#### Problem 3.3.6
+
+The right eigenvectors of a diagonalizable matrix A = V \Delta V^{-1} are columns of V, wehreas the left eigenvectors are rows of V^{-1}. Use this fact to infer the relationships between left and right eigenvectors of a diagonalizable matrix
+
+- left and right eigenvectors are `dual bases` wrt the std dot product
+  - they are othogonal
+- column space is spanned by the right eigenvectors
+- row space is spanned by the left eigenvectors
+
+### 3.3.3 Existence and Uniqueness of Diagonalization
+
+The characteristic polynomial provides insights into the existence and uniqueness of diagonlzation. Assume complex-valued diagonalization is allowed, although the original matrix is assumed to be real-valued
+
+In order to perform the diagonalization, we need d linearly independent eigenvectors. We can then put the d linearly independent eigenvectors in the columns of matrix V and the eigenvalues along the diagonal of \Delta to perform the diagonalization $V\Delta V^{-1}  $
+
+First, we note the `characteristic polynomial` has at least one distinct root (which is possibly complex), and the minimum number of roots occurs when the same root is repeated d times
+
+Given a root \lambda, the matrix A - \lambda I is singular, since its determinant is 0. Therefore, we can find the vector x in the null space of (A - \lambda I). Since this vector satisfies $(A - \lambda I)\bar{x} = 0  $, it follows that it is an eigenvectors.
+
+#### Observation 3.3.2
+
+A well-defined procedure exists for finding an eigenvector from each *distinct* root of the charactersitic polynomial. Since the characteristic polynomial has at least one (possibly complex) root, every real matrix has at least one (possibly complex) eigenvector
+
+Note that we *might* be able to find more than one eigenvector for an eigenvalue when the root is repeated, which is a key deciding factor in whether or not the matrix is diagonalizable. First, we show the most important result that the eigenvectors belonging to distinct eigenvalues are linearly independent
+
+#### Lemma 3.3.6
+
+The eigenvectors belonging to distinct eigenvalues are linearly independent
+
+In the special case that the matrix A has d distinct eigenvalues, one can construct an invertible matrix V from the eigenvectors. This makes the matrix A diagonalizable
+
+#### Lemma 3.3.7
+
+When the roots of the characteristic polynomial are distinct, one can find d linearly independent eigenvectors. Therefore, a (possibly complex-valued) diagonalization $A = V \Delta V^{-1}$ of a real-valued matrix A with d distinct roots always exists.
+
+In the case that the characteristic polynomial has distinct roots, one can not only show existence of a diagonalization, but we can also show that the diagonalization can be performed in an almost unique way (with possibly complex eigenvectors and eigenvalues). We use the word "almost" because one can multiply and eigenvector with any scalar and it still remains an eigenvector with the same eigenvalue.
+
+If we scale the ith column of V by c, we can scale the ith row of V^{-1} by 1/c without affecting the result
+
+Finally, one can shuffle the order of the left/right eigenvectors in V^{-1}, V and eigenvalues in \Delta in the same way without affecting the product. By imposing a non-increasing eigenvector order, and a normalization and sign convention on the diagonalization (such as allowing only unit normalized eigenvectors in which the first non-zero component is positive), one can obtain a *unique diagonalization*
+
+On the other hand, if the characteristic polynomial is of the form $\prod_{i}(\lambda_{i} - \lambda)^{r_{i}}  $, where at least one $r_{i} $ is strictly greater than 1, the roots are not distinct. In such a case, the solution to $(A - \lambda_{i} I)\bar{x} = 0 $ might be a vector space with dimensionality less than r_{i}. As a result, we may or may not be able to find the full set of d eigenvectors required to create the matrix V for diagonalization.
+
+The `algebraic multiplicity` of an eigenvalue \lambda_{i} is the number of times (A - \lambda_{i}I) occurs as a factor in the characteristic polynomial. For example, if A is a dxd matrix, its characteristic polynomial always contains d factors (including repetitions and complex-valued factors). We have already shown that an algebraic multiplicity of 1 for each eigenvalue is the simple case where a diagonalization exists. In the case where the algebraic multiplicities of some eigenvalues are strictly greater than 1, one of the following will occur:
+
+- Exactly r_{i} linearly independent eigenvectors exist for each eigenvalue with algebraic multiplicity r_{i}. Any linear combination of these eigenvectors is also an eigenvector.
+  - In other words, a vector space of eigenvectors exists with rank r_{i}, and any basis of this vector space is a valid set of eigenvectors. Such a vector space corresponding to a specific eigenvalue is referred to as an `eigenspace`
+  - In this case, one can perform diagonalization A = V \Delta V^{-1} by choosing the columns of V in an infinite number of possible ways as the basis vectors of all the underlying eigenspaces
+- If less than r_{i} eigenvectors exist for an eigenvalue with algebraic multiplicity r_{i}, a diagonalization *does not exist*. The closest we can get to a diagonalization is the `Jordan normal form`
+  - such a matrix is said to be `defective`
+
+In the first case, it is no longer possible to have a unique diagonalization even after imposing a normalization and sign convention on the eigenvectors
+
+For an eigenvalue \lambda_{i} with algebraic multiplicity r_{i}, the system of equations $(A - \lambda_{i} I)\bar{x} = 0  $ might have as many as r_{i} solutions. When we have two or more distinct eigenvectors (e.g. v_{1} and v_{2}) for the same eigenvalue, any linear combination $\alpha\bar{v}_{1} + \beta\bar{v}_{2}  $ will also be an eigenvector for all scalars \alpha and \beta
+
+Therefore, for creating a diagonalization $A = V \Delta V^{-1}  $, one can construct the columns of V in an infinite number of possible ways. The best example of this situation is the identity matrix in which any unit vector is an eigenvector with eigenvalue 1. One can "diagonalize" the (already diagonal) identity matrix I in an infinite number of possible ways $I = V\Delta V^{-1}  $, where \Delta is identical to I and V is any invertible matrix
+
+Repeated eigenvalues also create the possibility that a diagonalization might not exist. This occurs when the number of linearly independent eigenvectors for an eigenvalue is less than its algebraic multiplicity. Even though the characteristic polynomial has d roots (including repititions), one migh have fewer than d eigenvectors. In such a case, the matrix is not diagonalizable
+
+Consider:
+
+$A = \begin{bmatrix}1 & 1\\0 & 1\end{bmatrix}$
+
+The characteristic polynomial is (1 - \lambda)^{2}. Therefore, we obtain a single eigenvalue of \lambda = 1 with algebraic multiplicity of 2. However, the matrix (A - \lambda I) has rank 1, and we obtain only a single eigenvector [1, 0]^{T}. Therefore, this matrixs is not diagonalizable. *Matrices containing repeated eigenvalues and missing eigenvectors of the repeated eigenvalues are not diagonalizable*
+
+The number of eigenvectors of an eigenvalues is referred to as its `geometric multiplicity`, which is at least 1 and at most the algebraic multiplicity r_{i}
+
+### 3.3.4 Existence and Uniqueness of Triangulization
+
+Where do the "missing eigenvectors" of defective matrices go?
+
+Consider an eigenvalue \lambda with multiplicity k. The characteristic polynomial only tells us that the null space of (A - \lambda I )^{k} has dimensionality k, but does not guarantee this for (A - \lambda I). The key point is that the system of equations $(A - \lambda I)^{k}\bar{x} = 0$ is guaranteed to have k linearly independent solutions, although the system of equations $(A - \lambda I)\bar{x} = 0$ mmight have anywhere between 1 and k solutions. Can we somehow use this fact to get something close to a diagonalization?
+
+Let the sysetm of equations $(A - \lambda I)\bar{x} = 0$ have r < k solutions. All the k solutions of $(A - \lambda I)^{k}\bar{x} = 0$ are *generalized* eigenvectors and r < k of them are `ordinary eigenvectors`. It is possible to decompose the set of k generalized eigenvectors into r `Jordan chains`. The ith Jordain chain contains an ordered sequence of m(i) (generalized) eigenvectors out of the k eigenvectors, so that we have $\sum_{i=1}^{r}m(i) = k  $. The sequence of generalized eigenvectors for the ith Jordan chain is denoted by $\bar{v}_{1}...\bar{v}_{m(i)}  $, so that the first eigenvector $\bar{v}_{1}$ is an `ordinary eigenvector` satisfying $A\bar{v}_{1} = \lambda\bar{v}_{1}  $, and the remaining satisfy the chain relation $A\bar{v}_{j} = \lambda\bar{v}_{j} + \bar{v}_{j-1}  $ for j > 1. Note that these chain vectors are essentially obtained as $\bar{v}_{m(i)-r} = (A - \lambda I)^{r} \bar{v}_{m(i)}  $ for each r from 1 to m(i) - 1
+
+The matrix V contains the generalized eigenvectors in its columns, with eigenvectors belonging to the same Jordan chain occuring consecutively in the same order as their chain relations, and with the ordinary eigenvector being the leftmost of this group of columns. This matrix V can be used to create the `Jordan normal form`, which "almost" diagonalizes the matrix A with an upper-triangular matrix U:
+
+$A = V U V^{-1} $
+
+The upper-triangular matrix U is "almost" diagonal, and it contains diagonal entries containing eigenvalues in the same order as the corresponding generalized eigenvectors in V. In addition, at most (d-1) entries, which are just above the diagona, can be 0 or 1.
+
+- An entry just above the diagonal:
+  - is 0 if and only if the corresponding eigenvector is an ordinary eigenvector
+  - is 1 if it is not an ordinary eigenvector
+
+It is not difficult to verify that AV = VU is the matrix representation of all eigenvector relations (including chain relations), which implies that $A = VUV^{-1}  $
+
+Each entry immediately above the diagonal is referred to as a `super-diagonal entry`
+
+A large matrix may sometimes contain only a small number of repeated eigenvalues, and the number of non-zero entries above the diagonal is always bounded above by these repetitions. Therefore, the Jordan normal form contains a small number of super-diagonal 1s in addition to the non-zero entries on the diagonal. In the special case of diagonalizable matrices, the Jordan normal form is the diagonalization of the matrix
+
+The existence of the Jordan normal form implies that all square matrices are triangulizable, although it is possible for the eigenvectors and eigenvalues to be complex even for real matrices. The triangulizability of a matrix is not unique. One can create different types of triangulizations by imposing different types of constraints on the basis vectors and the triangular matrix.
+
+For example, the Jordan normal form has a special structure of the upper-triangular matrix U, but no special structure on the basis vectors in V.
+
+Another form of triangulization is the `Schur decomposition` in which the basis change matrix P is orthogonal, and the upper-triangular matrix U contains the eigenvalues on the diagonal with no other special properties:
+
+$A = PUP^{-1}  $
+
+A `Schur decomposition` can be found using iterative QR decomposition, and it is one of the methods used for computing the eigenvalues of a matrix.
+
+The `Schur decomposition` of a symmetric matrix is the *same as its diagonalization*. this is because if we have A = A^T, then we must have $PUP^T = PU^{T}P^{T}  $, which is the same as saying that $P(U - U^T)P^T = 0  $. Since P is non-singular, we must have U = U^T. This is possible only when U is diagonal. A (possibly complex-valued) Schur decomposition of a real matrix always exists, alghough it might not be unique (just as the diagonalization is not unique)
+
+#### Diagonalizability vs Triangulizability: A Geometric View
+
+How can one geometrically interpret the Jordan normal form?
+
+Note that each entry of 1 on the super-diagonal can be zeroed out using an elementary row addition operator with the row below it, provided that we perform the elementary row addition operations from bottom to top order on consequtive pairs of rows
+
+As discussed, elementary row addition operations correspond to shear matrices. Multiplications with shear matrices cause transformations of the type that changed the cube to a parallelepiped
+
+Non-diagonalizable matrices always contain this type of "residual" rotation
+
+Diagonalizable transforms are those in which a (possibly non-orthogonal) basis system exists along which one can scale the space. For non-diagonalizable matrices, scaling alone is not adequate. If we are additionally willing to allow some rotation after scaling, non-diagonalizable transforms can be represented as well.
+
+Every square matrix can be decomposed into the product of:
+
+- a diagonalizable matrix
+- the "residual" rotation matrix
+
+This ^^ decomposition ^^ is referred to as the `polar decomposition` of a matrix
+
+Note that rotation matrices are also diagonalizable, albeit with complex eigenvalues. Therefore, every real matrix can be expressed as the product of at most two diagonalizable matrices (although one might have complex eigenvalues)
+
+### 3.3.5 Similar Matrix Families Sharing Eigenvalues
+
+Similar matrices are defined as:
+
+#### Definition 3.3.3
+
+Two matrices A and B are said to be similar when $B = VAV^{-1} $
+
+Similarity is a commutitive and transitive property
+
+In other words, if A and B are similar, B and A are similar as well. Furthermore, if A and B are similar, and B and C are similar, then A and C are similar. Therefore, similar matrices form a `family` of related matrices
+
+What do similar matrices mean?
+
+When we have two similar matrices A and B, then multiplying a vector with either A or B results in the same transformation of that vector as long as the basis is appropriately chosen in each case. For example, two similar matrices of size 3x3 might correspond to a 60deg rotation of a 3-dimensional vector, but the axis of rotation might be different. Similarly, two similar transformations might scale a vector by the same factor in different directions. One can interpret this point in terms of their Jordan normal forms
+
+#### Lemma 3.3.8 - Jordan Normal Forms of Similar Matrices
+
+Let A and B be two similar matrices satisfying B = VAV^{-1}. Then, their Jordan normal forms (with possibly complex eigenvalues) will be related:
+
+$A = V_{1}UV_{1}^{-1}, B = V_{2}UV_{2}^{-1}  $
+
+The matrix V_{2} is related to V_{1} as V_{2} = VV_{1}
+
+The above lemma is easy to show by direct substitution of the Jordan form of A in the relationship B = VAV^{-1}. An important consequence of the above result is that *similar matrices have the same eigenvalues (and their corresponding multiplicities)*
+
+Furthermore, if one member of a similar family is diagonalizable, then all members are diagonalizable as well, and a diagonal matrix is included in the family
+
+The sum of the diagonal entries of a matrix is equal to the sum of its eigenvalues, whether it is diagonalizable or not
+
+#### Lemma 3.3.9
+
+The traces of similar matrices are equal, and are equal of the sum of the eigenvalues of that family (whether it is diagonalizable or not)
+
+Similar matrices perform similar operations, but in different basis systems. For example, a similar family of diagonalizable matrices performs anisotropic scaling with the same factors, albeit in completely different eigenvector directions
+
+#### Problem 3.3.7 - Householder Family
+
+Show that all householder reflection matrices are similar, and the family includes the elementary reflection matrix that differs from the identity matrix in one element
+
+
