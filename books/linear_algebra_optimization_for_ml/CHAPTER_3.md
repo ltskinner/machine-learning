@@ -586,4 +586,201 @@ Similar matrices perform similar operations, but in different basis systems. For
 
 Show that all householder reflection matrices are similar, and the family includes the elementary reflection matrix that differs from the identity matrix in one element
 
+#### Problem 3.3.8 - Projection Famile
 
+Section 2.8.2 introduces the nxn projection matrix $P = A(A^{T}A)^{-1}A^{T}  $ for nxd matrix A with full column rank d and n > d. Show that all projection matrices P obtained by varying A (but for particular values of n and d) are similar.
+
+- What is the trace of P?
+- Provide a geometric interpretation of (I - P) and (I - 2P)
+
+#### Problem 3.3.9 - Givens Family
+
+Show that all Givens matrices with the same rotation angle \alpha are similar, because for any such pair of Givens matrices G1 and G2, one can find a permutation matrix P such that $G_{2} = PG_{1}P^{T}  $. Now consider an orthogonal matrix Q that is not a permutation matrix. Provide a geometric interpretation of $QG_{1}Q^{T}  $
+
+- something about changing the index of eigenvalues corresponds to same index of eigenvectors, and there is a relationship between (right) eigenvectors and left eigenvectors
+- QG_{1}Q^{T} is just like stretching the parallelepiped bc not orthogonal
+
+#### Problem 3.3.10 - Similarity in Graph Theory
+
+Consider a graph G_{A} whose adjacency matrix is A. Show that the adjacency matrix B of the *isomorphic* graph G_{B} obtained by reordering the vertices of G_{A} is similar to matrix A. What type of matrix is used for the basis transformation between A and B?
+
+"return to it after reading Chapter 10"
+
+basically, graph adjacency matrix is like each index of the row and column correspond to a node, and a value of 1 at the intersection means an edge exists between them
+
+#### Geometric Interpretability of Trace
+
+Since the trace of a matrix is invariant to similarity transformations, a natural question arises as to whether it can be interpreted in a geometric way. The interpretation of the trace of a square matrix is not a simple one, especially when the underlying matrix is not symmetric. Fortunately, many of the square matrices encountered in ML appear in the form of Gram matrices A^{T}A, where A is either an nxd dataset or its transpose. Examples of such matrices include the *regularized graph adjacency matrix*, the *covariance matrix* and the *dot product similarity matrix*. We make the following observation:
+
+#### Observation 3.3.3
+
+The trace of the Gram matrix A^{T}A is equal to the energy in its base matrix A
+
+The above observation follows directly from the definition of energy in Eq. 1.23 of Ch 1. One consequence of the observation is that if we apply an orthonormal similarity transformation AP on a data set contained in the nxd matrix A, its energy, which is equal to the trace of $P^{T}(A^{T}A)P  $ does not change. This fact can be used to infer the result that the sum of the variances of all dimensions in a means-centered data set is always the same, irrespective of the choice of basis:
+
+#### Problem 3.3.11 - Covariance Family
+
+Let D be a *mean-centered* nxd dataset with n rows and d dimensions, and let P be any dxd orthogonal matrix. Let DP be transformed nxd dataset in the new orthogonal basis system. A covariance matrix is a dxd matrix, in which (i,j)th entry is the covariance between dimensions i and j, with diagonal entries representing variances. Show that all covariance matrices of DP over different choices of orthogonal P are similar and they therefore have the same trace.
+
+### 3.3.6 Diagonalizable Matrix Families Sharing Eigenvectors
+
+A diagonalizable matrix family that shares eigenvectors (but not eigenvalues) is referred to as `simultaneously diagonalizable`
+
+#### Definition 3.3.4 - Simultaneous Diagonalizability
+
+To diagonalizable matrices A and B are said to be simultaneously diagonalizable, if a dxd invertible matrix V exists, such that the columns of V are the eigenvectors of both A and B. Therefore, we have the following:
+
+$A = V \Delta_{1} V^{T}  $
+
+$B = V \Delta_{2} V^{T}  $
+
+Here, \Delta_{1} and \Delta_{2} are diagonalizable matrices
+
+The geometric interpretation of simultaneously diagonalizable matrices is that *they perform anisotropic scaling in the same set of directions*. However, the scaling factors might be different, since the diagonal matrices are different. Simultaneous diagonalzability is a property that is closely related to matrix commutativity
+
+#### Lemma 3.3.10
+
+Diagonalizable matrices are also simultaneously diagonalizable if and only if they are commutative
+
+#### Problem 3.3.12
+
+Let A and B be two diagonalizable matrices that share the same set of eigenvectors. Provide a geometric interpretation of why AB = BA
+
+if the eigenvectors are the same, the directions in which A and B operate are the same, so when multiplying, under the hood, the additions applied are actually commutative
+
+#### Problem 3.3.13 - Givens Commutative Family
+
+The multiplication of rotation matrices in dimensionalityies greater than 2 is not commutative in general. However, the dxd family of Givens rotation matrices G_{c}(i, j, \theta) is known to commutative over *fixed* dimension pair i,j and varying \theta.
+
+- Provide a geometric interpretation of this commutativity.
+- Now provide an algebraic interpretation in terms of simultaneous diagonalizability by generalizing Equation 3.21 to dxd matrices
+
+Im guessing has to do with sin and cos being like different expressions of the same thing. Maybe something to do with sin^2 + cos^2 = 1, so when multiplying we end up in the addition domain, and term order doesnt matter (so it commutates). 3.12 is also in the VDV^{-1} form
+
+### 3.3.7 Symmetric Matrices
+
+Symmetric matrices arise repeatedly in ML. This is because covariance matrices, dot-product matrices, (undirected) graph adjacency matrices, and similarity (kernel) matrices are used frequently in ML. Furthermore, many of the applications associated with such matrices require some type of diagonalization. One of the fundamental properties of symmetric matrices is that they are always diagonalizable, and have orthonormal eigenvectors - this is the spectral theorem
+
+#### Theorem 3.3.1 - Spectral Theorem
+
+Let A be a dxd symmetric matrix with real entities. Then, A is always diagonalizable with real eigenvalues and has orthonormal, real-valued eigenvectors.
+
+Since the inverse of an orthogonal matrix is its transpose, it is common to write the diagonalization of symmetric matrices in the form $A = V\Delta V^{T}  $ instead of $A = V\Delta V^{-1}  $
+
+Multiplying a data matrix D with a symmetric matrix represents anisotropic scaling of its rows along orthogonal axis directions
+
+The eigenvectors of a symmetric matrix A are not only orthogonal but also AA-orthogonal
+
+#### Definition 3.3.5 - A-Orthogonality
+
+A set of column vectors $\bar{v}_{1}...\bar{v}_{d}  $ is A-orthogonal, if and only if $\bar{v}_{i}^{T}A\bar{v}_{j} = 0  $ for all pairs [i,j] with $i\neq j $
+
+The nortion of A-orthogonality is a generalization of orthogonality, and setting A = I reverts the definition to the usual notion of orthogonality. Nore that $\bar{v}_{i}^{T}A\bar{v}_{j} $ is simply a different choice of inner product from the vanilla dot product.
+
+#### Lemma 3.3.11
+
+The eigenvectors of a symmetric dxd matrix A are A-orthogonal
+
+One can use a natural generalization of Gram-Schmidt orthogonalization to find A-orthogonal basis sets (which is a more efficient choice than eigenvector computation). In may applications like *conjugate gradient descent*, one is often looking for A-orthogonal directions, where A is the `Hessian` of the optimization fn
+
+#### Problem 3.3.14 - Forbenius Norm vs Eigenvalues
+
+Consider a matrix with real eigenvalues. Show that its squared Frobenius norm is at least equal to the sum of the squares of its eigenvalues, and that strict equality is observed for symmetric matrices. The Schur decomposition is helpful
+
+### 3.3.8 Positive Semidefinite Matrices
+
+A symmetric is `positive semidefinite` if and only if all its eigenvalues are non-negative. From a geometric perspective, pre-multiplication of a set of d-dimensional vectors x_{1}...x_{n} with a dxd `positive semidefinite` matrix A to create Ax_{1}...Ax_{n} will distort the scatter-plot of the vectors, so that the scatter-plot is stretched along the eigenvector directions with non-negative scale factors
+
+The nonnegativity of scale factors ensures that transformed vectors do not have large angles wrt the original vectors (i.e. angles > 90deg). The angle between a data vector x and its transformed representation x' = Ax is shown; this angle is no greater than 90 b/c of the fact that the scale factors are nonnegative. Since the cosine of any such angle is nonnegative, it follows that the dot product $x^{T}(Ax)  $ between any column vector x \in R^d and its transformed representation, Ax, is non-negative
+
+#### Definition 3.3.6 - Positive Semidefinite Matrix
+
+A dxd symmetric matrix A is positive semidefinite iff for any non-zero vector x \in R^d, the following is true:
+
+$x^{T}Ax \geq 0  $
+
+#### Lemma 3.3.12
+
+Definition of Positive Semidefinite Matrix of a dxd symmetric matrix A is equivalent to stating that A has nonnegative eigenvalues
+
+A minor variation of positive semidefinite matrix is that of a `positive definite` matrix, where the matrix A cannot be singular
+
+#### Definition 3.3.7 - Positive Definite Matrix
+
+A dxd symmetric matrix A is positive definite iff for any non-zero vector x \in R^d, the following is true
+
+$x^{T}Ax \gt 0  $
+
+The eigenvalues of such a matrix need to be strictly positive
+
+#### Lemma 3.3.13
+
+A syymmetric matrix $A = V\Delta V^{T}  $ is positive definite, iff it has positive eigenvalues
+
+Unlike positive semidefinite matrices, positive definite matrices are guaranteed to be invertible. The inverse matrix is simply $V\Delta^{-1}V^{T}  $, here, \Delta^{-1} can always be computed because none of the eigenvalues are zero.
+
+One can also define `negative semidefinite matrices` as those matrices in which every eigenvalue is non-positive, and $x^{T}Ax \leq 0  $ for each column vector x. A negative semidefinite matric can be converted into a positive semidefinite matric by reversing the sign of each entry in the matrix.
+
+`negative definite` matrix is one in which every eigenvalue is strictly negative
+
+`indefinite` - symmetric matrices with both positive and negative eigenvalues
+
+Any matrix of the form BB^T or B^T B (i.e. Gram matrix form) is always positive semidefinite. The Gram matrix is fundamental to ML, and it appears repeatedly in different forms. Note that B need not be a square matrix.
+
+#### Lemma 3.3.14
+
+A dxd matrix A is `positive semi-definite` iff it can be expressed in the form B^T B for some matrix B. (same worsk for BB^T)
+
+#### Problem 3.3.15
+
+If C is a positive semidefinite matrix, show that there exists a square-root matrix \sqrt{C} that satisfies:
+
+$\sqrt{C}\sqrt{C} = C $
+
+#### Problem 3.3.16
+
+If a matrix C is positive definite, then so is C^{-1}
+
+### 3.3.9 Cholesky Factorization: Symmetric LU Decomposition
+
+The fact that positive definite matrices can be symmetrically factorized into Gram matrix form is a useful result for kernel methods in ML. The use of eigendecomposition to achieve this goal is a natural choice, but not the only one.
+
+Given a factorization the dxd matrix A = BB^T, one can use any orthgonal dxd matrix P to create an alternative factorization:
+
+$A = B(PP^T)B^{T} = (BP)(BP)^{T}  $
+
+One of these infinite choices of symmetric factorizations of A is one in which B is lower-triangular. In other words, one can express the positive definite matrix A in the form LL^T, where L = [l_{ij}] is some dxd lower-triangular matrix. This is `Cholesky factorization`
+
+The Cholesky decomposition is a special case of LU decomposition, and it can be used **only for positive definite matrices**. Although a matrix might have infinte number of LU decompositions, a positive definite matrix has a *unique* Cholesky factorization. It is computationally more efficient to compute the Cholesky decomposition for positive defininte matrices than the generic LU decomposition
+
+Let the columns of the matrix $L = [l_{ij}]_{d\times d}  $ be deonted by $\bar{l}_{1}...\bar{l}_{d}  $. Furthermore, since the matrix $A = [a_{ij}]_{d\times d}  $ is symmetric, we will focus only on the lower-triangular entries a_{ij} (with i >= j) to set up a system of equations that can be easily solved using back-subsititution. First, note that for any i >= j, we have the following:
+
+$a_{ij} = \sum_{k=1}^{d} l_{ik}l_{jk} = \sum_{k=1}^{j}l_{ik}l_{jk} L  $
+
+Where the sum of d = $A_{ij} = (LL^{T})_{ij} $ and the sum of j = Lower-triangular
+
+Note that the subscript for k only runs up to j instead of d for lower-triangular matrices and i >= j. This condition easily sets up a simple system of equations for computing the entries in each column of L one-by-one while back substituting the entries already computed, *as long as we do the computation in the correct order*. For example, we can compute the first column of L by setting j = 1, and iterating over all i >= j:
+
+$l_{11}  = \sqrt{a_{11}}  $
+
+$l_{i1} = a_{i1}/l_{11} \forall i>1  $
+
+We can repeat the same process to compute the second column of L as:
+
+$l_{22} = \sqrt{a_{22} - l_{21}^{2}}  $
+
+$l_{i2} = (a_{i2} - l_{i1}l_{21})/l_{22} \forall i>2  $
+
+![alt-text](./3_3_cholesky_factorization.PNG)
+
+Each computation of l_{ij} requires O(d) time, and therefore, the Cholesky method requires O(d^3) time. The above algorithm works for **positive-definite matrices**
+
+If the matrix is *singular* and *positive semi-definite*, then at least one l_{ij} will be 0. This will cause a division by 0 during the computation of l_{ij}, which results in an undefined value. The decomposition is no longer unique, and a Cholesky factorization does not exist in such a case. One possibility is to add a small positive value to each diagonal entry of A to make it positive definite and then restart the factorization.
+
+If the matrix A is indefinite or negative semidefinite, it will show up during the computation of at least one l_{ij}, where one will be forced to compute the square root of a negative quantity. The Cholesky factorization is the preferred approach for testing the positive definite of a matrix
+
+#### Problem 3.3.17 - Solving a System of Equations
+
+b/c positive definite, L guaranteed to be invertible
+
+#### Problem 3.3.18 - Cholesky Factorizationi from Any Symmetric Factorization

@@ -113,6 +113,13 @@
 - `symmetric matrix`
   - is a square matrix that is its own transpose
   - A = A^T
+  - `spectral theorem` (describing symmetric matrices)
+    - symmetric matrices are always diagonalizable
+      - with real eigenvalues
+    - have orthonormal eigenvectors
+    - A can be diagonalized in the form:
+      - $A = V\Delta V^{T}  $
+      - with orthogonal matrix V
 - `skew symmetric matrix`
   - square matrix
   - A^T = -A
@@ -405,12 +412,27 @@
   - rank of A + null space of A = d, where A is nxd
 - `strictly positive` matrix
   - only positive and non-zero values
+- `positive semidefinite`
+  - iff all its eigenvalues are non-negative
+  - **not** guaranteed to be invertible
+  - Any matrix of the form BB^T or B^T B (i.e. Gram matrix form)
 - `positive definite` matrix
   - only positive and zero values
+  - matrix A cannot be singular
+  - iff all its eigenvalues are non-negative
+  - guaranteed to be invertible
+- `negative semidefinite matrices`
+  - every eigenvalue is non-positive
+  - can be converted into a positive semidefinite matric by reversing the sign
+- `negative definite`
+  - which every eigenvalue is strictly negative
+- `indefinite`
+  - symmetric matrices with both *positive and negative* eigenvalues
 - `Gram matrix`
   - $A^T A$
   - the Gram matrix of the `column space` of A
   - the columns of A are `linearly independent` if the Gram matrix is invertible
+  - always `positive semidefinite`
 - `left Gram matrix`
   - $ AA^T $
   - the Gram matrix of the `row space`
@@ -532,7 +554,8 @@
 - `diagonalization`
   - $B = V\Delta V^{-1}  $
   - Matrices containing repeated eigenvalues and missing eigenvectors of the repeated eigenvalues are *not diagonalizable*
-- Cayley-Hamilton
+  - Diagonalizable matrices are also `simultaneously diagonalizable` if and only if they are commutative
+- `Cayley-Hamilton`
   - the inverse of a `non-singular` matrix can always be expressed as:
     - a polynomial of degree (d-1)
   - Let A be any matrix with characteristic polynomial $f(\lambda) = \det{(A - \lambda I)}  $.
@@ -543,6 +566,13 @@
   - only if r_{i} linearly independent eigenvectors exist (where r_{i} is the algebraic multiplicity)
 - `algebraic multiplicity`
   - of an `eigenvalue` \lambda_{i} is the number of times (A - \lambda_{i}I) occurs as a factor in the characteristic polynomial
+- `triangulization`
+  - see Ch 3
+  - `Schur decomposition`
+    - $A = PUP^{-1}  $
+    - can be found using iterative QR decomposition
+    - one of the methods used for computing the eigenvalues of a matrix
+    - a symmetric matrix is the *same as its diagonalization*
 - `defective` matrix
   - if a diagonalization *does not exist*
   - less than r_{i} eigenvectors exist for an eigenvalue with algebraic multiplicity r_{i}
@@ -563,6 +593,19 @@
   - similar matrices have the same eigenvalues
     - (and their corresponding multiplicities)
   - similar matrices perform similar operations, but in different basis systems
+- `simultaneously diagonalizable`
+  - a diagonalizable matrix family that shares `eigenvectors` (but **not** `eigenvalues`)
+  - they perform anisotropic scaling in the same set of directions
+  - the scaling factors might be different, since the diagonal matrices are different
+  - `simultaneous diagonalzability` is a property that is closely related to matrix commutativity
+  - Diagonalizable matrices are also simultaneously diagonalizable if and only if they are commutative
+- `A-Orthogonality`
+  - a generalization of orthogonality
+  - A set of column vectors $\bar{v}_{1}...\bar{v}_{d}  $ is A-orthogonal, if and only if $\bar{v}_{i}^{T}A\bar{v}_{j} = 0  $ for all pairs [i,j] with $i\neq j $
+- `Cholesky factorization`
+  - Ch 3.
+  - the preferred approach for testing the positive definite of a matrix
+  - only works only for positive definite matrices
 
 ## ML specifics
 
