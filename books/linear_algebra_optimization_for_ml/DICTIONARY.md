@@ -8,6 +8,28 @@
   - a `dimension` or `attribute` is one of the **d** properties of a data point
   - a **column** of D contains this property for all data instances
 
+## Named Matrices
+
+- `A` - regular
+- `B` - regular
+- `D` - `data matrix`
+  - typically nxd
+    - each row n is a different sample
+    - each col d is a feature
+- `I` - `identity matrix`
+- `P` - `basis matrix`
+  - basis of rotation or projection
+- Q - `orthogonal matrix`
+- R
+- L
+- U
+- `V` - `eigenvector matrix`
+- $\Delta$ - `diagonal matrix`
+- J (optimization)
+- `S` - `similarity matrix`
+- Gram matrix ? (do we include this - easy for things to spiral past specific one letter names)
+- `H` - `Hessian matrix`
+
 ## Definitions
 
 - `row vector`
@@ -608,6 +630,74 @@
   - only works only for positive definite matrices
 
 ## ML specifics
+
+- `similarity matrix`
+  - computes 
+- `dot product similarity matrix`
+  - compute $\bar{x} \dot \bar{y}$ between two points (**rows**)
+  - is a Gram matrix
+  - is semidefinite
+  - is an alternative way of specifying a dataset (bc all points in D can be recovered) - see Ch 3
+- `kernel method`
+  - computing a similarity function WITHOUT use of dot product similarity
+  - $Similarity(\bar{x}, \bar{y}) = \exp{(-\|\bar{x} - \bar{y}\|^{2}/\sigma^{2})}  $
+    - where \sigma controls sensitivity between points (aka Gaussian kernel)
+  - interestingly, the recovered representations might yield better results than the original data
+    - this is `nonlinear feature engineering`
+- `nonlinear feature engineering`
+  - goes beyond the natural (linear) transformations like rotation
+  - can also extract multi-dimensional representations from data sets of *arbitrary* objects
+    - which only have similarity specified
+- `matrix repair to positive semidefinite`
+  - `adding a multiple` (preferred)
+    - $A_{PSD} = A + \alpha I  $
+    - where \alpha carefully chosen
+    - only modifies the diagonal
+  - `eigenvalue clipping`
+    - replace negative eigenvalues in \Delta with 0 (for $B = V\Delta V^{-1}$)
+      - so you get $\Delta' $
+- `covariance matrix`
+  - computes (scaled) dot product between **columns** of D
+    - *after* `mean-centering` the matrix
+  - covariance between two cols x, y which are of a `mean-centered matrix`
+    - $\sigma_{xy} = \frac{\sum_{i=1}^{n}(x_i - \mu_{x})(y_{i} - \mu_{y})}{n} = \frac{\sum_{i=1}^{n}x_{i}y_{i}}{n} - \mu_{x}\mu_{y}  $
+  - in matrix form, where D is a nxd mean-centered data matrix
+    - $C = \frac{D^{T} D}{n}  $
+  - positive semidefinite
+  - used for `prinicpal component analysis`
+    - Great description in [Definition 3.4.2 - Covariance matrix of Mean-Centered Data]
+- `scatter matrix`
+  - D^T D of D is nxd **NOT** mean-centered data matrix
+  - is simply the Gram matrix of the col space of D
+  - positive semi-definite
+- `quadratic programming`
+  - solving fns of the form:
+    - $\bar{x}^{T}A\bar{x}  $, where A is dxd matrix, and x is a d-dim col vector of optimization variables
+  - called quadratic b/c the highest term of the polynomial is 2
+    - corresponding to a squared obj fn
+  - **quadratic fns certainly have a max or min, whereas linear functions do not - so not optimizable**
+  - arbitrary fns can be locally approximated as quadratic fns by using `Taylor expansion`
+  - Serves as the basis for many optimization techniques, such as the `Newton method`
+  - The shape of the fn $\bar{x}^{T}A\bar{x}  $ critically depends on the nature of the matrix A
+    - either `convex` or `concave`
+- `convex functions`
+  - When A is `positive semidefinite`
+  - Shape of a Bowl (for quadratic):
+    - has minimum
+    - no maximum
+  - $f(\lambda\bar{x}_{1} + (1-\lambda)\bar{x}_{2}) \leq \lambda f(\bar{x}_{1}) + (1-\lambda)f(\bar{x}_{2})  $
+- `concave functions`
+  - When A is `negative semidefinite`
+  - iNVERTED BOWL (for quadratic)
+  - $h(\lambda\bar{x}_{1} + (1-\lambda)\bar{x}_{2}) \geq \lambda h(\bar{x}_{1}) + (1-\lambda)h(\bar{x}_{2})  $
+- `saddle points`
+  - inflection points looking like *both* maxima or minima
+  - depending on which direction one approaches the point from
+  - often notoriously hard for optimization
+- `interacting terms`
+  - fn contains terms of the form $x_{i}x_{j}
+  - any multivariate quadratic function can be transformed to an additively separable fn (without interacting terms) by basis transformation of the input variables of the fn
+  - additively separable fns are much easier to optimize, because one can decompose the optimization problem into smaller optimization problems on individual variables
 
 ### Problem Frames
 

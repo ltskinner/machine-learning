@@ -817,11 +817,13 @@ Since the dot product is in the form of a Gram matrix, it is positive semidefini
 
 The dot product similarity matrix of a data set is positive semidefinite
 
-A dot product similarity matrix is an alternative way of specifying the data set, because one can recover the data set D from the similarity matrix to within rotations and reflections of the original data set. This is because each computational procedure for performing symmetric factorizations $S = D'D'^T$ of the similarity matrix might yield a different D', which can can be viewed as a rotated and reflected version of D. Examples of such computational procedures include eigendecomposition or Cholesky factorization. All the alternatives yield the same dot product. After all, dot products are invariants to axis rotation of the coordinate system. Since ML applications are only concerned with the relative positions of points, this type of ambiguous recovery is adequate in most cases. One of the most common methods to "recover" a data matrix from a similarity matrix is to use eigendecomposition:
+A dot product similarity matrix is an alternative way of specifying the data set, because one can recover the data set D from the similarity matrix to within rotations and reflections of the original data set.
+
+This is because each computational procedure for performing symmetric factorizations $S = D'D'^T$ of the similarity matrix might yield a different D', which can can be viewed as a rotated and reflected version of D. Examples of such computational procedures include eigendecomposition or Cholesky factorization. All the alternatives yield the same dot product. After all, dot products are invariants to axis rotation of the coordinate system. Since ML applications are only concerned with the relative positions of points, this type of ambiguous recovery is adequate in most cases. One of the most common methods to "recover" a data matrix from a similarity matrix is to use eigendecomposition:
 
 $S = Q \Delta Q^T $
 
-The matrix \Delta contains only nonnegative eigenvalues of the positive semidefinite similarity matrix, and therefore we can create a new diagonal matrix \Sigma containing the square-roots of the eigenvalues. Therefore, the similarity matrix S can be written as:
+The matrix \Delta contains only nonnegative eigenvalues of the positive semidefinite similarity matrix, and therefore we can create a new diagonal matrix \Sigma containing the square-roots of the eigenvalues. Therefore, the *similarity matrix S* can be written as:
 
 $S = Q \Sigma^2 Q^T = (Q\Sigma)(Q\Sigma)^{T}  $
 
@@ -832,3 +834,270 @@ But what if we did not use dot product similarity to calculate S from D? What if
 $Similarity(\bar{x}, \bar{y}) = \exp{(-\|\bar{x} - \bar{y}\|^{2}/\sigma^{2})}  $
 
 Here, \signa is a parameter that controls the sensitivity of the similarity fn to distances between points. Such a similarity fn is referred to as a *Gaussian kernel*. If we use a similarity fn like this instead of the dot product, we might recover a data set that is different from the original data set from which the similarity was constructed. In fact this recovered data set may not have dummy coordinates, and all n > d dimensions might be relevant. furthermore, the recovered representations Q\Sigma from such similarity fns might yield better results for ML applications than the original data set. This type of fundamental transformation of the data to a new representation is referred to as a `nonlinear feature engineering`, and it goes beyond the natural (linear) transformations like rotation that are common in linear algebra. In fact, it is even possible to extract multidimensional representations from data sets of *arbitrary* objects between which only similarity is specified. For example, if we have a set of n graphs or time-series objects, and we only have the nxn similarity matrix of these objects (and no multidimensional representation), we can use the aforementioned approach to create a multidimensional representation of each object for off-the-shelf learning algorithms.
+
+#### Problem 3.4.1
+
+Suppose given a similarity matrix S that was constructed using some arbitrary heuristic (rather than dot products) on a set of n arbitrary objects (e.g. graphs). As a result, the matrix is symmetric but not positive semidefinite. Discuss how you can repair the matrix S by modifying only its self similarity (i.e., diagonal) entries so that it becomes positive semidefinite
+
+- adding a multiple (preferred)
+  - $A_{PSD} = A + \alpha I  $
+  - where \alpha carefully chosen
+  - only modifies the diagonal
+- eigenvalue clipping
+  - replace negative eigenvalues in \Delta with 0 (for $B = V\Delta V^{-1}$)
+    - so you get $\Delta' $
+
+#### Covariance Matrix
+
+computes (scaled) dot product between **columns** of D *after* `mean-centering` the matrix
+
+Consider a set of scalar values x_1...x_n
+
+- $\mu$ = mean
+- $\sigma^{2} $ = variance
+
+$\mu = \frac{\sum_{i=1}^{n}x_{i}}{n}  $
+
+$\sigma^{2} = \frac{\sum_{i=1}^{n} (x_{i} - \mu)^{2}}{n} = \frac{\sum_{i=1}^{n} x_{i}^{2}}{n} - \mu^{2}  $
+
+- Consider a data matrix in which two columns have values x_1...x_n and y_1...y_n
+- assume the means of the two columns are the same
+
+Covariance of $\sigma_{xy}  $ is:
+
+$\sigma_{xy} = \frac{\sum_{i=1}^{n}(x_i - \mu_{x})(y_{i} - \mu_{y})}{n} = \frac{\sum_{i=1}^{n}x_{i}y_{i}}{n} - \mu_{x}\mu_{y}  $
+
+The notino of covariance is an extension of variance bc $\sigma_{x}^{2} = \sigma_{xx}  $ is simply the variance of x_1...x_n. Note that when the data is mean centered and \mu_x = \mu_y = 0, then covariance simplifies to just the first term:
+
+$\sigma_{xy} = \frac{\sum_{i=1}^{n}x_{i}y_{i}}{n}  $ [Mean-centered data only]
+
+It is noteworthy that the right side is simply a *scaled version of the dot product b/w columns*
+
+If we have a nxd data matrix D, which is mean-centered, we can compute the covariance between cols i, j using the following to produce a `covariance matrix`
+
+#### Definition 3.4.2 - Covariance matrix of Mean-Centered Data
+
+Let D be an nxd mean-centered data matrix. Then, the covariance matrix C of D is defined as:
+
+$C = \frac{D^{T} D}{n}  $
+
+The *unscaled version* of the matrix, in which the factor of n is not used in the denominator, is referred to as the `scatter matrix`
+
+The covariance matrix is often used for Principal Component Analysis
+
+- since positive semidefinite, can diagonalize as: $C = P\Delta P^T $
+- D (data set) is transformed to D' = DP
+  - equivalent to representing each row of the original matrix D in the axis system of directions contained in the cols of P
+
+One can also write the diagonal matrix as: $\Delta = P^{T}CP $.
+
+- This \Delta is the new covariance matrix of the transformed data D' = DP
+- note that the transformed data is also mean-centered b/c the sum of its columns can be shown to be 0
+- Transformation represents a `decorrelated version of the data`
+
+The entries on the diagonal of \Delta are the variances of the individual dimensions in the transformed data, and they represent the nonnegative eigenvalues of the positive semidefinite matrix C
+
+Typically, only a few diagonal entries are large (in relative terms), which contain most of the variance in the data. The remaining low-variance directions can be dropped from the transformed representation. Once can select a small subset of columns from P corresponding to the largest eigenvalues in order to create a dxk transformation matrix P_k where k << d. Each dxk transformed data mstrix is defined as D_{k}' = DP_{k}. Each row is is a new k-dimensional representation of the data set.
+
+It turns out that this representation has a highly reduced dimensionality, but it still retains most of the data variability (like Euclidean distances between points). For mean-centered data, the discarded (d-k) columns of DP are note very informative because they are all very close to 0.
+
+In fact, one can show using optimization methods that this representation provides an optimal reduction of the data in k-dimensions (or principal components), so that the least amount of variance in the data is lost.
+
+### 3.4.3 Symmetric Matrices in Quadratic Optimization
+
+Many ML applications are posed as optimization problems over a squared objective fn. Such objective fns are quadratic, because the highest term of the polynomial is 2
+
+The simplest versions of these quadratic fns can be expressed as:
+
+$\bar{x}^{T}A\bar{x}  $, where A is dxd matrix, and x is a d-dim col vector of optimization variables
+
+The process of solving such optimization problems is `quadratic programming`
+
+`Quadratic programming` is an *extremely important* class of problems in optimization b/c arbitrary fns can be locally approximated as quadratic fns by using `Taylor expansion`
+
+The shape of the fn $\bar{x}^{T}A\bar{x}  $ critically depends on the nature of the matrix A
+
+- `convex functions`
+  - When A is `positive semidefinite`
+  - Shape of a Bowl:
+    - has minimum
+    - no maximum
+- `concave functions`
+  - When A is `negative semidefinite`
+  - iNVERTED BOWL
+
+Formally, convex and concave fns satisfy the fillowing properties for any pair of vectors x_1 and x_2 and any scalar $\lambda \in (0, 1)  $:
+
+$f(\lambda\bar{x}_{1} + (1-\lambda)\bar{x}_{2}) \leq \lambda f(\bar{x}_{1}) + (1-\lambda)f(\bar{x}_{2})  $ [Convex function]
+
+$h(\lambda\bar{x}_{1} + (1-\lambda)\bar{x}_{2}) \geq \lambda h(\bar{x}_{1}) + (1-\lambda)h(\bar{x}_{2})  $ [Concave function]
+
+Functions in which A is neither positive nor negative semi-definite (i.e. A is indefinite) have niether global maxima nor minima. Such quadratic fns have `saddle points`, which are infelction points looking like *both* maxima or minima, depending on which direction one approaches the point from
+
+Consider the quadratic fn $f(x_{1}, x_{2}) = x_{1}^{2} + x_{2}^{2}  $
+
+- is `convex`
+  - if it has a single global min at (0,0)
+- is `concave`
+  - if pre multiply -1 * f(.)
+
+Cone can express f(x,y) in matrix form as:
+
+$f(x_{1}, x_{2}) = \begin{bmatrix}x_{1} & x_{2} \end{bmatrix} \begin{bmatrix}1 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix}x_{1}\\ x_{2} \end{bmatrix}  $
+
+In this case, the fn represents a perfectly circular bowl, and the corresponding matrix A for representing the ellipse $\bar{x}^{T}A\bar{x} = r^2  $ is the 2x2 I matrix, which is a trivial form of a positive semidefininte matrix
+
+Using the negative of the I matrix (which is a negative semidefinite matrix) results in an inverted bowl
+
+The negative of a convex fn is always a concave fn, and vice verse. Therefore, maximizing concave fns is almost exactly similar to minimizing convex fns
+
+$f(x) = x^{T}Ax $ corresponds to a *perfectly circular* bowl, when A is the I.
+
+Changing A from the I leads to several interesting generalization.
+
+If the diagonal entries of A are set to (nonnegative) values different from 1:
+
+- then the circular bowl could become elliptical
+- note, because quadratic, changes are squared
+
+Note that the diagonal entries of A are `inverse squares` of stretching fns - so for $ \begin{bmatrix}x_{1} & x_{2} \end{bmatrix} \begin{bmatrix}4 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix}x_{1}\\ x_{2} \end{bmatrix} $, we actually shrink x_2 by 1/4 instead of multiplying x_1 by 4
+
+So far, only considered quadratic fns in which stretching occurs along axis-parallel directions. now, consider a diagonal matrix \Delta and rotate using basis matrix P
+
+Use $A = P\Delta P^{T}  $ to define $x^T Ax  $. Then, compute coordinates of x as $y = P^T x  $, and then compute $f(x) = x^T Ax = y^T \Delta y  $
+
+How can we generalize to a fn with optimum occuring at \bar{b} and an optimum value of c (which is scalar)? Corresponding fn of `vertex form`:
+
+$f(\bar{x}) = (\bar{x} - \bar{b})^{T}A(\bar{x}-\bar{b})+c  $
+
+A is equivalent to half the `Hessian matrix` of the quadratic fn. The dxd Hessian H = [h_{ij}] of a fn of d variables is is a symmetric matrix containing the second-order derivatives wrt each pair of variables
+
+$h_{ij} = \frac{\partial^{2}f(\bar{x})}{\partial x_{i} \partial x_{j}} $
+
+Note that $x^T Hx $ represents the directional second derivative of the rate of change of f(x), when moving along the direction x. This value is always nonnegative for convex fns irrespective of x, which ensures that the value of f(x) is minimum when the first derivative of the rate of change of f(x) along each direction x is 0
+
+Hessian needs to be positive semidefinite
+
+### Observation 3.4.2
+
+Consider a quadratic fn, whose quadratic term is of the form $x^T Ax  $. Then, the quadratic function is convex, IFF the matrix A is positive semidefinitite
+
+Many quadratic fns in ML are of this form. A specific example is the dual objective fn of a SVM
+
+It is noteworthy that the most general form of a quadratic fn in multiple variables is as follows:
+
+$f(\bar{x}) = \bar{x}^{T}A'\bar{x} + \bar{b}'^{T} + c' $
+
+- A' is a dxd symmetric matrix
+- b' is a d-dim col vec
+- v' is a scalar
+
+Note, the vertex form only considers *strictly quadratic* fns, in which all cross-sections of the fn are quadratic. Quadratic is interesting because they certainly have a max or min, whereas linear functions do not
+
+One can relate the corefficients from the above equations:
+
+- A' = A
+- b' = 2Ab
+- c' = b^T b + c (note this looks suspiciously like the householder term)
+
+Given A', b' and c', the main condition for being able to arrive at the vertex form is: $b' = -2Ab = -2A'b  $ for which a solution will exist only when b' occurs in the col space of A'
+
+Finally, we discuss the case where the matrix A used to create fn x^T Ax is *indefinite* and has both positive and negative eigenvalues. An example of such a fn:
+
+$g(x_{1}, x_{2}) = \begin{bmatrix}x_{1} & x_{2} \end{bmatrix} \begin{bmatrix}1 & 0 \\ 0 & -1 \end{bmatrix} \begin{bmatrix}x_{1} \\ x_{2} \end{bmatrix} = x_{1}^{2} - x_{2}^{2} $
+
+The gradient at (0, 0) is 0, which seems to be an optimum point. However, this point behaves like **both a maximum and a minimum**, when examining second derivatives
+
+If we approach the point from the x_{1} direction, it seems like a min. If we approach from the x_{2} direction, it seems like max. This is because the directional second derviatives in each direction are simply twice the diagonal entries (which are of opposite sign)
+
+Obj fns containing such points are often notoriously hard for optimization
+
+### 3.4.4 Diagonalization Application: Variable Separation for Optimization
+
+Consider the quadratic fn:
+
+$f(x) = x^T Ax + b^T x + c  $
+
+Unless the symmetric matrix A is diagonal, the resulting fn contains terms of the form $x_{i}x_{j} $. Such terms are referred to as `interacting terms`. Most real-wordl quadratic fns contain such terms.
+
+It is noteworthy that any multivariate quadratic function can be transformed to an additively separable fn (without interacting terms) by basis transformation of the input variables of the fn.
+
+This type of change in basis brings us back to using linear algebra tricks. Additively separable fns are much easier to optimize, because one can decompose the optimization problem into smaller optimization problems on individual variables
+
+For example, a multivariate quadratic fn would appear as a simple sum of univariate quadratic fns (each of which is extremely simple to optimize)
+
+#### Definition 3.4.3 - Additively Separable Functions
+
+A function $F(x_{1}, x_{2}, ..., x_{d})  $ in d variables is said to be `additively separable`, if it can be expressed in the following form for appropriately chosen univariate functions $f_{1}(.), f_{2}(.), ..., f_{d}(.)  $
+
+$F(x_{1}, x_{2}, ..., x_{d}) = \sum_{i=1}^{d}f_{i}(x_{i})  $
+
+Consider the following quadratic fn defined on a d-dimensional vector $\bar{x} = [x_{1}, ..., x_{d}]^{T} $
+
+$f(\bar{x}) = \bar{x}^{T}A\bar{x} + \bar{b}^{T}\bar{x} + c  $
+
+Since A is a dxd symmetric matrix, one can diagonalize it as $A = V\Delta V^{T}  $ and use the varaible transformation $\bar{x} = V\bar{x}'  $ (which is the same as $\bar{x}'' = V^{T}\bar{x}  $)
+
+On performing this transformation one obtains the new fn $g(\bar{x}'') = f(V\bar{x}'')  $, which is identical to the original function in a different basis. It is easy to show that the quadratic fn bay be expressed as follows:
+
+$f(Vx') = x'^{T}\Delta x' + b^{T}Vx' + c $
+
+After this variable transformation, one obtains an additively separable fn, because matrix \Delta is diagonal. One can solve for x' using d univariate optimizations, and then transform back x' to x using $x = Vx'$
+
+Although this approach simplifies optimization, the problem is that eigenvector computation of A can be expensive. However, one can generalize this idea and try to find any matrix V (with possibly non-orthogonal columns), which satisfies $A = V\Delta V^{T} $ for some diagonal matrix \Delta. Note this would not be a true diagonalization of A if the cols of V are not orthonormal.
+
+However, it is good enough to create a separable transformation for optimization, which is what we really care about
+
+The columns of such non-orthogonal matrices are computationally much easier to evaluate than true eigenvectors, and the transformed variables are referred to as `conjugate directions`. The columns of V are referred to as `A-orthogonal directions` because for any pair of (distinct) columns v_{i} and v_{j}, we have $v_{i}^{T}Av_{j} = \Delta_{ij} = 0 $
+
+There are an infinite number of possible ways of creating conjugate directions, and the eigenvectors represent a special case. In fact, a generalization of the Gram-Schmidt method can be used to find such directions. This basic idea forms the principle of the `conjugate gradient descent` method (see Ch 5.), which can be used even for non-quadratic functions. Here, we provide a conceptual overview of the iterative conjugate gradient method for arbitrary (possibly non-quadratic) fn h(x) from current point x = x_{t}
+
+- 1. Create a quadratic approximation f(x) of non-quadratic fn h(x) using the second-order Taylor expansion of h(x) at x = x_{t}
+- 2. Compute the optimal solution x* of the quadratic fn f(x) using the separable variable optimization approach discussed above as a set of d univariate optimization problems
+- 3. Set $x_{t+1} = x* $ and $t \Leftarrow t + t $
+- 4. go back to step 1
+
+This approach is iterated to convergence
+
+### 3.4.5 Eigenvectors in Norm-Constrained Quadratic Programming
+
+A problem that arises frequently in different types of ML settings is one in which we wish to opimize x^T Ax, where x is constrained to unit norm.
+
+Here, A is a dxd *symmetric* data matrix. This type of problem arises in many feature engineering and dimensionality reduction applications like PCA, SVD, and spectral clustering. Such an optimization problem is posed as:
+
+- Optimize: x^T Ax
+- subject to: $\|x\|^{2} = 1  $
+
+This optimization problem can be either in minimization or maximimization form
+
+Constraining the vector x to be the unit vector fundamentally changes the nature of the optimization problem. Unlike the previous section, it is no longer important whether the matrix A is positive semidefinite or not. One would have a well-defined optimal solution, even if the matrix A is indefinite. Constraining the norm of the vector helps in avoiding vectors with unbounded magnitudes or trivial solutions (like the zero vector) even when the matrix A is indefinite
+
+Let v_{1}...v_{d} be the d orthonormal eigenvectors of a symmetric matrix A. Note that the set of eigenvectors creates a basis for R^d, and therefore, andy d-dim vectro x can be expressed as a linear combination of v_{1}...v_{d} as follows:
+
+$\bar{x} = \sum_{i=1}^{d} \alpha_{i}\bar{v}_{i}  $
+
+We will re-parameterize this optimization problem in terms of the parameters $\alpha_{1}...\alpha_{d}  $ by subsituting for x in the optimization problem. By making this substitution, and setting each $A\bar{v}_{i} = \lambda_{i}\bar{v}_{i}  $, we obtain the following re-parameterized optimization problem:
+
+- Optimize: $\sum_{i=1}^{d} \lambda_{i}\alpha_{i}^{2} $
+- subject to: $\sum_{i=1}^{d}\alpha_{i}^{2} = 1  $
+
+The expression $\|\bar{x}\|^{2} $ in the constraint is simplified to $(\sum_{i=1}^{d}\alpha_{i}\bar{v}_{i})\cdot(\sum_{i=1}^{d}\alpha_{i}\bar{v}_{i})  $; we can expand it using the distributive property, and then we use the orthogonality of the eigenvectors to set $\bar{v}_{i}\cdot\bar{v}_{j} = 0  $. The objective fn value is $\sum_{i}\lambda_{i}\alpha_{i}^{2}  $, where the different $\alpha_{i}^{2} $ sum to 1.
+
+Clearly, the minimum and maximum possible values of this obj fn are achieved by setting the weight $\alpha_{i}^{2}  $ of a single value of \lambda_{i} to 1, which corresponds to the minimum or maximum possible eigenvalue (depending on whether the optimization problem is posed as a minimization or maximization form) - note this is because norm-constrained so max can only be 1:
+
+The maximum value of the norm-constrained quadratic optimization problem is obtained by setting \bar{x} to the largest eigenvector of A. The minim value is obtained by setting \bar{x} to the smallest eigenvector of A
+
+This problem can be generalized to finding a k-dimensional subspace. In other words, we want to find orthonormal vectors $\bar{x}_{i}...\bar{x}_{k}  $ so that $\sum_{i}\bar{x}_{i}A\bar{x}_{i}  $ is optimized:
+
+- Optimize: $\sum_{i=1}^{k} \bar{x}_{i}^{T}A\bar{x}_{i} $
+- subject to: $\|\bar{x}_{i}\|^{2} = 1 \forall i \in \{1...k \} $
+  - $\bar{x}_{1}...\bar{x}_{k} $ are mutually orthogonal
+
+The optimal solution to this problem can be derived using a similar procedure. An alternate solution with the use of Lagrangian relaxation is shown in Ch 6. Here, we simply state the optimal solution:
+
+The maximum value of the norm-constrained quadratic optimization problem is obtained by using the largest k eigenvectors of A. The minimum value is obtained by using the smallest k eigenvectors of A
+
+Intuitively, these results make geometric sense from the perspective of the `anisotropic scaling` (scaling factors different across different dimensions) caused by symmatric matrices like A. The matrix A distorts the space with scale factors corresponding to the eigenvalues along orthonormal directions corresponding to the eigenvectors. The obj fn tries to either maximize or minimize the aggregate projections of the distorted vectors Ax_{i} on the original vectors x_{i}, which is the sum of the dot products between x_{i} and Ax_{i}.
+
+- By picking the **largest** k eigenvectors (scaling directions), this sum is maximized.
+- By picking the **smallest** k directions, this sum is minimized.

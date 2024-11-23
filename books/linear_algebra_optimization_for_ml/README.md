@@ -31,3 +31,7 @@ can the notion of `matrix similarity` be abused?
 Like what if we have two similar matrices of different dimensions (if thats possible) - can we optimize on a smaller matrix for a less fine tuned representation, and then apply to the larger more fine grained matrix?
 
 Or vice versa, can we optimize on the more fine tuned matrix then simplify to the smaller matrix to reduce weights size?
+
+## Cleanup
+
+At end of book, pull togethter all the named Definitions and Observations
