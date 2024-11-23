@@ -784,3 +784,51 @@ If the matrix A is indefinite or negative semidefinite, it will show up during t
 b/c positive definite, L guaranteed to be invertible
 
 #### Problem 3.3.18 - Cholesky Factorizationi from Any Symmetric Factorization
+
+## 3.4 Machine Learning and Optimization Applications
+
+### 3.4.1 Fast Matrix Operations in ML
+
+Consider a situation, where one wants to compute a^k for some positive integer k. Repeated matrix multiplication can be expensive. Furthermore, there is no way to compute A^k, k tends to infinity in the limit. It turns out that diagonalization is very useful, even if it is complex valued. This is because one can express A^k as follows:
+
+$A^{k} = V \Delta^{k} V^{-1}  $
+
+Note that it is often easy to compute $\Delta^k$, because we only need to exponentiate the individual entries along the diagonal. By using this approach, one can compute A^k in relatively few operations. As k -> \inf, it is often the case that A^k will either vanish to 0 or explode to very large entries depending on whether the largest eigenvalue is less than 1 or whether it is greater than 1. One can easily compute a polynomial fn in A by computing a polynomial fn in \Delta
+
+These types of applications often arise when working with the adjacency matrices of graphs
+
+### 3.4.2 Examples of Diagonalizable Matrices in ML
+
+There are several positive semidefinite matrices that arise repeatedly in ML applications
+
+#### Dot Product Similarity Matrix
+
+A dot product similarity matrix of an nxd data matrix D is an nxn matrix containing the pairwise dot products between the rows of D.
+
+#### Definition 3.4.1
+
+Let D be an nxd data matrix containing d-dimensional points in its rows. Let S be an nxn similarity matrix between the points, where the (i,j)th entry is the dot product between the ith and jth rows of D. Therefore, the similarity matrix S is related to D as follows:
+
+$S = DD^T  $
+
+Since the dot product is in the form of a Gram matrix, it is positive semidefinite
+
+#### Observation 3.4.1
+
+The dot product similarity matrix of a data set is positive semidefinite
+
+A dot product similarity matrix is an alternative way of specifying the data set, because one can recover the data set D from the similarity matrix to within rotations and reflections of the original data set. This is because each computational procedure for performing symmetric factorizations $S = D'D'^T$ of the similarity matrix might yield a different D', which can can be viewed as a rotated and reflected version of D. Examples of such computational procedures include eigendecomposition or Cholesky factorization. All the alternatives yield the same dot product. After all, dot products are invariants to axis rotation of the coordinate system. Since ML applications are only concerned with the relative positions of points, this type of ambiguous recovery is adequate in most cases. One of the most common methods to "recover" a data matrix from a similarity matrix is to use eigendecomposition:
+
+$S = Q \Delta Q^T $
+
+The matrix \Delta contains only nonnegative eigenvalues of the positive semidefinite similarity matrix, and therefore we can create a new diagonal matrix \Sigma containing the square-roots of the eigenvalues. Therefore, the similarity matrix S can be written as:
+
+$S = Q \Sigma^2 Q^T = (Q\Sigma)(Q\Sigma)^{T}  $
+
+Here $D' = Q\Sigma $ is an nxn data set containing n-dimensional representations of the n points. It seems somewhat odd that the new matrix D' = Q\Sigma is an nxn matrix. After all, if the similarity matrix represents dot products between d-dimensional data points for d << n, we should expect the recovered matrix D' to be a rotated representation of D in d dimensions. What are the extra (n-d) dimensions? Here, the key point is that if the similarity matrix S was indeed created using dot products on d-dimensional points, then DD^T will also have rank at most d. Therefore, at least (n-d) eigenvalues in \Delta will be zeros, which corresponds to dummy coordinates.
+
+But what if we did not use dot product similarity to calculate S from D? What if we use some other similarity function? It turns out that this idea is the essence of *kernel methods* in ML. Instead of using the dot product x.y between two points, one often uses similarity functions such as the following:
+
+$Similarity(\bar{x}, \bar{y}) = \exp{(-\|\bar{x} - \bar{y}\|^{2}/\sigma^{2})}  $
+
+Here, \signa is a parameter that controls the sensitivity of the similarity fn to distances between points. Such a similarity fn is referred to as a *Gaussian kernel*. If we use a similarity fn like this instead of the dot product, we might recover a data set that is different from the original data set from which the similarity was constructed. In fact this recovered data set may not have dummy coordinates, and all n > d dimensions might be relevant. furthermore, the recovered representations Q\Sigma from such similarity fns might yield better results for ML applications than the original data set. This type of fundamental transformation of the data to a new representation is referred to as a `nonlinear feature engineering`, and it goes beyond the natural (linear) transformations like rotation that are common in linear algebra. In fact, it is even possible to extract multidimensional representations from data sets of *arbitrary* objects between which only similarity is specified. For example, if we have a set of n graphs or time-series objects, and we only have the nxn similarity matrix of these objects (and no multidimensional representation), we can use the aforementioned approach to create a multidimensional representation of each object for off-the-shelf learning algorithms.
