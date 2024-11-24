@@ -1286,3 +1286,26 @@ Diagonalizable matrices represent a form of linear transformation, so that multi
 20. f(x_{1}, x_{2}, x_{3}) = 2x_{1}^{2} + 3x_{2}^{2} + 2x_{3}^{2} - 3x_{1}x_{2} - x_{2}x_{3} - 2x_{1}x_{3}
   - `Raleigh quotient`
 21. f(x_{1}, x_{2}) = x_{1}^{2} + 3x_{1}x_{2} + 6x_{2}^{2}
+  - use the c = -b += \sqrt(b^2 - 4ac)/2a to factor the polynomial
+22. - `indefinite`
+  - symmetric matrices with both *positive and negative* eigenvalues
+23. B acts as a fractional transformation like \lambda^{1/k}
+24. - `ellipsoid general equation`
+  - (x - c)^{T}Q(x - c) = 1
+  - where Q = P \Delta P^{T}
+    - where \Delta is the eigenvalues diagonal matrix
+      - where the eigenvalues are reciprocals 1/\lambda of the axis ratios
+  - normalize the axis vectors to create P
+  - where c is teh center point
+25. 
+26. nilpotent A^k = 0
+27. Show diagonalizable
+  - A^2 = A
+  - A^2 = I
+28. Elementary Row Addition Matrix is Defective
+29. Symmetric and idempotent matrices
+  P = QQ^T
+30. Diagonalizability and Nilpotency
+  - jordan decomposition
+  - A = PJP^{-1}
+  - J = \lambda I_{i} + N_{i}

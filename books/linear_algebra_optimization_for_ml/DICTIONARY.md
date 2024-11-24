@@ -17,7 +17,7 @@
     - each row n is a different sample
     - each col d is a feature
 - `I` - `identity matrix`
-- `P` - `basis matrix`
+- `P` - `basis matrix` - `projection matrix`
   - basis of rotation or projection
 - `Q`
   - orthogonal matrix
@@ -189,6 +189,7 @@
   - when most of the entries have 0 values
 - `nilpotent`
   - when a matrix satisfies $A^{k} = 0 $ for some integer k
+  - strictly upper triangular with diagonal entries of 0
 - `inverse`
   - of a square matrix A is another square matrix A^{-1}
   - not all matrices have an inverse
@@ -629,6 +630,7 @@
   - non-defective has a unique eigendirection (eigenvector) for each eigenvalue
   - defective is missing eigendirections (eigenvalues) that contribute distinctly
 - `geometric multiplicity`
+  - do A - I
   - number of eigenvectors of an eigenvalue
     - aka
   - at least 1 and at most the algebraic multiplicity r_{i}
@@ -671,6 +673,13 @@
   - knowing $\|x\| = 1$, means $x^T x = 1$
   - min occurs when x is the eigenvector of Q corresponding to the smallest eigenvalue
   - solve the 2 - \lambda matrix to get the characteristic polynomial
+- `ellipsoid general equation`
+  - (x - c)^{T}Q(x - c) = 1
+  - where Q = P \Delta P^{T}
+    - where \Delta is the eigenvalues diagonal matrix
+      - where the eigenvalues are reciprocals 1/\lambda of the axis ratios
+  - normalize the axis vectors to create P
+  - where c is teh center point
 
 ## ML specifics
 
