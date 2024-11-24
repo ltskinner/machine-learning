@@ -1223,3 +1223,26 @@ Oh lol just use a shift: $A' = A + \alpha I$ like we did earlier
 ## 3.6 Summary
 
 Diagonalizable matrices represent a form of linear transformation, so that multiplication of a vector with such a matrix corresponds to anisotropic scaling of the vector in (possibly non-orthogonal) directions. Not all matrices are diagonalizable. Symmetric matrices are always diagonalizable, and they can be represented as scaling transformations in mutually orthogonal directions. When the scaling factors of symmetric matrices are nonnegative, they are referred to as positive semidefinite matrices. Such matrices frequently arise in different types of ML applications. Therefore, this chapter has placed a special emphasis on these types of matrices and their eigendecomposition properties. A number of key optimization applications of such matrices were introduced, which sets the stage for more detailed discussion later on
+
+## 3.8 Exercises
+
+1. sign of determinant
+  - givens rotations
+  - assuming if negative, then do need to reflect
+2. sign of determinant
+  - if even (+1) then even number of rotations
+  - if odd (-1) then odd number of rotations
+3. 
+  - spectral decomposition
+4. 
+5. 
+  - applying factors to rows is a pre-multiply
+  - applying factors to cols is a post-multiply
+  - A' = Rows A Cols
+6. guaranteed to be
+  - diagonalizable
+  - invertible
+  - both
+  - neither
+  - when all eigenvalues are non-zero, then invertible
+7. 

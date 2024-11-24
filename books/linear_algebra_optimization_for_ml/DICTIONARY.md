@@ -31,6 +31,7 @@
 - `V` - `eigenvector matrix`
   - is a basis
 - $\Delta$ - `diagonal matrix`
+- \Lambda - `eigenvalues matrix`
 - J (optimization)
 - `S` - `similarity matrix`
 - Gram matrix ? (do we include this - easy for things to spiral past specific one letter names)
@@ -193,7 +194,7 @@
   - An nxn square matrix A has linearly independent columns/rows if and only if it is invertible
     - if a square matrix with linearly independent, then invertible
   - the inverse of an orthogonal matrix is its transpose
-  - if there are no `eigenvalues` then a matrix must be invertible
+  - if there are no 0 `eigenvalues` then a matrix must be invertible
   - the determinant of A det(A) != 0 if A is invertible
 - `left-inverse` of matrix A
   - $\bar{x} = (A^T A)^{-1} A^T  \bar{b} $
