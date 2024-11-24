@@ -25,9 +25,12 @@
 - `R`
   - upper triangular
 - L
-- U
-  - upper triangular
+- `U`
   - Schur decomposition
+  - upper triangular
+  - contains eigenvalues on diagonal
+  - A = PUP^{-1}
+  - where P is orthogonal basis change matrix
 - `V` - `eigenvector matrix`
   - is a basis
 - $\Delta$ - `diagonal matrix`
@@ -149,6 +152,7 @@
     - A can be diagonalized in the form:
       - $A = V\Delta V^{T}  $
       - with orthogonal matrix V
+      - $A = V\Delta V^{T}  $ instead of $A = V\Delta V^{-1}  $
 - `skew symmetric matrix`
   - square matrix
   - A^T = -A
@@ -511,6 +515,7 @@
 
 - `determinant`
   - the "volume" `scaling factor` of a matrix
+  - product of `eigenvalues` $\det{(A)} \prod_{i} \lambda_{i}  $
   - the determinant is wrt the `unit hypercube`
     - all det(A) > 1 dilate
     - all det(A) = 1 preserve the volume
@@ -573,6 +578,8 @@
   - for a dxd matrix, there are *at most* d eigenvalues
   - triangular matrices contain eigenvalues on the main diagonal
   - `eigenvalues` are the same regardless of `left` or `right` eigenvectors
+  - --> sum is Trace
+  - --> product is Determinant
 - $\Delta$
   - like an identity matrix, but each eigenvalue down the diagonal
 - `characteristic polynomial`
@@ -584,17 +591,30 @@
   - $B = V\Delta V^{-1}  $
   - Matrices containing repeated eigenvalues and missing eigenvectors of the repeated eigenvalues are *not diagonalizable*
   - Diagonalizable matrices are also `simultaneously diagonalizable` if and only if they are commutative
+    - aka: AB = BA
 - `Cayley-Hamilton`
-  - the inverse of a `non-singular` matrix can always be expressed as:
-    - a polynomial of degree (d-1)
-  - Let A be any matrix with characteristic polynomial $f(\lambda) = \det{(A - \lambda I)}  $.
-  - Then, f(A) evaluates to the zero matrix
+  - if you have a characteristic equation:
+  - p(\lambda) = (2 - \lambda)(2 - \lambda) - (1)(1)
+  - = \lambda^2 - 4\lambda + 3
+  - = A^2 - 4A + 3
+  - --> you can just insert the matrix A into \lambda directly for the characteristic equation
+  - "a matrix satisfies its own polynomial equation"
+  - formal from book:
+    - the inverse of a `non-singular` matrix can always be expressed as:
+      - a polynomial of degree (d-1)
+    - Let A be any matrix with characteristic polynomial $f(\lambda) = \det{(A - \lambda I)}  $.
+    - Then, f(A) evaluates to the zero matrix
 - `eigenspace`
   - a vector space of eigenvectors, and a basis of this vector space is a valid set of eigenvectors.
   - This vector space corresponding to a specific eigenvalue is an `eigenspace`
   - only if r_{i} linearly independent eigenvectors exist (where r_{i} is the algebraic multiplicity)
 - `algebraic multiplicity`
+  - for each eigenvalue, the number of times it appears in the characteristic polynomial
   - of an `eigenvalue` \lambda_{i} is the number of times (A - \lambda_{i}I) occurs as a factor in the characteristic polynomial
+  - if we have:
+    - (3 - \lambda)(3 - \lambda)(2 - \lambda)
+    - r_{i} of eigenvalue 3 has algebraic multiplicity of 2
+    - r_{i} of eigenvalue 2 has algebraic multiplicity of 1
 - `triangulization`
   - see Ch 3
   - `Schur decomposition`
@@ -606,15 +626,19 @@
   - if a diagonalization *does not exist*
   - less than r_{i} eigenvectors exist for an eigenvalue with algebraic multiplicity r_{i}
   - Closest we can get to diagonalization is the `Jordan normal form`
+  - non-defective has a unique eigendirection (eigenvector) for each eigenvalue
+  - defective is missing eigendirections (eigenvalues) that contribute distinctly
 - `geometric multiplicity`
   - number of eigenvectors of an eigenvalue
+    - aka
   - at least 1 and at most the algebraic multiplicity r_{i}
 - `polar decomposition`
   - Every square matrix can be decomposed into the product of:
     - a diagonalizable matrix
     - the "residual" rotation matrix
 - `similar matrices`:
-  - when $B = VAV^{-1} $
+  - when $B = VAV^{-1} $ for two matrices A and B
+  - V must be an invertible matrix
   - similarity is commutitive and transitive
   - if A and B are similar, B and A are similar as well
   - if A and B are similar, and B and C are similar, then A and C are similar
@@ -628,6 +652,7 @@
   - the scaling factors might be different, since the diagonal matrices are different
   - `simultaneous diagonalzability` is a property that is closely related to matrix commutativity
   - Diagonalizable matrices are also simultaneously diagonalizable if and only if they are commutative
+    - aka: AB = BA
 - `A-Orthogonality`
   - a generalization of orthogonality
   - A set of column vectors $\bar{v}_{1}...\bar{v}_{d}  $ is A-orthogonal, if and only if $\bar{v}_{i}^{T}A\bar{v}_{j} = 0  $ for all pairs [i,j] with $i\neq j $

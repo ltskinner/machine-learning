@@ -1246,3 +1246,40 @@ Diagonalizable matrices represent a form of linear transformation, so that multi
   - neither
   - when all eigenvalues are non-zero, then invertible
 7. 
+  - real-valued matrix of odd dimension must have at least one real eigenvalue
+    - complex roots come in conjugate pairs
+    - so, an odd number cannot be paired off
+  - the determinant of a real-valued matrix without any real eigenvalues is always positive
+    - again, conjugate pairs
+      - (a + bi)(a - bi) = a^2 + b^2
+  - real valued matrix of even dimension with a negative determinant must have at least two distinct real-valued eigenvalues
+    - hint: properties of polynomial roots
+8. Cayley-Hamilton
+9. defective matrix
+  - algebraic multiplicity
+  - geometric
+10. trace is the sum of eigenvalues
+11. the square of a matrix that does not have real eigenvalues is diagonalizable with real eigenvalues
+  - this happens because squaring a matrix forces the eigenvalues into real pairs by removing imaginary parts from conjugate pairs
+12. simultaneously diagonalizable
+  - AB = BA
+13. 
+14. for Gram matrix
+  - S = B^T B
+  - here, the diagonal of s is B_{ii}^2
+  - squared values can never be negative
+  - guarantees convex (bowl) V
+15. if P^2 = P then
+  - all eigenvalues must be 1 or 0
+  - P is a projection matrix
+  - idempotent
+16. A = VAV^{-1}
+17. spectral theorem
+  - Since the inverse of an orthogonal matrix is its transpose, it is common to write the diagonalization of symmetric matrices in the form $A = V\Delta V^{T}  $ instead of $A = V\Delta V^{-1}  $
+18. True or False
+  - a matrix with all zero eigenvalues must be the zero matrix
+    - True. det(A) = 0 is singular and tr(A) = 0
+  - a symmetric matrix will all zero eigenvalues must be the zero matrix
+    - True
+19. if either A or B is invertible, then we can construct a similarity transform P = A or P = B, which we use in similarity equation
+  - AB = PBAP^{-1}
