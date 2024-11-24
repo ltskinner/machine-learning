@@ -660,6 +660,17 @@
   - Ch 3.
   - the preferred approach for testing the positive definite of a matrix
   - only works only for positive definite matrices
+- `Raleigh quotient` or `Rayleigh quotient`
+  - start w/ polynomial
+    - f(x_{1}, x_{2}, x_{3}) = 2x_{1}^{2} + 3x_{2}^{2} + 2x_{3}^{2} - 3x_{1}x_{2} - x_{2}x_{3} - 2x_{1}x_{3}
+  - write symmetric matrix of terms: as Q = 
+    - [   2, -3/2,   -1]
+    - [-3/2,    3, -1/2]
+    - [  -1, -1/2,    2]
+  - f(x) = x^T Q x
+  - knowing $\|x\| = 1$, means $x^T x = 1$
+  - min occurs when x is the eigenvector of Q corresponding to the smallest eigenvalue
+  - solve the 2 - \lambda matrix to get the characteristic polynomial
 
 ## ML specifics
 

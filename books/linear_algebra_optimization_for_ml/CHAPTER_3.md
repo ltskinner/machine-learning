@@ -1018,7 +1018,7 @@ Consider the quadratic fn:
 
 $f(x) = x^T Ax + b^T x + c  $
 
-Unless the symmetric matrix A is diagonal, the resulting fn contains terms of the form $x_{i}x_{j} $. Such terms are referred to as `interacting terms`. Most real-wordl quadratic fns contain such terms.
+Unless the symmetric matrix A is diagonal, the resulting fn contains terms of the form $x_{i}x_{j} $. Such terms are referred to as `interacting terms`. Most real-world quadratic fns contain such terms.
 
 It is noteworthy that any multivariate quadratic function can be transformed to an additively separable fn (without interacting terms) by basis transformation of the input variables of the fn.
 
@@ -1283,3 +1283,6 @@ Diagonalizable matrices represent a form of linear transformation, so that multi
     - True
 19. if either A or B is invertible, then we can construct a similarity transform P = A or P = B, which we use in similarity equation
   - AB = PBAP^{-1}
+20. f(x_{1}, x_{2}, x_{3}) = 2x_{1}^{2} + 3x_{2}^{2} + 2x_{3}^{2} - 3x_{1}x_{2} - x_{2}x_{3} - 2x_{1}x_{3}
+  - `Raleigh quotient`
+21. f(x_{1}, x_{2}) = x_{1}^{2} + 3x_{1}x_{2} + 6x_{2}^{2}
