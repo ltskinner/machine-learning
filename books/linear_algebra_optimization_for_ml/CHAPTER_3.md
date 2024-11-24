@@ -1101,3 +1101,125 @@ Intuitively, these results make geometric sense from the perspective of the `ani
 
 - By picking the **largest** k eigenvectors (scaling directions), this sum is maximized.
 - By picking the **smallest** k directions, this sum is minimized.
+
+## 3.5 Numerical Algorithms for Finding Eigenvectors
+
+The simplest approach for finding eigenvectors of a dxd matrix A is to first find the d roots \lambda_1...\lambda_d of the equation det(A - \lambda I) = 0
+
+next, one has to solve linear systems of the form $(A - \lambda_{j} I)\bar{x} = 0  $. This can be done with Gaussian elimination method
+
+However, polynomial equation solvers are sometimes numerically unstable and have a tendency to show ill-conditioning in real-world settings. Finding the roots of a polynomial equation is numerically harder than finding eigenvalues of a matrix. In fact, one of the many ways in which high-degree polynomial equations are solved in engineering disciplines is to first construct a companion matrix of the polynomial, such that the matrix has the same charactersitic polynomial, and then find its eigenvalues:
+
+#### Problem 3.5.1 - Companion Matrix
+
+Consider
+
+A = [[0,1], [-c, -b]]
+
+discuss why the roots of the polynomial equation x^2 + bx + c = 0 can be computed using the eigenvalues of the matrix
+
+...
+
+In some cases, algorithms fro finding eigenvalues also yield the eigenvectors as byproduct, which is particularly convenient
+
+### 3.5.1 The QR Method via Schur Decomposition
+
+The QR algorithm uses the following two steps alternately in an iterative way:
+
+- 1. Decompose the matrix A = QR using the QR algorithm from 2.2.7. Here, R is an upper triangular matrix and Q is an orthogonal matrix
+- 2. Iterate by using $A = \Leftarrow Q^{T}AQ  $
+  - go to previous step
+
+The matrix Q^{T}AQ is similar to A, and therefore it has the same eigenvalues. A key result is that applying the transformation $A = \Leftarrow Q^{T}AQ  $ repeatedly to A results in the upper-triangular matrix U of the Schur decomposition
+
+In fact, if we keep track of the orthogonal matrices Q_{1}...Q_{s} obtained using QR decomposition (in that order) and deonte their product Q_{1}Q_{2}...Q_{s} by the single orthogonal matrix P, one can obtain the Schur decomposition of A in the form:
+
+$A = PUP^{T}  $
+
+The diagonal entries of this converged matrix U contain the eigenvalues. In general, the triangulization of a matrix is a natural way of finding its eigenvalues. After the eigenvalues \lambda_{1}...\lambda_{d} have been found, the eigenvectors can be found by solving the equations of the form $(A-\lambda_{j}I)\bar{x} = 0  $
+
+This approach is not fully optimized for computational spee, which can be improved by first transforming the matrix to `Hessenberg form`
+
+### 3.5.2 The Power Method for Finding Dominant Eigenvectors
+
+The power method finds the eigenvector with the largest *absolute* eigenvalue of a matrix, which is also referred to as its `dominant eigenvector` or `principal eigenvector`
+
+One caveat is that it is possible for the principal eigenvalue of the matrix to be complex, in which case the power method might not work. The following assumes the matrix has real-valued eigenvectors/eigenvalues, which is the case in many real-world applications
+
+Furthermore, we usually do not need all the eigenvectors, but only the top few eigenvectors. The power method is designed to find only the top eigenvector, although it can be used to find the top few eigenvectors with some modifications. Unlike the QR method, one can find eigenvectors and eigenvalues simultaneously, without the need to solve systems of equations after finding the eigenvalues. The power method is an iterative method, and the underlying iteratinos are also referred to as `von Mises iterations`
+
+Consider a dxd matrix A which is diagonalizable with real eigenvalues. Since A is a diagonalizable matrix, multiplication with A results in anisotropic scaling. If we multiply any column vector $\bar{x} \in R^d $ with A to create Ax, it will result in a linear distortion of x, in which directions corresponding to larger (absolute) eigenvalues are stretched to a greater degree. As a result, the (acute) angle between Ax and the largest eigenvector v will reduce from that between x and v. If we keep repeating this process, the transformations will eventually result in a vector pointing in the direction of the largest (absolute) eigenvector.
+
+Therefore, the power method starts by first initializing the d components of the vector x to random values from a uniform distribution in [-1, 1]. Subsequently, the following von Mises iteration is repeated to convergence:
+
+$\bar{x} \Leftarrow \frac{A\bar{x}}{\|A\bar{x}\|}  $
+
+Note that normalization of the vector in each iteration is essential to prevent overflow or underflow to arbitrarily large or small values. After convergence to the principal eigenvector v, one can compute the corresponding eigenvalue as a ratio of $\bar{v}^{T}A\bar{v} $ to $\|\bar{v}\|^{2} $ which is referred to as the `Raleigh quotient`
+
+Consider a situation in which we represent the starting vector x as a linear combination of the basis of d eigenvectors v_{1}...v_{d} with coefficients $\alpha_{1}...\alpha_{d}  $
+
+$\bar{x} = \sum_{i=1}^{d}\alpha_{i}\bar{v}_{i}  $
+
+If the eigenvalue of $\bar{v}_{i}$ is $\lambda_{i}$, then multiplying with A^{t} has the following effect:
+
+$A^{t}\bar{x} = \sum_{i=1}^{t}\alpha_{i}A^{t}\bar{v}_{i} = \sum_{i=1}^{t}\alpha_{i}\lambda_{i}^{t}\bar{v}_{i} \propto \sum_{i=1}^{t}\alpha_{i}(-1)^{t} \frac{|\lambda_{i}|^{t}}{\sum_{j=1}^{t}|\lambda_{j}|^{t}}\bar{v}_{i} $
+
+When t becomes large, the quantity on the right-hand side will be cominated by the effect of the largest eigenvector. This is because the factor $|\lambda_{1}^{t}| $ increases the proportional weight of the first eigenvector, when \lambda_{1} is the (strictly) largest eigenvalue. The fractional valyu will converge to 1 for the largest (absolute) eigenvector and to 0 for all others. As a result, the normalized version of A^ {t}x will point in the direction of the largest (absolute) eigenvector v_{1}.
+
+Note that this proof does depend on the fact that \lambda_{1} is strictly greater than the next eigenvalue, or else the convergence will not occur. Furthermore, if the top-2 eigenvalues are too similar, the convergence will be slow. However, large ML matrices (e.g. covariance matrices) are often such taht the top few eigenvalues are quite different in magnitude, and most of the similar eigenvalues are at the bottom with values of 0
+
+Furthermore, even when there are ties in the eigenvalues, the power method tends to find a vector that lies within the span of the tied eigenvectors
+
+#### Problem 3.5.2 - Inverse Power Iteration
+
+Let A be an invertible matrix. Discuss how you can use A^{-1} to discover the smallest eigenvector and egienvalue of A in absolute magnitude
+
+Basically do the inverse power law, and know that the eigenvalues of the inverse of A are the inverse of the eigenvalues. So the biggest eigenvalue of A^{-1} must be the largest for A
+
+#### Finding the Top-k Eigenvectors for Symmetric Matrices
+
+In most ML applications, one is looking not for the top eigenvector, but for the top-k eigenvectors. It is possible to use the power method to find the top-k eigenvectors. In symmetric matrices, the eigenvectors v_{1}...v_{d}, which define the columns of the basis matrix V, are orthonormal according to the following diagonalization:
+
+$A = V\Delta V^{T}  $
+
+The above relationship can also be arranged in terms of the column vectors of V and the eigenvalues $\lambda_{1}...\lambda_{d} $ of \Delta:
+
+$A = V \Delta V^{T} = \sum_{i=1}^{d} \lambda[\bar{v}_{i}\bar{v}_{i}^{T}]  $
+
+This result follows from the fact that any matrix product can be expressed as the sum of outer products. Applying Lemma 1.2.1 to the product of (V\Delta) and V^{T} yields the above result
+
+The decomposition implied by Eq. 3.43 (above) is referred to as a `spectral decomposition` of the matrix A. Each v_{i}v_{i}^{T} is a rank-1 matrix of size dxd, and \lambda_{i} is the weight of this matrix component. As will be discussed in Ch 7.2.3, spectral decomposition can be applied to any type of matrix (and not just symmetric matrices) using an idea referred to as `singular value decomposition`
+
+Consider the case in which we have already found the top eigenvector \lambda_{1} with eigenvalue v_{1}. Then, one can remove the effect of the top eigenvalue by creating the following modified matrix:
+
+$A' = A - \lambda\bar{v}_{1}\bar{v}^{T}   $
+
+As a result, the *second largest* eigenvalue of A becomes the dominant eigenvalue of A'. Therefore, by repeating the power iteration with A', one can now determine the second-largest eigenvector. The process can be repeated any number of times
+
+When the matrix A is sparse, one disdvantage of this method is that A' might not be sparse. Sparsity is a desirable feature of matrix representations, because of the space- and time-efficiency of sparse matrix operation. However, it is not necessary to represent the dense matrix A' explicitly. The matrix multiplication A'x for the power method can be accomplished using the following:
+
+$A'x = Ax - \lambda_{1}v_{1}(v_{1}^{T}x)  $
+
+It is important to note how we have bracketed the second term on the right-hand side. This avoids the explicit computation of a rank-1 matrix (which is dense), and it can be accomplished with simple dot product computation between v_{1} and x. This is an example of the fact that the associativity property of matrix multiplication is often used to ensure the best efficiency of matrix multiplication. One can also generalize these ideas to finding the top-k eigenvectors by removing the effect of the top-r eignevectors from A when finding the (r+1)th eigenvector
+
+#### Problem 3.5.3 - Generalization to Asymmetric Matrices
+
+The `power method` is designed to find the single largest eigenvector. The approach for finding the top-k eigenvectors makes the addition assumption of a symmetric matrix. Discuss where the assumption of a symmetric matrix was used in this section. Can you find a way to generalize the approach to arbitrary matrices assuming that the top-k eigenvalues are distinct?
+
+- symmetry used to ensure orthonormality
+
+Hint: the left eigenvectors may not be the same in asymmetric matrices (as in symmetric matrices) and both are needed in order to subtract the effect of dominant eigenvectors
+
+Hmm, maybe we do both a left and right multiplication
+
+#### Problem 3.5.4 - Finding Largest Eigenvectors
+
+The `power method` finds the top-k eigenvectors of largest *absolute* magnitude. In most applications, we also care about the sign of the eigenvector. In other words, an eigenvalue of +1 is greater than -2, when sign is considered. Show how you can modify the power method to find the top-k eigenvectors of a symmetric matrix when sign is considered
+
+Translate the eigenvalues to nonnegative values by modifying the matrix using the ideas already discussed in the section
+
+Oh lol just use a shift: $A' = A + \alpha I$ like we did earlier
+
+## 3.6 Summary
+
+Diagonalizable matrices represent a form of linear transformation, so that multiplication of a vector with such a matrix corresponds to anisotropic scaling of the vector in (possibly non-orthogonal) directions. Not all matrices are diagonalizable. Symmetric matrices are always diagonalizable, and they can be represented as scaling transformations in mutually orthogonal directions. When the scaling factors of symmetric matrices are nonnegative, they are referred to as positive semidefinite matrices. Such matrices frequently arise in different types of ML applications. Therefore, this chapter has placed a special emphasis on these types of matrices and their eigendecomposition properties. A number of key optimization applications of such matrices were introduced, which sets the stage for more detailed discussion later on

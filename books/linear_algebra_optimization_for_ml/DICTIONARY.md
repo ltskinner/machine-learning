@@ -19,11 +19,17 @@
 - `I` - `identity matrix`
 - `P` - `basis matrix`
   - basis of rotation or projection
-- Q - `orthogonal matrix`
-- R
+- `Q`
+  - orthogonal matrix
+  - QR decomposition
+- `R`
+  - upper triangular
 - L
 - U
+  - upper triangular
+  - Schur decomposition
 - `V` - `eigenvector matrix`
+  - is a basis
 - $\Delta$ - `diagonal matrix`
 - J (optimization)
 - `S` - `similarity matrix`
@@ -565,7 +571,7 @@
   - $\lambda < 0$ = flip v's direction
   - for a dxd matrix, there are *at most* d eigenvalues
   - triangular matrices contain eigenvalues on the main diagonal
-  - `eigenvalues` are the same regarless of `left` or `right` eigenvectors
+  - `eigenvalues` are the same regardless of `left` or `right` eigenvectors
 - $\Delta$
   - like an identity matrix, but each eigenvalue down the diagonal
 - `characteristic polynomial`
