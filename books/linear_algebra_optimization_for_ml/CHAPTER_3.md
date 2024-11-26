@@ -1309,3 +1309,15 @@ Diagonalizable matrices represent a form of linear transformation, so that multi
   - jordan decomposition
   - A = PJP^{-1}
   - J = \lambda I_{i} + N_{i}
+
+## 3.8 Exercises - Re-do
+
+### 1
+
+- orthogonal matrix
+  - square matrix where its inverse is its transpose
+- decomposed into:
+  - O(d^2) Givens rotations
+  - one elementary reflection (at most)
+
+Discuss how the sign of the determinant of A determines whether or not a reflection is needed

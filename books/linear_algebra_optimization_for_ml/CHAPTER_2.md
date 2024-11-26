@@ -98,7 +98,7 @@ $
 
 DV_{r} will rotate each **row** of D
 
-V_{c}D^{\top} will rotate each **column** of d
+V_{c}D^{\top} will rotate each **column** of D
 
 The two columns of the transformation matrix V_{r} represent the mutually orthogonal unit vectors of a new axis system that is rotated clockwise by \theta
 
