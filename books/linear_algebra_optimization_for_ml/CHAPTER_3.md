@@ -1321,3 +1321,18 @@ Diagonalizable matrices represent a form of linear transformation, so that multi
   - one elementary reflection (at most)
 
 Discuss how the sign of the determinant of A determines whether or not a reflection is needed
+
+the determinant is the product of eigenvalues. If an odd multiple of them is negative then we need to reflect
+
+### 2
+
+any matrix (including non orthogonal) can be decomposed into at most O(d) Householder reflections
+
++ is even number of reflections
+- is odd number of reflections
+
+### 3
+
+A^2 = 4I
+
+use $A\bar{x} = \lambda A $
