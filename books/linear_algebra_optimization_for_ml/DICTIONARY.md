@@ -547,7 +547,7 @@
   - requires matrix to be `non-singular` (i.e., invertible)
 - `eigenvector`
   - `column` *vectors* external to A
-  - $A\bar{x} = \lambda A $
+  - $A\bar{x} = \lambda \bar{x} $
   - eigenvectors are *special inputs*
   - eigenvectors point in the directions that remain unchanged under transformation
   - they have a property where when A is multiplied against them, they result in the original vector just being scaled by some scalar value - the `eigenvalue` $\lambda$
@@ -559,7 +559,7 @@
   - span the `column space`
 - `left eigenvector`
   - `row` *vectors* external to A
-  - $\bar{y}A = \lambda A  $
+  - $\bar{y}A = \lambda \bar{x}  $
   - If A is symmetric, the left and right eigenvectors are transpositions of each other
   - span the `row space`
 - $V$
@@ -628,7 +628,7 @@
   - less than r_{i} eigenvectors exist for an eigenvalue with algebraic multiplicity r_{i}
   - Closest we can get to diagonalization is the `Jordan normal form`
   - non-defective has a unique eigendirection (eigenvector) for each eigenvalue
-  - defective is missing eigendirections (eigenvalues) that contribute distinctly
+  - defective is missing eigendirections (eigenvector) that contribute distinctly
 - `geometric multiplicity`
   - do A - I
   - number of eigenvectors of an eigenvalue

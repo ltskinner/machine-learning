@@ -402,7 +402,7 @@ It seems geometrically intuitive that multiplying a vector with the mth power of
 
 Throughout this book, we have defined an eigenvector as a *column* vector satisfying $Ax = \lambda x$ for some scalar \lambda. Such an eigenvector is a right eigenvector because x occurs on the right side of the product Ax. When a vector is referred to as an "eigenvector" without mention of right or left, it referrs to the `right eigenvector` buy default.
 
-A `left eigenvector` is a *row* eigenvector y, such that $\bar{y}A = \lambda A $.
+A `left eigenvector` is a *row* eigenvector y, such that $\bar{y}A = \lambda \bar{y} $.
 
 It is necessary for y to be a row vector for y to occur on the left-hand side of the product yA. It is noteworthy that (the transposed representation) of a right eigenvector of a matrix *need not* be a left eigenvector, and vice versa, unless the matrix A is symmetric.
 
@@ -1335,4 +1335,8 @@ any matrix (including non orthogonal) can be decomposed into at most O(d) Househ
 
 A^2 = 4I
 
-use $A\bar{x} = \lambda A $
+use $A\bar{x} = \lambda x $
+
+### 9
+
+

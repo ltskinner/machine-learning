@@ -20,8 +20,8 @@
   - upper triangular
 - L
 - `U`
+  - upper triangular matrix
   - Schur decomposition
-  - upper triangular
   - contains eigenvalues on diagonal
   - A = PUP^{-1}
   - where P is orthogonal basis change matrix
@@ -49,6 +49,21 @@
       - $A = V\Delta V^{T}  $
       - with orthogonal matrix V
       - $A = V\Delta V^{T}  $ instead of $A = V\Delta V^{-1}  $
+- `nilpotent`
+  - when a matrix satisfies $A^{k} = 0 $ for some integer k
+  - strictly upper triangular with diagonal entries of 0
+- `idempotent`
+  - V^{k} = V
+- `idempotent property` of `projection matrices`:
+  - $P^2 = P = (QQ^{T})(QQ^{T}) = Q(Q^{T}Q)Q^{T} = QQ^{T} $ - note (Q^{T}Q) is an identity
+- `energy`
+  - another name for the squared Frobenius norm
+  - The energy of a rectangular matrix A is equal to the trace of either AA^{\top} or A^{\top}A
+    - $\|A\|_{F}^{2} = Energy(A) = tr(AA^{\top}) = tr(A^{\top}A)  $
+- `trace`
+  - tr(A) of a square matrix is defined by the sum of its diagonal entries
+  - tr(A) = \sum_{i=1}^{n} a_{ii}^{2}
+  - tr(A) is equal to the sum of the eigenvalues, whether it is diagonalizable or not
 
 ## Givens and Householder
 
@@ -76,8 +91,9 @@
 - `determinant`
   - the "volume" `scaling factor` of a matrix
   - product of `eigenvalues` $\det{(A)} \prod_{i} \lambda_{i}  $
-- `eigenvectors`
-  $A\bar{x} = \lambda A $
+- `eigenvectors` (right by default)
+  - right $A\bar{x} = \lambda \bar{x} $
+  - left $\bar{y}A = \lambda \bar{y} $
   - eigenvectors point in the directions that remain unchanged under transformation
   - they have a property where when A is multiplied against them, they result in the original vector just being scaled by some scalar value - the `eigenvalue` $\lambda$
 - `eigenvalues`
@@ -87,6 +103,55 @@
 - `diagonalization`
   - $B = V\Delta V^{-1}  $
   - Matrices containing repeated eigenvalues and missing eigenvectors of the repeated eigenvalues are *not diagonalizable*
+  - I think all symmetric, orthogonal matrices are diagonal matrices
+    - symmetric = A = A^T
+    - orthogonal = A^T = A^-1
+    - so, A = A^-1
+- `defective matrix`
+  - a matrix where a `diagonalization` *does not exist*
+  - missing eigendirections (eigenvectors) that contribute distinctly
+- `simultaneously diagonalizable`
+  - A diagonalizable matrix family that shares eigenvectors (but not eigenvalues)
+  - the columns of V are the eigenvectors of both A and B
+    - $A = V \Delta_{1} V^{T}  $ or $V^{T} A V = \Delta_{1}  $
+    - $B = V \Delta_{2} V^{T}  $ or $V^{T} B V = \Delta_{2}  $
+    - Here, \Delta_{1} and \Delta_{2} are diagonalizable matrices
+- `similar matrices`:
+  - when $B = VAV^{-1} $ for two matrices A and B
+  - similar matrices have the same eigenvalues (and their corresponding multiplicities)
+  - similar matrices perform similar operations, but in different basis systems
+
+## Jordan Normal Form
+
+For `defective` matrices: `Jordan Normal form` is the closest we can get to a `diagonalization`
+
+$A = V U V^{-1} $
+
+- U is an `upper triangular matrix`
+- diagonal entries containing eigenvalues in the same order as the corresponding generalized eigenvectors in V
+- entries above the diagonal can be 0 or 1.
+  - at most (d-1) entries
+  - is 0 if and only if the corresponding eigenvector is an ordinary eigenvector
+  - is 1 if it is not an ordinary eigenvector
+
+## Cayley-Hamilton
+
+if you have a characteristic equation:
+
+- p(\lambda) = (2 - \lambda)(2 - \lambda) - (1)(1)
+- = \lambda^2 - 4\lambda + 3
+- = A^2 - 4A + 3
+
+--> you can just insert the matrix A into \lambda directly for the characteristic equation
+
+"a matrix satisfies its own polynomial equation"
+
+formal from book:
+
+- the inverse of a `non-singular` matrix can always be expressed as:
+  - a polynomial of degree (d-1)
+- Let A be any matrix with characteristic polynomial $f(\lambda) = \det{(A - \lambda I)}  $.
+- Then, f(A) evaluates to the zero matrix
 
 ## Permutation Matrices
 
