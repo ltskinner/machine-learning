@@ -36,6 +36,17 @@
 
 ### Misc Properties
 
+- `orthogonal`
+  - to make a new vector orthogonal to another vector:
+    - first normalize v as $v/\|v\|$
+    - $v\cdot u = 0 $
+    - $v_{1}.u_{1} + v_{2}.u_{2} + v_{3}.u_{3} = 0  $
+  - to make a new vector orthogonal to two other vectors:
+    - $w = v \times u$ (cross product)
+    - $w = \begin{bmatrix}i & j & k \\ v_{1} & v_{2} & v_{3} \\ u_{1} & u_{2} & u_{3}\end{bmatrix} $
+    - $w = i|| - j|| + k||  $
+  - new basis would be:
+    - $P = [v, u, w]  $
 - `orthonormal`
   - A set of vectors is `orthonormal` if each pair in the set is mutually orthogonal and the norm of each vector is 1.
 - `symmetric matrix`
@@ -54,6 +65,8 @@
   - strictly upper triangular with diagonal entries of 0
 - `idempotent`
   - V^{k} = V
+- `indefinite`
+  - symmetric matrices with both positive and negative eigenvalues
 - `idempotent property` of `projection matrices`:
   - $P^2 = P = (QQ^{T})(QQ^{T}) = Q(Q^{T}Q)Q^{T} = QQ^{T} $ - note (Q^{T}Q) is an identity
 - `energy`
@@ -96,6 +109,9 @@
   - left $\bar{y}A = \lambda \bar{y} $
   - eigenvectors point in the directions that remain unchanged under transformation
   - they have a property where when A is multiplied against them, they result in the original vector just being scaled by some scalar value - the `eigenvalue` $\lambda$
+  - solving for eigenvectors from eigevnalues:
+    - solve (Q - \lambda_{1}I)v = 0
+    - (do for each eigenvalue you have)
 - `eigenvalues`
   - the value an eigenvector is scaled by when A is multiplied against it
   - --> sum is Trace
@@ -153,6 +169,46 @@ formal from book:
 - Let A be any matrix with characteristic polynomial $f(\lambda) = \det{(A - \lambda I)}  $.
 - Then, f(A) evaluates to the zero matrix
 
+## `Raleigh quotient` or `Rayleigh quotient`
+
+- Only works for 2nd order polynomials
+- f(x) = x^T Q x - `quadratic form`
+  - where x = [x1, x2, x3]
+- start w/ polynomial
+  - f(x_{1}, x_{2}, x_{3}) = 2x_{1}^{2} + 3x_{2}^{2} + 2x_{3}^{2} - 3x_{1}x_{2} - x_{2}x_{3} - 2x_{1}x_{3}
+- **literally divide off-diagonal entries by 2** - ONLY EVER BY 2 BECAUSE ONLY EVER FOR 2ND ORDER BILINEAR TERM POLYNOMIALS
+- write symmetric matrix of terms: as Q = 
+  - [   2, -3/2,   -1]
+  - [-3/2,    3, -1/2]
+  - [  -1, -1/2,    2]
+- knowing $\|x\| = 1$, means $x^T x = 1$
+- min value occurs when x is the eigenvector of Q corresponding to the smallest eigenvalue
+- solve the $2 - \lambda$ matrix to get the characteristic polynomial
+
+Ok up next:
+
+- $f(x) = \bar{x}^{T}Q\bar{x} = \bar{y}^{T}\Lambda \bar{y}  $
+  - where: $\bar{y} = P^{T}\bar{x}  $
+  - so $f(x) = (P^{T} \bar{x})^{T} \Lambda P^{T}\bar{x} $
+
+Steps to solve for optimal solution:
+
+- 1. Construct Q for $f(x) = \bar{x}^{T}Q\bar{x}$
+  - diagonal is factors of {}x^2
+  - off-diagonal are {}x_{1}x_{2} / 2 - always divide by 2
+- 2. solve for eigenvalues with $det(Q - \lambda I) = 0$
+- 3. solve for eigenvectors with $(Q - \lambda_{n} I)\bar{v}_{n} = 0$
+  - plug in each eigenvalue \lambda_{n} corresponding to eigenvector \bar{v}_{n}
+  - do gaussian elimination thing
+  - normalize each vector
+  - P = the normalized eigenvectors
+- 4. $f(x) = (P^{T} \bar{x})^{T} \Lambda P^{T}\bar{x} $
+  - or $\bar{y} = P^{T}\bar{x}  $
+  - so $f(x) = \bar{y}^{T}\Lambda \bar{y}$
+- 5. re-write $f(x_{1}, x_{2}) = f(y_{1}, y_{2}) = \lambda_{1}y_{1}^{2} + \lambda_{2}y_{2}^{2}
+  - (where \lambda_{n} are the eigenvalues)
+- 6. optimal solution occurs when *x is the eigenvector* that corresponds to the **smallest eigenvalue**
+
 ## Permutation Matrices
 
 ### Rotation
@@ -183,6 +239,14 @@ $ V_{c} =
 \sin{\theta} & \cos{\theta}
 \end{bmatrix}
 $
+
+### 3x3 Rotation Matrices
+
+$\begin{bmatrix}1 & 0 & 0 \\ 0 & \cos(\theta) & -\sin(\theta) \\ 0 & \sin(\theta) & \cos(\theta)\end{bmatrix} $
+
+Here, the eigenvalues of all 3x3 rotation matrices are:
+
+$[1, e^{i\theta}, e^{-i\theta} ]  $
 
 ### Reflection
 
