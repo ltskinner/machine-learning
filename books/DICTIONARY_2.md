@@ -34,6 +34,62 @@
 - Gram matrix ? (do we include this - easy for things to spiral past specific one letter names)
 - `H` - `Hessian matrix`
 
+## Vectors
+
+- `vectors`
+  - each numerical value is referred to as a `coordinate`
+- `tail` is at the origin
+- `head` is at the coordinate
+- addition, subtraction:
+  - x + y = [(x_1 + y_1), ..., x_n + y_n ]
+- scalar multiplication
+  - ax = [ax_1, ..., ax_n]
+- `dot product` aka `inner product`
+  - $x \cdot y = \sum_{i=1}^{d} x_{i}y_{i} $
+  - give you scalar projections
+- `norm` or `euclidean norm`
+  - $\|x\|^{2} = x \cdot x = \sum_{i}^{d}x_{i}^{2}  $
+  - taking sqrt of this is `euclidean distance/length from origin`
+- `cross products`
+  - give you a new `vector`
+- `orthogonal`
+  - if `dot product` is 0 9aka the angle bw is 90deg
+- `orthonormal`
+  - each pair of vectors is mutually orthogonal
+  - norm of each vector is 1 (unit vectors)
+- `projection`
+  - a new set of coordinates wrt a new changed set of directions
+  - "the 1-dim projection operation of a vector x on a unit vector is the dot product"
+  - x is modified to point *in the direction of the unit vector*
+
+### `Cauchy-Schwarz inqeuality`
+
+The dot product between a pair of vectors is bounded *above* by the product of their lengths
+
+$|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar{y}\|  $
+
+## Vectors and Matrices
+
+- $A\bar{x}$ - where $\bar{x}$ is a col vector
+  - remember ---| so this is each row times x
+    - each rows products are added to create a scalar
+    - produces nx1 column vector
+- $\bar{y}A$ - where $\bar{y}$ is a row vector
+  - remember ---|, so this is y times each col
+    - produces 1xd row vector
+- `linear transformation`
+  - the Ax operation
+  - transforms from a d-dimensional space to an n-dimensional space
+    - nxd dx1 --> nx1
+    - each row contains values that span the columns
+  - Ax is effectively a **weighted sum** of the columns of A
+    - so x is the weights, corresponding to each column
+    - for each row, the weight is applied to the value for each column
+  - $A\bar{x} = \sum_{i=1}^{d} x_{i}\bar{a}_{i} = \bar{b} $
+    - each x_{i} corresponds to the weight of the ith direction a_{i}
+      - which is the ith coordinate of b
+    - scaling factor of directions. Each index of b corresponds to a direction
+
 ### Misc Properties
 
 - `orthogonal`

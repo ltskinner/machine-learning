@@ -72,6 +72,16 @@
   - the number of `components` is referred to as the vector `dimensionality`
   - dot products give you scalar projections
   - cross products give you a new vector
+  - `tail` is at the origin
+  - `head` is at the coordinate
+  - addition, subtraction:
+    - x + y = [(x_1 + y_1), ..., x_n + y_n ]
+  - scalar multiplication
+    - ax = [ax_1, ..., ax_n]
+  - `dot product` aka `inner product`
+    - $x \cdot y = \sum_{i=1}^{d} x_{i}y_{i} $
+  - `norm` or `euclidean norm` or `euclidean distance/length from origin`
+    - $\|x\|^{2} = x \cdot x = \sum_{i}^{d}x_{i}^{2}  $
 - `matrices`
   - rectagular arrays of numerical values containing both rows and column
   - to access a value, must specify its row index and column index
