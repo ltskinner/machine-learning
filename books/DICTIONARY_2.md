@@ -54,7 +54,7 @@
 - `cross products`
   - give you a new `vector`
 - `orthogonal`
-  - if `dot product` is 0 9aka the angle bw is 90deg
+  - if `dot product` is 0 aka the angle bw is 90deg
 - `orthonormal`
   - each pair of vectors is mutually orthogonal
   - norm of each vector is 1 (unit vectors)
@@ -105,7 +105,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - the inverse of an `orthogonal matrix` is its transpose
   - if there are no 0 `eigenvalues` then a matrix must be invertible
   - the `determinant` of A det(A) != 0 if A is invertible
-- `inverting singular matrices`
+- `inverting singular matrices` - `matrix inversion lemma`
   - $(I + A)^{-1} = I - A + A^2 - A^3 + A^4 + ... + $ Infinite Terms
   - $(I - A)^{-1} = I + A + A^2 + A^3 + A^4 + ... + $ Infinite Terms
 - `symmetric matrix`
@@ -120,6 +120,8 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
       - with orthogonal matrix V
       - $A = V\Delta V^{T}  $ instead of $A = V\Delta V^{-1}  $
 - `orthogonal`
+  - $A^T A = I_d$
+    - note, $PP^T = I$ is fine but P must be square, the above works for rectangular
   - $A^{T} = A^{-1}$
   - to make a new vector orthogonal to another vector:
     - first normalize v as $v/\|v\|$
@@ -373,7 +375,7 @@ $
 
 ### Addition
 
-"add c x(row 2) to row 1" - pre multiply
+"add c x (row 2) to row 1" - pre multiply
 
 $
 \begin{bmatrix}
