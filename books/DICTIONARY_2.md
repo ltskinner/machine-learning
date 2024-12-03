@@ -166,6 +166,11 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - tr(A) of a square matrix is defined by the sum of its diagonal entries
   - tr(A) = \sum_{i=1}^{n} a_{ii}^{2}
   - tr(A) is equal to the sum of the eigenvalues, whether it is diagonalizable or not
+- Frobenius orthogonal
+  - matrices A, B are Frobenius orthogonal when
+  - tr(AB^T) = 0
+  - or
+  - $\|A + B\|_{F}^{2} = \|A\|_{F}^{2} + \|B\|_{F}^{2}  $
 
 ## Givens and Householder
 

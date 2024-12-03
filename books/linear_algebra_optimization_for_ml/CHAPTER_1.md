@@ -1058,7 +1058,10 @@ An alternative view of ML expresses predictions as computational graphs; this id
 - 29. Solid geometry with vector algebra
   - system of linear equations
   - the closest point on a hyperplane to a point not on the hyperplane, is the orgin of a vector orthogonal to the hyperplane whose head is at the point not on the hyperplane
+  - "since b lies in the span of v1 and v2 (aka on the hyperplane)", we can write:
+    - b = Vc
 - 30. 
+  - just like remember that rectangular matrices are not invertible, but if you do the VV^T, you get a square, that could be invertible
 - 31. Matrix centering
   - basically, use vector of 1s cross a vector of the mean value of each column
 - 32. Energy preservation in orthogonal transformations
