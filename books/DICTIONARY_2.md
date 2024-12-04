@@ -208,6 +208,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - I think all symmetric, orthogonal matrices are diagonal matrices
     - symmetric = A = A^T
     - orthogonal = A^T = A^-1
+    - diagonal = all zeros except the diagonal
     - so, A = A^-1
 - `defective matrix`
   - a matrix where a `diagonalization` *does not exist*

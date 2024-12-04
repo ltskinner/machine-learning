@@ -902,7 +902,7 @@ First, consider the unvariate fn f(w) (univariate = one variable). This fn can b
 
 $f(w) = f(a) + (w - a)f'(a) + \frac{(w - a)^{2}f''(a)}{2!} + ... + \frac{(w-a)^{r}}{r!} [\frac{d^{r}f(w)}{d w^{r}} ]_{w=a}  + ... $
 
-f'(w) is the first derivative at a, f''(w) is the sceond, etc. Note that f(w) could be an arbitrary fn, such as sin(w) or exp(w), and the expansion expresses it as a polynomial with an infinite number of terms
+f'(w) is the first derivative at a, f''(w) is the second, etc. Note that f(w) could be an arbitrary fn, such as sin(w) or exp(w), and the expansion expresses it as a polynomial with an infinite number of terms
 
 Some functions expressed as an infinite polynomial make sense bc limit as n to inf for w (n/n!) = 0
 
