@@ -106,8 +106,11 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - if there are no 0 `eigenvalues` then a matrix must be invertible
   - the `determinant` of A det(A) != 0 if A is invertible
 - `inverting singular matrices` - `matrix inversion lemma`
-  - $(I + A)^{-1} = I - A + A^2 - A^3 + A^4 + ... + $ Infinite Terms
-  - $(I - A)^{-1} = I + A + A^2 + A^3 + A^4 + ... + $ Infinite Terms
+  - Neumann Series:
+    - $(I + A)^{-1} = I - A + A^2 - A^3 + A^4 + ... + $ Infinite Terms
+    - $(I - A)^{-1} = I + A + A^2 + A^3 + A^4 + ... + $ Infinite Terms
+  - Sherman-Morrison-Woodburry Identity:
+    - $(A + UV^{\T})^{-1} = A^{-1} - A^{-1}U(I + V^{\top}A^{-1}U)^{-1}V^{\T}A^{-1}  $
 - `symmetric matrix`
   - is a square matrix that is its own transpose
   - A = A^T
@@ -155,6 +158,28 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - tr(A) of a square matrix is defined by the sum of its diagonal entries
   - tr(A) = \sum_{i=1}^{n} a_{ii}^{2}
   - tr(A) is equal to the sum of the eigenvalues, whether it is diagonalizable or not
+
+## Push Through Identity
+
+### For Inverses
+
+Core:
+
+$A(BA)^{-1} = B^{-1}(A^-1) $ b/c $(AB)^{-1} = B^{-1}A^{-1}  $
+
+Alternative:
+
+- $A^{-1}BC^{-1} = (AC)^{-1}(ABC)  $
+- $(I + AB)^{-1}A = A(I + BA)^{-1}  $
+- $(I + AB)^{-1} = I - AB(I + AB)^{-1} = I - A(I + BA)^{-1}B  $
+
+Inverse of a Sum
+
+$(A + B)^{-1} = A^{-1} - A^{-1}(AB^{-1} + I)^{-1}  $
+
+### For Transposes
+
+$A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
 
 ## Norms
 
@@ -237,7 +262,13 @@ $A = V U V^{-1} $
   - is 0 if and only if the corresponding eigenvector is an ordinary eigenvector
   - is 1 if it is not an ordinary eigenvector
 
-## Cayley-Hamilton
+## Polynomial Function
+
+$f(A) = \sum_{i=0}^{k} c_{i}A^{i}$
+
+$f(A) = c_{0}I + c_{1}A + c_{2}A^{2} + ... + c_{k}A^{k}$
+
+### Cayley-Hamilton
 
 if you have a characteristic equation:
 
