@@ -164,7 +164,7 @@ Show that the elementary reflection matrix, which varies from the id matrix only
 
 #### Problem 2.2.4 - Generalized Householder
 
-Show that a sequence of k mutually orthogonal Householder transformations can be expressed as $I - 2QQ^{\top} $ for a dxk matrix Q containing orthonormal columns. Which (d-k)-dimensional plane is that reflection in
+Show that a sequence of k mutually orthogonal Householder transformations can be expressed as $I - 2QQ^{\top} $ for a dxk matrix Q containing orthonormal columns. Which (d-k)-dimensional plane is that reflection in?
 
 #### Rigidity of Orthogonal Transformations
 

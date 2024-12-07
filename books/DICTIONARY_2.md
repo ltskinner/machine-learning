@@ -11,13 +11,15 @@
 - `I` - `identity matrix`
 - `P` - `basis matrix` - `projection matrix`
   - basis of rotation or projection
-- `Q`
-  - `orthogonal matrix`
+- `Q` - `orthogonal matrix`
   - QR decomposition
   - A matrix where its transpose is its inverse
   - AA^T = AA^{-1} = I
+  - the product of any number of orthogonal matrices is always an orthogonal matrix
 - `R`
   - upper triangular
+  - rotation matrix
+  - $\begin{bmatrix}1 & 0 & 0 \\0 & -1 & 0 \\0 & 0 & -1\end{bmatrix} $
 - `L`
   - lower triangular
 - `U`
@@ -29,6 +31,10 @@
 - `V` - `eigenvector matrix`
   - is a basis
 - $\Delta$ - `diagonal matrix`
+  - only values on the diagonal
+  - multiplication with $\Delta$ scales the:
+    - rows of A, if $\Delta A = \lambda_{i}a_{ij} $
+    - cols of A, if $A\Delta = a_{ij} \lambda_{j} $
 - $\Lambda$ - `eigenvalues matrix`
 - `J` (optimization)
 - `S` - `similarity matrix`
@@ -78,18 +84,81 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 - $\bar{y}A$ - where $\bar{y}$ is a row vector
   - remember ---|, so this is y times each col
     - produces 1xd row vector
-- `linear transformation`
-  - the Ax operation
-  - transforms from a d-dimensional space to an n-dimensional space
-    - nxd dx1 --> nx1
-    - each row contains values that span the columns
-  - Ax is effectively a **weighted sum** of the columns of A
-    - so x is the weights, corresponding to each column
-    - for each row, the weight is applied to the value for each column
-  - $A\bar{x} = \sum_{i=1}^{d} x_{i}\bar{a}_{i} = \bar{b} $
-    - each x_{i} corresponds to the weight of the ith direction a_{i}
-      - which is the ith coordinate of b
-    - scaling factor of directions. Each index of b corresponds to a direction
+- col vector: Ux
+- row vector: yU^{t} (for same matrix U)
+- cols of data matrix D: UD or V_{col}D^{T}
+- rows of data matrix D: DU^{T} or DV_{row}
+
+### `linear transformation`
+
+Core linear transform:
+
+- $f(c\bar{x}) = c \cdot f(\bar{x})  $
+- $f(\bar{x} + \bar{y}) = f(\bar{x}) + f(\bar{y})  $
+
+Aka:
+
+- scalar multuplication of a vector
+- addition of two vectors
+
+In context of Matrix multiplication:
+
+- $Ax$ acts like $cx$, making it a linear transform
+
+### `translation` (as a special case of `affine transforms`)
+
+**not** a linear transform
+
+- $f(\bar{x}) = \bar{x} + \bar{y}  $
+- THIS IS DIFFERENT THAN:
+  - $f(\bar{x} + \bar{y}) = f(\bar{x}) + f(\bar{y})  $
+
+#### `Ax` `linear transform` specifically
+
+- the Ax operation
+- transforms from a d-dimensional space to an n-dimensional space
+- transforms to a n-dimensional space from a d-dimensional space
+  -  A   x
+  - nxd dx1 --> nx1
+  - each row contains values that span the columns
+- Ax is effectively a **weighted sum** of the columns of A
+  - so x is the weights, corresponding to each column
+  - for each row, the weight is applied to the value for each column
+- $A\bar{x} = \sum_{i=1}^{d} x_{i}\bar{a}_{i} = \bar{b} $
+  - each x_{i} corresponds to the weight of the ith direction a_{i}
+    - which is the ith coordinate of b
+  - scaling factor of directions. Each index of b corresponds to a direction
+
+### `affine transforms`
+
+the combination of a `linear transformation` with a `translation`:
+
+$f(\bar{x}) + A\bar{x} + \bar{c} $
+
+formally (READ THIS IN BROWSER):
+
+$f(\lambda\bar{x}) + [1 - \lambda]\bar{y} = \lambda f(\bar{x}) + [1 - \lambda]f(\bar{y})  $
+
+linear transforms are a subset of affine transforms
+
+### Terms in this book
+
+- `linear transform` = `linear operator`
+  - translation not allowed
+- `linear function`
+  - when translation is allowed
+
+### Vector and Matrix Multiplication
+
+A multiplication of a `vector` and a `matrix` is some combination of:
+
+- rotation
+- scaling
+- reflection
+
+Applied to **the vector**
+
+(the vector is "the thing", and the matrix contains the information about what to do with the thing)
 
 ### Misc Properties
 
@@ -115,8 +184,8 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
       - $(A + UCV^{T})^{-1} = A^{-1} - A^{-1}U(C^{-1} + V^{T}A^{-1}U)^{-1}V^{T}A^{-1} $
       - same except for C, which is the I
 - `diagonal matrix`
-  - because only values on the diagonal
-  - multiplication with $\Delta$ just scales the:
+  - only values on the diagonal
+  - multiplication with $\Delta$ scales the:
     - rows of A, if $\Delta A = \lambda_{i}a_{ij} $
     - cols of A, if $A\Delta = a_{ij} \lambda_{j} $
 - `symmetric matrix`
@@ -213,10 +282,13 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
   - where rows and columns correspond to plane_1 and plane_2, with cos and sin operators
   - note, row and col G_{r|c} matrices are inverts of each other
   - there is usually an elementary reflection included as well
+  - G_{col}(2, 4, \alpha)\bar{x} = \bar{x}^{T}G_{row}(2, 4, \alpha)
+    - pre multiply vs post multiply
 - `Householder reflection matrix`
   - `orthogonal matrix` that reflects a vector x into any "mirror" hyperplane of arbitrary orientation
   - v **must** be normalized
   - $Q = (I - 2\bar{v}\bar{v}^{\top})$ is an `elementary reflection matrix`
+  - $\bar{x}' = Q\bar{x}  $
 
 ## EigenX
 
@@ -341,16 +413,9 @@ Steps to solve for optimal solution:
 
 rotate ccw by \theta
 
-$
-\begin{bmatrix}
-\cos(\theta) & -sin(\theta) \\
-\sin(\theta) & cos(\theta)
-\end{bmatrix}
-$
-
 DV_{r} will rotate each **row** of D
 
-$ V_{r} =
+$ V_{row} =
 \begin{bmatrix}
 \cos{\theta} & \sin{\theta} \\
 -\sin{\theta} & \cos{\theta}
@@ -359,7 +424,7 @@ $
 
 V_{c}D^{T} will rotate each **column** of D
 
-$ V_{c} =
+$ V_{col} =
 \begin{bmatrix}
 \cos{\theta} & -\sin{\theta} \\
 \sin{\theta} & \cos{\theta}
@@ -378,12 +443,26 @@ $[1, e^{i\theta}, e^{-i\theta} ]  $
 
 reflect across X-axis
 
+2d:
+
 $
 \begin{bmatrix}
 1 & 0 \\
 0 & -1
 \end{bmatrix}
 $
+
+3d:
+
+$
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & -1
+\end{bmatrix}
+$
+
+remember - the axis being rotated about is left unchanged, but the other axis need to change
 
 ### Scale
 
