@@ -110,7 +110,15 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
     - $(I + A)^{-1} = I - A + A^2 - A^3 + A^4 + ... + $ Infinite Terms
     - $(I - A)^{-1} = I + A + A^2 + A^3 + A^4 + ... + $ Infinite Terms
   - Sherman-Morrison-Woodburry Identity:
-    - $(A + UV^{\T})^{-1} = A^{-1} - A^{-1}U(I + V^{\top}A^{-1}U)^{-1}V^{\T}A^{-1}  $
+    - $(A + UV^{T})^{-1} = A^{-1} - A^{-1}U(I + V^{T}A^{-1}U)^{-1}V^{T}A^{-1}  $
+    - Full:
+      - $(A + UCV^{T})^{-1} = A^{-1} - A^{-1}U(C^{-1} + V^{T}A^{-1}U)^{-1}V^{T}A^{-1} $
+      - same except for C, which is the I
+- `diagonal matrix`
+  - because only values on the diagonal
+  - multiplication with $\Delta$ just scales the:
+    - rows of A, if $\Delta A = \lambda_{i}a_{ij} $
+    - cols of A, if $A\Delta = a_{ij} \lambda_{j} $
 - `symmetric matrix`
   - is a square matrix that is its own transpose
   - A = A^T
