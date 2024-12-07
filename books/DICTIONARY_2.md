@@ -152,13 +152,21 @@ linear transforms are a subset of affine transforms
 
 A multiplication of a `vector` and a `matrix` is some combination of:
 
-- rotation
-- scaling
-- reflection
+- rotation - rigid
+- scaling - NOT rigid
+- reflection - rigid
 
 Applied to **the vector**
 
 (the vector is "the thing", and the matrix contains the information about what to do with the thing)
+
+### Vector Spaces
+
+- `linear independence`
+  - for a set of non-zero (non-trivial) scalar coeffs [x_1, ..., x_{d}]
+  - $\sum_{i=1}^{d} x_{i}\bar{a}_{i} != \bar{0}$
+  - basically, theres no coeffient that can be applied to any combination of vectors that would result in the sum of those vectors being 0
+  - means $[\bar{a}_{i}...\bar_{a}_{d}]$ are `mutually orthogonal`
 
 ### Misc Properties
 
@@ -439,7 +447,7 @@ Here, the eigenvalues of all 3x3 rotation matrices are:
 
 $[1, e^{i\theta}, e^{-i\theta} ]  $
 
-### Reflection
+### Reflection - rigid
 
 reflect across X-axis
 
@@ -464,7 +472,14 @@ $
 
 remember - the axis being rotated about is left unchanged, but the other axis need to change
 
-### Scale
+### Scale - NOT rigid
+
+- same between pre- and post-
+- aka:
+  - `dilation`
+  - `contraction`
+- `anisotropic` - when scaling factors across different dimensions are different
+
 
 scale x and y by factors of c_{1} and c_{2}
 
@@ -475,7 +490,7 @@ c_{1} & 0 \\
 \end{bmatrix}
 $
 
-### Interchange
+### Interchange - rigid
 
 "interchange rows 1, 2" - pre multiply
 
@@ -519,7 +534,7 @@ c & 1 & 0 \\
 \end{bmatrix}
 $
 
-### Scaling
+### Scaling - not RIGID
 
 "multiply row 2 by c" - pre multiply
 
