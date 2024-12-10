@@ -167,6 +167,46 @@ Applied to **the vector**
   - $\sum_{i=1}^{d} x_{i}\bar{a}_{i} != \bar{0}$
   - basically, theres no coeffient that can be applied to any combination of vectors that would result in the sum of those vectors being 0
   - means $[\bar{a}_{i}...\bar_{a}_{d}]$ are `mutually orthogonal`
+  - linearly independent square matrices are invertible
+- `basis`
+  - a minimal set of vectors so that all vectors can be expressed as linear combinations
+    - so $\bar{v} = \sum_{i=1}^{d} x_{i}\bar{a}_{i}  $
+  - *The vectors in a basis must be linearly independent*
+  - is a **maximal** set of `linearly independent` vectors in it
+  - non-orthogonal basis systems are a pain to deal with
+  - orthogonal basis are pog
+- `normal equation`
+  - $\bar{b} - \bar{p}$ or $A\bar{x} - \bar{v}$ are oorthogonal
+  - $V^{T}(\bar{b} - \bar{p}) = \bar{0}  $
+  - where $b = Vc$
+  - or
+  - $A^{T}(A\bar{x} - \bar{v}) = \bar{0}  $
+  - where:
+    - A is some basis (linearly independent matrix)
+    - Ax is how you compute the point on the plane the basis represents that is closest to p/v
+      - (from above - where b is the point, V is the basis, and c is the coefficents)
+    - remember to distribute the A^T and then invert A^{T}A as (A^{T}A)^{-1} to solve for x
+- `dimensionality` (of a vector space)
+  - The number of members in every possible basis set of a vector space V is always the same
+- `transform` form:
+  - $\bar{x}_{b} = P_{a -> b} \bar{x}_{a}$
+  - transform to b from a using P
+    - P performs the transform from a to b
+  - lineage:
+    - $A\bar{x}_{a} = B\bar{x}_{b} = \bar{x}  $
+    - reorganizing:
+    - $\bar{x}_{b} = [B^{-1}A]\bar{x}_{a}  $ where $P_{a -> b} = [B^{-1}A] $
+  - for non-square non-invertible:
+    - $\bar{x}_{b} = (B^{T}B)^{-1} B^{T}A \bar{x}_{a}  $
+- `span` (like the C-Space I feel like)
+  - the vector space defined by all possible linear combinations of the vectors in a set
+- `disjoint vector space`
+  - if two spaces do not contain any vector in common (other than the zero vector)
+  - disjoint pairs of vector spaces do NOT need to be `orthogonal`
+- `orthogonal vector spaces`
+  - if for any pair of vectors from each space, their dot product is zero
+    - e.g. $\bar{x} \cdot \bar{w} = 0  $
+  - orthogonal vector spaces are always `disjoint`
 
 ### Misc Properties
 
@@ -182,6 +222,7 @@ Applied to **the vector**
   - the inverse of an `orthogonal matrix` is its transpose
   - if there are no 0 `eigenvalues` then a matrix must be invertible
   - the `determinant` of A det(A) != 0 if A is invertible
+  - invertibility implies linearly independent cols (and/or linearly independent rows)
 - `inverting singular matrices` - `matrix inversion lemma`
   - Neumann Series:
     - $(I + A)^{-1} = I - A + A^2 - A^3 + A^4 + ... + $ Infinite Terms
