@@ -538,7 +538,7 @@ basically, an orthogonal (perpendicular) vector exiting a 2d subspace
 
 #### Problem 2.3.2
 
-{[1, 1, 1]^T} and {[1, 0, 0]^T, [0, 1, 0]^T}, express [0, 1, 1]^T as the sum of two vectors, such that each of them belongs to one of the two subspaces
+{[1, 1, 1]^T} and {[1, 0, 0]^T, [0, 1, 0]^T}, express [0, 1, 1]^T as the sum of two vectors, such that each of them belongs to one of the two spaces
 
 solve with row operations, [0, 1, 1] = v1 + v2 = a[1, 1, 1] + (b[1, 0, 0] + c[0, 1, 0])
 

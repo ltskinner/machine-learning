@@ -59,6 +59,10 @@
   - taking sqrt of this is `euclidean distance/length from origin`
 - `cross products`
   - give you a new `vector`
+  - i  j  k
+  - a1 a2 a3
+  - b1 b2 b2
+  - - i - j + k
 - `orthogonal`
   - if `dot product` is 0 aka the angle bw is 90deg
 - `orthonormal`
@@ -176,16 +180,39 @@ Applied to **the vector**
   - non-orthogonal basis systems are a pain to deal with
   - orthogonal basis are pog
 - `normal equation`
-  - $\bar{b} - \bar{p}$ or $A\bar{x} - \bar{v}$ are oorthogonal
+  - $\bar{b} - \bar{p}$ or $A\bar{x} - \bar{v}$ are orthogonal
   - $V^{T}(\bar{b} - \bar{p}) = \bar{0}  $
   - where $b = Vc$
+    - b = Vc projects coefficents c onto the space spanned by the columns of V
+    - V projects coordinates onto d-dimensional space
+      - V projects coordinate vector c onto b
+      - V is the projection matrix
+    - c describes the coordinates of b in the k-dimensional basis defined by V
   - or
   - $A^{T}(A\bar{x} - \bar{v}) = \bar{0}  $
+    - ->$A^{T}A\bar{x} - $A^{T}\bar{v} = $A^{T}\bar{0}  $
+    - ->$A^{T}A\bar{x} = $A^{T}\bar{v}  $
+    - ->$\bar{x} = (A^{T}A)^{-1}$A^{T}\bar{v}  $
   - where:
     - A is some basis (linearly independent matrix)
     - Ax is how you compute the point on the plane the basis represents that is closest to p/v
       - (from above - where b is the point, V is the basis, and c is the coefficents)
     - remember to distribute the A^T and then invert A^{T}A as (A^{T}A)^{-1} to solve for x
+- `projection formula`
+  - simplification of the normal equation for when the projection "matrix" is a 1d basis (vector)
+  - from form b = Vc
+  - $c = \frac{v^T b}{v^T v}$
+  - lineage:
+    - $A^{T}(A\bar{x} - \bar{v}) = \bar{0}  $
+    - becomes
+    - $\bar{x} = (A^{T}A)^{-1}$A^{T}\bar{v}  $
+    - for 1d matrices (vectors), (A^{T}A)^{-1} becomes 1/(A^{T}A)^{-1}
+  - we say:
+    - $c = Proj_{v}(b) = \frac{v^T b}{v^T v} $
+    - read as the direction of v that b covers/aligns with
+      - the "shadow" of b onto direction v
+    - the fractional part is the *magnitude* of b in the direction of v
+    - multiplying this magnitude * b gives you the actual projection vector
 - `dimensionality` (of a vector space)
   - The number of members in every possible basis set of a vector space V is always the same
 - `transform` form:
