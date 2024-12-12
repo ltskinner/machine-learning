@@ -172,6 +172,16 @@ Applied to **the vector**
   - basically, theres no coeffient that can be applied to any combination of vectors that would result in the sum of those vectors being 0
   - means $[\bar{a}_{i}...\bar_{a}_{d}]$ are `mutually orthogonal`
   - linearly independent square matrices are invertible
+  - [http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/indep/examples.html](http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/indep/examples.html)
+    - Two vectors from the origin are NOT parallel (overlapping)
+    - If are parallel, each is just a scaling of the other
+    - In 3d space, if three vectors lie in a plane, they are NOT independent
+      - the 3rd vector can be computed as a linear combination of other 2
+    - 2d:
+      - v = 2u (scaling)
+    - 3d:
+      - v = 2u + 4w (scaling, but each)
+      - v = [u,w][2, 4]^T  
 - `basis`
   - a minimal set of vectors so that all vectors can be expressed as linear combinations
     - so $\bar{v} = \sum_{i=1}^{d} x_{i}\bar{a}_{i}  $
@@ -184,10 +194,11 @@ Applied to **the vector**
   - $V^{T}(\bar{b} - \bar{p}) = \bar{0}  $
   - where $b = Vc$
     - b = Vc projects coefficents c onto the space spanned by the columns of V
+        - b = V_{c -> b}c
     - V projects coordinates onto d-dimensional space
       - V projects coordinate vector c onto b
       - V is the projection matrix
-    - c describes the coordinates of b in the k-dimensional basis defined by V
+    - c describes the coordinates of b in the n-dimensional basis defined by V
   - or
   - $A^{T}(A\bar{x} - \bar{v}) = \bar{0}  $
     - ->$A^{T}A\bar{x} - $A^{T}\bar{v} = $A^{T}\bar{0}  $
@@ -225,8 +236,9 @@ Applied to **the vector**
     - $\bar{x}_{b} = [B^{-1}A]\bar{x}_{a}  $ where $P_{a -> b} = [B^{-1}A] $
   - for non-square non-invertible:
     - $\bar{x}_{b} = (B^{T}B)^{-1} B^{T}A \bar{x}_{a}  $
-- `span` (like the C-Space I feel like)
+- `span`
   - the vector space defined by all possible linear combinations of the vectors in a set
+  - (like the C-Space I feel like)
 - `disjoint vector space`
   - if two spaces do not contain any vector in common (other than the zero vector)
   - disjoint pairs of vector spaces do NOT need to be `orthogonal`
