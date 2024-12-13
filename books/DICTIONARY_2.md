@@ -247,6 +247,26 @@ Applied to **the vector**
     - e.g. $\bar{x} \cdot \bar{w} = 0  $
   - orthogonal vector spaces are always `disjoint`
 
+### Spaces
+
+- `columns space` aka `column rank`
+  - vector space spanning columns of nxd matrix A
+  - subspace of R^n (the row dimensionality)
+- `row space` aka `row rank`
+  - vector space spanning rows of nxd matrix A
+    - or, space spanning cols of dxn matrix A^T
+  - subspace of R^d (the col dimensionality)
+- `matrix rank` = rank of `col space` = rank of `row space`
+  - min rank(n, d)
+- `right null space` aka `row null space`
+  - for Ax = 0
+  - the space unreachable by the rows of A
+  - any vector in Null(A) is orthogonal to every row of A
+- `left null space` aka `col null space`
+  - for A^T x = 0
+  - the space unreachable by the cols of A (or the rows of A^T)
+  - any vector in Null(A^T) is orthogonal to every row of A^T
+
 ### Misc Properties
 
 - `transpose`
