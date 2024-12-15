@@ -230,6 +230,12 @@ Applied to **the vector**
   - $\bar{x}_{b} = P_{a -> b} \bar{x}_{a}$
   - transform to b from a using P
     - P performs the transform from a to b
+    - P projects
+      - from the d-dimensional subspace (column space)
+      - into the n-dimensional subspace (row space)
+      - this is why the column space is a subspace of R^n
+    - rank
+      - the dimensionality of the largest subspace reachable starting from either the row or the column space
   - lineage:
     - $A\bar{x}_{a} = B\bar{x}_{b} = \bar{x}  $
     - reorganizing:
