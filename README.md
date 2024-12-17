@@ -19,3 +19,5 @@ Hyperbolic space grows exponentially with distance from a point, which makes it 
 - https://hyperbolic-representation-learning.readthedocs.io/en/latest/index.html
 - https://arxiv.org/pdf/2306.09118
 - dude fuck this is sick someonse thesis from 2021: https://purl.stanford.edu/bj040rx3340
+
+checking editing from app
