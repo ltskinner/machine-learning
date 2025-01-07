@@ -264,7 +264,7 @@ Applied to **the vector**
   - subspace of R^d (the col dimensionality)
 - `matrix rank` = rank of `col space` = rank of `row space`
   - min rank(n, d)
-- `right null space` aka `row null space`
+- `(right) null space` aka `row null space`
   - for Ax = 0
   - the space unreachable by the rows of A
   - any vector in Null(A) is orthogonal to every row of A
@@ -272,6 +272,16 @@ Applied to **the vector**
   - for A^T x = 0
   - the space unreachable by the cols of A (or the rows of A^T)
   - any vector in Null(A^T) is orthogonal to every row of A^T
+- for square and non-singular (invertible) matrices, the null space only contains the zero vector
+- `full rank`
+  - `positive-definite` full rank square matrices have an empty null space
+    - full rank matrices must be `invertible`
+  - where the rows of a *square matrix* must be linearly independent when the columns are linearly independent, these matrices are of `full rank`
+  - for *rectangular matrices* to be full rank, *either* the rows or columns are linearly independent
+    - `full row rank`
+      - when rows are linearly independent
+    - `full column rank`
+      - when columns are linearly independent
 
 ### Misc Properties
 
