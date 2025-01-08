@@ -132,6 +132,20 @@ In context of Matrix multiplication:
   - each x_{i} corresponds to the weight of the ith direction a_{i}
     - which is the ith coordinate of b
   - scaling factor of directions. Each index of b corresponds to a direction
+  - three cases arise finding the solution to b
+    - 1. b does **NOT** exist in column space of A
+      - so no solution exists
+      - however, *best fits* are possible
+      - common for `over-determined systems of linear equations`
+        - "number of rows is much greater than number of cols"
+    - 2. b does exist in column space of A
+      - A must have linearly independent columns
+      - the solution is unique
+      - when A is square, solution is: $\bar{x} = A^{-1}\bar{b}  $
+    - 3. b occurs in the column space of A
+      - columns of A are linearly dependent
+      - there is an infinite number of solutions
+      - common where number of cols is greater than number of rows
 
 ### `affine transforms`
 
@@ -282,9 +296,72 @@ Applied to **the vector**
       - when rows are linearly independent
     - `full column rank`
       - when columns are linearly independent
+- `row equivalence` and `column equivalence`
+  - two matrices are row/col equivalent if one matrix is obtained from the other by a sequence of elementary row/column operations (interchange, addition, multiplication)
+  - applying row/column operations does not change the vector space spanned by the rows/columns of the matrix
+    - these operations do not fundamentally change the (normalized) row/col set of the matrix
+- `row echelon form`
+  - upper-triangular matrix
+  - convenient row-equivalent conversion of matrix A
+  - useful for solving linear systems of the type $A\bar{x} = \bar{b} $
+  - by applying the same row operations to matrix A and vector $\bar{b}$ in the system of equations, A can be simplified to a form that is easily solvable
+  - equivalent to `Gaussian elimination` method for solving systems of equations
+- `Gaussian elimination`
+  - Official order:
+    - row addition operations
+      - perform on lower of the two rows
+    - row interchange operations
+    - row scaling operations
+  - useful for finding a basis set of a bunch of (possibly linearly dependent) vectors
+- `back substitution`
+  - when we have form Ax = b, and A and b are known
+  - 1 0 0 | 4
+  - 0 1 0 | 6
+  - 0 0 1 | 5
+  - for back substitution, sometimes we need to scale items on left by items on right to get to 1
+  - then, the numbers on right become solution
+`parametric form`
 
-### Misc Properties
+$x = \begin{bmatrix}x_1 \\ x_2 \\ x_{3}\end{bmatrix} = a \begin{bmatrix}1 \\ 1\\ 0\end{bmatrix} + b \begin{bmatrix}-1 \\ 0\\ 1\end{bmatrix} $
 
+based on:
+
+- $x_{1} - x_{2} + x_{3} $
+- $x_{2} = a$ only parameterize free variables
+- $x_{3} = b$ only parameterize free variables
+
+based on:
+
+$\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
+
+- `LU Deconposition`
+  - $A = LU$
+    - $a_{11} = l_{11}u_{11}$
+  - Express matrix as product of
+    - a (square) lower triangular matrix L
+      - catalogues the operations made during `Gaussian Elimination`
+    - a (rectangular) upper triangular matrix U
+      - the output of `Gaussian Elimination`
+  - (wait this is nasty)
+    - row addition operations are always lower triangular `L` in GE
+    - row interchange operations is a permutation matrix `P`
+      - these steps can be expressed as
+      - $PL_{m}L_{m-1}...L_{1}A = U  $
+      - $A = L_{m}^{-1}L_{m-1}^{-1}...L_{1}^{-1}P^{-1}U  $
+      - $A = L_{m}^{-1}L_{m-1}^{-1}...L_{1}^{-1}P^{T}U  $
+      - $A = LP^{T}U  $ = $A = P^{T}LU  $
+  - final form:
+    - $PA = LU  $
+  - can use to invert a matrix
+    - basically perform row operations on an identity matrix until reaching the original matrix
+    - stacking all these operations is the inversion
+    - "a sequence of row operations that transforms A to the identity matrix will transform the identity matrix B = A^{-1}"
+
+### Matrix Properties
+
+- `inconsistent`
+  - a matrix with a row of zeros at the end
+  - have no solution bc a zero value on the left is equated with a non-zero value on the right
 - `transpose`
   - $(AB)^{T} = B^{T} A^{T}$
   - swap order of terms within parenthesis
