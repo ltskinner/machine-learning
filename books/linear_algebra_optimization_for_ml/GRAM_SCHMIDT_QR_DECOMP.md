@@ -1,10 +1,11 @@
-# Gram-Schmidt Process
+# Gram-Schmidt Process / QR Decomposition
 
 Purpose: transform a set of `linearly independent vectors` into an orthogonal (or orthonormal) set of vectors
 
 In QR decomposition, this is applied to the *columns* of A, where:
 
 - Q is an orthogonal (or orthonormal) matrix whose *columns are orthogonal* `unit vectors` (orthonormal)
+  - Q is produced using `Gram-Schmidt`
 - R is an upper triangular matrix
 
 We decompose A into A = QR
@@ -39,6 +40,8 @@ a_1 = [a_11, a_21, a_31], a_2 = ..., a_3 = ...
 
 ## Step 2: Compute First Orthogonal Vector q1
 
+these elements q_{x} eventually make up Q, which is an orthogonal basis that is a subspace of R^n (because the columns of A span the subpsace R of dimension n as defined by the number of rows)
+
 $q_1 = a_1/\|a_1\| $ for each index of the column a_1
 
 or
@@ -71,7 +74,7 @@ $u_{3} = a_{3} - (q_{1}^{T}a_{3})q_{1} - (q_{2}^{T}a_{3})q_{2}  $
 
 $q_3 = u_3/\|u_3\| $ for each index of the column
 
-## Finally: Q
+## Finally: Q the orthogonal basis
 
 $Q = [q_{q}, ..., q_{n}]$
 
@@ -82,3 +85,11 @@ $R = Q^T A $
 ## Finally: x
 
 $Rx = Q^{T}b' = Q^{T}b  $ to solve for x
+
+## Some final comments
+
+- if columns of original A matrix are not linearly independent, then Gram-Schmidt will yield Q of q_1 ... q_d vectors, which are either:
+  - unit-normalized vectors, or
+  - zero vectors
+    - these zero vectors will have zero coordinates in the Gram-Schmidt representation, since the coordinates of zero vectors are irrelevant from a representational point of view
+    - here, we do regular process then drop all zero columns from Q, and drop zero rows with matching indices from R

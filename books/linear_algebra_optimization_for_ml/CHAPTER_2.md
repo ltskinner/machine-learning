@@ -841,6 +841,24 @@ The ranks of the matrices A, $A^T A$, and $AA^T  $ are all the same.
 
 ## 2.7 Generating Orthogonal Basis Sets
 
+Orthogonal basis sets have many useful properties like ease of coordinate transformations, projections, and distance computation. Here, we will discuss how to convert a non-orthogonal basis set to an orthogonal basis set using Gram-Schmidt orthogonalization
+
+### 2.7.1 Gram-Schmidt Orthogonalization and QR Decomposition
+
+### 2.7.2 QR Decomposition
+
+See [GRAM_SCHMIDT_QR_DECOMP](./GRAM_SCHMIDT_QR_DECOMP.md)
+
+### 2.7.3 The Discrete Cosine Transform
+
+Uses a basis with trigonometric properties in order to expose periodicity in a time series (this is opposed to native Gram Schmidt in that it doesnt expose any specific properties of a vector)
+
+A time-zeries of temperatures over 10 years will have day-night variations as well as summer-winter variations, which will be captured by the coordinates of different basis vectors (periodic components) which are helpful in many ML applications. To leverage this, choose a basis in which each basis vector contians equally spaced samples of a cosine time-seris of particular periodicity allows a transformation in which the coordinates of the basis vectors can be interpreted as amplitudes of the different periodic components of the series
+
+Basically, the number of basis vectors should try and correspond with the number of periods expected to be seen
+
+## 2.8 An Optimization-Centric View of Linear System
+
 Linear algebra is closely related to many problems in linear optimization, which recur frequently in ML. Solving a system of linear equations is a special case of one of the most fundamental problems in ML, which is referred to as `linear regression`
 
 One way of solving the system of equations Ax = b is to view it as an optimization problem in which we want to minimize the objective fn $\|A\bar{x} - \bar{b} \|^{2}  $

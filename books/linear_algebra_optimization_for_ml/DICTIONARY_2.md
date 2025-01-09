@@ -12,6 +12,7 @@
 - `P` - `basis matrix` - `projection matrix`
   - basis of rotation or projection
 - `Q` - `orthogonal matrix`
+  - in many cases is a basis
   - QR decomposition
   - A matrix where its transpose is its inverse
   - AA^T = AA^{-1} = I
@@ -32,13 +33,16 @@
   - is a basis
 - $\Delta$ - `diagonal matrix`
   - only values on the diagonal
+  - $RAC = \Delta$
+    - R = nxn row operations (to row echelon form)
+    - C = dxd col operations (to diagonal form)
+    - $\Delta$ is nxd rectangular diagonal matrix
   - multiplication with $\Delta$ scales the:
     - rows of A, if $\Delta A = \lambda_{i}a_{ij} $
     - cols of A, if $A\Delta = a_{ij} \lambda_{j} $
 - $\Lambda$ - `eigenvalues matrix`
 - `J` (optimization)
 - `S` - `similarity matrix`
-- Gram matrix ? (do we include this - easy for things to spiral past specific one letter names)
 - `H` - `Hessian matrix`
 
 ## Vectors
@@ -138,14 +142,18 @@ In context of Matrix multiplication:
       - however, *best fits* are possible
       - common for `over-determined systems of linear equations`
         - "number of rows is much greater than number of cols"
+      - typical for inconsistent systems of equations (trailing rows of 0s)
     - 2. b does exist in column space of A
       - A must have linearly independent columns
       - the solution is unique
+        - each column has a leading value of 1 for the corresponding row
       - when A is square, solution is: $\bar{x} = A^{-1}\bar{b}  $
     - 3. b occurs in the column space of A
       - columns of A are linearly dependent
       - there is an infinite number of solutions
+        - there are "free columns" where there is no leading value of 1 for the corresponding row
       - common where number of cols is greater than number of rows
+  - *all zero (rows) in A' need to be matched with zero entries in b' for the system to have a solution*
 
 ### `affine transforms`
 
@@ -223,6 +231,16 @@ Applied to **the vector**
     - Ax is how you compute the point on the plane the basis represents that is closest to p/v
       - (from above - where b is the point, V is the basis, and c is the coefficents)
     - remember to distribute the A^T and then invert A^{T}A as (A^{T}A)^{-1} to solve for x
+  - or
+  - in optimization:
+    - the vector $\bar{b} - A\bar{x}  $
+    - joins $\bar{b}$ to its closest approximation:
+      - $\bar{b}' = A\bar{x}'  $ on the hyperplane defined by the columns space of A
+      - (which is orthogonal to the hyperplane and therefore evecy col of A)
+    - bringing us to the `normal equation`
+      - $A^T (\bar{b} - A\bar{x}) = \bar{0}  $, which yields
+      - $\bar{x} = (A^{T}A)^{-1} A^{T}\bar{b} $
+      - (assuming A^T A is invertible - easy to do when A is tall)
 - `projection formula`
   - simplification of the normal equation for when the projection "matrix" is a 1d basis (vector)
   - from form b = Vc
@@ -288,6 +306,7 @@ Applied to **the vector**
   - any vector in Null(A^T) is orthogonal to every row of A^T
 - for square and non-singular (invertible) matrices, the null space only contains the zero vector
 - `full rank`
+  - full rank = linearly independent
   - `positive-definite` full rank square matrices have an empty null space
     - full rank matrices must be `invertible`
   - where the rows of a *square matrix* must be linearly independent when the columns are linearly independent, these matrices are of `full rank`
@@ -362,6 +381,26 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
 - `inconsistent`
   - a matrix with a row of zeros at the end
   - have no solution bc a zero value on the left is equated with a non-zero value on the right
+    - like zeros in RREF A but non zero in same row of b
+    - *all zeros in A' need to be matched with zero entries in b' for the system to have a solution*
+- `strictly positive` matrix
+  - only positive and non-zero values
+- `positive semidefinite`
+  - iff all its eigenvalues are non-negative
+  - **not** guaranteed to be invertible
+  - Any matrix of the form BB^T or B^T B (i.e. Gram matrix form)
+- `positive definite` matrix
+  - only positive and zero values
+  - matrix A cannot be singular
+  - iff all its eigenvalues are non-negative
+  - guaranteed to be invertible
+- `negative semidefinite matrices`
+  - every eigenvalue is non-positive
+  - can be converted into a positive semidefinite matric by reversing the sign
+- `negative definite`
+  - which every eigenvalue is strictly negative
+- `indefinite`
+  - symmetric matrices with both *positive and negative* eigenvalues
 - `transpose`
   - $(AB)^{T} = B^{T} A^{T}$
   - swap order of terms within parenthesis
@@ -375,6 +414,12 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
   - if there are no 0 `eigenvalues` then a matrix must be invertible
   - the `determinant` of A det(A) != 0 if A is invertible
   - invertibility implies linearly independent cols (and/or linearly independent rows)
+- `left inverse`
+  - $L = (A^T A)^{-1}A^T  $
+    - because $LA = (A^T A)^{-1} A^T A = I_{d}  $
+- `right inverse`
+  - $R = A^T(AA^T)^{-1}  $
+    - because $AR = AA^T(AA^T)^{-1} = I_{n}  $
 - `inverting singular matrices` - `matrix inversion lemma`
   - Neumann Series:
     - $(I + A)^{-1} = I - A + A^2 - A^3 + A^4 + ... + $ Infinite Terms
@@ -436,6 +481,11 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
   - tr(A) of a square matrix is defined by the sum of its diagonal entries
   - tr(A) = \sum_{i=1}^{n} a_{ii}^{2}
   - tr(A) is equal to the sum of the eigenvalues, whether it is diagonalizable or not
+- `Gram matrix`
+  - $A^T A$ is the (right) Gram matrix of the column space of A
+    - the cols of A are linearly independent iff A^T A is invertible
+  - $AA^T$  is the left Gram matrix of the row space of A
+- [Gram-Schmidt / QR Decomposition](./GRAM_SCHMIDT_QR_DECOMP.md)
 
 ## Push Through Identity
 

@@ -493,16 +493,8 @@
   - 0 0 1 | 5
   - for back substitution, sometimes we need to scale items on left by items on right to get to 1
   - then, the numbers on right become solution
-- `QR method`
-  - Q = [q_1, ..., 1_n], note q_n are vectors
-    - where q_1 = q_1_i / ||q_1||
-    - then q_n = q_1^T.b_2 ()
-  - P = QQ^T = projection matrix
-  - R = Q^T B, where B is the basis
-  - then:
-    - Rx = Q^T b = Q^T b'
 - see 'gram-schmidt':
-  - [GRAM_SCHMIDT.md](./GRAM_SCHMIDT.md)
+  - [GRAM_SCHMIDT_QR_DECOMP.md](./GRAM_SCHMIDT_QR_DECOMP.md)
 - `Moore-Penrose Pseudoinverse`
   - basically:
   - A^{+} = $(A^{T}A)^{-1} A^{T} = A^{T}(AA^{T})^{-1}$
