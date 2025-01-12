@@ -161,6 +161,8 @@ the combination of a `linear transformation` with a `translation`:
 
 $f(\bar{x}) + A\bar{x} + \bar{c} $
 
+the translation (b in AX + b) translates the origin from V to a new point in W
+
 formally (READ THIS IN BROWSER):
 
 $f(\lambda\bar{x}) + [1 - \lambda]\bar{y} = \lambda f(\bar{x}) + [1 - \lambda]f(\bar{y})  $
@@ -169,10 +171,27 @@ linear transforms are a subset of affine transforms
 
 ### Terms in this book
 
+- `affine transform`
+  - see above
+  - is a generalization of linear transforms
+  - allow translations (so b != 0)
 - `linear transform` = `linear operator`
-  - translation not allowed
+  - special case of affine transform where b = 0
+  - T: V -> W
+  - maps between two vector spaces V -> W
+    - preserves additivity
+    - preserves scalar multiplication
+    - maps the origin of V to the origin of W (does not allow translations)
+  - T(x) = Ax (where no constant vector is added)
+  - `linear operator`
+    - special case where V = W
+    - the transformation maps a vector space to itself
+    - T: V -> V
 - `linear function`
   - when translation is allowed
+  - f(x) = Ax + b
+    - where b != 0 is a translation vector
+    - so the origins to not map to each other
 
 ### Vector and Matrix Multiplication
 
@@ -383,6 +402,7 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
   - have no solution bc a zero value on the left is equated with a non-zero value on the right
     - like zeros in RREF A but non zero in same row of b
     - *all zeros in A' need to be matched with zero entries in b' for the system to have a solution*
+    - simple: b does not lie in the span of columns of A
   - inconsistent systems where neither the rows nor cols are linearly independent mean that neither A^T A or AA^T is invertible
     - which, sees use in L (left-inverse) and R (right-inverse) definitions
 - `strictly positive` matrix
@@ -498,11 +518,11 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
   - $A^{k} = 0 $ for some integer k
   - strictly triangular with diagonal entries of 0
 - `idempotent`
-  - V^{k} = V
-- `indefinite`
-  - symmetric matrices with both positive and negative eigenvalues
+  - P^{k} = P
 - `idempotent property` of `projection matrices`:
   - $P^2 = P = (QQ^{T})(QQ^{T}) = Q(Q^{T}Q)Q^{T} = QQ^{T} $ - note (Q^{T}Q) is an identity
+- `indefinite`
+  - symmetric matrices with both positive and negative eigenvalues
 - `energy`
   - another name for the squared Frobenius norm
   - The energy of a rectangular matrix A is equal to the trace of either AA^{\top} or A^{\top}A
