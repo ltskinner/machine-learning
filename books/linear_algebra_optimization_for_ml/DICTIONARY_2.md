@@ -216,7 +216,7 @@ Applied to **the vector**
   - $V^{T}(\bar{b} - \bar{p}) = \bar{0}  $
   - where $b = Vc$
     - b = Vc projects coefficents c onto the space spanned by the columns of V
-        - b = V_{c -> b}c
+    - b = V_{c -> b}c
     - V projects coordinates onto d-dimensional space
       - V projects coordinate vector c onto b
       - V is the projection matrix
@@ -383,6 +383,8 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
   - have no solution bc a zero value on the left is equated with a non-zero value on the right
     - like zeros in RREF A but non zero in same row of b
     - *all zeros in A' need to be matched with zero entries in b' for the system to have a solution*
+  - inconsistent systems where neither the rows nor cols are linearly independent mean that neither A^T A or AA^T is invertible
+    - which, sees use in L (left-inverse) and R (right-inverse) definitions
 - `strictly positive` matrix
   - only positive and non-zero values
 - `positive semidefinite`
@@ -417,9 +419,37 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
 - `left inverse`
   - $L = (A^T A)^{-1}A^T  $
     - because $LA = (A^T A)^{-1} A^T A = I_{d}  $
+  - `regularized left inverse`
+    - $\bar{x} = (A^T A + \lambda I_{d})^{-1}A^T \bar{b}  $
 - `right inverse`
   - $R = A^T(AA^T)^{-1}  $
     - because $AR = AA^T(AA^T)^{-1} = I_{n}  $
+  - `regularized right inverse`
+    - $\bar{x} = A^T(AA^T + \lambda I_{n})^{-1} \bar{b}  $
+    - this comes from opimization focused approach to addressing inconsistent linear systems, where the obj fn is:
+      - $J = \|A\bar{x} - \bar{b} \|^2 + \lambda \sum_{i=1}^{d}x_{i}^{2}  $
+      -        Best Fit term              Conciseness term
+      - lambda is the tegularization term, which favors small absolute components of the vector \bar{x}
+      - note that (AA^T + \lambda I_{n}) is always invertible
+        - it is the \lambda I_{n} term that guarantees invertiblity when AA^T or A^T A is inconsisent and lacking linearly independent rows AND columns
+    - if the primary goal is best fit, let \lambda be very small
+- `Moore-Penrose pseudoinverse`
+  - see left/right inverse above
+  - $\lim_{\lambda \rightarrow 0^{+}} (A^T A + \lambda_{d})^{-1} A^T = \lim_{\lambda \rightarrow 0^{+}} A^T(AA^T + \lambda I_{n})^{-1} $
+  - When A is invertible, all inverses are the same
+    - conventional inverse
+    - left inverse
+    - right inverse
+    - Moore-Penrose pseudoinverse
+  - When only columns of A are linearly independent
+    - MP is left inverse
+  - When only rows of A are linearly independent
+    - MP is right inverse
+  - When neither rows nor columns of A are linearly independent
+    - MP provides a generalized inverse that none other can provide
+  - to compute:
+    - have A = QR from QR decomposition
+    - MP = $A^{+} = \lim_{\lambda \rightarrow 0^{+}} (R^T R + \lambda I_{d})^{-1} R^T Q^T = \lim_{\lambda \rightarrow 0^{+}} R^T(RR^T + \lambda I_{n})^{-1} Q^T = R^T(RR^)^{-1} Q^T  $
 - `inverting singular matrices` - `matrix inversion lemma`
   - Neumann Series:
     - $(I + A)^{-1} = I - A + A^2 - A^3 + A^4 + ... + $ Infinite Terms
