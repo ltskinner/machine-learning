@@ -5,6 +5,17 @@
 - right null space
 - left null space
 
+## Critical Path
+
+$A\bar{x} = \bar{b} $
+
+- Inputs (x)
+  - useful components of x reside in `row space` of A
+  - lost components of x reside in `(right) null space` of A
+- Outputs (b)
+  - reachable outputs of b reside in `col space` of A
+  - unreachable outputs of b reside in `(left) null space` of A
+
 ## Bigger Picture
 
 What we are describing is the process by which A maps R^d into R^n:
@@ -18,14 +29,45 @@ A maps from R^d (input space) to R^n (the output space), making A act as a linea
 - The `column space` identifies "reachable outputs in R^n"
   - is subspace of R^n (output space)
 - The `(right) null space` identifies the "lost inputs" in R^d
+  - "null space of the `row space`"
   - is subspace of R^d (input space)
-- The `row space` identifies the constraints on R^d
+- The `row space` identifies the `constraints` on R^d
   - is subspace of R^d (input space)
   - the combinations of input vectors that are mapped into the column space
 - The `(left) null space` identifies the "unreachable outputs" in R^n
+  - "null space of the `column space`"
   - is subspace of R^n (output space)
   - identifies outputs in R^n that are orthogonal to the column space (lost outputs)
   - which directions cannot be reached by input x: directions in output that R^n fails to span
+
+## Alternate Sequential Breakdown
+
+A maps from R^d (input space) to R^n (the output space), making A act as a linear transformation
+
+- starting with x inputs, the scaling factors of the directions of A's cols
+- useful components of x fall within `row space`
+  - subspace of R^d
+  - lost/unused/annihilated inputs of x fall within `(right) row space`
+    - (A annihilates input x by mapping to 0 and do not contribute to b)
+- based on the `constraints` of A (rows of A)
+- A projects used inputs of x from the `row space` into the reachable outputs of b which reside in the `column space`
+  - subspace of R^n
+- unreachable/lost outputs fall in the `(left) null space`
+  - inherently lie outside of the `column space`
+
+Note on `constraints`
+
+- there exist n constraints from n rows of A
+- each constraint depends on d coefficients contributed by the cols of A
+- `constraint` on x = `equations governing` x (the use of (input/scaling factor) x)
+- each row represents a linear equation that x must satisfy for Ax = b to hold
+- the row space represents the collection of all such constraints
+  - it describes the relationships among the variables in x
+
+Note on `directions`
+
+- there exist d directions from the n columns of A
+- each direction depends on n dimensions contributed by the rows of A
 
 As such:
 
@@ -46,78 +88,33 @@ Ax = (nxd)(dx1) = nx1
 
 ![alt-text](./2_8_four_fundamental_subspaces_4.PNG)
 
-## ---------------- Can kindof just ignore below ------------------------------
+## Left and Right Inverse
 
-The core of studying matrices is to study linear transformations between vector spaces. These can be realized as matrix multiplication on the left of columns, or right of row, vectors
+These both are directly related to the row and column spaces
 
-For column vector x: the image of the linear transformation Ax must span the columns of A
+For square matrices, the left and right inverse are the same - $A^{-1} $. For non-square matrices, to reach I conditions, we need to get crafty:
 
-For row vector x: the image of the linear transformation xA must span the rows of A
+- For Tall Matrix: produce left-inverse
+- For Wide Matrix: produce right-inverse
 
-### The Column Space
+### Left Inverse (for Tall)
 
-CASP = Column A SPace Right
+- `left-inverse` relates to `column space`
+- `left-inverse` relates to independent directions contributed by cols
+- `left-inverse` operates in subspace of R^n
+  - the dimensional*ity* of rows
+  - the number of constraints which must be met
+- requires full column rank (all cols linearly independent)
+- $LA = I$
+- L exists to "undo" transformations by A on the column space
 
-If we have a matrix:
+### Right Inverse (for Wide)
 
-$
-\begin{bmatrix}
-1 & 2 & 3 & 4 \\
-0 & 1 & 5 & 6 \\
-0 & 0 & 0 & 8
-\end{bmatrix}
-$
-
-The C(A) `column space` is columns {1, 2, 4}, which span A
-
-The N(A)`(right) null space` is columns {3}, basically meaning x_3 can take any value
-
-## The Row Space
-
-RATS (Row = A^T Space) Left
-
-Take A^T this time, and follow the same process
-
-The C(A^T)`row space`, which span A
-
-The N(A^T) `(left) null space`
-
-## Ranks
-
-- the column space and row space have equal dimension r = rank
-- the left null space N(A) has dimension n - r (right null space)
-- the left null space N(A^T) has dimension m - r
-
-## General Notes
-
-- The rank identifies the "core information" of A, where the row space and column space hold the meaningful parts of the information
-- The left null space and right null space can be thought of as "slag" or redundancy, because they dont contribute to the effective rank
-- The vectors spanning the row space are linearly independent
-- The vectors spanning the column space are linearly independent
-
-It seems the point of null spaces is to ensure completenss as we describe the behavior of A in operation.
-
-## Core vs Null Space
-
-- The rank captures the "core" or effective transformation part of A
-- The null spaces encode the "failure modes" of A
-  - The right null space shows where A loses information in the input
-  - The left null space shows where A fails to span the output
-
-### Right Null Space - Constraints on Inputs
-
-The right null space (CASP right) consists of all input vectors x that are mapped to the zero vector by A
-
-Aka: for Ax, if x \in N(A), it means x has no effect when multiplied by A - its "invisible" to A
-
-These vectors lie in the part of R^n that A "completely annihilates" lmao
-
-### Left Null Space - Constrains on Outputs
-
-The left null space (RATS left) consists of all vectors y that are `othogonal` to the row space of A
-
-This tells us which output directions in R^d cannot be reached by any input vector x
-
-These are directions in the output space R^d that A fails to span
-
-Note, if all output directions are spanned by the rows of A, then the left null space N(A^T) is trivial
+- `right-inverse` relates to `row space`
+- `right-inverse` relates to unique constraints by each row
+- `right-inverse` operates in the subspace of R^d
+  - the dimensional*ity* of cols
+  - the number of directions in which information is contained
+- requires full row rank (all rows linearly independent)
+- $ AR = I$
+- R exists to "undo" transformations by A on the row space

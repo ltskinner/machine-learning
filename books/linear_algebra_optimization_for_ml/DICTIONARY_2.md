@@ -350,6 +350,7 @@ Other definitions:
   - subspace of R^d (the col dimensionality)
 - `matrix rank` = rank of `col space` = rank of `row space`
   - min rank(n, d)
+- [see Four Fundamental Subspaces](./FOUR_FUNDAMENTAL_SUBSPACES.md)
 - `(right) null space` aka `row null space`
   - for Ax = 0
   - the space unreachable by the rows of A
