@@ -11,6 +11,11 @@
 - `I` - `identity matrix`
 - `P` - `basis matrix` - `projection matrix`
   - basis of rotation or projection
+  - useful for finding closest approximation of n dimensional \bar{b} on a plane defined by < n vectors when the point does not lie on the plane (isnt in the column space (space spanned by the columns))
+  - $P = A(A^T A)^{-1} A^T$ - note this is the left-inverse
+  - $\bar{b}' = A\bar{x} = P\bar{b}  $
+  - also, P = QQ^T in context of QR decomp, where A = QR
+  - the `projection matrix` P *only* depends on the vector space spanned by the columns of A
 - `Q` - `orthogonal matrix`
   - in many cases is a basis
   - QR decomposition
@@ -58,6 +63,8 @@
 - `dot product` aka `inner product`
   - $x \cdot y = \sum_{i=1}^{d} x_{i}y_{i} $
   - give you scalar projections
+  - can also be expressed using Gram matrix $S = A^T A$
+    - <\bar{x}, \bar{y}> = \bar{x}^T A \bar{y}
 - `norm` or `euclidean norm`
   - $\|x\|^{2} = x \cdot x = \sum_{i}^{d}x_{i}^{2}  $
   - taking sqrt of this is `euclidean distance/length from origin`
@@ -137,6 +144,7 @@ In context of Matrix multiplication:
     - which is the ith coordinate of b
   - scaling factor of directions. Each index of b corresponds to a direction
   - three cases arise finding the solution to b
+    - also see notes on [Normal Equation Ax = b for ML](../../MACHINE_LEARNING.md)
     - 1. b does **NOT** exist in column space of A
       - so no solution exists
       - however, *best fits* are possible
@@ -231,6 +239,10 @@ Applied to **the vector**
   - non-orthogonal basis systems are a pain to deal with
   - orthogonal basis are pog
 - `normal equation`
+  - in Ax = b
+    - x represents the `scaling factors` for each independent direction contributed by the columns of A
+    - x only has meaning in the context of A
+    - A contains structural and geometric significance
   - $\bar{b} - \bar{p}$ or $A\bar{x} - \bar{v}$ are orthogonal
   - $V^{T}(\bar{b} - \bar{p}) = \bar{0}  $
   - where $b = Vc$
@@ -296,6 +308,10 @@ Applied to **the vector**
 - `span`
   - the vector space defined by all possible linear combinations of the vectors in a set
   - (like the C-Space I feel like)
+  - the dimension of the span is the number of linearly independent vectors
+- `spans`
+  - means a set of vectors spans a space
+    - so every vector in the space can be written as a linear combination of vectors
 - `disjoint vector space`
   - if two spaces do not contain any vector in common (other than the zero vector)
   - disjoint pairs of vector spaces do NOT need to be `orthogonal`
@@ -305,6 +321,25 @@ Applied to **the vector**
   - orthogonal vector spaces are always `disjoint`
 
 ### Spaces
+
+Very high level description:
+
+- for matrix A we have a set of columns
+- if columns are linearly independent
+  - each column defines a unique/independent direction/`dimension` in the space
+- `column space` is the space `spanned` by the combination of these independent columns
+- these are all equal:
+  - = the number of `linearly independent` columns
+  - = number of independent directions `spanned`
+  - = `dimension` of the `column space`
+  - = the `rank` of the `columns space`
+- `dimensionality` of the `column space` = number of `rows`
+  - defines the `ambient space` where the columns live
+- the `dimensionality` of each column:
+  - contains n entries corresponding to the number of rows
+  - this makes the `column space` a `subspace` of R^n
+
+Other definitions:
 
 - `columns space` aka `column rank`
   - vector space spanning columns of nxd matrix A
@@ -372,33 +407,16 @@ based on:
 
 $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
 
-- `LU Deconposition`
-  - $A = LU$
-    - $a_{11} = l_{11}u_{11}$
-  - Express matrix as product of
-    - a (square) lower triangular matrix L
-      - catalogues the operations made during `Gaussian Elimination`
-    - a (rectangular) upper triangular matrix U
-      - the output of `Gaussian Elimination`
-  - (wait this is nasty)
-    - row addition operations are always lower triangular `L` in GE
-    - row interchange operations is a permutation matrix `P`
-      - these steps can be expressed as
-      - $PL_{m}L_{m-1}...L_{1}A = U  $
-      - $A = L_{m}^{-1}L_{m-1}^{-1}...L_{1}^{-1}P^{-1}U  $
-      - $A = L_{m}^{-1}L_{m-1}^{-1}...L_{1}^{-1}P^{T}U  $
-      - $A = LP^{T}U  $ = $A = P^{T}LU  $
-  - final form:
-    - $PA = LU  $
-  - can use to invert a matrix
-    - basically perform row operations on an identity matrix until reaching the original matrix
-    - stacking all these operations is the inversion
-    - "a sequence of row operations that transforms A to the identity matrix will transform the identity matrix B = A^{-1}"
-
 ### Matrix Properties
 
 - `inconsistent`
-  - a matrix with a row of zeros at the end
+  - refers to a system of equations Ax = b, not JUST A
+  - only **AFTER converting to RREF** format can we inspect for rows of 0s
+    - properties of A alone that hint at an inconsistent system:
+      - A has fewer linearly independent columns than rows
+        - rank(A) < n, making the column space smaller
+      - A has fewer columns than rows
+      - A already posessing rows of 0s
   - have no solution bc a zero value on the left is equated with a non-zero value on the right
     - like zeros in RREF A but non zero in same row of b
     - *all zeros in A' need to be matched with zero entries in b' for the system to have a solution*
@@ -536,6 +554,7 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - the cols of A are linearly independent iff A^T A is invertible
   - $AA^T$  is the left Gram matrix of the row space of A
 - [Gram-Schmidt / QR Decomposition](./GRAM_SCHMIDT_QR_DECOMP.md)
+- [`LU Decomposition`](./GRAM_SCHMIDT_QR_DECOMP.md)
 
 ## Push Through Identity
 

@@ -1,4 +1,49 @@
-# Gram-Schmidt Process / QR Decomposition
+# QR Decomposition and LR Decomposition
+
+## Comparing QR and LU Decomposition
+
+### Purpose
+
+- QR Decomposition
+  - works for square and rectangular matrices
+  - to `orthogonalize` a matrix
+  - especially in
+    - solving least squares problems (over-determined systems)
+    - eigenvalue computations
+  - typically more numerically stable
+- LU Decomposition
+  - typically faster
+  - applies only to square matrices
+  - to `factorize` a square matrix
+  - for
+    - efficient solving of linear systems (Ax = b)
+    - computing `determinants`
+
+## LU Decomposition
+
+- $A = LU$
+  - $a_{11} = l_{11}u_{11}$
+- Express matrix as product of
+  - a (square) lower triangular matrix L
+    - catalogues the operations made during `Gaussian Elimination`
+  - a (rectangular) upper triangular matrix U
+    - the output of `Gaussian Elimination`
+- (wait this is nasty)
+  - row addition operations are always lower triangular `L` in GE
+  - row interchange operations is a permutation matrix `P`
+    - these steps can be expressed as
+    - $PL_{m}L_{m-1}...L_{1}A = U  $
+    - $A = L_{m}^{-1}L_{m-1}^{-1}...L_{1}^{-1}P^{-1}U  $
+    - $A = L_{m}^{-1}L_{m-1}^{-1}...L_{1}^{-1}P^{T}U  $
+    - $A = LP^{T}U  $ = $A = P^{T}LU  $
+- final form:
+  - $PA = LU  $
+- can use to invert a matrix
+  - basically perform row operations on an identity matrix until reaching the original matrix
+  - stacking all these operations is the inversion
+  - "a sequence of row operations that transforms A to the identity matrix will transform the identity matrix B = A^{-1}"
+
+## Gram-Schmidt Process / QR Decomposition
 
 Purpose: transform a set of `linearly independent vectors` into an orthogonal (or orthonormal) set of vectors
 
@@ -28,17 +73,17 @@ a_31 & a_32 & a_33 \\
 \end{bmatrix}
 $
 
-## High Level Process
+### High Level Process
 
 - 1. Normalize the first column of A to q_1
 - 2. Project a_2 onto q_1, orthogonalize, and then normalize
 - 3. Normalize the part of a_n that is perpendicular to all a_{1}...a_{n-1} as q_n
 
-## Step 1: Extract Columns of A
+### Step 1: Extract Columns of A
 
 a_1 = [a_11, a_21, a_31], a_2 = ..., a_3 = ...
 
-## Step 2: Compute First Orthogonal Vector q1
+### Step 2: Compute First Orthogonal Vector q1
 
 these elements q_{x} eventually make up Q, which is an orthogonal basis that is a subspace of R^n (because the columns of A span the subpsace R of dimension n as defined by the number of rows)
 
@@ -48,13 +93,13 @@ or
 
 $q_1 = [a_11, a_21, a_31]^T/\sqrt{a_{11}^2 + a_{21}^2 + a_{31}^2}  $
 
-## Step 3: Project a_2 onto q_1
+### Step 3: Project a_2 onto q_1
 
 Read proj_{x}(v) as projection function proj(.) of x, onto the vector v
 
 $proj_{q_{1}}(a_2) = (q_{1}^{T}a_{2})q_{1} $
 
-## Step 3: Ensure orthogonality
+### Step 3: Ensure orthogonality
 
 orthogonal projection u_2 = current vector - the projection
 
@@ -64,29 +109,29 @@ Formally, subtracting the projection removes the component of a_2 that lies alon
 
 $u_{2} = a_2 - (q_{1}^{T}a_{2})q_{1}  $
 
-## Step 4: Normalize the portion of a_2 that is perpendicular to a_1
+### Step 4: Normalize the portion of a_2 that is perpendicular to a_1
 
 $q_2 = u_2/\|u_2\| $ for each index of the column
 
-## Step 5: Find the portion of a_n that is perpendicular to to all a_{1}...a_{n-1} and normalize as q_n
+### Step 5: Find the portion of a_n that is perpendicular to to all a_{1}...a_{n-1} and normalize as q_n
 
 $u_{3} = a_{3} - (q_{1}^{T}a_{3})q_{1} - (q_{2}^{T}a_{3})q_{2}  $
 
 $q_3 = u_3/\|u_3\| $ for each index of the column
 
-## Finally: Q the orthogonal basis
+### Finally: Q the orthogonal basis
 
 $Q = [q_{q}, ..., q_{n}]$
 
-## Finally: R
+### Finally: R
 
 $R = Q^T A $
 
-## Finally: x
+### Finally: x
 
 $Rx = Q^{T}b' = Q^{T}b  $ to solve for x
 
-## Some final comments
+### Some final comments
 
 - if columns of original A matrix are not linearly independent, then Gram-Schmidt will yield Q of q_1 ... q_d vectors, which are either:
   - unit-normalized vectors, or
