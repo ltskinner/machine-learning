@@ -58,7 +58,7 @@ A maps from R^d (input space) to R^n (the output space), making A act as a linea
 Note on `constraints`
 
 - there exist n constraints from n rows of A
-- each constraint depends on d coefficients contributed by the cols of A
+- each constraint depends on d scaling factors contributed by the cols of A
 - `constraint` on x = `equations governing` x (the use of (input/scaling factor) x)
 - each row represents a linear equation that x must satisfy for Ax = b to hold
 - the row space represents the collection of all such constraints
