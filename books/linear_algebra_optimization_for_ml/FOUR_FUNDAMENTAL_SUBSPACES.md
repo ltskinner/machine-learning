@@ -18,6 +18,13 @@ $A\bar{x} = \bar{b} $
   - unreachable outputs of b reside in `(left) null space` of A
   - b itself lives in R^n (and its components live in the output spaces of A)
 
+Really barebones:
+
+- useful (x) = `row space`
+- lost (x) = `(right) null space`
+- unreachable (b) = `(left) null space`
+- reachable (b) = `col space`
+
 ## Bigger Picture
 
 What we are describing is the process by which A maps R^d into R^n:
