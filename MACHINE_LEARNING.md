@@ -3,7 +3,8 @@
 Starting with the normal equation $A\bar{x} = \bar{b}  $
 
 - $\bar{x} $ is the `scaling factors` corresponding to the columns of $A $
-  - this does **not** live in either the row or the column space
+  - this does **not** live in either the row or the column space (it lives in R^d)
+  - **HOWEVER** the useful components of x to help define b do live in the `row space` (and the lost inputs reside in the `(right) null space`)
 - the columns of $A $ represent the independent directions that span some space
 - $\bar{b} $ lives in the column space (if the system is consistent)
 

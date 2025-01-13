@@ -12,9 +12,11 @@ $A\bar{x} = \bar{b} $
 - Inputs (x)
   - useful components of x reside in `row space` of A
   - lost components of x reside in `(right) null space` of A
+  - x itself lives in R^d (and its components live in the input spaces of A)
 - Outputs (b)
   - reachable outputs of b reside in `col space` of A
   - unreachable outputs of b reside in `(left) null space` of A
+  - b itself lives in R^n (and its components live in the output spaces of A)
 
 ## Bigger Picture
 
