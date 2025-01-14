@@ -238,6 +238,9 @@ Applied to **the vector**
   - is a **maximal** set of `linearly independent` vectors in it
   - non-orthogonal basis systems are a pain to deal with
   - orthogonal basis are pog
+- # TODO: really cleanup this section
+  - found the definition of `P` above more useful...
+  - there is some good stuff in here but its too naked
 - `normal equation`
   - in Ax = b
     - x represents the `scaling factors` for each independent direction contributed by the columns of A
@@ -267,7 +270,7 @@ Applied to **the vector**
     - the vector $\bar{b} - A\bar{x}  $
     - joins $\bar{b}$ to its closest approximation:
       - $\bar{b}' = A\bar{x}'  $ on the hyperplane defined by the columns space of A
-      - (which is orthogonal to the hyperplane and therefore evecy col of A)
+      - (which is orthogonal to the hyperplane and therefore every col of A)
     - bringing us to the `normal equation`
       - $A^T (\bar{b} - A\bar{x}) = \bar{0}  $, which yields
       - $\bar{x} = (A^{T}A)^{-1} A^{T}\bar{b} $
@@ -350,6 +353,7 @@ Other definitions:
   - subspace of R^d (the col dimensionality)
 - `matrix rank` = rank of `col space` = rank of `row space`
   - min rank(n, d)
+  - see [Chapter 2 search 'min'](./CHAPTER_2.md)
 - [see Four Fundamental Subspaces](./FOUR_FUNDAMENTAL_SUBSPACES.md)
 - `(right) null space` aka `row null space`
   - for Ax = 0
