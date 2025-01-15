@@ -131,6 +131,8 @@ $R = Q^T A $
 
 $Rx = Q^{T}b' = Q^{T}b  $ to solve for x
 
+Functionally, we solve: $b' = QQ^T b  $ to see projection of b on basis
+
 ### Some final comments
 
 - if columns of original A matrix are not linearly independent, then Gram-Schmidt will yield Q of q_1 ... q_d vectors, which are either:
