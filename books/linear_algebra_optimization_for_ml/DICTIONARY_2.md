@@ -11,8 +11,11 @@
 - `I` - `identity matrix`
 - `P` - `basis matrix` - `projection matrix`
   - basis of rotation or projection
-  - useful for finding closest approximation of n dimensional \bar{b} on a plane defined by < n vectors when the point does not lie on the plane (isnt in the column space (space spanned by the columns))
+  - useful for finding closest approximation of n dimensional \bar{b} on a plane defined by < n vectors *when the point does not lie on the plane*
+    - (isnt in the column space (space spanned by the columns))
   - $P = A(A^T A)^{-1} A^T$ - note this is the left-inverse
+    - also note that we use the real values of A, after finding which cols are the basis cols
+    - do NOT use the RREF format column literal values
   - $\bar{b}' = A\bar{x} = P\bar{b}  $
   - also, P = QQ^T in context of QR decomp, where A = QR
   - the `projection matrix` P *only* depends on the vector space spanned by the columns of A
@@ -238,44 +241,22 @@ Applied to **the vector**
   - is a **maximal** set of `linearly independent` vectors in it
   - non-orthogonal basis systems are a pain to deal with
   - orthogonal basis are pog
-- # TODO: really cleanup this section
-  - found the definition of `P` above more useful...
-  - there is some good stuff in here but its too naked
-- `normal equation`
+- `normal equation` - see [Original Notes](./NORMAL_EQUATION.md)
   - in Ax = b
     - x represents the `scaling factors` for each independent direction contributed by the columns of A
     - x only has meaning in the context of A
     - A contains structural and geometric significance
-  - $\bar{b} - \bar{p}$ or $A\bar{x} - \bar{v}$ are orthogonal
-  - $V^{T}(\bar{b} - \bar{p}) = \bar{0}  $
-  - where $b = Vc$
-    - b = Vc projects coefficents c onto the space spanned by the columns of V
-    - b = V_{c -> b}c
-    - V projects coordinates onto d-dimensional space
-      - V projects coordinate vector c onto b
-      - V is the projection matrix
-    - c describes the coordinates of b in the n-dimensional basis defined by V
-  - or
-  - $A^{T}(A\bar{x} - \bar{v}) = \bar{0}  $
-    - ->$A^{T}A\bar{x} - $A^{T}\bar{v} = $A^{T}\bar{0}  $
-    - ->$A^{T}A\bar{x} = $A^{T}\bar{v}  $
-    - ->$\bar{x} = (A^{T}A)^{-1}$A^{T}\bar{v}  $
-  - where:
     - A is some basis (linearly independent matrix)
-    - Ax is how you compute the point on the plane the basis represents that is closest to p/v
-      - (from above - where b is the point, V is the basis, and c is the coefficents)
-    - remember to distribute the A^T and then invert A^{T}A as (A^{T}A)^{-1} to solve for x
-  - or
-  - in optimization:
-    - the vector $\bar{b} - A\bar{x}  $
+  - the vector $\bar{b} - A\bar{x} (= \bar{0})  $
     - joins $\bar{b}$ to its closest approximation:
-      - $\bar{b}' = A\bar{x}'  $ on the hyperplane defined by the columns space of A
-      - (which is orthogonal to the hyperplane and therefore every col of A)
-    - bringing us to the `normal equation`
-      - $A^T (\bar{b} - A\bar{x}) = \bar{0}  $, which yields
-      - $\bar{x} = (A^{T}A)^{-1} A^{T}\bar{b} $
-      - (assuming A^T A is invertible - easy to do when A is tall)
-- `projection formula`
+    - $\bar{b}' = A\bar{x}'  $ on the hyperplane defined by the columns space of A
+    - (which is orthogonal to the hyperplane and therefore every col of A)
+  - bringing us to the `normal equation`
+    - $A^T (\bar{b} - A\bar{x}) = \bar{0}  $, which yields
+    - $\bar{x} = (A^{T}A)^{-1} A^{T}\bar{b} $
+    - (assuming A^T A is invertible - easy to do when A is tall)
+    - see `Projection Matrix` above for more detail
+- `projection formula - 1d`
   - simplification of the normal equation for when the projection "matrix" is a 1d basis (vector)
   - from form b = Vc
   - $c = \frac{v^T b}{v^T v}$
