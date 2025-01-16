@@ -246,7 +246,11 @@ Applied to **the vector**
     - x represents the `scaling factors` for each independent direction contributed by the columns of A
     - x only has meaning in the context of A
     - A contains structural and geometric significance
-    - A is some basis (linearly independent matrix)
+    - A contains a basis
+      - if linearly independent, A is the basis
+      - if not
+        - RREF to identify `pivot columns`
+        - use corresponding original cols from A as the basis
   - the vector $\bar{b} - A\bar{x} (= \bar{0})  $
     - joins $\bar{b}$ to its closest approximation:
     - $\bar{b}' = A\bar{x}'  $ on the hyperplane defined by the columns space of A

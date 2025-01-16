@@ -78,6 +78,32 @@ Note on `directions`
 - there exist d directions from the n columns of A
 - each direction depends on n dimensions contributed by the rows of A
 
+Note on `basis`
+
+- Finding the basis of `row space` and `col space`
+  - if linearly independent, A is the basis
+  - if not:
+    - do RREF to find `pivot columns`
+    - corresponding indices in A is the basis
+  - remember: just RREFing A alone
+    - (as opposed to Ax = 0 where we are actually solving)
+- Finding the basis of `(right) null space` and `(left) null space`
+  - Ax = 0
+  - RREF to construct general solution and ID free variables
+  - derive basis from $x = x_2 [] + x_3 []$ style
+  - 1 2 3 | 0
+  - 0 0 0 | 0
+  - 0 0 0 | 0
+  -
+  - x_{1} = -2x_{2} - 3x_{3}
+  - x_{2} = x_{2}
+  - x_{3} = x_{3}
+  - 
+  -          [-2          [-3
+  - x = x_{2}  1  + x_{3}   0
+  -            0]          1]
+  - basis = {[-2, 1, 0], [-3, 0, 1]}
+
 As such:
 
 - Column Space + Left Null Space (outers) = all of R^n
