@@ -98,13 +98,16 @@ Note on `basis`
   - x_{1} = -2x_{2} - 3x_{3}
   - x_{2} = x_{2}
   - x_{3} = x_{3}
-  - 
-  -     x_{2}[-2]    x_{3}[-3]
-  - x = x_{2}[ 1]  + x_{3}[ 0]
-  -     x_{2}[ 0]    x_{3}[ 1]
-  - basis = {[-2, 1, 0], [-3, 0, 1]}
 
-As such:
+```txt
+         [-2]        [-3]
+x = x_{2}[ 1] + x_{3}[ 0]
+         [ 0]        [ 1]
+
+basis = {[-2, 1, 0], [-3, 0, 1]}
+```
+
+Note on space coverage:
 
 - Column Space + Left Null Space (outers) = all of R^n
   - Every vector in R^n can be expressed as the sum of a vector in C(A) and one in N(A^T)
