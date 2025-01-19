@@ -133,6 +133,8 @@ $Rx = Q^{T}b' = Q^{T}b  $ to solve for x
 
 Functionally, we solve: $b' = QQ^T b  $ to see projection of b on basis
 
+P = QQ^T is the projection matrix
+
 ### Inverse of A using QR
 
 - $A = QR $

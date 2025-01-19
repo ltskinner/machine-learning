@@ -17,7 +17,8 @@
     - also note that we use the real values of A, after finding which cols are the basis cols
     - do NOT use the RREF format column literal values
   - $\bar{b}' = A\bar{x} = P\bar{b}  $
-  - also, P = QQ^T in context of QR decomp, where A = QR
+  - also, $P = QQ^T$ in context of QR decomp, where A = QR
+  - QR is also nice b/c no need to compute inverse
   - the `projection matrix` P *only* depends on the vector space spanned by the columns of A
 - `Q` - `orthogonal matrix`
   - in many cases is a basis
@@ -86,6 +87,17 @@
   - a new set of coordinates wrt a new changed set of directions
   - "the 1-dim projection operation of a vector x on a unit vector is the dot product"
   - x is modified to point *in the direction of the unit vector*
+- `standard basis representation` or `atd basis representation`
+  - requires
+    - a `coordinate`
+    - a `basis`
+  - `coordinate` indecies should align with each vector in basis
+  - simple Qv = b
+  - to *find* a `coordinate` *from* a `std basis representation`
+  - Qv = b
+    - where Q is the basis
+    - b is the `std basis representation`
+    - solve for v (RREF to x1 + x2 = 3, x2 = 2)
 
 ### `Cauchy-Schwarz inqeuality`
 
@@ -163,6 +175,13 @@ In context of Matrix multiplication:
       - columns of A are linearly dependent
       - there is an infinite number of solutions
         - there are "free columns" where there is no leading value of 1 for the corresponding row
+      - see [2.8 An Optimization-Centric View of Linear System](./CHAPTER_2.md)
+        - for tall matrices w/ linearly independent cols:
+          - most concise solution:
+          - $x = (A^T A)^{-1} A^T b  $ (uses left inverse)
+        - for wide matrices w/ linearly independent rows:
+          - most concise solution
+          - $x = A^{T}(AA^{T})^{-1}b $ (uses right inverse)
       - common where number of cols is greater than number of rows
   - *all zero (rows) in A' need to be matched with zero entries in b' for the system to have a solution*
 
