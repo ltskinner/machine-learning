@@ -122,6 +122,8 @@ Ax = (nxd)(dx1) = nx1
   - d = rank(A) + nullity(A)
   - d = rank(A) + N(A)
 
+![alt-text](./2_8_four_fundamental_subspaces.PNG)
+
 ![alt-text](./2_8_four_fundamental_subspaces_3.PNG)
 
 ![alt-text](./2_8_four_fundamental_subspaces_4.PNG)
