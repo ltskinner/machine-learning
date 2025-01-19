@@ -338,7 +338,7 @@ Other definitions:
   - subspace of R^d (the col dimensionality)
 - `matrix rank` = rank of `col space` = rank of `row space`
   - min rank(n, d)
-  - see [Chapter 2 search 'min'](./CHAPTER_2.md)
+  - see [Chapter 2 search 'min' or 'Corollary 2.6.1'](./CHAPTER_2.md)
 - [see Four Fundamental Subspaces](./FOUR_FUNDAMENTAL_SUBSPACES.md)
 - `(right) null space` aka `row null space`
   - for Ax = 0
@@ -503,6 +503,16 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
       - $A = V\Delta V^{T}  $
       - with orthogonal matrix V
       - $A = V\Delta V^{T}  $ instead of $A = V\Delta V^{-1}  $
+- `skew symmetric matrix`
+  - square matrix
+  - A^T = -A
+  - A = -A^T
+  - these are like 90 degree rotation matrices, but work better in higher dimensions
+  - the diagonal entries of A are always 0
+  - det(A) = det(-A^T) = (-1)^{d}det(A)
+    - when d is odd, (-1)^{d} = -1
+    - so det(A) = -det(A) ==> det(A)+det(A) = 0
+    - or 2det(A) = 0 = det(A)
 - `orthogonal`
   - $A^T A = I_d$
     - note, $PP^T = I$ is fine but P must be square, the above works for rectangular
