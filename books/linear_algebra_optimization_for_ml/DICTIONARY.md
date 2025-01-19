@@ -494,7 +494,7 @@
   - for back substitution, sometimes we need to scale items on left by items on right to get to 1
   - then, the numbers on right become solution
 - see 'gram-schmidt':
-  - [GRAM_SCHMIDT_QR_DECOMP.md](./GRAM_SCHMIDT_QR_DECOMP.md)
+  - [GRAM_SCHMIDT_QR_LU_DECOMP.md](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
 - `Moore-Penrose Pseudoinverse`
   - basically:
   - A^{+} = $(A^{T}A)^{-1} A^{T} = A^{T}(AA^{T})^{-1}$

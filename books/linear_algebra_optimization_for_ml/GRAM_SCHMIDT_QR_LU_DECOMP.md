@@ -133,6 +133,12 @@ $Rx = Q^{T}b' = Q^{T}b  $ to solve for x
 
 Functionally, we solve: $b' = QQ^T b  $ to see projection of b on basis
 
+### Inverse of A using QR
+
+- $A = QR $
+- $A^{-1} = (QR)^{-1} $
+- $A^{-1} = R^{-1}Q^{-1} = R^{-1}Q^{T} $
+
 ### Some final comments
 
 - if columns of original A matrix are not linearly independent, then Gram-Schmidt will yield Q of q_1 ... q_d vectors, which are either:

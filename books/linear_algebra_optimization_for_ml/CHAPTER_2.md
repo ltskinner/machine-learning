@@ -847,7 +847,7 @@ Orthogonal basis sets have many useful properties like ease of coordinate transf
 
 ### 2.7.2 QR Decomposition
 
-See [GRAM_SCHMIDT_QR_DECOMP](./GRAM_SCHMIDT_QR_DECOMP.md)
+See [GRAM_SCHMIDT_QR_LU_DECOMP](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
 
 ### 2.7.3 The Discrete Cosine Transform
 

@@ -553,8 +553,8 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
   - $A^T A$ is the (right) Gram matrix of the column space of A
     - the cols of A are linearly independent iff A^T A is invertible
   - $AA^T$  is the left Gram matrix of the row space of A
-- [Gram-Schmidt / QR Decomposition](./GRAM_SCHMIDT_QR_DECOMP.md)
-- [`LU Decomposition`](./GRAM_SCHMIDT_QR_DECOMP.md)
+- [Gram-Schmidt / QR Decomposition](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
+- [`LU Decomposition`](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
 
 ## Push Through Identity
 
