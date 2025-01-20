@@ -16,6 +16,7 @@
   - $P = A(A^T A)^{-1} A^T$ - note this is the left-inverse
     - also note that we use the real values of A, after finding which cols are the basis cols
     - do NOT use the RREF format column literal values
+    - See [GRAM_PROJECTION_MATRIX](./GRAM_PROJECTION_MATRIX.md)
   - $\bar{b}' = A\bar{x} = P\bar{b}  $
   - also, $P = QQ^T$ in context of QR decomp, where A = QR
   - QR is also nice b/c no need to compute inverse
@@ -158,7 +159,7 @@ In context of Matrix multiplication:
   - each x_{i} corresponds to the weight of the ith direction a_{i}
     - which is the ith coordinate of b
   - scaling factor of directions. Each index of b corresponds to a direction
-  - three cases arise finding the solution to b
+  - three cases (3 cases) arise finding the solution to b
     - also see notes on [Normal Equation Ax = b for ML](../../MACHINE_LEARNING.md)
     - 1. b does **NOT** exist in column space of A
       - so no solution exists
@@ -568,10 +569,12 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
   - tr(A) of a square matrix is defined by the sum of its diagonal entries
   - tr(A) = \sum_{i=1}^{n} a_{ii}^{2}
   - tr(A) is equal to the sum of the eigenvalues, whether it is diagonalizable or not
-- `Gram matrix`
-  - $A^T A$ is the (right) Gram matrix of the column space of A
+- `Gram matrix` - [see Gram Matrix](./GRAM_PROJECTION_MATRIX.md)
+  - `(right) Gram matrix`
+    - $A^T A$ of the column space of A
     - the cols of A are linearly independent iff A^T A is invertible
-  - $AA^T$  is the left Gram matrix of the row space of A
+  - `left Gram matrix`
+    - $AA^T$ of the row space of A
 - [Gram-Schmidt / QR Decomposition](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
 - [`LU Decomposition`](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
 
