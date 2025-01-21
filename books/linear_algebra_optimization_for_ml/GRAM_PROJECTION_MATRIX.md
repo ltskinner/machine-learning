@@ -54,3 +54,14 @@ $P = A(A^T A)^{-1} A^T$
   - the constraints of the rows map to the column space
   - A^T maps the trailing `b` from R^n to R^d
   - A guarantees the result lies in the column space of A
+
+Looking at P = QQ^T:
+
+- we know that:
+  - $\|P\bar{b}\| \leq \|\bar{b}\| $
+  - this is based on
+  - $\|QQ^T \bar{b}\| = \|Q^T \bar{b}\|  $
+  - here:
+    - $\|Q^T \bar{b}\| $ already applies all the constraints to b
+      - but within the subspace R^d
+    - the leading Q just reconstructs the vector in the output dimenion subspace R^n

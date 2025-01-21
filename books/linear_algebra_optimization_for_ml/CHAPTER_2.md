@@ -1218,7 +1218,9 @@ Machine learning applications often use additive and multiplicative transformati
   - when col space = right null space, rank = null
   - so 2xnull = d, which is multiple of 2
 19. 
-20. 
+20. basically, \|Ax\| < \|x\| means that eigenvalues are less than 1
+  - this means that A "shrinks" x
+  - and as long as eigenvalues are != 0 then it is invertible
 21. 
   - for projection matrix P, the length of Px is less than x
   - \|Px\| <= \|x\|

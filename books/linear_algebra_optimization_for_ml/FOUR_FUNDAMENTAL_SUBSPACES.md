@@ -113,6 +113,9 @@ Note on space coverage:
   - Every vector in R^n can be expressed as the sum of a vector in C(A) and one in N(A^T)
 - Row space + Null Space (inners) = all of R^d
   - Every vector in R^d can be expressed as the sum of a vector in C(A^T) and one in N(A)
+- Rank(A) + Null(A) = d
+  - where A is nxd
+  - see first diagram
 
 Ax = (nxd)(dx1) = nx1
 
