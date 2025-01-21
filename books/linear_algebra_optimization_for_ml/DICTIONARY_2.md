@@ -249,7 +249,7 @@ Applied to **the vector**
   - for a set of non-zero (non-trivial) scalar coeffs [x_1, ..., x_{d}]
   - $\sum_{i=1}^{d} x_{i}\bar{a}_{i} != \bar{0}$
   - basically, theres no coeffient that can be applied to any combination of vectors that would result in the sum of those vectors being 0
-    - if we can show the sum of coefficients *does* = 0, then we prove it is *not* linearly independent
+    - if we can show the sum of coefficients *does* = 0, then we prove it is *not* linearly independent by contradiction
   - means $[\bar{a}_{i}...\bar_{a}_{d}]$ are `mutually orthogonal`
   - linearly independent square matrices are invertible
   - [http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/indep/examples.html](http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/indep/examples.html)
