@@ -159,32 +159,39 @@ In context of Matrix multiplication:
   - each x_{i} corresponds to the weight of the ith direction a_{i}
     - which is the ith coordinate of b
   - scaling factor of directions. Each index of b corresponds to a direction
+- `solution set`
   - three cases (3 cases) arise finding the solution to b
-    - also see notes on [Normal Equation Ax = b for ML](../../MACHINE_LEARNING.md)
-    - 1. b does **NOT** exist in column space of A
-      - so no solution exists
-      - however, *best fits* are possible
-      - common for `over-determined systems of linear equations`
-        - "number of rows is much greater than number of cols"
-      - typical for inconsistent systems of equations (trailing rows of 0s)
-    - 2. b does exist in column space of A
-      - A must have linearly independent columns
-      - the solution is unique
-        - each column has a leading value of 1 for the corresponding row
-      - when A is square, solution is: $\bar{x} = A^{-1}\bar{b}  $
-    - 3. b occurs in the column space of A
-      - columns of A are linearly dependent
-      - there is an infinite number of solutions
-        - there are "free columns" where there is no leading value of 1 for the corresponding row
-      - see [2.8 An Optimization-Centric View of Linear System](./CHAPTER_2.md)
-        - for tall matrices w/ linearly independent cols:
-          - most concise solution:
-          - $x = (A^T A)^{-1} A^T b  $ (uses left inverse)
-        - for wide matrices w/ linearly independent rows:
-          - most concise solution
-          - $x = A^{T}(AA^{T})^{-1}b $ (uses right inverse)
-      - common where number of cols is greater than number of rows
+  - also see notes on [Normal Equation Ax = b for ML](../../MACHINE_LEARNING.md)
+  - 1. b does **NOT** exist in column space of A
+    - so no solution exists
+    - however, *best fits* are possible
+    - common for `over-determined systems of linear equations`
+      - "number of rows is much greater than number of cols"
+    - typical for inconsistent systems of equations (trailing rows of 0s)
+  - 2. b does exist in column space of A
+    - A must have linearly independent columns
+    - the solution is unique
+      - each column has a leading value of 1 for the corresponding row
+    - when A is square, solution is: $\bar{x} = A^{-1}\bar{b}  $
+  - 3. b occurs in the column space of A
+    - columns of A are linearly dependent
+    - there is an infinite number of solutions
+      - there are "free columns" where there is no leading value of 1 for the corresponding row
+    - see [2.8 An Optimization-Centric View of Linear System](./CHAPTER_2.md)
+      - for tall matrices w/ linearly independent cols:
+        - most concise solution:
+        - $x = (A^T A)^{-1} A^T b  $ (uses left inverse)
+      - for wide matrices w/ linearly independent rows:
+        - most concise solution
+        - $x = A^{T}(AA^{T})^{-1}b $ (uses right inverse)
+    - common where number of cols is greater than number of rows
   - *all zero (rows) in A' need to be matched with zero entries in b' for the system to have a solution*
+  - more advanced:
+    - consider: $BA\bar{x} = B\bar{b} $
+    - A introduces a set of intermediate constraints...
+    - Has potential to "trim" by:
+      - discarding unused inputs (to A)
+      - preventing reaching unreachable outputs (from A)
 
 ### `affine transforms`
 
@@ -629,8 +636,13 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
 - `Householder reflection matrix`
   - `orthogonal matrix` that reflects a vector x into any "mirror" hyperplane of arbitrary orientation
   - v **must** be normalized
-  - $Q = (I - 2\bar{v}\bar{v}^{\top})$ is an `elementary reflection matrix`
-  - $\bar{x}' = Q\bar{x}  $
+  - $H = (I - 2\bar{v}\bar{v}^{\top})$ is an `elementary reflection matrix`
+  - $H = Q_{1}Q_{1}^T - Q_{2}Q_{2}^{T}  $
+    - theres some weird shit where:
+    - $(I - 2\bar{v}\bar{v}^{\top}) = Q_{1}Q_{1}^T - Q_{2}Q_{2}^{T} $
+    - but lets see if this rears its head again...
+      - in this context, $Q_2 = \|v\|$
+  - $\bar{x}' = H\bar{x}  $
 
 ## EigenX
 
