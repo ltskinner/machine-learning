@@ -641,7 +641,8 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
     - theres some weird shit where:
     - $(I - 2\bar{v}\bar{v}^{\top}) = Q_{1}Q_{1}^T - Q_{2}Q_{2}^{T} $
     - but lets see if this rears its head again...
-      - in this context, $Q_2 = \|v\|$
+      - in this context, $Q_{2} = \|v\|$
+      - and $H = (I - 2Q_{2}Q_{2}^{\top})  $
   - $\bar{x}' = H\bar{x}  $
 
 ## EigenX
