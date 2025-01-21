@@ -1229,8 +1229,8 @@ Machine learning applications often use additive and multiplicative transformati
 23. 
 24. 
 25. Idempotent Property, rank
-26. 
-27. 
+26. Jordan chain
+27. non-trivial terms
 28. left-inverse right-inverse, QR decomp
 29. Least-squares error by QR decomposition
 30. if c in row space, must be linearly depdendent, so doesnt contribute any new info to error minimization
