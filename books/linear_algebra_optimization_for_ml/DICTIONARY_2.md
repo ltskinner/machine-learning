@@ -136,8 +136,9 @@ Core linear transform:
 
 Aka:
 
-- scalar multuplication of a vector
+- scalar multiplication of a vector
 - addition of two vectors
+- rotations, reflections, scalings of x
 
 In context of Matrix multiplication:
 
@@ -667,12 +668,21 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
       - and $H = (I - 2Q_{2}Q_{2}^{\top})  $
   - $\bar{x}' = H\bar{x}  $
 
-## EigenX
+## [EigenX](./EIGENX.md)
 
 - `determinant`
   - the "volume" `scaling factor` of a matrix
   - product of `eigenvalues` $\det{(A)} \prod_{i} \lambda_{i}  $
+  - of `diagonal matrix`
+    - det = product of diagonal entries
+  - of `triangular matrix`
+    - det = product of diagonal entries
+  - of matrix with row (or col) of 0s
+    - det = 0
+  - of `orthogonal matrix`
+    - det = 1 or -1
 - `eigenvectors` (right by default)
+  - d different directions (linearly independent)
   - right $A\bar{x} = \lambda \bar{x} $
   - left $\bar{y}A = \lambda \bar{y} $
   - eigenvectors point in the directions that remain unchanged under transformation
@@ -681,11 +691,16 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
     - solve (Q - \lambda_{1}I)v = 0
     - (do for each eigenvalue you have)
 - `eigenvalues`
+  - d different scale factors
   - the value an eigenvector is scaled by when A is multiplied against it
   - --> sum is Trace
   - --> product is Determinant
-- `diagonalization`
-  - $B = V\Delta V^{-1}  $
+- `diagonalizable matrix`
+  - special type of `linear operator`
+  - simultaneously scales along d different directions (`eigenvectors`) with d different scale factors (`eigenvalues`)
+  - $A = V\Delta V^{-1}  $
+    - $V $ contains d `eigenvectors`
+    - $\Delta $ contains d `eigenvalues`
   - Matrices containing repeated eigenvalues and missing eigenvectors of the repeated eigenvalues are *not diagonalizable*
   - I think all symmetric, orthogonal matrices are diagonal matrices
     - symmetric = A = A^T
@@ -694,7 +709,7 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
     - so, A = A^-1
 - `defective matrix`
   - a matrix where a `diagonalization` *does not exist*
-  - missing eigendirections (eigenvectors) that contribute distinctly
+  - missing eigendirections (eigenvectors) that contribute distinctly (not linearly independent)
 - `simultaneously diagonalizable`
   - A diagonalizable matrix family that shares eigenvectors (but not eigenvalues)
   - the columns of V are the eigenvectors of both A and B
@@ -848,7 +863,6 @@ remember - the axis being rotated about is left unchanged, but the other axis ne
   - `dilation`
   - `contraction`
 - `anisotropic` - when scaling factors across different dimensions are different
-
 
 scale x and y by factors of c_{1} and c_{2}
 
