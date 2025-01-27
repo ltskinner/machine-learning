@@ -1248,8 +1248,8 @@ Machine learning applications often use additive and multiplicative transformati
   - col space: the vector space spanned by the columns of nxd matrix A
   - spans must be the same
   - because spans are the same, their projections have to the the same
-34. 
-35. basically, ro reflect across a line, need to use 2theta
+34. singular value decomp
+35. basically, to reflect across a line, need to use 2theta
 36. 
 37. because upper triangular, inverse will also be upper triangular
   - for non-diagonal entries, can simply invert the block
@@ -1261,7 +1261,7 @@ Machine learning applications often use additive and multiplicative transformati
   - basically, when labmda is 1 or -1, the contribution of \lambda I leads to a situation where R + \labmda I is "dominated" by the Householder -2vv^T term, which is rank one (and thus not invertible as a square matrix)
 40. Length-preserving transforms are orthogonal
   - for orthogonal matrices A^T = A^-1
-  - \|AX\| = \|x\| == \|Ax\|^2 = \|x\|^2 = (Ax)^T(Ax) = x^T x
+  - \|Ax\| = \|x\| == \|Ax\|^2 = \|x\|^2 = (Ax)^T(Ax) = x^T x
   - push x^T out front
   - x^T A^T A x = x^T x
 41. the terms of a polynomial can have rank assessed for std addition and multiplication
@@ -1274,7 +1274,7 @@ Machine learning applications often use additive and multiplicative transformati
 45. 
   - at least one c must be non-zero
   - one of the coefficents must "activate" contributions from higher powers of A^i
-  - the coefficents must aboid trivial linear dependencies
+  - the coefficents must avoid trivial linear dependencies
   - matrices that cannot have their rank increased through the polynomial
    - strictly upper triangular
    - diagonal

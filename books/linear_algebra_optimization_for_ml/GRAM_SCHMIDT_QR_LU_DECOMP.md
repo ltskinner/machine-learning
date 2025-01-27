@@ -141,6 +141,12 @@ P = QQ^T is the projection matrix
 - $A^{-1} = (QR)^{-1} $
 - $A^{-1} = R^{-1}Q^{-1} = R^{-1}Q^{T} $
 
+### For Rectangular Matrices
+
+Moore-Penrose pseudoinverse:
+
+- MP = $A^{+} = R^T(RR^T)^{-1} Q^T  $
+
 ### Some final comments
 
 - if columns of original A matrix are not linearly independent, then Gram-Schmidt will yield Q of q_1 ... q_d vectors, which are either:

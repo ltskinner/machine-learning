@@ -13,19 +13,26 @@
   - basis of rotation or projection
   - useful for finding closest approximation of n dimensional \bar{b} on a plane defined by < n vectors *when the point does not lie on the plane*
     - (isnt in the column space (space spanned by the columns))
-  - $P = A(A^T A)^{-1} A^T$ - note this is the left-inverse
+  - $P_{cols} = A(A^T A)^{-1} A^T$
+    - note this is the `left-inverse` and projects columns
     - also note that we use the real values of A, after finding which cols are the basis cols
     - do NOT use the RREF format column literal values
     - See [GRAM_PROJECTION_MATRIX](./GRAM_PROJECTION_MATRIX.md)
+  - $P_{rows} = B^T(BB^T)^{-1} B $
+    - this is the `right-inverse` and projects rows
   - $\bar{b}' = A\bar{x} = P\bar{b}  $
   - also, $P = QQ^T$ in context of QR decomp, where A = QR
   - QR is also nice b/c no need to compute inverse
   - the `projection matrix` P *only* depends on the vector space spanned by the columns of A
+  - $P = AA^{+} $ (from Moore-Penrose) is also a form of projection matrix
+    - here, $AA^{+} $ is both `symmetric` and `idempotent`
+    - see [similarties to left `Gram matrix`](./GRAM_PROJECTION_MATRIX.md)
 - `Q` - `orthogonal matrix`
   - in many cases is a basis
   - QR decomposition
   - A matrix where its transpose is its inverse
-  - AA^T = AA^{-1} = I
+  - $A^{T} = A^{-1} $
+  - $AA^T = AA^{-1} = I $
   - the product of any number of orthogonal matrices is always an orthogonal matrix
 - `R`
   - upper triangular
@@ -69,9 +76,9 @@
   - $x \cdot y = \sum_{i=1}^{d} x_{i}y_{i} $
   - give you scalar projections
   - can also be expressed using Gram matrix $S = A^T A$
-    - <\bar{x}, \bar{y}> = \bar{x}^T A \bar{y}
+    - $<\bar{x}, \bar{y}> = \bar{x}^T A \bar{y} $
 - `norm` or `euclidean norm`
-  - $\|x\|^{2} = x \cdot x = \sum_{i}^{d}x_{i}^{2}  $
+  - $\|x\|^{2} = x \cdot x = \sum_{i}^{d}x_{i}^{2} = x^T x $
   - taking sqrt of this is `euclidean distance/length from origin`
 - `cross products`
   - give you a new `vector`
@@ -166,7 +173,7 @@ In context of Matrix multiplication:
     - so no solution exists
     - however, *best fits* are possible
     - common for `over-determined systems of linear equations`
-      - "number of rows is much greater than number of cols"
+      - "number of rows is much greater than number of cols" - "tall"
     - typical for inconsistent systems of equations (trailing rows of 0s)
   - 2. b does exist in column space of A
     - A must have linearly independent columns
@@ -177,6 +184,7 @@ In context of Matrix multiplication:
     - columns of A are linearly dependent
     - there is an infinite number of solutions
       - there are "free columns" where there is no leading value of 1 for the corresponding row
+    - common where number of cols is greater than number of rows - "wide"
     - see [2.8 An Optimization-Centric View of Linear System](./CHAPTER_2.md)
       - for tall matrices w/ linearly independent cols:
         - most concise solution:
@@ -184,7 +192,6 @@ In context of Matrix multiplication:
       - for wide matrices w/ linearly independent rows:
         - most concise solution
         - $x = A^{T}(AA^{T})^{-1}b $ (uses right inverse)
-    - common where number of cols is greater than number of rows
   - *all zero (rows) in A' need to be matched with zero entries in b' for the system to have a solution*
   - more advanced:
     - consider: $BA\bar{x} = B\bar{b} $
@@ -477,6 +484,7 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - because $LA = (A^T A)^{-1} A^T A = I_{d}  $
   - `regularized left inverse`
     - $\bar{x} = (A^T A + \lambda I_{d})^{-1}A^T \bar{b}  $
+  - **same** as `right inverse` if square matrix lol
 - `right inverse`
   - $R = A^T(AA^T)^{-1}  $
     - because $AR = AA^T(AA^T)^{-1} = I_{n}  $
@@ -485,11 +493,12 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - this comes from opimization focused approach to addressing inconsistent linear systems, where the obj fn is:
       - $J = \|A\bar{x} - \bar{b} \|^2 + \lambda \sum_{i=1}^{d}x_{i}^{2}  $
       -        Best Fit term              Conciseness term
-      - lambda is the tegularization term, which favors small absolute components of the vector \bar{x}
+      - lambda is the regularization term, which favors small absolute components of the vector \bar{x}
       - note that (AA^T + \lambda I_{n}) is always invertible
         - it is the \lambda I_{n} term that guarantees invertiblity when AA^T or A^T A is inconsisent and lacking linearly independent rows AND columns
     - if the primary goal is best fit, let \lambda be very small
 - `Moore-Penrose pseudoinverse`
+  - use for rectangular matrices - denoted as A^{+} (instead of A^{-1})
   - see left/right inverse above
   - $\lim_{\lambda \rightarrow 0^{+}} (A^T A + \lambda_{d})^{-1} A^T = \lim_{\lambda \rightarrow 0^{+}} A^T(AA^T + \lambda I_{n})^{-1} $
   - When A is invertible, all inverses are the same
@@ -505,7 +514,7 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - MP provides a generalized inverse that none other can provide
   - to compute:
     - have A = QR from QR decomposition
-    - MP = $A^{+} = \lim_{\lambda \rightarrow 0^{+}} (R^T R + \lambda I_{d})^{-1} R^T Q^T = \lim_{\lambda \rightarrow 0^{+}} R^T(RR^T + \lambda I_{n})^{-1} Q^T = R^T(RR^)^{-1} Q^T  $
+    - MP = $A^{+} = \lim_{\lambda \rightarrow 0^{+}} (R^T R + \lambda I_{d})^{-1} R^T Q^T = \lim_{\lambda \rightarrow 0^{+}} R^T(RR^T + \lambda I_{n})^{-1} Q^T = R^T(RR^T)^{-1} Q^T  $
 - `inverting singular matrices` - `matrix inversion lemma`
   - Neumann Series:
     - $(I + A)^{-1} = I - A + A^2 - A^3 + A^4 + ... + $ Infinite Terms
@@ -583,8 +592,19 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - the cols of A are linearly independent iff A^T A is invertible
   - `left Gram matrix`
     - $AA^T$ of the row space of A
-- [Gram-Schmidt / QR Decomposition](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
+- [`Gram-Schmidt / QR Decomposition`](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
 - [`LU Decomposition`](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
+- `Singular Value Decomposition` aka `SVD`
+  - square matrix only
+  - $A = U \Delta V^{\top}  $
+    - $U $ defines basis for `column space` - has orthonormal cols
+      - col space of UDV is subspace of col space of U
+    - $V $ defines basis for `row space` - has orthonormal cols
+      - row space of UDV is subspace of row space of V
+    - $\Delta$ is a *nonnegative* scaling matrix
+  - all linear transformations defined by matrix multiplication:
+    - can be expressed as a sequence of rotations/reflections
+    - with a single ansiotripic scaling factor
 
 ## Push Through Identity
 
@@ -638,6 +658,7 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
   - `orthogonal matrix` that reflects a vector x into any "mirror" hyperplane of arbitrary orientation
   - v **must** be normalized
   - $H = (I - 2\bar{v}\bar{v}^{\top})$ is an `elementary reflection matrix`
+    - $H = (I - 2\bar{v}\bar{v}^{\top}/\|v\|^{2})$ (explicit normalization)
   - $H = Q_{1}Q_{1}^T - Q_{2}Q_{2}^{T}  $
     - theres some weird shit where:
     - $(I - 2\bar{v}\bar{v}^{\top}) = Q_{1}Q_{1}^T - Q_{2}Q_{2}^{T} $
