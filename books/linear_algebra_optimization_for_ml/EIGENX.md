@@ -39,3 +39,24 @@ Properties:
 - multiplying A with diagonal matrix with values $\lambda_{1}...\lambda_{d} $ on the diagonal scales the volume of A by $\lambda_{1}...\lambda_{d} $
 - `rotating` doesnt change det
 - `reflecting` changes sign
+
+## Eigenvectors
+
+when $A\bar{x} = \lambda \bar{x} $
+
+- $\bar{x} $ is an `eigenvector`
+- $\lambda $ is its `eigenvalue`
+
+![alt-text](./3_3_eigenvectors_eigenvalues.PNG)
+
+when $AV = \Lambda V $
+
+- $V $ is d linearly independent eigenvectors
+  - also known as `basis change matrix`
+- $\Lambda $ is d eigenvalues
+
+becomes $A = V \Lambda V^{-1} $
+
+also written as $A = V \Delta V^{-1}  $
+
+- because $\Delta $ is a diagonal matrix with `eigenvalues` on the diagonal
