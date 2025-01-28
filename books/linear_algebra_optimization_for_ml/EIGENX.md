@@ -40,7 +40,7 @@ Properties:
 - `rotating` doesnt change det
 - `reflecting` changes sign
 
-## Eigenvectors
+## Eigenvectors and Eigenvalues
 
 when $A\bar{x} = \lambda \bar{x} $
 
