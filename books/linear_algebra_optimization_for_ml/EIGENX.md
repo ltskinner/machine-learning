@@ -91,13 +91,27 @@ To find `eigenvectors`:
   - span the `row space`
   - `row` *vectors* external to A
   - $\bar{y}A = \lambda \bar{x}  $
-  - If A is symmetric, the left and right eigenvectors are transpositions of each other
+  - if A is `symmetric`
+    - the left and right eigenvectors are transpositions of each other
+    - else, they are different
   - span the `row space`
 - $V$
-  - contains eigenvectors
+  - contains (right) `eigenvectors`
   - to find:
     - subsitute eigenvalues into A
     - set A' = 0 and solve for variables
     - remember, free variables can just be 1
 - $V^{-1} $
+  - contains (left) `eigenvectors`
   - $V^{-1} = \frac{1}{\det{(ad-bc)}} \begin{bmatrix}d & -b\\-c & a\end{bmatrix} $
+
+### Complex Eigenvalues Section 3.3.1
+
+Complex eigenvalues of a real matrix must:
+
+- occur in conjugate pairs of the form:
+  - a + bi
+  - a - bi
+- corresponding eigenvectors occur in pairs:
+  - \bar{p} + i\bar{q}
+  - \bar{p} - i\bar{q}

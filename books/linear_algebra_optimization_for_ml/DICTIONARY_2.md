@@ -747,6 +747,11 @@ if you have a characteristic equation:
 - p(\lambda) = (2 - \lambda)(2 - \lambda) - (1)(1)
 - = \lambda^2 - 4\lambda + 3
 - = A^2 - 4A + 3
+- = 0 (when solving)
+
+--> note this is the **same as** applying to the eivenvalues
+
+- $f(A) = V f(\Delta) V^{-1} $
 
 --> you can just insert the matrix A into \lambda directly for the characteristic equation
 
