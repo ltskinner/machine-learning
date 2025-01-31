@@ -115,3 +115,27 @@ Complex eigenvalues of a real matrix must:
 - corresponding eigenvectors occur in pairs:
   - \bar{p} + i\bar{q}
   - \bar{p} - i\bar{q}
+
+### Algebraic Multiplicity
+
+- `algebraic multiplicity`
+  - the number of times an `eigenvector` occurs in the `characteristic polynomial`
+  - when each `eigenvector` occurs once, the `algebraic multiplicity` = 1
+    - this means it is `diagonalizable`
+  - when > 1:
+    - case 1:
+      - infinite number of `diagonalizations` exist
+      - think of I matrix - so many different ways to construct V, where \Delta is I
+    - case 2:
+      - no `diagonalization` exists
+      - when number of `linearly independent` `eigenvectors` is less than `algebraic multiplicity`
+      - matrices containing *repeated* `eigenvalues` and *missing* `eigenvectors` of the *repeated* `eigenvalues` are **NOT** `diagonalizable`
+  - when < 1:
+    - `diagonalization` does not exist
+    - closest we can get to `diagonalization` is `Jordan Normal Form` aka `defective`
+
+### Characteristic Polynomial
+
+- $(A - \lambda_{i})^{k} $ - an eigenvalue \lambda with multiplity k
+  - (eigenvalue repeats k times)
+  - null space has dimensionality k
