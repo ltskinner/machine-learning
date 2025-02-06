@@ -154,3 +154,15 @@ Moore-Penrose pseudoinverse:
   - zero vectors
     - these zero vectors will have zero coordinates in the Gram-Schmidt representation, since the coordinates of zero vectors are irrelevant from a representational point of view
     - here, we do regular process then drop all zero columns from Q, and drop zero rows with matching indices from R
+
+## Schur Decomposition
+
+- basis change matrix P is orthogonal
+- upper triangular matrix U contains eigenvalues on the diagonal with no special properties
+- can be found with QR decomposition
+- the `Schur decomposition` of a `symmetric matrix` is the **same** as its `diagonalization`
+- A `Schur decomposition` of a `real matrix` always exists
+  - may not be unique
+  - may be complex valued
+
+A = P U P^T

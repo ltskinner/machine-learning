@@ -695,7 +695,7 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
   - the value an eigenvector is scaled by when A is multiplied against it
   - --> sum is Trace
   - --> product is Determinant
-- `diagonalizable matrix`
+- `diagonalizable matrix` - see [EIGENX](./EIGENX.md) for more
   - special type of `linear operator`
   - simultaneously scales along d different directions (`eigenvectors`) with d different scale factors (`eigenvalues`)
   - $A = V\Delta V^{-1}  $
@@ -707,6 +707,9 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
     - orthogonal = A^T = A^-1
     - diagonal = all zeros except the diagonal
     - so, A = A^-1
+  - every `real matrix` can be expressed as the product of at most 2 `diagonalizable matrices`
+    - though one might be complex valued
+      - `polar decomposition` - has "residual" rotation matrix, which contains the complex values
 - `defective matrix`
   - a matrix where a `diagonalization` *does not exist*
   - missing eigendirections (eigenvectors) that contribute distinctly (not linearly independent)
@@ -721,18 +724,13 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
   - similar matrices have the same eigenvalues (and their corresponding multiplicities)
   - similar matrices perform similar operations, but in different basis systems
 
-## Jordan Normal Form
+## Jordan Normal Form aka Jordan Chains
 
 For `defective` matrices: `Jordan Normal form` is the closest we can get to a `diagonalization`
 
-$A = V U V^{-1} $
+`Schur Decompositions` are also discussed here - found with QR decomposition
 
-- U is an `upper triangular matrix`
-- diagonal entries containing eigenvalues in the same order as the corresponding generalized eigenvectors in V
-- entries above the diagonal can be 0 or 1.
-  - at most (d-1) entries
-  - is 0 if and only if the corresponding eigenvector is an ordinary eigenvector
-  - is 1 if it is not an ordinary eigenvector
+[See EIGENX - Jordan Chains](./EIGENX.md)
 
 ## Polynomial Function
 

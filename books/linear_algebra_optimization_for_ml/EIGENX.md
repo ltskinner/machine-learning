@@ -131,11 +131,46 @@ Complex eigenvalues of a real matrix must:
       - when number of `linearly independent` `eigenvectors` is less than `algebraic multiplicity`
       - matrices containing *repeated* `eigenvalues` and *missing* `eigenvectors` of the *repeated* `eigenvalues` are **NOT** `diagonalizable`
   - when < 1:
+    - `non-diagonalizable` aka `non diagonalizable` aka `not diagonalizable`
     - `diagonalization` does not exist
-    - closest we can get to `diagonalization` is `Jordan Normal Form` aka `defective`
+      - `non-diagonalizable` matrices contain a "residual" rotation
+      - `polar decomposition` - when we include the "residual" rotation matrix
+        - rotation matrices are `diagonalizable`, but have **complex** eigenvalues
+    - closest we can get to `diagonalization` is `Jordan Normal Form` which contains `Jordan chains` aka `defective`
 
 ### Characteristic Polynomial
 
 - $(A - \lambda_{i})^{k} $ - an eigenvalue \lambda with multiplity k
   - (eigenvalue repeats k times)
   - null space has dimensionality k
+
+### Jordan Normal Form aka Jordan Chains
+
+Take: $A = V U V^{-1} $, where U is `upper triangular` and is "almost diagonal"
+
+$V = \bar{v}_{1}...\bar{v}_{m(i)} $
+
+Where:
+
+- $\bar{v}_{1} $ is an `ordinary eigenvector`
+  - satisfies $A\bar{v}_{1} = \lambda\bar{v}_{1} $
+  - for the real eigenvectors
+- $...\bar{v}_{m(i)} $ are `generalized eigenvectors`
+  - satisfies $A\bar{v}_{j} = \lambda\bar{v}_{j} + \bar{v}_{j-1} $ for j > 1
+  - here, $\bar{v}_{j-1} = \bar{v}_{1} $ when j = 2 (the original \bar{v}_{1})
+- obtained as:
+  - $\bar{v}_{m(i) - r} = (A - \lambda I)^{r}\bar{v}_{m(i)} $
+  - for each r from 1 to m(i) - 1
+  - following form of:
+    - $(A - \lambda I)^{k}\bar{x = 0} $ and there are r < k solutions
+
+Remember - this "almost" diagonalizes A as U, and has some rules
+
+- at most (d - 1) entries above the diagonal can be 1 or 0
+  - is 0 IFF corresponding eigenvector is orinary
+  - is 1 IFF not ordinary (is generalized)
+  - entries above the diagonal called a `super-diagonal entry`
+- usually contain a small number of `super-diagonal` 1s
+- triangularizations are not unique
+  - different triangularizations come from imposing different constaints on the basis vectors and triangular matrix
+- also possible for eigenvectors and eigenvalues to be complex, even for real matrices
