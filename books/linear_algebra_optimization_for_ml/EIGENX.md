@@ -174,3 +174,23 @@ Remember - this "almost" diagonalizes A as U, and has some rules
 - triangularizations are not unique
   - different triangularizations come from imposing different constaints on the basis vectors and triangular matrix
 - also possible for eigenvectors and eigenvalues to be complex, even for real matrices
+
+### Similar Matrix Families - *Sharing Eigenvalues*
+
+- `similar matrices`
+  - A and B are similar when $B = VAV^{-1} $ (or vice versa)
+  - if we multiply a vector by A or B, the same `transformation` occurs
+    - (as long as the basis is appropriately chosen)
+    - e.g. two similar matrices perform a 60deg rotation, but axis of rotation is deferent
+    - e.g. two similar transforms scale a vector by the same factor, but in different directions
+  - similar matrices have the same `eigenvalues` (and corresponding multiplicities)
+    - `eigenvectors` not the same
+  - the `traces` of similar matrices are equal, and equal to sum of eigenvalues of that family
+
+#### Jordan Normal Forms of Similar Matrices
+
+- A and B are similar matrices where $B = VAV^{-1} $
+- their jordan normal forms are related as:
+  - $A = V_{1} U V_{1}^{-1} $
+  - $B = V_{2} U V_{2}^{-1} $
+  - where $V_{2} = V V_{1}  $

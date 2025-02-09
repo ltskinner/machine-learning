@@ -723,6 +723,7 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
   - when $B = VAV^{-1} $ for two matrices A and B
   - similar matrices have the same eigenvalues (and their corresponding multiplicities)
   - similar matrices perform similar operations, but in different basis systems
+  - see also [Jordan Normal Forms of Similar Matrices](./EIGENX.md)
 
 ## Jordan Normal Form aka Jordan Chains
 
