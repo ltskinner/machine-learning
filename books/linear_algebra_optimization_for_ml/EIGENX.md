@@ -182,10 +182,12 @@ Remember - this "almost" diagonalizes A as U, and has some rules
   - if we multiply a vector by A or B, the same `transformation` occurs
     - (as long as the basis is appropriately chosen)
     - e.g. two similar matrices perform a 60deg rotation, but axis of rotation is deferent
-    - e.g. two similar transforms scale a vector by the same factor, but in different directions
+    - e.g. two similar transforms scale a vector by the same factor, but in *different directions*
   - similar matrices have the same `eigenvalues` (and corresponding multiplicities)
-    - `eigenvectors` not the same
+    - `eigenvectors` not the same - point in *different directions*
   - the `traces` of similar matrices are equal, and equal to sum of eigenvalues of that family
+    - Trace(A) = Trace(B)
+- all `Householder reflection` matrices are `similar`
 
 #### Jordan Normal Forms of Similar Matrices
 

@@ -533,10 +533,17 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
 - `symmetric matrix`
   - is a square matrix that is its own transpose
   - A = A^T
+  - always `diagonalizable`
+    - with real `eigenvalues`
+  - have `orthonormal` `eigenvectors`
+    - `eigenvectors` are `A-orthogonal` (see below)
+    - $\bar{v}_{i}^{T}A\bar{v}_{j} = \lambda_{j}\bar{v}_{i}^{T}\bar{v}_{j} = 0$
+  - common in ML
+    - covariance matrices
+    - dot-product matrices
+    - (undirected) graph adjacency matrices
+    - similarity (kernel)
   - `spectral theorem` (describing symmetric matrices)
-    - symmetric matrices are always `diagonalizable`
-      - with real `eigenvalues`
-    - have `orthonormal` eigenvectors
     - A can be diagonalized in the form:
       - $A = V\Delta V^{T}  $
       - with orthogonal matrix V
@@ -565,6 +572,10 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - $w = i|| - j|| + k||  $
   - new basis would be:
     - $P = [v, u, w]  $
+- `A-orthogonal`
+  - for column vectors v_1, ..., v_d
+  - IFF $\bar{v}_{i}^{T}A\bar{v}_{j} = 0  $
+    - for all pairs [i,j] with i != j (entries off the diagonal)
 - `orthonormal`
   - A set of vectors is `orthonormal` if each pair mutually orthogonal and the norm of each vector is 1
 - `projection`
@@ -585,14 +596,23 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - $\|A\|_{F}^{2} = Energy(A) = tr(AA^{\top}) = tr(A^{\top}A)  $
 - `trace`
   - tr(A) of a square matrix is defined by the sum of its diagonal entries
-  - tr(A) = \sum_{i=1}^{n} a_{ii}^{2}
+  - tr(A) = \sum_{i=1}^{n} a_{ii}
   - tr(A) is equal to the sum of the eigenvalues, whether it is diagonalizable or not
+- `variance`
+  - $\sigma^2 = \frac{1}{N}\sum(x - \mu) $
+  - where $\mu $ is mean of sample
+  - where N is num samples
+- `standard deviation`
+  - $\sigma = \sqrt{\sigma^2} $
+- `covariance`
+  - $Cov(X, Y) \frac{1}{N}\sum (x_i - \mu_{X})(y_i - \mu_{Y}) $
 - `Gram matrix` - [see Gram Matrix](./GRAM_PROJECTION_MATRIX.md)
   - `(right) Gram matrix`
     - $A^T A$ of the column space of A
     - the cols of A are linearly independent iff A^T A is invertible
   - `left Gram matrix`
     - $AA^T$ of the row space of A
+  - `trace` of Gram matrix $A^T A $ = `energy` of $A $ (base matrix)
 - [`Gram-Schmidt / QR Decomposition`](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
 - [`LU Decomposition`](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
 - `Singular Value Decomposition` aka `SVD`
@@ -714,7 +734,13 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
   - a matrix where a `diagonalization` *does not exist*
   - missing eigendirections (eigenvectors) that contribute distinctly (not linearly independent)
 - `simultaneously diagonalizable`
-  - A diagonalizable matrix family that shares eigenvectors (but not eigenvalues)
+  - A diagonalizable matrix family that:
+    - shares `eigenvectors` (but **NOT** `eigenvalues`)
+    - perform `anisotropic` scaling in *same set of directions*
+    - also are commutative (AB = BA)
+  - complementary to `similar matrices`, whic:
+    - shares `eigenvalues` (but **NOT** `eigenvectors`)
+    - perform identical scaling across *different directions*
   - the columns of V are the eigenvectors of both A and B
     - $A = V \Delta_{1} V^{T}  $ or $V^{T} A V = \Delta_{1}  $
     - $B = V \Delta_{2} V^{T}  $ or $V^{T} B V = \Delta_{2}  $
