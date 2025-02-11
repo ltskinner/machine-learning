@@ -452,11 +452,26 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
 - `strictly positive` matrix
   - only positive and non-zero values
 - `positive semidefinite`
-  - iff all its eigenvalues are non-negative
+  - iff all `eigenvalues` are non-negative
+  - $\bar{x}^{T} A \bar{x} \ge 0 $ for any non-zero $\bar{x} in R^d $
+    - full lineage lol:
+    - $\bar{x}^{T} A \bar{x} = \bar{x}^{T} V \Delta V^T \bar{x} $
+    - $= (V^T \bar{x})^T \Delta (V^T \bar{x}) $ where $\bar{y} = V^T \bar{x} $ 
+    - $= \bar{y}^T \Delta \bar{y} = \sum_{i=1}^{d} \lambda_{i}y_{i}^{2} $
   - **not** guaranteed to be invertible
+    - but if it is invertible, A and A^{-1} are both positive semidefinite
   - Any matrix of the form BB^T or B^T B (i.e. Gram matrix form)
+    - $\bar{x}^T B^T B \bar{x} = (B\bar{x})^T(B\bar{x}) = \|B\bar{x}\|^2 \ge 0$
+  - do NOT change angular orientations of points by > 90 degrees
+    - to go over 90 deg, would require a negative direction
+  - `eigendecomposition form`
+    - *any* positive semidefinite can be expressed in `eigendecomposition form`
+    - $A = Q\Sigma^2Q^T = (Q\Sigma)(Q\Sigma)^T  $
+    - then, set $B = (Q\Sigma)^T $, so:
+    - $A = B^T B $
 - `positive definite` matrix
-  - only positive and zero values
+  - only positive and zero `eigenvalues`
+  - $$\bar{x}^{T} A \bar{x} > 0 $ for any non-zero $\bar{x} in R^d $ $
   - matrix A cannot be singular
   - iff all its eigenvalues are non-negative
   - guaranteed to be invertible
