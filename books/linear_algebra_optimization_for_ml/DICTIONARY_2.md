@@ -464,7 +464,7 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - $\bar{x}^T B^T B \bar{x} = (B\bar{x})^T(B\bar{x}) = \|B\bar{x}\|^2 \ge 0$
   - do NOT change angular orientations of points by > 90 degrees
     - to go over 90 deg, would require a negative direction
-  - `eigendecomposition form`
+  - `eigendecomposition form` - `symmetric decomposition`
     - *any* positive semidefinite can be expressed in `eigendecomposition form`
     - $A = Q\Sigma^2Q^T = (Q\Sigma)(Q\Sigma)^T  $
     - then, set $B = (Q\Sigma)^T $, so:
@@ -475,6 +475,10 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
   - matrix A cannot be singular
   - iff all its eigenvalues are non-negative
   - guaranteed to be invertible
+  - `cholesky factorization` - `symmetric decomposition`
+    - `cholesky factorization: symmetric LU decomposition`
+    - see [GRAM_SCHMIDT_QR_LU_DECOMP](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
+    - only works for `positive definite` - **NOT** `semi-definite`
 - `negative semidefinite matrices`
   - every eigenvalue is non-positive
   - can be converted into a positive semidefinite matric by reversing the sign
@@ -622,6 +626,7 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
 - `covariance`
   - $Cov(X, Y) \frac{1}{N}\sum (x_i - \mu_{X})(y_i - \mu_{Y}) $
 - `Gram matrix` - [see Gram Matrix](./GRAM_PROJECTION_MATRIX.md)
+  - useful for `kernel methods`
   - `(right) Gram matrix`
     - $A^T A$ of the column space of A
     - the cols of A are linearly independent iff A^T A is invertible

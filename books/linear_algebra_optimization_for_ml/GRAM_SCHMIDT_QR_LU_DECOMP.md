@@ -43,6 +43,49 @@
   - stacking all these operations is the inversion
   - "a sequence of row operations that transforms A to the identity matrix will transform the identity matrix B = A^{-1}"
 
+### Cholesky Factorization: Symmtric LU Decomposition
+
+- Remember, we want A = BB^T
+  - A = B(PP^T)B^T = (BP)(BP)^T
+- Cholesky Factorization = LL^T
+  - where L is some lower-triangular matrix
+  - $L = R^T $ from `QR decomposition`
+    - because the transpose of an upper triangular = lower triangular
+- can only be used for positive definite matrices
+- Cholesky factorizations are unique
+- faster to compute this than generic LU
+- preferred approach for testing the positive definiteness of a matrix
+  - b/c if not pd:
+    - then a 0 will occur on diagonal
+    - or, will be forced to compute sqrt of a negative value
+
+$a_{ij} = \sum_{k=1}^{d} l_{ik}l_{jk} = \sum_{k=1}^{j}l_{ik}l_{jk} L  $
+
+Where the first sum is $A_{ij} = (LL^T)_{ij}  $
+
+The first column of L can be computed by setting j=1, and iterating all i>=j:
+
+- $l_{11} = \sqrt(a_{11}) $
+- $l_{i1} = a_{i1} / l_{11} \forall i > 1 $
+
+The second column:
+
+- $l_{22} = \sqrt(a_{22} - l_{21}^{2}) $
+- $l_{i2} = (a_{i2} - l_{i1}l_{21})/l_{22} \forall i > 2 $
+
+Generalized routine:
+
+```txt
+Initialize L = [0]_{dxd}
+for j = 1 to d do
+  l_{jj} = sqrt(a_{jj} - \sum_{k=1}^{j-1} l_{jk}^{2});
+  for i = j + 1 to d do
+    l_{ij} = (a_{ij} - \sum_{k=1}^{j-1} l_{ik}l_{jk} / l_{jj})
+  endfor
+endfor
+return L = [l_{ij}]
+```
+
 ## Gram-Schmidt Process / QR Decomposition
 
 Purpose: transform a set of `linearly independent vectors` into an orthogonal (or orthonormal) set of vectors
@@ -126,6 +169,12 @@ $Q = [q_{q}, ..., q_{n}]$
 ### Finally: R
 
 $R = Q^T A $
+
+#### For Cholesky
+
+A = LL^T = R^T R
+
+Where L = R^T (because inverse of upper triangular is lower triangular)
 
 ### Finally: x
 
