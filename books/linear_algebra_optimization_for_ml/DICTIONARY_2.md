@@ -479,6 +479,15 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - `cholesky factorization: symmetric LU decomposition`
     - see [GRAM_SCHMIDT_QR_LU_DECOMP](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
     - only works for `positive definite` - **NOT** `semi-definite`
+  - `repair to positive definite`
+    - adding a multiple (preferred)
+      - $A_{PSD} = A + \alpha I  $
+      - where \alpha carefully chosen
+      - only modifies the diagonal
+    - eigenvalue clipping
+      - replace negative eigenvalues in \Delta with 0
+        - (for $B = V\Delta V^{-1}$)
+        - so you get $\Delta' $
 - `negative semidefinite matrices`
   - every eigenvalue is non-positive
   - can be converted into a positive semidefinite matric by reversing the sign

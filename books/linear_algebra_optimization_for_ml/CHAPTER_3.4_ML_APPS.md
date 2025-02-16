@@ -49,3 +49,40 @@ Note: Dot Product is but one similarity function
   - \sigma controls sensitivity of the fn to distances b/w points
 - using this, may not be able to recover the original dataset - but will get something similar
   - interestingly, the recovered representations Q\Sigma may be more useful for ML than the original D
+  - `nonlinear feature engineering`
+
+### `Covariance Matrix`
+
+computes the (scaled) dot products between *columns* of D AFTER mean-centering the matrix
+
+C = D^T D / N
+
+- `variance`
+  - $\sigma^2 = \frac{1}{N}\sum(x - \mu) $
+  - where $\mu $ is mean of sample
+  - where N is num samples
+- `standard deviation`
+  - $\sigma = \sqrt{\sigma^2} $
+- `covariance`
+  - $Cov(X, Y) \frac{1}{N}\sum (x_i - \mu_{X})(y_i - \mu_{Y}) $
+
+`mean-centering` makes \mu_x = \mu_y = 0, so
+
+- $\sigma_{xy} = \frac{\sum_{i=1}^{n} x_{i}y_{i}}{n} $
+
+useful for `principal component analysis`, can be diagonalized as:
+
+C = P
+
+Relationship:
+
+- `similarity matrix`
+  - dot product between rows
+- `covariance matrix`
+  - dot product between cols
+
+#### `Scatter matrix`
+
+- unscaled covariance matrix
+
+C = D^T D  (no /N)
