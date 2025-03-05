@@ -215,3 +215,22 @@ Moore-Penrose pseudoinverse:
   - may be complex valued
 
 A = P U P^T
+
+### 3.5.1 Finding Eigenvalues Numerically Using QR Method via Schur Decomposition
+
+QR uses following 2 steps alternatively in an iterative way
+
+- 1. Decompose the matrix A = QR using QR decomposition
+  - R is upper triangular
+  - Q is an orthogonal matrix
+- 2. Iterate by using $A \Leftarrow Q^T A Q $, and go to previous step
+
+The matrix $A^T A Q $ is similar to A, and therefore it has the same eigenvalues
+
+A key results is that applying the transformation in step 2 repeatedly to A results in the upper-triangular matrix U of `Schur decomposition`
+
+In fact, if we keep track of the orthogonal matrices $Q_{1}...Q_{s} $ obtianed using QR decomp (in that order) and denote their product $Q_{1}Q_{2}...Q_{s} $ by the single orthogonal matrix P, one can obtain the Schur decomp of A in the following form:
+
+$A = P U P^{T} $
+
+The diagoanl entries of this converged matrix U contain the eigenvalues. In general, the triangulization of a matrix is a natural way of finding its eigenvalues. After the eigenvalues $\lambda_{1}...\lambda_{d} $ have been found, the eigenvectors can be found by solving equations of the form $(A - \lambda_{j}I)\bar{x} = 0 $ using methods from 2.5.4. This approach is not optimized for computational speed, which can be improved by first transforming the matrix to `Hessenberg form`

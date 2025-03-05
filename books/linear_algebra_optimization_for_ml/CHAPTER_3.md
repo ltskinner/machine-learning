@@ -1212,6 +1212,8 @@ Hint: the left eigenvectors may not be the same in asymmetric matrices (as in sy
 
 Hmm, maybe we do both a left and right multiplication
 
+gram matrix is an ok approach, but what you really want is to do the shift ($A' = A + \alpha I $)
+
 #### Problem 3.5.4 - Finding Largest Eigenvectors
 
 The `power method` finds the top-k eigenvectors of largest *absolute* magnitude. In most applications, we also care about the sign of the eigenvector. In other words, an eigenvalue of +1 is greater than -2, when sign is considered. Show how you can modify the power method to find the top-k eigenvectors of a symmetric matrix when sign is considered

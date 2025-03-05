@@ -196,3 +196,72 @@ Remember - this "almost" diagonalizes A as U, and has some rules
   - $A = V_{1} U V_{1}^{-1} $
   - $B = V_{2} U V_{2}^{-1} $
   - where $V_{2} = V V_{1}  $
+
+## Numerical Algorithms for Finding Eigenvectors
+
+The simplest approach for finding eigenvectors of a dxd matrix a is to find the d roots $\lambda_{1}...\lambda_{d} $ of the equation $\det(A - \lambda I) = 0 $
+
+- some of the roots may be repeated
+- then, one has to solve linear systems of the form $(A - \lambda_{j} I) \bar{x} = 0 $
+  - this can be done with Gaussian elimination
+  - however, polynomial equations are sometimes numerically unstable and have a tendency to show ill-conditioning in real-world settings
+
+Finding the roots of a polynomial equation is numerically harder than finding eigenvalues of a matrix. In fact, one of the many ways in which high-degree polynomial equations are solved in engineering disciplines is to first construct a `companion matrix` of the polynomial, such that the matrix has the same characteristic polynomial, and then find its eigenvalues:
+
+### 3.5.1 The QR Method via Schur Decomposition
+
+Search "3.5.1" in [GRAM_SCHMIDT_QR_LU_DECOMP](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
+
+(should be near the end)
+
+### 3.5.2 The Power Method for Finding Dominant Eigenvectors
+
+- finds the eigenvector with the largest *absolute* eigenvalue of a matrix
+  - this is the `dominant eigenvector` or `principal eigenvector`
+  - one caveat is that the `principal eigenvector` may be complex, in which case the power method might not work
+- we usually do not need all the eigenvectors, but only the top few eigenvectors
+  - power method can be modified to find top few instead of just the top 1
+- this can find eigenvectors and eigenvalues simultaneously (whereas QR decomp cannot)
+- `power method` is an iterative method, and the underlying iterations are referred to as `von Mises iterations`
+
+Consider a dxd matrix A, which is `diagonalizable` with `real eigenvalues`. Since A is a diagonalizable matrix, multiplication with A results in anisotropic scaling. If we multiply any col vector $\bar{x} \in R^d $ with A to create $A\bar{x} $ it will result in a linear distortion of \bar{x}, in which directions correspond to larger (absolute) eigenvalues are stretched to a greater degree. As a result, the (acute) angle bnetween A\bar{x} and the largest eigenvector \bar{v} will reduct from that between \bar{x} and \bar{v}. If we keep repeating this process, the transformations will eventually result in a vector pointing in the direction of the largest (absolute) eigenvector. Therefore, the power method starts by first initializing the d components of the vector \bar{x} to random vaues from a uniform distribution in [-1, 1]. Subsequently, the following von Mises iteration is repeated to convergence:
+
+$\bar{x} \Leftarrow \frac{A\bar{x}}{\|A\bar{x}\|} $
+
+Note that normalization of the vector in each iteration is essential to prevent overflow or underflow to arbitrarily large or small values. After convergence to the principal eigenvector \bar{v}, one can compute the corresponsing eigenvalue as the ratio of $\bar{v}^{T} A \bar{v} $ to $\|\bar{v}\|^{2} $, which is referred to as the `Raleigh quotient`
+
+Basically, we end up with a situation where:
+
+$|\lambda_{1}^{t}| / \sum_{j=1}^{t}|\lambda_{j}^{t}| $ will converge to 1 for the largest (absolute) eigenvector and to 0 for all others. As a result, the normalized version of $A^{t}\bar{x} $ will point in the direction of the largest (absolute) eigenvector \bar{v}_{1}.
+
+Note that this depends on the fact that \lambda_{1} is strictly greater than the next eigenvaluye, or else convergence will not occur. Furthermore, if the top 2 eigenvalues are too similar, convergence will be slow. However, large ML matrices (e.g., covariance matrices) are often such that the top few eigenvalues are quite different in magnitude, and mos of the similar eigenvalues are at the bottom with values of 0. Furthermore, even when there are ties in the eigenvalues, the power method tends to find a vector that lies within the span of the tied eigenvectors
+
+#### Finding the Top-k Eigenvectors for Symmetric Matrices
+
+In most ML applications, one is looking for the top-k eigenvectors
+
+In `symmetric matrices`, the eigenvectors $\bar{v}_{1}...\bar{v}_{d} $, which define the columns of the basis matrix V, are orthonormal according to the following diagonalization:
+
+$A = V \Delta V^{T} $
+
+The above relationship can also be rearranged in terms of the column vectors of V and the eigenvalues $\lambda_{1}...\lambda_{d} $ of $\Delta $:
+
+$A = V \Delta V^{T} = \sum_{i=1}^{d} \lambda_{i} [\bar{v}_{i}\bar{v}_{i}^{T}] $
+
+This result follows from the fact that any matrix product can be expressed as the sum of outer products
+
+The decomposition implied by the above equation is referred to as a `spectral decomposition` of the matrix A. Each $\bar{v}_{i}\bar{v}_{i}^{T}$ is a rank-1 matrix of size dxd, and \lambda_{i} is the weight of this matrix component
+
+`spectral decomposition` can be applied to any type of matrix (and not just symmetric matrices) using an idea referred to as `singular value decomopsition`
+
+Consider the case in which we have already found the top eigenvector \lambda_{1} with eigenvalue \bar{v}_{1}. Then, one can remove the effect of the top eigenvalue by creating the following modified matrix:
+
+$A' = A - \lambda_{1}\bar{v}_{1}\bar{v}^{T} $
+
+As a result, the *second largest* eigenvalue of a becomes the cominant eigenvalue of A'. Therefore, by repeating the power iteration with A', one can now determine the second largest eigenvector. The process can be repeated any number of times.
+
+When A is sparse, one disdvantage of this method is that A' might not be sparese. Sparsity is a desirable feature of matrix representations, because of the space- and time-efficiencly of sparse matrix operation. However, it is not necessary to represent the dense matrix A' explicitly. The matrix multipolication $A'\bar{x} $ for the power method can be accomplished using the following relationship:
+
+$A'\bar{x} = A\bar{x} - \lambda_{1}\bar{v}_{1}(\bar{v}_{1}^{T}\bar{x}) $
+
+Important to note that we have bracketed the second term on the right-hand side. This avoids the explicity computation of a rank-1 matrix (which is dense), and it can be accomplished with simple dot product computation between \bar{v}_{1} and \bar{x}. This is an example of the fact that the associativity property of matrix multiplication is often used to ensure the best efficiency of matrix multiplication. One can also generalize these ideas to finding the top-k eigenvectors by removing the effect of the top-r eigenvectors from A when finding the (r+1)th eigenvector
