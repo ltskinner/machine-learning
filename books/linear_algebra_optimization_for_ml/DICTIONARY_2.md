@@ -470,7 +470,7 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - then, set $B = (Q\Sigma)^T $, so:
     - $A = B^T B $
 - `positive definite` matrix
-  - only positive and zero `eigenvalues`
+  - only positive `eigenvalues` (non zero, non-negative)
   - $$\bar{x}^{T} A \bar{x} > 0 $ for any non-zero $\bar{x} in R^d $ $
   - matrix A cannot be singular
   - iff all its eigenvalues are non-negative
@@ -643,6 +643,9 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
     - $AA^T$ of the row space of A
   - `trace` of Gram matrix $A^T A $ = `energy` of $A $ (base matrix)
 - [`Gram-Schmidt / QR Decomposition`](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
+  - `Gram-Schmidt orthogonalization` is a process that can be used to facilitate producing a QR decomposition
+  - `Gram-Schmidt orthogonalization` itself produces an orthonormal basis
+    - (the Q matrix)
 - [`LU Decomposition`](./GRAM_SCHMIDT_QR_LU_DECOMP.md)
 - `Singular Value Decomposition` aka `SVD`
   - square matrix only
@@ -815,7 +818,9 @@ formal from book:
 
 - the inverse of a `non-singular` matrix can always be expressed as:
   - a polynomial of degree (d-1)
-- Let A be any matrix with characteristic polynomial $f(\lambda) = \det{(A - \lambda I)}  $.
+- Let A be any matrix with `characteristic polynomial`
+  - factorized form: $f(\lambda) = \det{(A - \lambda I)} = (1 - \lambda)(...)$
+  - expanded form: $\lambda^2 - 3\lambda + 2 $
 - Then, f(A) evaluates to the zero matrix
 
 ## `Raleigh quotient` or `Rayleigh quotient`

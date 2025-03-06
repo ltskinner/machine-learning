@@ -90,6 +90,10 @@ return L = [l_{ij}]
 
 Purpose: transform a set of `linearly independent vectors` into an orthogonal (or orthonormal) set of vectors
 
+- `Gram-Schmidt orthogonalization` is a process that can be used to facilitate producing a QR decomposition
+- `Gram-Schmidt orthogonalization` itself produces an orthonormal basis
+  - (the Q matrix)
+
 In QR decomposition, this is applied to the *columns* of A, where:
 
 - Q is an orthogonal (or orthonormal) matrix whose *columns are orthogonal* `unit vectors` (orthonormal)
@@ -233,4 +237,4 @@ In fact, if we keep track of the orthogonal matrices $Q_{1}...Q_{s} $ obtianed u
 
 $A = P U P^{T} $
 
-The diagoanl entries of this converged matrix U contain the eigenvalues. In general, the triangulization of a matrix is a natural way of finding its eigenvalues. After the eigenvalues $\lambda_{1}...\lambda_{d} $ have been found, the eigenvectors can be found by solving equations of the form $(A - \lambda_{j}I)\bar{x} = 0 $ using methods from 2.5.4. This approach is not optimized for computational speed, which can be improved by first transforming the matrix to `Hessenberg form`
+The diagonal entries of this converged matrix U contain the eigenvalues. In general, the triangulization of a matrix is a natural way of finding its eigenvalues. After the eigenvalues $\lambda_{1}...\lambda_{d} $ have been found, the eigenvectors can be found by solving equations of the form $(A - \lambda_{j}I)\bar{x} = 0 $ using methods from 2.5.4. This approach is not optimized for computational speed, which can be improved by first transforming the matrix to `Hessenberg form`

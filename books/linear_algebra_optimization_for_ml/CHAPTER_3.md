@@ -1339,6 +1339,17 @@ A^2 = 4I
 
 use $A\bar{x} = \lambda x $
 
-### 9
+### 4
 
+Basically, use QR decomp (specifically the Q part aka gram-schmidt orthogonalization) to find the v3, v4
 
+Its annoying, but we have to put forward two linearly independent vectors:
+
+- w1 = [0, 0, 1, 1]
+- w2 = [0, 0, 1, -1]
+
+These form the candidate basis, on which we do QR to find the orthonormal vectors
+
+These become v3, v4
+
+Plug those into V to complete the eigenvector matrices
