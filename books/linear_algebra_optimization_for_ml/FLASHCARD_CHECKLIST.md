@@ -16,6 +16,8 @@
 |  |  |  |
 | Definiteness | Positive/negative definite, semidefinite, indefinite | Determines stability |
 |  |  |  |
+| Orthonormality | rows/cols are orthonormal if: 1. unit length, 2. mutually orthogonal (perpendicular (90deg angles yes really - this differs from linear independence)) | you may have linearly independent vectors, however they are only orthogonal if they meet at 90deg angle |
+|  |  |  |
 | Algebraic Multiplicity | Number of times an eigenvalue appears in the characteristic polynomial | Always >= GM |
 | Geometric Multiplicity | Number of linearly independent eigenvectors for an eigenvalue | GM = AM for diagonalizability |
 | Diagonalizability | $A = V \Delta V^{-1} $ | Simplifies computations in this form |
