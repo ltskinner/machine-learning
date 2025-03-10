@@ -11,7 +11,7 @@ Starting with the normal equation $A\bar{x} = \bar{b}  $
 In many cases:
 
 - $\bar{x} $ is some input data (features)
-- $\bar{x} $ is some output data (labels or predictions)
+- $\bar{b} $ is some output data (labels or predictions)
 - $A $ may not be known
 
 When A is not known, we seek to learn the values of A which project the input data into the space where b resides by using A - we seek to learn A
