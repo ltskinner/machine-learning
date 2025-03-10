@@ -19,7 +19,7 @@
 | Orthonormality | rows/cols are orthonormal if: 1. unit length, 2. mutually orthogonal (perpendicular (90deg angles yes really - this differs from linear independence)) | you may have linearly independent vectors, however they are only orthogonal if they meet at 90deg angle |
 |  |  |  |
 | Algebraic Multiplicity | Number of times an eigenvalue appears in the characteristic polynomial | Always >= GM |
-| Geometric Multiplicity | Number of linearly independent eigenvectors for an eigenvalue | GM = AM for diagonalizability |
+| Geometric Multiplicity | Number of linearly independent eigenvectors for an eigenvalue | AM = GM for diagonalizability |
 | Diagonalizability | $A = V \Delta V^{-1} $ | Simplifies computations in this form |
 | Jordan Form | Generalization of diagonalization (for non-diagonalizable matrices) | Simplifies computations, reveals GM vs AM and how eigenvectors fail to form a complete basis |
 |  |  |  |
@@ -37,8 +37,8 @@
 | Projection | $A^{2} = A$, represents a transformation onto a subspace | Idempotent. Eigenvalues are only 0 or 1 |
 | Orthogonal | $A^{T} = A^{-1} so $ $A^{T}A = I $ - columns/rows are orthonormal | Preserves lengths and angles, easy to invert, numerically stable, and eigenvalues are either 1, -1 |
 | Unitary | $A^{*}A = I$ (complex analog of Orthogonal) | Preserves vector norms, eigenvalues lie on the unit circle |
-| Symmetric | $A = A^{T} $ | Guarantees real eigenvalues, and possible diagonalizability (if matrix is real) |
-| Hermitian | $A = A^{*}$ (comples analog of Symmetric) | Eigenvalues are real |
+| Symmetric | $A^{T} = A $ | Guarantees real eigenvalues, and possible diagonalizability (if matrix is real) |
+| Hermitian | $A^{*} = A$ (comples analog of Symmetric) | Eigenvalues are real |
 | Skew-Symmetric | $A^{T} = -A$ | Eigenvalues are either 0 or purely imaginary |
 | Skew-Hermitian | $A^{*} = -A$ (complex analog of Skew-Symmetric) | Eigenvalues are purely imaginary |
 |  |  |  |
