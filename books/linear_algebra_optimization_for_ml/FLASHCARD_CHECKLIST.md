@@ -34,7 +34,6 @@
 | Diagonal | Diagonal elements are nonzero, all others are zero | Always diagonalizable, det = product of diagonal entries |
 | Nilpotent | $A^{k} = 0 $ for some k | All eigenvalues are 0, not diagonalizable (unless zero matrix) |
 | Idempotent | $A^{2} = A $ | Eigenvalues are only 0 or 1 |
-| Projection | $A^{2} = A$, represents a transformation onto a subspace | Idempotent. Eigenvalues are only 0 or 1 |
 | Orthogonal | $A^{T} = A^{-1} so $ $A^{T}A = I $ - columns/rows are orthonormal | Preserves lengths and angles, easy to invert, numerically stable, and eigenvalues are either 1, -1 |
 | Unitary | $A^{*}A = I$ (complex analog of Orthogonal) | Preserves vector norms, eigenvalues lie on the unit circle |
 | Symmetric | $A^{T} = A $ | Guarantees real eigenvalues, and possible diagonalizability (if matrix is real) |
@@ -47,6 +46,7 @@
 | Indefinite | $\bar{x}A\bar{x} $ can be positive or negative depending on x | Has both positive and negative eigenvalues |
 | Negative Semidefinite | $\bar{x}A\bar{x} <= 0 $ for all x | Eigenvalues <= 0, may be singular |
 | Negative Definite | $\bar{x}A\bar{x} < 0 $ for all x != 0 | All eigenvalues < 0, guaranteed invertible |
+| Strictly Positive (Negative) | All individual values in matrix are > 0 (< 0) |  |
 |  |  |  |
 | Triangular (Upper/Lower) | All elements on and above/below diagonal are non-zero | Det = product of diagonal entries |
 | Hessenberg | Triangular-like but with one extra non-zero sub/superdiagonal | Common in numerical algorithms |
@@ -54,3 +54,85 @@
 | Stochastic | Nonnegative entries, rows sum to 1 | Common in Markov processes |
 | Perron-Frobenius | A positive square matrix where the largest eigenvalue is real and positive | Used in probability and graph theory (e.g., Google PageRank) |
 |  |  |  |
+
+## Transformation Matrices
+
+| Transformation | Definition | Key Properties |
+| - | - | - |
+| Permutation Matrix | Rearranges rows or cols | Square, orthogonal ($P^{T} = P^{-1}$), entries are 0 or 1 |
+| Rotation Matrix | Rotates vectors around an axis | Orthogonal ($R^{T}R = I$), det(R) = +- 1 |
+| Reflection Matrix | Flips points symmetrically across a plane or line | Symmetric ($A = A^{T} $), $\lambda_{i} = +- 1$ |
+| Scaling Matrix | Stretches or compresses along principal axes | Diagonal form, $\lambda_{i}$ are scaling factors |
+| Interchange Matrix | Swaps two rows or columns | Orthogonal ($P^{T} = P^{-1}, P^{T}P = I $) |
+| Addition Matrix | Adds values of one row/col to another row/col | Invertible |
+|  |  |  |
+| Givens Rotation Matrix | 2d rotation matrix, performs localized rotation as G(row/col_1, row/col_2, angle) | Orthogonal ($P^{T} = P^{-1} $), used in QR decomp |
+| Householder Reflection Matrix | Reflects vectors across hyperplane | Orthogonal ($P^{T} = P^{-1}, P^{T}P = I $) |
+|  |  |  |
+| Shear Matrix | Shifts one coordinate direction relative to another. Preserves straightness of lines, parallelness of lines, but distorts angles (breaking orthogonality b/c line intersection). Can stretch, shrink, or leave unchanged (per-dimension) | At least one $\lambda $ is 1 (b/c some vectors are unchanged) |
+| Projection aka Basis (Matrix) | $A^{2} = A$, maps vectors onto a subspace (e.g. line or plane) | Idempotent. Eigenvalues are only 0 or 1. If there is an eigenvalue of 0, then it projects into a lower dimension |
+| Skew-Symmetric Matrix | $A^{T} = -A $ Rotation-like behavior without preserving vector magnitude | Eigenvalues are 0 or purely imaginary |
+|  |  |  |
+| Translation Matrix | Moves points without changing orientation, shape, or scale - shifts all points a fixed amount in each direction | like "addding an offset", but translation is a multiplication operation, whereas offset is element-wise addition (neither of these are linear operations) |
+| Affine Transformation Matrix | Combines mutliple xformations, such as rotation, scaling, translation |  |
+| Similarity Transformation Matrix | Changes a matrix while preserving eigenvalues | $A' = P^{-1} A P $ |
+| Fourier Transformation Matrix | Converts signals between time and frequency domains | Complex-valued, $\lambda $ are roots of unity |
+
+## Operations
+
+| Operation | Definition | Key Properties |
+| - | - | - |
+| Dot Product (Inner Product) | $a \cdot b = \sum a_{i}b_{i} $ | measures how aligned two vectors are. returns scalar |
+| Outer Product | $ab^T$ = (nxd) rank-1 matrix (all rows/cols are multiples of each other, so multiples of a single vector) | Represents a projection or transformation |
+| Cross Product | Produces a vector orthogonal to both inputs |  |
+|  |  |  |
+| Affine Transformation | Combination of a `linear transformation` with a `translation` |  |
+| Linear Transformation (Linear Operator) | f(x) = Ax (so, b = 0, not translating) | maps between two vector spaces (maps origin of V to origin of W aka "preserves the origin") |
+| Linear Function | f(x) = Ax + b (where b != 0 is the translation vector) | when `translation` is allowed, origins are not mapped to each other |
+|  |  |  |
+
+## Scratchpad
+
+- inverse
+  - left-inverse
+  - right inverse
+- gram matrix
+- similarity matrix
+
+processes/operations:
+
+- QR decomp
+- gram-schmidt orthogonalization
+- LU decomopsition
+- moore-penrose
+  - form of projection matrix
+  - symmetric, idempotent
+- schur decomp
+- gaussian elimination
+  - row echelon form (RREF too)
+  - back substitution
+    - parametric form
+- spectral theorem
+- singular value decomposition (SVD)
+- cayley-hamilton
+- polynomial function
+- raleigh quotient / rayley quotient
+- cauchy-schwarz inequality
+
+### Eventually
+
+- basis
+
+- 4 fundamental subspaces
+- linear transform / linear operator
+  - solution set requirements (3 types)
+  - consistent/inconsistent (depends on RREF)
+- defective matrix (next to consistent/inconsistent)
+  - not diagonalizable
+  - `simultaneously diagonalizable`
+  - `similar matrices`
+
+### eventually 2
+
+- variance
+- covariance
