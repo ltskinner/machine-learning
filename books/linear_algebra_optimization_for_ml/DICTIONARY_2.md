@@ -95,7 +95,7 @@
   - a new set of coordinates wrt a new changed set of directions
   - "the 1-dim projection operation of a vector x on a unit vector is the dot product"
   - x is modified to point *in the direction of the unit vector*
-- `standard basis representation` or `atd basis representation`
+- `standard basis representation` or `std basis representation`
   - requires
     - a `coordinate`
     - a `basis`
@@ -418,8 +418,7 @@ Other definitions:
   - 0 1 0 | 6
   - 0 0 1 | 5
   - for back substitution, sometimes we need to scale items on left by items on right to get to 1
-  - then, the numbers on right become solution
-`parametric form`
+  - then, the numbers on right become solution `parametric form`
 
 $x = \begin{bmatrix}x_1 \\ x_2 \\ x_{3}\end{bmatrix} = a \begin{bmatrix}1 \\ 1\\ 0\end{bmatrix} + b \begin{bmatrix}-1 \\ 0\\ 1\end{bmatrix} $
 
