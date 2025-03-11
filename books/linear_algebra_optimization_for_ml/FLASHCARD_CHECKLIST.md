@@ -73,7 +73,7 @@
 | Projection aka Basis (Matrix) | $A^{2} = A$, maps vectors onto a subspace (e.g. line or plane) | Idempotent. Eigenvalues are only 0 or 1. If there is an eigenvalue of 0, then it projects into a lower dimension |
 | Skew-Symmetric Matrix | $A^{T} = -A $ Rotation-like behavior without preserving vector magnitude | Eigenvalues are 0 or purely imaginary |
 |  |  |  |
-| Translation Matrix | Moves points without changing orientation, shape, or scale - shifts all points a fixed amount in each direction | like "addding an offset", but translation is a multiplication operation, whereas offset is element-wise addition (neither of these are linear operations) |
+| Translation Matrix | Moves points without changing orientation, shape, or scale - shifts all points a fixed amount in each direction | like "adding an offset", but translation is a multiplication operation, whereas offset is element-wise addition (neither of these are linear operations) |
 | Affine Transformation Matrix | Combines mutliple xformations, such as rotation, scaling, translation |  |
 | Similarity Transformation Matrix | Changes a matrix while preserving eigenvalues | $A' = P^{-1} A P $ |
 | Fourier Transformation Matrix | Converts signals between time and frequency domains | Complex-valued, $\lambda $ are roots of unity |
