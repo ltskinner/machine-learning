@@ -121,8 +121,6 @@ processes/operations:
 
 ### Eventually
 
-- basis
-
 - 4 fundamental subspaces
 - linear transform / linear operator
   - solution set requirements (3 types)
