@@ -91,22 +91,45 @@
 | Linear Function | f(x) = Ax + b (where b != 0 is the translation vector) | when `translation` is allowed, origins are not mapped to each other |
 |  |  |  |
 
+## Four Fundamental Subspaces of a Matrix
+
+| Subspace | Span | Definition | Basis | Dimensionality | Identifies |
+| - | - | - | - | - | - |
+| Right Null Space | "null space of the row space" | Set of solution vectors x such that $A\bar{x} = 0$ | solutions to $A\bar{x} = 0 $ | N(A) = n - rank(A) | Identifies "lost inputs" in R^d (A annihilates input x by mapping to 0) |
+| Row Space | Span of $A^{T}$ | Contains all possible linear combinations of row vectors | Independent rows of A | rank(A) | Identifies "constraints" on R^d |
+| Column Space | Span of $A$ | Contains all possible linear combinations of column vectors | Independent cols of A | rank(A) | Identifies "reachable outputs in R^n" |
+| Left Null Space | "null space of the column space" | Set of solution vectors y such that $A^{T}\bar{y} = 0$; vectors orthogonal to columns of A | solutions to $A^{T}\bar{y} = 0 $ | N(A) = d - rank(A) | Identifies "unreachable outputs" in R^n - directions that input x cannot reach b/c R^n fails to span |
+
 ## Scratchpad
+
+OK 4 fundamental subspaces
 
 - inverse
   - left-inverse
   - right inverse
-- gram matrix
+- solutions
+  - linear transform / linear operator
+    - solution set requirements (3 types)
+    - consistent/inconsistent (depends on RREF)
 - similarity matrix
+- defective matrix (next to consistent/inconsistent)
+  - not diagonalizable
+  - `simultaneously diagonalizable`
+  - `similar matrices`
+
+- gram matrix
 
 processes/operations:
 
+- push through identity?
 - QR decomp
 - gram-schmidt orthogonalization
 - LU decomopsition
 - moore-penrose
   - form of projection matrix
   - symmetric, idempotent
+- Neumann Series
+- Sherman-Morrison-Woodburry Identity
 - schur decomp
 - gaussian elimination
   - row echelon form (RREF too)
@@ -118,17 +141,6 @@ processes/operations:
 - polynomial function
 - raleigh quotient / rayley quotient
 - cauchy-schwarz inequality
-
-### Eventually
-
-- 4 fundamental subspaces
-- linear transform / linear operator
-  - solution set requirements (3 types)
-  - consistent/inconsistent (depends on RREF)
-- defective matrix (next to consistent/inconsistent)
-  - not diagonalizable
-  - `simultaneously diagonalizable`
-  - `similar matrices`
 
 ### eventually 2
 
