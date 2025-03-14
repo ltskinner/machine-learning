@@ -25,6 +25,9 @@
 |  |  |  |
 | Sparsity | Most entries are zero | Important for computational efficiency |
 |  |  |  |
+| Inconsistent | b $\notin$ column space of A | No solutions, but best fit is possible (trailing rows of 0s) |
+| Consistent | b $\in$ column space of A | At least one solution, either unique or infinite (no trailing rows of 0s) |
+|  |  |  |
 
 ## Matrix Types
 
@@ -100,17 +103,19 @@
 | Column Space | Span of $A$ | Contains all possible linear combinations of column vectors | Independent cols of A | rank(A) | Identifies "reachable outputs in R^n" |
 | Left Null Space | "null space of the column space" | Set of solution vectors y such that $A^{T}\bar{y} = 0$; vectors orthogonal to columns of A | solutions to $A^{T}\bar{y} = 0 $ | N(A) = d - rank(A) | Identifies "unreachable outputs" in R^n - directions that input x cannot reach b/c R^n fails to span |
 
-## Scratchpad
+## Solution Cases for $A\bar{x} = \bar{b} $
 
-OK 4 fundamental subspaces
+| Case | Condition | Geometric Interpretation | Implication on Rank |
+| - | - | - | - |
+| No Solution | b is not in col space, but orthogonal best fit solution is possible | inconsistent system (trailing rows of 0s in RREF), over-determined systems | # rows > # cols (tall) |
+| Unique Solution | b is in col space, linearly independent cols | Solution: $\bar{x} = A^{-1}\bar{b} $ | square matrices |
+| Infinite Solutions | b in col space, not linearly independent cols | Solution: has free parameters (free columns in RREF) | # cols > # rows (wide) |
+
+## Scratchpad
 
 - inverse
   - left-inverse
   - right inverse
-- solutions
-  - linear transform / linear operator
-    - solution set requirements (3 types)
-    - consistent/inconsistent (depends on RREF)
 - similarity matrix
 - defective matrix (next to consistent/inconsistent)
   - not diagonalizable
