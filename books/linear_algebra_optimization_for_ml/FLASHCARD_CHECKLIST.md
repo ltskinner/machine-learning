@@ -6,6 +6,9 @@
 | - | - | - |
 | Determinant | det(A) is a scalar that determines *invertibility* | det(A) = 0 means A is singular (non-invertible), at least one eigenvalue is 0 |
 | Invertibility | $AA^{-1} = A^{-1}A = I $ | det(A) != 0, has full rank, has no zero eigenvalues, Ax = b has unique solutions for any b |
+| Left-inverse | $LA = I$ where $L = (A^T A)^{-1}A^T  $, when A has full column rank (rank(A) = n) | - when A is tall, - useful for exact solutions in consistent, `overdetermined systems`, - appears in pseudo-inverses (Moore-Penrose) |
+| Right-inverse | $AR = I$ where $R = A^T(AA^T)^{-1}  $, when A has full row rank (rank(A) = d) | - when A is wide, - useful for underdetermined systems, - guarantees solutions when system is inconsistent |
+|  |  |  |
 | Singularity | det(A) = 0, not invertible | at least one eigenvalue is 0 |
 | Eigenvalues $\lambda$ | Scalars satisfying $A\bar{v} = \lambda\bar{v} $ | The scaling factors that describe how much the matrix stretches or compresses along eigenvector directions. Determine stability, transformations, and diagonalizability |
 | Eigenvectors $\bar{v}$ | Nonzero vectors satisfying $A\bar{v} = \lambda\bar{v} $ | Point in the directions that remain unchanged under transformation. Form a basis if the matrix is diagonalizable |
