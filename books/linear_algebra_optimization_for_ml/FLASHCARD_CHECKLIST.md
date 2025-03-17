@@ -54,6 +54,8 @@
 | Negative Definite | $\bar{x}A\bar{x} < 0 $ for all x != 0 | All eigenvalues < 0, guaranteed invertible |
 | Strictly Positive (Negative) | All individual values in matrix are > 0 (< 0) |  |
 |  |  |  |
+| Gram matrix | $G = A^{T}A$ | - symmetric, - always positive semidefinite, sometimes positive definite if full col rank |
+|  |  |  |
 | Triangular (Upper/Lower) | All elements on and above/below diagonal are non-zero | Det = product of diagonal entries |
 | Hessenberg | Triangular-like but with one extra non-zero sub/superdiagonal | Common in numerical algorithms |
 |  |  |  |
@@ -114,18 +116,17 @@
 | Unique Solution | b is in col space, linearly independent cols | Solution: $\bar{x} = A^{-1}\bar{b} $ | square matrices |
 | Infinite Solutions | b in col space, not linearly independent cols | Solution: has free parameters (free columns in RREF) | # cols > # rows (wide) |
 
+## Diagonalizability & Related Concepts
+
+| Concept | Definition | Relationship to Diagonalization | When Occurs | Key Insight |
+| - | - | - | - | - |
+| Diagonalizability | $A = PDP^{-1}$ | Matrix can be reduced via similarity | Has complete set of independent eigenvectors |  |
+| Jordan Form | Generalization of diagonalization for non-diagonalizable (defective) matrices $A = PJP^{-1} $ | Similarity transformation | Always exists for square matrices |  |
+| Defective Matrix | Does not have enough independent eigenvectors | Forces use of Jordan form | GM < AM | Uses "generalized eigenvectors"; leads to nontrivial jordan blocks |
+| Similar Matrices | $A = PBP^{-1}$ | Generalizes diagonalization | Always occurs when two matrices represent the same linear map in different bases | Share eigenvalues, determinant, and trace (but not eigenvectors (the different bases)) |
+| Simultaneously Diagonalizable | Two matrices diagonalizable by the same matrix P: $P^{-1}AP = D_{A}, P^{-1}BP = D_{B} $ | Special case, not like something to be sought after | Occurs when A and B are diagonalizable and commute (AB = BA) | Not really a big deal lol |
+
 ## Scratchpad
-
-- inverse
-  - left-inverse
-  - right inverse
-- similarity matrix
-- defective matrix (next to consistent/inconsistent)
-  - not diagonalizable
-  - `simultaneously diagonalizable`
-  - `similar matrices`
-
-- gram matrix
 
 processes/operations:
 
@@ -149,8 +150,3 @@ processes/operations:
 - polynomial function
 - raleigh quotient / rayley quotient
 - cauchy-schwarz inequality
-
-### eventually 2
-
-- variance
-- covariance
