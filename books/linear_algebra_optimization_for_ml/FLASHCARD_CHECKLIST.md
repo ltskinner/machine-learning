@@ -126,27 +126,41 @@
 | Similar Matrices | $A = PBP^{-1}$ | Generalizes diagonalization | Always occurs when two matrices represent the same linear map in different bases | Share eigenvalues, determinant, and trace (but not eigenvectors (the different bases)) |
 | Simultaneously Diagonalizable | Two matrices diagonalizable by the same matrix P: $P^{-1}AP = D_{A}, P^{-1}BP = D_{B} $ | Special case, not like something to be sought after | Occurs when A and B are diagonalizable and commute (AB = BA) | Not really a big deal lol |
 
-## Scratchpad
+## Matrix Manipulation/Simplification
 
-processes/operations:
+- Push Through Identity
+- Parametric form
 
-- push through identity?
-- QR decomp
-- gram-schmidt orthogonalization
-- LU decomopsition
-- moore-penrose
-  - form of projection matrix
-  - symmetric, idempotent
+## Solving Linear Systems
+
+- Gaussian elimination
+- Row Echelon form
+- Back substitution
+
+## Orthogonalization / basis generation
+
+- Gram-Schmidt orthogonalization
+
+## Matrix Decomposition
+
+- QR decomposition
+- LU decomposition
+- Schur decomposition
+- Singular Value Decomposition (SVD)
+
+## Inversion tricks
+
+- Moore-Penrose
 - Neumann Series
-- Sherman-Morrison-Woodburry Identity
-- schur decomp
-- gaussian elimination
-  - row echelon form (RREF too)
-  - back substitution
-    - parametric form
-- spectral theorem
-- singular value decomposition (SVD)
-- cayley-hamilton
-- polynomial function
-- raleigh quotient / rayley quotient
-- cauchy-schwarz inequality
+- Sherman-Morrison-Woodbury Identity
+
+## Eigenvalue Theory and Estimation
+
+- Spectral Theorem
+- Cayley-Hamilton theorem
+- Polynomial function
+- Rayleigh quotient / Rayley quotient
+
+## Inner product spaces
+
+- Cauchy-Schwarz Inequality
