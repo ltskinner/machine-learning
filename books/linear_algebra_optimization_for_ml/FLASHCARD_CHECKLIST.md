@@ -126,16 +126,35 @@
 | Similar Matrices | $A = PBP^{-1}$ | Generalizes diagonalization | Always occurs when two matrices represent the same linear map in different bases | Share eigenvalues, determinant, and trace (but not eigenvectors (the different bases)) |
 | Simultaneously Diagonalizable | Two matrices diagonalizable by the same matrix P: $P^{-1}AP = D_{A}, P^{-1}BP = D_{B} $ | Special case, not like something to be sought after | Occurs when A and B are diagonalizable and commute (AB = BA) | Not really a big deal lol |
 
-## Matrix Manipulation/Simplification
+## Matrix Manipulation & Linear System Solving
 
-- Push Through Identity
-- Parametric form
+| Process / Method | When | Why | Key Insight | Connects to |
+| - | - | - | - | - |
+| Gaussian Elimination | Solving any linear system $A\bar{x} = \bar{b} $ | Reduces to REF | Precursor to REF, RREF, back substitution, leads to LU decomp | Use row operations to zero out subdiagonal entries |
+| Row Echelon Form (REF) | Product of Gaussian elimination | Simplifies A to triagnular form | Leads to backsubstitution or to RREF | Pivot positions indicate rank and system structure |
+| Back Substitution (Unique Solutions) | After REF when no free variables exist (common in square and overdetermined systems) | Solves triangular systems bottom-up | Ends pipeline to unique solutions for Ax = b | Solve from the last variable upward recursively |
+| Row Reduced Echelon Form (RREF) | Further reduces REF | Fully reveals free variables in underdetermined or redundant systems | Leads to back substitution w/ free variables or parametric form | Free variables arise from non-pivot columns |
+| Back Substitution (w/ Free Variables) | After RREF when free variables exist | Solves dependent variables while leaving free variables open | Leads to parametric form for the general solution | Free variables appear as parameters in the general solution |
+| Parametric form | Expresses infinite solution sets in consistent, underdetermined systems | Describes the general solution using free variables | Follows RREF and back substitution w/ free variables | $ x = x_p + t_{1}v_{1} + t_{2}v_{2} ...$ where $v_{i} \in Null(A)$ (right) Null space |
+| Push Through Identity | When simplifying expressions including $A^{-1}$, I or A in formulas | Reduces expressions algebraically | Used in inverse derivations, projection simplifications, or factorizations | $AI = A $ and $A^{-1}A = I $; manipulate to isolate terms cleanly |
 
-## Solving Linear Systems
+```mermaid
+flowchart TD
+    A[Start: Ax = b] --> B[Gaussian Elimination]
+    B --> C[Row Echelon Form (REF)]
+    C --> D1[Back Substitution (Unique Solution) <br> (Typically Overdetermined or Square)]
+    C --> D2[Row Reduced Echelon Form (RREF) <br> (Typically Underdetermined)]
+    D2 --> E1[Back Substitution (with Free Variables)]
+    D2 --> E2[Parametric Form <br> (General Solution for Underdetermined Systems)]
 
-- Gaussian elimination
-- Row Echelon form
-- Back substitution
+    style A fill:#f9f,stroke:#333,stroke-width:1px
+    style B fill:#bbf,stroke:#333,stroke-width:1px
+    style C fill:#bbf,stroke:#333,stroke-width:1px
+    style D1 fill:#cfc,stroke:#333,stroke-width:1px
+    style D2 fill:#cfc,stroke:#333,stroke-width:1px
+    style E1 fill:#ffd,stroke:#333,stroke-width:1px
+    style E2 fill:#ffd,stroke:#333,stroke-width:1px
+```
 
 ## Orthogonalization / basis generation
 
