@@ -142,11 +142,11 @@
 flowchart TD
     A[Start: Ax = b]
     B[Gaussian Elimination]
-    C[Row Echelon Form (REF)]
-    D1[Back Substitution (Unique Solution)]
-    D2[Row Reduced Echelon Form (RREF)]
-    E1[Back Substitution (with Free Variables)]
-    E2[Parametric Form (General Solution)]
+    C[Row Echelon Form - REF]
+    D1[Back Substitution - Unique Solution]
+    D2[Row Reduced Echelon Form - RREF]
+    E1[Back Substitution - with Free Variables]
+    E2[Parametric Form - General Solution]
 
     A --> B
     B --> C
@@ -155,13 +155,6 @@ flowchart TD
     D2 --> E1
     D2 --> E2
 
-    style A fill:#f9f,stroke:#333,stroke-width:1px
-    style B fill:#bbf,stroke:#333,stroke-width:1px
-    style C fill:#bbf,stroke:#333,stroke-width:1px
-    style D1 fill:#cfc,stroke:#333,stroke-width:1px
-    style D2 fill:#cfc,stroke:#333,stroke-width:1px
-    style E1 fill:#ffd,stroke:#333,stroke-width:1px
-    style E2 fill:#ffd,stroke:#333,stroke-width:1px
 
 ```
 
