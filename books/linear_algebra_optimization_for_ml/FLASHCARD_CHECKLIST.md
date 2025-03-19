@@ -140,10 +140,11 @@
 
 ```mermaid
 flowchart TD
-    A[Start: Ax = b] --> B[Gaussian Elimination]
+    A[Start: Ax = b]
+    A --> B[Gaussian Elimination]
     B --> C[Row Echelon Form (REF)]
-    C --> D1[Back Substitution (Unique Solution, Overdetermined or Square)]
-    C --> D2[Row Reduced Echelon Form (RREF, Underdetermined)]
+    C --> D1[Back Substitution (Unique Solution)]
+    C --> D2[Row Reduced Echelon Form (RREF)]
     D2 --> E1[Back Substitution (with Free Variables)]
     D2 --> E2[Parametric Form (General Solution)]
     
