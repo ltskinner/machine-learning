@@ -142,11 +142,11 @@
 flowchart TD
     A[Start: Ax = b] --> B[Gaussian Elimination]
     B --> C[Row Echelon Form (REF)]
-    C --> D1[Back Substitution (Unique Solution) <br> (Typically Overdetermined or Square)]
-    C --> D2[Row Reduced Echelon Form (RREF) <br> (Typically Underdetermined)]
+    C --> D1[Back Substitution (Unique Solution, Overdetermined or Square)]
+    C --> D2[Row Reduced Echelon Form (RREF, Underdetermined)]
     D2 --> E1[Back Substitution (with Free Variables)]
-    D2 --> E2[Parametric Form <br> (General Solution for Underdetermined Systems)]
-
+    D2 --> E2[Parametric Form (General Solution)]
+    
     style A fill:#f9f,stroke:#333,stroke-width:1px
     style B fill:#bbf,stroke:#333,stroke-width:1px
     style C fill:#bbf,stroke:#333,stroke-width:1px
@@ -154,6 +154,7 @@ flowchart TD
     style D2 fill:#cfc,stroke:#333,stroke-width:1px
     style E1 fill:#ffd,stroke:#333,stroke-width:1px
     style E2 fill:#ffd,stroke:#333,stroke-width:1px
+
 ```
 
 ## Orthogonalization / basis generation
