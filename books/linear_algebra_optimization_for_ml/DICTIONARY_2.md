@@ -575,6 +575,7 @@ $\begin{bmatrix}1 & -1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
       - $A = V\Delta V^{T}  $
       - with orthogonal matrix V
       - $A = V\Delta V^{T}  $ instead of $A = V\Delta V^{-1}  $
+    - `spectral decomposition` is just diagonalization for spectral contexts (still is eigenvalues under the hood)
 - `skew symmetric matrix`
   - square matrix
   - A^T = -A

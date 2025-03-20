@@ -10,7 +10,7 @@
 | Right-inverse | $AR = I$ where $R = A^T(AA^T)^{-1}  $, when A has full row rank (rank(A) = d) | - when A is wide, - useful for underdetermined systems, - guarantees solutions when system is inconsistent |
 |  |  |  |
 | Singularity | det(A) = 0, not invertible | at least one eigenvalue is 0 |
-| Eigenvalues $\lambda$ | Scalars satisfying $A\bar{v} = \lambda\bar{v} $ | The scaling factors that describe how much the matrix stretches or compresses along eigenvector directions. Determine stability, transformations, and diagonalizability |
+| Eigenvalues $\lambda$ | Scalars satisfying $A\bar{v} = \lambda\bar{v} $ | The scaling factors that describe how much the matrix stretches or compresses along eigenvector directions. Determine stability, transformations, and diagonalizability. The "spectrum of a matrix" (e.g. eigenvalues correspond to natural frequencies (vibrations, energy levels)) |
 | Eigenvectors $\bar{v}$ | Nonzero vectors satisfying $A\bar{v} = \lambda\bar{v} $ | Point in the directions that remain unchanged under transformation. Form a basis if the matrix is diagonalizable |
 |  |  |  |
 | Rank | Number of linearly independent rows/columns | Full-rank **square** matrices are invertible |
@@ -28,8 +28,8 @@
 |  |  |  |
 | Sparsity | Most entries are zero | Important for computational efficiency |
 |  |  |  |
-| Inconsistent | b $\notin$ column space of A | No solutions, but best fit is possible (trailing rows of 0s) |
-| Consistent | b $\in$ column space of A | At least one solution, either unique or infinite (no trailing rows of 0s) |
+| Inconsistent | b $\notin$ column space of A | No solutions, but best fit is possible (trailing rows of 0s) (describes $Ax = b$, not just A) |
+| Consistent | b $\in$ column space of A | At least one solution, either unique or infinite (no trailing rows of 0s) (describes $Ax = b$, not just A) |
 |  |  |  |
 
 ## Matrix Types
@@ -154,9 +154,19 @@ flowchart TD
     C --> D2
     D2 --> E1
     D2 --> E2
-
-
 ```
+
+## Orthogonalization and Matrix Decompositions
+
+| Process / Methods | When | Why | Key Insights | Connects To |
+| - | - | - | - | - |
+| Decomposition | Sameas Factorization | Expressing a matrix as a product of more simple or structured matrices |  |  |
+| Gram-Schmidt Orthogonalization | Create an orthonormal basis from linearly independent set of vectors | Q part of QR Decomp |  |  |
+| Orthonormal Basis Generation | The $q_{x} = u_{x}/\|u_{x} \| part $ of Q formation |  |  |  |
+| QR Decomposition | Factorizes matrix into: - orthogonal matrix - upper triangular matrix (weights/coefficients to express original A in terms of Q) |  |  |  |
+|  |  |  |  |  |
+|  |  |  |  |  |
+|  |  |  |  |  |
 
 ## Orthogonalization / basis generation
 
@@ -169,18 +179,18 @@ flowchart TD
 - Schur decomposition
 - Singular Value Decomposition (SVD)
 
-## Inversion tricks
-
-- Moore-Penrose
-- Neumann Series
-- Sherman-Morrison-Woodbury Identity
-
 ## Eigenvalue Theory and Estimation
 
 - Spectral Theorem
 - Cayley-Hamilton theorem
 - Polynomial function
 - Rayleigh quotient / Rayley quotient
+
+## Inversion tricks
+
+- Moore-Penrose
+- Neumann Series
+- Sherman-Morrison-Woodbury Identity
 
 ## Inner product spaces
 
