@@ -162,11 +162,34 @@ flowchart TD
 | - | - | - | - | - |
 | Decomposition | Sameas Factorization | Expressing a matrix as a product of more simple or structured matrices |  |  |
 | Gram-Schmidt Orthogonalization | Create an orthonormal basis from linearly independent set of vectors | Q part of QR Decomp |  |  |
-| Orthonormal Basis Generation | The $q_{x} = u_{x}/\|u_{x} \| part $ of Q formation |  |  |  |
-| QR Decomposition | Factorizes matrix into: - orthogonal matrix - upper triangular matrix (weights/coefficients to express original A in terms of Q) |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
+| Orthonormal Basis Generation | The $q_{x} = u_{x}/\|u_{x} \| $ part of Q formation |  |  |  |
+| QR Decomposition | A = QR Factorizes matrix into: - orthogonal matrix - upper triangular matrix (weights/coefficients to express original A in terms of Q) | Useful for computing other decomps |  |  |
+| LU Decomposition | A = LU Factorizes into: - lower triangular matrix - upper triangular matrix | Efficiently solve systems and compute determinants | Part of GE |  |
+| Schur decomposition | $A = QTQ^{-1}$ Reduce matrix to quasi-triangular form (T upper triangular, Q orthogonal) | Used in spectral theory, stability analysis, eigenvalue algorithms |  |  |
+| SVD - Singular Value Decomposition | $A = U\Sigma V^{-1}$ ($\Sigma$ is diagonal w/singular values) Factorizing any matrix into orthogonal, diagonal components | U, V are orthogonal | Digaonalization only works on square, whereas SVD works on any nxd matrix. U = left singular vectors (eigenvectors of $AA^{T}$), V = right singular values (eigenvectors of $A^{T}A$), $\Sigma$ = singular vaues (square roots of eigenvalues of $A^{T}A$) |  |
+
+```mermaid
+flowchart TD
+    A[Gram-Schmidt Orthogonalization]
+    B[Orthonormal Basis Generation]
+    C[QR Decomposition]
+    D[LU Decomposition]
+    E[Schur Decomposition]
+    F[SVD - Singular Value Decomposition]
+
+    A --> B
+    B --> C
+    C --> D
+    C --> E
+    C --> F
+
+    style A fill:#f9f,stroke:#333,stroke-width:1px
+    style B fill:#ccf,stroke:#333,stroke-width:1px
+    style C fill:#bbf,stroke:#333,stroke-width:1px
+    style D fill:#cfc,stroke:#333,stroke-width:1px
+    style E fill:#cfc,stroke:#333,stroke-width:1px
+    style F fill:#ffd,stroke:#333,stroke-width:1px
+```
 
 ## Orthogonalization / basis generation
 
