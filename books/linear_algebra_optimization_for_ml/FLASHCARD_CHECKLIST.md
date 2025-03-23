@@ -54,7 +54,7 @@
 | Negative Definite | $\bar{x}A\bar{x} < 0 $ for all x != 0 | All eigenvalues < 0, guaranteed invertible |
 | Strictly Positive (Negative) | All individual values in matrix are > 0 (< 0) |  |
 |  |  |  |
-| Gram matrix | $G = A^{T}A$ | - symmetric, - always positive semidefinite, sometimes positive definite if full col rank |
+| Gram matrix | Column Gram matrix $A^{T}A$, Row Gram matrix $AA^{T}$ | - symmetric, - always positive semidefinite, sometimes positive definite if full col rank |
 |  |  |  |
 | Triangular (Upper/Lower) | All elements on and above/below diagonal are non-zero | Det = product of diagonal entries |
 | Hessenberg | Triangular-like but with one extra non-zero sub/superdiagonal | Common in numerical algorithms |
@@ -166,7 +166,7 @@ flowchart TD
 | QR Decomposition | A = QR Factorizes matrix into: - orthogonal matrix - upper triangular matrix (weights/coefficients to express original A in terms of Q) | Useful for computing other decomps |  |  |
 | LU Decomposition | A = LU Factorizes into: - lower triangular matrix - upper triangular matrix | Efficiently solve systems and compute determinants | Part of GE |  |
 | Schur decomposition | $A = QTQ^{-1}$ Reduce matrix to quasi-triangular form (T upper triangular, Q orthogonal) | Used in spectral theory, stability analysis, eigenvalue algorithms |  |  |
-| SVD - Singular Value Decomposition | $A = U\Sigma V^{-1}$ ($\Sigma$ is diagonal w/singular values) Factorizing any matrix into orthogonal, diagonal components | U, V are orthogonal | Digaonalization only works on square, whereas SVD works on any nxd matrix. U = left singular vectors (eigenvectors of $AA^{T}$), V = right singular values (eigenvectors of $A^{T}A$), $\Sigma$ = singular vaues (square roots of eigenvalues of $A^{T}A$) |  |
+| SVD - Singular Value Decomposition | $A = AA^{T} \Sigma A^{T}A $ creating $A = U\Sigma V^{-1}$ ($\Sigma$ is diagonal w/singular values) Factorizing any matrix into orthogonal, diagonal components | U, V are orthogonal | Digaonalization only works on square, whereas SVD works on any nxd matrix. U = left singular vectors (eigenvectors of $AA^{T}$), V = right singular values (eigenvectors of $A^{T}A$), $\Sigma$ = singular vaues (square roots of eigenvalues of $A^{T}A$) |  |
 
 ```mermaid
 flowchart TD
@@ -191,20 +191,44 @@ flowchart TD
     style F fill:#ffd,stroke:#333,stroke-width:1px
 ```
 
-## Orthogonalization / basis generation
+## Eigenvalue Theory / Spectral Operations
 
-- Gram-Schmidt orthogonalization
+| Process / Methods | When | Why | Key Insights | Connects To |
+| - | - | - | - | - |
+| Spectral Theorem | For analyzing symmetric (Hermitian) matrices | Guarantees diagonalizability via orthogonal (unitary) matrix | Basis for eigenvalue decomp, PCA, Schur decomp | If $A = A^{T} $ then $A = Q\Lambda Q^{T} $ |
+| Schur decomposition | For square matrices $A = QTQ^{-1}$ Reduce matrix to quasi-triangular form (T upper triangular, Q orthogonal) | Used in spectral theory, stability analysis, eigenvalue algorithms |  |  |
+| Cayley-Hamilton Theorem | Simplifying matrix polynomials. Any matrix satisfies its own characteristic equation | Like, when we plug a legit matrix into the characteristic polynomial it solves the same way as individual eigenvalues | $p_{A}(A) = 0 $ where $p_{A}(\lambda) =\det{(A - \lambda I)} $ |  |
+| Matrix Polynomial Function | Allows operating on matrices the same way we do scalars by using eigenvalues | $f(A) = V f(\Lambda) V^{-1} $ when A is diagonalizable | Useful for matrix exponentials $\exp{At} $ |  |
+| Rayleigh Quotient / Rayley Quotient | Estiamtes eigenvalues for symmetric matrices | $R(\bar{x}) = \frac{\bar{x}^{T}A\bar{x}}{\bar{x}^{T}\bar{x}} $ | Feeds into power method |  |
+| Power Method | Iterative method to Estimate dominant eigenvector and eigenvalue numerically | $x_{k+1} = \frac{A\bar{x}_{k}}{\|A\bar{x}_{k}\|} $ | Principal eigenvector estimation, spectral clustering, graph algorithms |  |
 
-## Matrix Decomposition
+```mermaid
+flowchart TD
+    A[Spectral Theorem]
+    B[Schur Decomposition]
+    C[Cayley-Hamilton Theorem]
+    D[Matrix Polynomial Function]
+    E[Rayleigh Quotient]
+    F[Power Method]
 
-- QR decomposition
-- LU decomposition
-- Schur decomposition
-- Singular Value Decomposition (SVD)
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+
+    style A fill:#f9f,stroke:#333,stroke-width:1px
+    style B fill:#ccf,stroke:#333,stroke-width:1px
+    style C fill:#bbf,stroke:#333,stroke-width:1px
+    style D fill:#cfc,stroke:#333,stroke-width:1px
+    style E fill:#ffd,stroke:#333,stroke-width:1px
+    style F fill:#ffd,stroke:#333,stroke-width:1px
+```
 
 ## Eigenvalue Theory and Estimation
 
 - Spectral Theorem
+- Schur Decomposition
 - Cayley-Hamilton theorem
 - Polynomial function
 - Rayleigh quotient / Rayley quotient
