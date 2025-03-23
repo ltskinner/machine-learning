@@ -221,20 +221,20 @@ flowchart TD
     style F fill:#ffd,stroke:#333,stroke-width:1px
 ```
 
-## Eigenvalue Theory and Estimation
+## Inversion Tricks and Generalized Inverses
 
-- Spectral Theorem
-- Schur Decomposition
-- Cayley-Hamilton theorem
-- Polynomial function
-- Rayleigh quotient / Rayley quotient
+| Process / Methods | When | Why | Key Insights | Connects To |
+| - | - | - | - | - |
+| Moore-Penrose Pseudoinverse | When A is not square, or is singular. Works for over, under determined systems | $A^{+} = R^T(RR^T)^{-1} Q^T $ if have QR, and $A^{+} = V\Sigma^{+}U^{T} with SVD $ |  |  |
+| Neumann Series | When A is invertible and $\|I - A\| \lt 1 $ | Approximates $A^{-1} $ as a series expansion $A^{-1} = \sum_{k=0}^{\inf} (I - A)^{k} $ |  |  |
+| Sherman-Morrison-Woodbury Identity | $(A + UV^{T})^{-1} = A^{-1} - A^{-1}U(I + V^{T}A^{-1}U)^{-1}V^{T}A^{-1} $ | Note, U and V are just generic matrices, not SVD related |  |  |
 
-## Inversion tricks
+## Inner Product Spaces
 
-- Moore-Penrose
-- Neumann Series
-- Sherman-Morrison-Woodbury Identity
+| Process / Methods | When | Why | Key Insights | Connects To |
+| - | - | - | - | - |
+| Cauchy-Schwarz Inequality | The dot product between a pair of vectors is bounded *above* by the product of their lengths |  Provides an upper bound on the absolute value of an inner product |  |  |
 
-## Inner product spaces
+Note, the vertical bars break the table:
 
-- Cauchy-Schwarz Inequality
+$\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar{y}\|  $
