@@ -205,17 +205,13 @@ flowchart TD
 ```mermaid
 flowchart TD
     A[Spectral Theorem]
-    B[Schur Decomposition]
-    C[Cayley-Hamilton Theorem]
-    D[Matrix Polynomial Function]
-    E[Rayleigh Quotient]
-    F[Power Method]
+    A --> B[Schur Decomposition]
+    A --> E[Rayleigh Quotient]
 
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
+    B --> C[Cayley-Hamilton Theorem]
+    C --> D[Matrix Polynomial Function]
+
+    E --> F[Power Method]
 
     style A fill:#f9f,stroke:#333,stroke-width:1px
     style B fill:#ccf,stroke:#333,stroke-width:1px
