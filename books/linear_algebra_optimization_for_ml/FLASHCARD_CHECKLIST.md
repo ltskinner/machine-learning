@@ -199,8 +199,8 @@ flowchart TD
 | Spectral Theorem | For analyzing symmetric (Hermitian) matrices | Guarantees diagonalizability via orthogonal (unitary) matrix | Basis for eigenvalue decomp, PCA, Schur decomp | If $A = A^{T} $ then $A = Q\Lambda Q^{T} $ |
 | Schur decomposition | For square matrices $A = QTQ^{-1}$ Reduce matrix to quasi-triangular form (T upper triangular, Q orthogonal) | Used in spectral theory, stability analysis, eigenvalue algorithms |  |  |
 | Cayley-Hamilton Theorem | Simplifying matrix polynomials. Any matrix satisfies its own characteristic equation | Like, when we plug a legit matrix into the characteristic polynomial it solves the same way as individual eigenvalues | $p_{A}(A) = 0 $ where $p_{A}(\lambda) =\det{(A - \lambda I)} $ |  |
-| Matrix Polynomial Function | Allows operating on matrices the same way we do scalars by using eigenvalues | $f(A) = V f(\Lambda) V^{-1} $ when A is diagonalizable | Useful for matrix exponentials $\exp{At} $ |  |
-| Rayleigh Quotient / Rayley Quotient | Estiamtes eigenvalues for symmetric matrices | $R(\bar{x}) = \frac{\bar{x}^{T}A\bar{x}}{\bar{x}^{T}\bar{x}} $ | Feeds into power method |  |
+| Matrix Polynomial Function | Allows operating on matrices the same way we do scalars by using eigenvalues | $f(A) = V f(\Lambda) V^{-1} $ when A is diagonalizable | Useful for matrix exponentials $e^{At} $ |  |
+| Rayleigh Quotient / Rayley Quotient | Estimates eigenvalues for symmetric matrices | $R(\bar{x}) = \frac{\bar{x}^{T}A\bar{x}}{\bar{x}^{T}\bar{x}} $ | Feeds into power method |  |
 | Power Method | Iterative method to Estimate dominant eigenvector and eigenvalue numerically | $x_{k+1} = \frac{A\bar{x}_{k}}{\|A\bar{x}_{k}\|} $ | Principal eigenvector estimation, spectral clustering, graph algorithms |  |
 
 ```mermaid
@@ -226,9 +226,9 @@ flowchart TD
 
 | Process / Methods | When | Why | Key Insights | Connects To |
 | - | - | - | - | - |
-| Moore-Penrose Pseudoinverse | When A is not square, or is singular. Works for over, under determined systems | $A^{+} = R^T(RR^T)^{-1} Q^T $ if have QR, and $A^{+} = V\Sigma^{+}U^{T} with SVD $ |  |  |
+| Moore-Penrose Pseudoinverse | When A is not square, or is singular. Works for over, under determined systems | $A^{+} = R^T(RR^T)^{-1} Q^T $ if have QR, and $A^{+} = V\Sigma^{+}U^{T} $ with SVD |  |  |
 | Neumann Series | When A is invertible and $\|I - A\| \lt 1 $ | Approximates $A^{-1} $ as a series expansion $A^{-1} = \sum_{k=0}^{\inf} (I - A)^{k} $ |  |  |
-| Sherman-Morrison-Woodbury Identity | $(A + UV^{T})^{-1} = A^{-1} - A^{-1}U(I + V^{T}A^{-1}U)^{-1}V^{T}A^{-1} $ | Note, U and V are just generic matrices, not SVD related |  |  |
+| Sherman-Morrison-Woodbury Identity | $(A + UV^{T})^{-1} = A^{-1} - A^{-1}U(I + V^{T}A^{-1}U)^{-1}V^{T}A^{-1} $ | Note, U and V are just generic matrices, not SVD related | Useful when update is low rank. also good if just updating an inverse. iterates a big inverse for a few small matrix operations and a small inverse (dxd operation instead of nxn operation (if tall)) |  |
 
 ## Inner Product Spaces
 
@@ -238,4 +238,4 @@ flowchart TD
 
 Note, the vertical bars break the table:
 
-$\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar{y}\|  $
+$|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar{y}\|  $
