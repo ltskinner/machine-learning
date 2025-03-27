@@ -124,7 +124,7 @@
 | Jordan Form | Generalization of diagonalization for non-diagonalizable (defective) matrices $A = PJP^{-1} $ | Similarity transformation | Always exists for square matrices |  |
 | Defective Matrix | Does not have enough independent eigenvectors | Forces use of Jordan form | AM > GM (not =) | Uses "generalized eigenvectors"; leads to nontrivial jordan blocks |
 | Similar Matrices | $A = PBP^{-1}$ | Generalizes diagonalization | Always occurs when two matrices represent the same linear map in different bases | Share eigenvalues, determinant, and trace (but not eigenvectors (the different bases)) |
-| Simultaneously Diagonalizable | Two matrices diagonalizable by the same matrix P: $P^{-1}AP = D_{A}, P^{-1}BP = D_{B} $ | Special case, not like something to be sought after | Occurs when A and B are diagonalizable and commute (AB = BA) | Not really a big deal lol |
+| Simultaneously Diagonalizable | Two matrices diagonalizable by the same matrix P: $P^{-1}AP = D_{A}, P^{-1}BP = D_{B} $ | Special case, not like something to be sought after | Occurs when A and B are diagonalizable and commute (AB = BA) | Not really a big deal lel |
 
 ## Matrix Manipulation & Linear System Solving
 
