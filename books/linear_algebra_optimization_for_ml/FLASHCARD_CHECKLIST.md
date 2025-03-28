@@ -161,7 +161,7 @@ flowchart TD
 | Process / Methods | When | Why | Key Insights | Connects To |
 | - | - | - | - | - |
 | Decomposition | Sameas Factorization | Expressing a matrix as a product of more simple or structured matrices |  |  |
-| Gram-Schmidt Orthogonalization | Create an orthonormal basis from linearly independent set of vectors | Q part of QR Decomp |  |  |
+| Gram-Schmidt Orthogonalization | Create an orthonormal basis from linearly independent set of vectors | The Q part of QR decomp (without normalization) |  |  |
 | Orthonormal Basis Generation | The $q_{x} = u_{x}/\|u_{x} \| $ part of Q formation |  |  |  |
 | QR Decomposition | A = QR Factorizes matrix into: - orthogonal matrix - upper triangular matrix (weights/coefficients to express original A in terms of Q) | Useful for computing other decomps |  |  |
 | LU Decomposition | A = LU Factorizes into: - lower triangular matrix (keeps track of elementary row operations performed during GE) - U upper triangular matrix (the matrix resulting from GE) | Efficiently solve systems and compute determinants | Part of GE |  |
