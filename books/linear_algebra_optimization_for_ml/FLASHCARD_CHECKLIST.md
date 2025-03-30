@@ -200,7 +200,7 @@ flowchart TD
 | Schur decomposition | For square matrices $A = QTQ^{-1}$ Reduce matrix to quasi-triangular form (T upper triangular, Q orthogonal) | Used in spectral theory, stability analysis, eigenvalue algorithms |  |  |
 | Cayley-Hamilton Theorem | Simplifying matrix polynomials. Any matrix satisfies its own characteristic equation | Like, when we plug a legit matrix into the characteristic polynomial it solves the same way as individual eigenvalues | $p_{A}(A) = 0 $ where $p_{A}(\lambda) =\det{(A - \lambda I)} $ |  |
 | Matrix Polynomial Function | Allows operating on matrices the same way we do scalars by using eigenvalues | $f(A) = V f(\Lambda) V^{-1} $ when A is diagonalizable | Useful for matrix exponentials $e^{At} $ |  |
-| Rayleigh Quotient / Rayley Quotient | Estimates eigenvalues for symmetric matrices | $R(\bar{x}) = \frac{\bar{x}^{T}A\bar{x}}{\bar{x}^{T}\bar{x}} $ | Feeds into power method |  |
+| Rayleigh Quotient / Rayley Quotient | Estimates eigenvalues for **symmetric matrices** (Gram supports this) | $R(\bar{x}) = \frac{\bar{x}^{T}A\bar{x}}{\bar{x}^{T}\bar{x}} $ | Feeds into power method |  |
 | Power Method | Iterative method to Estimate dominant eigenvector and eigenvalue numerically | $x_{k+1} = \frac{A\bar{x}_{k}}{\|A\bar{x}_{k}\|} $ | Principal eigenvector estimation, spectral clustering, graph algorithms |  |
 
 ```mermaid
