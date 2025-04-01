@@ -770,7 +770,7 @@ $A^{T}(AA^{T})^{m} = (A^{T}A)^{m}A^{T}  $ where m is any non-negative integer
     - shares `eigenvectors` (but **NOT** `eigenvalues`)
     - perform `anisotropic` scaling in *same set of directions*
     - also are commutative (AB = BA)
-  - complementary to `similar matrices`, whic:
+  - complementary to `similar matrices`, which:
     - shares `eigenvalues` (but **NOT** `eigenvectors`)
     - perform identical scaling across *different directions*
   - the columns of V are the eigenvectors of both A and B

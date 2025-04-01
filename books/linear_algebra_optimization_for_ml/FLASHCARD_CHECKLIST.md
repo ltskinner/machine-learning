@@ -9,7 +9,7 @@
 | Left-inverse | $LA = I$ where $L = (A^T A)^{-1}A^T  $, when A has full column rank (rank(A) = n) | - when A is tall, - useful for exact solutions in consistent, `overdetermined systems`, - appears in pseudo-inverses (Moore-Penrose) |
 | Right-inverse | $AR = I$ where $R = A^T(AA^T)^{-1}  $, when A has full row rank (rank(A) = d) | - when A is wide, - useful for underdetermined systems, - guarantees solutions when system is inconsistent |
 |  |  |  |
-| Singularity | det(A) = 0, not invertible | at least one eigenvalue is 0 |
+| Singularity | det(A) = 0, not invertible | at least one eigenvalue is 0. Emphasizes the determinant (not collapsing to zero), as opposed to the function/operator view |
 | Eigenvalues $\lambda$ | Scalars satisfying $A\bar{v} = \lambda\bar{v} $ | The scaling factors that describe how much the matrix stretches or compresses along eigenvector directions. Determine stability, transformations, and diagonalizability. The "spectrum of a matrix" (e.g. eigenvalues correspond to natural frequencies (vibrations, energy levels)) |
 | Eigenvectors $\bar{v}$ | Nonzero vectors satisfying $A\bar{v} = \lambda\bar{v} $ | Point in the directions that remain unchanged under transformation. Form a basis if the matrix is diagonalizable |
 |  |  |  |
@@ -165,6 +165,7 @@ flowchart TD
 | Orthonormal Basis Generation | The $q_{x} = u_{x}/\|u_{x} \| $ part of Q formation |  |  |  |
 | QR Decomposition | A = QR Factorizes matrix into: - orthogonal matrix - upper triangular matrix (weights/coefficients to express original A in terms of Q) | Useful for computing other decomps |  |  |
 | LU Decomposition | A = LU Factorizes into: - lower triangular matrix (keeps track of elementary row operations performed during GE) - U upper triangular matrix (the matrix resulting from GE) | Efficiently solve systems and compute determinants | Part of GE |  |
+| Cholesky Decomposition | Special case of LU decomp **only for positive definite matrices** | $A = LL^{T} $ Factors a matrix into a product of a lower triangular and its transpose |  |  |
 | Upper/Lower Quasi-Triangular | Sameas Upper/Lower block-triangular. Has 2x2 blocks of $\begin{bmatrix}\alpha & \beta \\ -\beta & \alpha \end{bmatrix} $ where $\lambda = \alpha \pm i\beta  $ | - 1 block is real eigenvalue - 2block is complex pairs. these 2x2 squares live on the diagonal, where the diagaon of the 2x2 block align with the diagonal of the overall matrix. To use this, you have to unpack and process the blocks specially |  |  |
 | Schur decomposition | $A = QTQ^{-1}$ Reduce matrix to quasi-triangular form (T upper triangular, Q orthogonal) | Used in spectral theory, stability analysis, eigenvalue algorithms | Quasi-triangular = block upper-triangular. Q is more stable than $V^{-1}$ in standard diagonalization | Schur decomp will naturally diagonalize a diagonalizable matrix, but if the matrix is not diagonalizable, it will still produce this form which makes spectral properties accessible and is stable to compute |
 | SVD - Singular Value Decomposition | $A = U\Sigma V^{-1}$ ($\Sigma$ is diagonal w/singular values) Factorizing any matrix into orthogonal, diagonal components | U, V are orthogonal | Digaonalization only works on square, whereas SVD works on any nxd matrix (this is the only analog to diagonalizability for non-square matrices). U = left singular vectors (eigenvectors of $AA^{T}$), V = right singular values (eigenvectors of $A^{T}A$), $\Sigma$ = singular vaues (square roots of eigenvalues of $A^{T}A$) |  |
@@ -239,3 +240,16 @@ flowchart TD
 Note, the vertical bars break the table:
 
 $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar{y}\|  $
+
+## Proofs? lol
+
+### Simultaneously diagonalizable
+
+- need to show the two matrices commute: AB = BA
+
+### Symmetric
+
+- need to show A = A^T
+  - use: $(XY)^{T} = Y^{T} X^{T} $
+- and:
+  - $A_{ij} = A_{ji} $
