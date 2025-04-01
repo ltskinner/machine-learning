@@ -165,7 +165,7 @@ flowchart TD
 | Orthonormal Basis Generation | The $q_{x} = u_{x}/\|u_{x} \| $ part of Q formation |  |  |  |
 | QR Decomposition | A = QR Factorizes matrix into: - orthogonal matrix - upper triangular matrix (weights/coefficients to express original A in terms of Q) | Useful for computing other decomps |  |  |
 | LU Decomposition | A = LU Factorizes into: - lower triangular matrix (keeps track of elementary row operations performed during GE) - U upper triangular matrix (the matrix resulting from GE) | Efficiently solve systems and compute determinants | Part of GE |  |
-| Cholesky Decomposition | Special case of LU decomp **only for positive definite matrices** | $A = LL^{T} $ Factors a matrix into a product of a lower triangular and its transpose |  |  |
+| Cholesky Decomposition | Special case of LU decomp **only for positive definite matrices**. this works because it is unique for PD matrices | $A = LL^{T} $ Factors a matrix into a product of a lower triangular and its transpose | More computationally efficient than standard LU for PD matrices |  |
 | Upper/Lower Quasi-Triangular | Sameas Upper/Lower block-triangular. Has 2x2 blocks of $\begin{bmatrix}\alpha & \beta \\ -\beta & \alpha \end{bmatrix} $ where $\lambda = \alpha \pm i\beta  $ | - 1 block is real eigenvalue - 2block is complex pairs. these 2x2 squares live on the diagonal, where the diagaon of the 2x2 block align with the diagonal of the overall matrix. To use this, you have to unpack and process the blocks specially |  |  |
 | Schur decomposition | $A = QTQ^{-1}$ Reduce matrix to quasi-triangular form (T upper triangular, Q orthogonal) | Used in spectral theory, stability analysis, eigenvalue algorithms | Quasi-triangular = block upper-triangular. Q is more stable than $V^{-1}$ in standard diagonalization | Schur decomp will naturally diagonalize a diagonalizable matrix, but if the matrix is not diagonalizable, it will still produce this form which makes spectral properties accessible and is stable to compute |
 | SVD - Singular Value Decomposition | $A = U\Sigma V^{-1}$ ($\Sigma$ is diagonal w/singular values) Factorizing any matrix into orthogonal, diagonal components | U, V are orthogonal | Digaonalization only works on square, whereas SVD works on any nxd matrix (this is the only analog to diagonalizability for non-square matrices). U = left singular vectors (eigenvectors of $AA^{T}$), V = right singular values (eigenvectors of $A^{T}A$), $\Sigma$ = singular vaues (square roots of eigenvalues of $A^{T}A$) |  |
@@ -253,3 +253,17 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - use: $(XY)^{T} = Y^{T} X^{T} $
 - and:
   - $A_{ij} = A_{ji} $
+
+### Positive Semidefinite
+
+- generally:
+  - gram matrix A^{T} A are:
+    - symmetric
+    - positive semidefinite
+- not all symmetric matrices are PSD
+  - but if it is symmetric:
+    - A = B^{T}B
+      - B is placeholder that says:
+        - if A is symmetric, there must exist some B where A = B^T B
+- if you can write: A = B^T B
+- then: $\bar{x}^{T}A\bar{x} = \bar{x}^{T}B^{T}B\bar{x} = \|B\bar{x}\|^{2} \geq 0 $
