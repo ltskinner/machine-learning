@@ -267,3 +267,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
         - if A is symmetric, there must exist some B where A = B^T B
 - if you can write: A = B^T B
 - then: $\bar{x}^{T}A\bar{x} = \bar{x}^{T}B^{T}B\bar{x} = \|B\bar{x}\|^{2} \geq 0 $
+
+### Orthogonal
+
+- show $\bar{v}^{T} \bar{w} = 0 $

@@ -1281,6 +1281,7 @@ Diagonalizable matrices represent a form of linear transformation, so that multi
 18. True or False
   - a matrix with all zero eigenvalues must be the zero matrix
     - True. det(A) = 0 is singular and tr(A) = 0
+      - note: originally had this as True like weeks ago but I think its actually False. Nilpotent matrices have all 0 eigenvalues but are not necessarily the 0 matrix. they become the zero matrix for A^k but are not the zero matrix to begin with
   - a symmetric matrix will all zero eigenvalues must be the zero matrix
     - True
 19. if either A or B is invertible, then we can construct a similarity transform P = A or P = B, which we use in similarity equation
