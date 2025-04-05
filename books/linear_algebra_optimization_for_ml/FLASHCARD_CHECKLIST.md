@@ -92,7 +92,7 @@
 | - | - | - |
 | Dot Product (Inner Product) | $a \cdot b = \sum a_{i}b_{i} $ | measures how aligned two vectors are. returns scalar |
 | Outer Product | $ab^T$ = (nxd) rank-1 matrix (all rows/cols are multiples of each other, so multiples of a single vector) | Represents a projection or transformation |
-| Cross Product | Produces a vector orthogonal to both inputs | The area of the parallelogram is the magnitude of the cross product vector. Closely related to the determinant |
+| Cross Product | Produces a vector orthogonal to both inputs | The area of the parallelogram is the magnitude of the cross product vector. Closely related to the determinant, but is NOT the determinant |
 |  |  |  |
 | Affine Transformation | Combination of a `linear transformation` with a `translation` |  |
 | Linear Transformation (Linear Operator) | f(x) = Ax (so, b = 0, not translating) | maps between two vector spaces (maps origin of V to origin of W aka "preserves the origin") |
