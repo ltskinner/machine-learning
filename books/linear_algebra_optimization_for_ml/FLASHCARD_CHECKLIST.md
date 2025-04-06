@@ -249,7 +249,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 
 ### Symmetric
 
-- need to show A = A^T
+- need to show $A = A^T$
   - use: $(XY)^{T} = Y^{T} X^{T} $
 - and:
   - $A_{ij} = A_{ji} $
