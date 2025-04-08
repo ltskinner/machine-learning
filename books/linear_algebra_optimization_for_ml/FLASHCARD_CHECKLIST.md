@@ -241,6 +241,12 @@ Note, the vertical bars break the table:
 
 $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar{y}\|  $
 
+## New terms
+
+- convex (and determining if convex or not)
+- concave
+- sylvesters criterion
+
 ## Proofs? lol
 
 ### Simultaneously diagonalizable
@@ -271,3 +277,22 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 ### Orthogonal
 
 - show $\bar{v}^{T} \bar{w} = 0 $
+
+### Quadratic function is convex
+
+- is Positive Semi-Definite
+  - all eigenvalues >= 0
+  - or
+  - Sylvesters criterion:
+    - for 3x3 matrix, take:
+      - det(1x1) of upper left
+      - det(2x2) of upper left
+      - det(3x3) of upper left
+    - these are called "the minors"
+      - positive definite = all 3 > 0
+      - positive semidefinite all 3 >= 0, with some being 0
+      - nothing if any < 0
+
+### Quadratic function minimum of the objective function
+
+- basically smallest eigenvalue is the minimum
