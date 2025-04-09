@@ -295,4 +295,5 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 
 ### Quadratic function minimum of the objective function
 
-- basically smallest eigenvalue is the minimum
+- use rayley method
+- smallest eigenvalue is the minimum
