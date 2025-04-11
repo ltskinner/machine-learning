@@ -47,7 +47,7 @@
 | Skew-Symmetric | $A^{T} = -A$ | Eigenvalues are either 0 or purely imaginary |
 | Skew-Hermitian | $A^{*} = -A$ (complex analog of Skew-Symmetric) | Eigenvalues are purely imaginary |
 |  |  |  |
-| Positive Definite | $\bar{x}A\bar{x} > 0 $ for all x != 0 | All eigenvalues > 0, guaranteed invertible |
+| Positive Definite | $\bar{x}A\bar{x} > 0 $ for all x != 0 *that span the space* aka *are linearly independent* | All eigenvalues > 0, guaranteed invertible |
 | Positive Semidefinite | $\bar{x}A\bar{x} >= 0 $ for all x | Eigenvalues >= 0, may be singular |
 | Indefinite | $\bar{x}A\bar{x} $ can be positive or negative depending on x | Has both positive and negative eigenvalues |
 | Negative Semidefinite | $\bar{x}A\bar{x} <= 0 $ for all x | Eigenvalues <= 0, may be singular |
@@ -61,6 +61,8 @@
 |  |  |  |
 | Stochastic | Nonnegative entries, rows sum to 1 | Common in Markov processes |
 | Perron-Frobenius | A positive square matrix where the largest eigenvalue is real and positive | Used in probability and graph theory (e.g., Google PageRank) |
+|  |  |  |
+| Finite Matrix | All values are not infinite or nans | $\lim_{n \rightarrow \inf} (1 + \frac{A}{n})^{n} = V e^{\Delta} V^{-1} = e^{A} $ and A is finite (has finite eigenvalues) so $e^{A}$ doesnt go to infinity |
 |  |  |  |
 
 ## Transformation Matrices
@@ -165,7 +167,7 @@ flowchart TD
 | Orthonormal Basis Generation | The $q_{x} = u_{x}/\|u_{x} \| $ part of Q formation |  |  |  |
 | QR Decomposition | A = QR Factorizes matrix into: - orthogonal matrix - upper triangular matrix (weights/coefficients to express original A in terms of Q) | Useful for computing other decomps |  |  |
 | LU Decomposition | A = LU Factorizes into: - lower triangular matrix (keeps track of elementary row operations performed during GE) - U upper triangular matrix (the matrix resulting from GE) | Efficiently solve systems and compute determinants | Part of GE |  |
-| Cholesky Decomposition | Special case of LU decomp **only for positive definite matrices**. this works because it is unique for PD matrices | $A = LL^{T} $ Factors a matrix into a product of a lower triangular and its transpose | More computationally efficient than standard LU for PD matrices |  |
+| Cholesky Decomposition | Special case of LU decomp **only for positive definite matrices**. this works because it is unique for PD matrices | $A = LL^{T} or $A = U^{T}U$ (because $L^{T} = U$) $ Factors a matrix into a product of a lower triangular and its transpose | More computationally efficient than standard LU for PD matrices |  |
 | Upper/Lower Quasi-Triangular | Sameas Upper/Lower block-triangular. Has 2x2 blocks of $\begin{bmatrix}\alpha & \beta \\ -\beta & \alpha \end{bmatrix} $ where $\lambda = \alpha \pm i\beta  $ | - 1 block is real eigenvalue - 2block is complex pairs. these 2x2 squares live on the diagonal, where the diagaon of the 2x2 block align with the diagonal of the overall matrix. To use this, you have to unpack and process the blocks specially |  |  |
 | Schur decomposition | $A = QTQ^{-1}$ Reduce matrix to quasi-triangular form (T upper triangular, Q orthogonal) | Used in spectral theory, stability analysis, eigenvalue algorithms | Quasi-triangular = block upper-triangular. Q is more stable than $V^{-1}$ in standard diagonalization | Schur decomp will naturally diagonalize a diagonalizable matrix, but if the matrix is not diagonalizable, it will still produce this form which makes spectral properties accessible and is stable to compute |
 | SVD - Singular Value Decomposition | $A = U\Sigma V^{-1}$ ($\Sigma$ is diagonal w/singular values) Factorizing any matrix into orthogonal, diagonal components | U, V are orthogonal | Digaonalization only works on square, whereas SVD works on any nxd matrix (this is the only analog to diagonalizability for non-square matrices). U = left singular vectors (eigenvectors of $AA^{T}$), V = right singular values (eigenvectors of $A^{T}A$), $\Sigma$ = singular vaues (square roots of eigenvalues of $A^{T}A$) |  |
@@ -202,7 +204,7 @@ flowchart TD
 | Cayley-Hamilton Theorem | Simplifying matrix polynomials. Any matrix satisfies its own characteristic equation | Like, when we plug a legit matrix into the characteristic polynomial it solves the same way as individual eigenvalues | $p_{A}(A) = 0 $ where $p_{A}(\lambda) =\det{(A - \lambda I)} $ |  |
 | Matrix Polynomial Function | Allows operating on matrices the same way we do scalars by using eigenvalues | $f(A) = V f(\Lambda) V^{-1} $ when A is diagonalizable | Useful for matrix exponentials $e^{At} $ |  |
 | Rayleigh Quotient / Rayley Quotient | Estimates eigenvalues for **symmetric matrices** (Gram supports this) | $R(\bar{x}) = \frac{\bar{x}^{T}A\bar{x}}{\bar{x}^{T}\bar{x}} $ | Feeds into power method |  |
-| Power Method | Iterative method to Estimate dominant eigenvector and eigenvalue numerically | $x_{k+1} = \frac{A\bar{x}_{k}}{\|A\bar{x}_{k}\|} $ | Principal eigenvector estimation, spectral clustering, graph algorithms |  |
+| Power Method | Iterative method to Estimate dominant eigenvector and eigenvalue numerically | $x_{k+1} = \frac{A\bar{x}_{k}}{\|A\bar{x}_{k}\|} $ | $\bar{x}_{k} \rightarrow \bar{v}_{max} $ and $\lambda_{max} \approx \bar{x}_{k}^{T} A \bar{x}_{k} $ | This doesnt find the actual eigenvector, just lets you know the direction of the largest, so $x_{k}$ really is random |
 
 ```mermaid
 flowchart TD
@@ -240,6 +242,19 @@ flowchart TD
 Note, the vertical bars break the table:
 
 $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar{y}\|  $
+
+## Variance, Std. Dev, Normalization
+
+| Name | Equation | Why | |
+| - | - | - | - |
+| Min-max normalization | $\frac{x - min}{max - min}  $ | Rescales to 0-1 for preprocessing |  |
+| Z-score | $\frac{x - \mu}{\sigma} $ sample - mean / std but if mean centered, mean = 0 so just sample/std |  |  |
+| Variance | For mean centered: $C(ovariance) = \frac{1}{n}D^T D $ and the *diagonal* is the variance of each column/feature. the eigenvalues give the variance along each principal component | How much energy is spread across the axis |  |
+| Std. Deviation | $\sigma = \sqrt{variance} = \sqrt{\lambda} $ | How far the typical point deviates |  |
+| Matrix normalization | z-score of mean centered: $z' = \frac{z}{\sigma} = \frac{z}{\sqrt{\lambda}} $ | Then, either do $Z' = \frac{Z}{\sqrt{\lambda}} $ or $Z' = \Z\lambda^{1/2} $ |  |
+| PCA | $\frac{1}{n}D^T D = C = P\Lambda P^{-1} $, then transform data as $ Z = DP$, where D is data and P are the eigenvectors | Diagonalizes the covariance matrix of a mean-centered dataset |  |
+| Whitening | $Z' = Z\Lambda^{-1/2} = Z\frac{1}{\sqrt{\Lambda}} $ | Normalize the variances to 1 |  |
+|  |  |  |  |
 
 ## New terms
 

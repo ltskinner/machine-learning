@@ -1312,6 +1312,23 @@ Diagonalizable matrices represent a form of linear transformation, so that multi
   - jordan decomposition
   - A = PJP^{-1}
   - J = \lambda I_{i} + N_{i}
+32. rotation stuff
+  - so like the givens rotation matrix happens to be rotated about [1, 0, 0]
+    - but what really matters is its the "first" axis
+  - so when we use similarity, we are saying we are also rotating around the "first" axis, but in this case the first axis is [1, 2, -1]
+  - just duplicating the transformation, but around the new "first" axis
+  - recovering axis and angle of rotation
+    - axis is the eigenvector for eigenvalue 1 after diagonalization
+    - angle of rotation is the argument for the complex eigenvalue e^{i\theta}
+32. Jordan form
+  - for PJP^{-1}
+    - remember col ops happen on the left
+    - row ops happen on the right
+  - rank = nonzero jordan blocks
+  - null space: columns of P for lambda = 0
+  - column space: columns of P for lambda != 0
+  - row space: rows of P^{-1} for lambda != 0
+  - left null space: rows of P^{-1} for lambda = 0
 
 ## 3.8 Exercises - Re-do
 
