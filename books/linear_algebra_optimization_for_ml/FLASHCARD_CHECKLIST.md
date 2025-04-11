@@ -297,3 +297,10 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 
 - use rayley method (symmetric matrices only)
 - smallest eigenvalue is the minimum
+
+### Separating variables of quadratic functions
+
+- convert to the Q matrix with the diagonals + off axis x1x2/2 values
+- find eigenvalues with (1 - \lambda)
+- these eigenvalues become coefficients to a new set of variables z_i for i eigenvalues
+  - you actually reach this through the eigenvector basis matrix and use to project values of x into z
