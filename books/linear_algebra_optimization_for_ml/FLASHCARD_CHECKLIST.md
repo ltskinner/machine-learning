@@ -252,7 +252,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 | Variance | For mean centered C Covariance, D Data: $C = \frac{1}{n}D^T D $ and the *diagonal* is the variance of each column/feature. the eigenvalues give the variance along each principal component | How much energy is spread across the axis |  |
 | Std. Deviation | $\sigma = \sqrt{variance} = \sqrt{\lambda} $ | How far the typical point deviates |  |
 | Matrix normalization | z-score of mean centered: $z' = \frac{z}{\sigma} = \frac{z}{\sqrt{\lambda}} $ | Then, either do $Z' = \frac{Z}{\sqrt{\lambda}} $ or $Z' = \Z\lambda^{1/2} $ |  |
-| PCA | $\frac{1}{n}D^T D = C = P\Lambda P^{-1} $, then transform data as $ Z = DP$, where D is data and P are the eigenvectors | Diagonalizes the covariance matrix of a mean-centered dataset |  |
+| PCA | $\frac{1}{n}D^T D = C = P\Lambda P^{-1} $, then transform data as $ Z = DP$, where D is data and P are the eigenvectors | Diagonalizes the covariance matrix of a mean centered dataset |  |
 | Whitening | $Z' = Z\Lambda^{-1/2} = Z\frac{1}{\sqrt{\Lambda}} $ | Normalize the variances to 1 |  |
 |  |  |  |  |
 
