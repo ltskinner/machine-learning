@@ -32,6 +32,10 @@ Like what if we have two similar matrices of different dimensions (if thats poss
 
 Or vice versa, can we optimize on the more fine tuned matrix then simplify to the smaller matrix to reduce weights size?
 
+Update after re-doing: I think PCA does something like this based on the eigenvectors and eigenvalues, so occurs in the eigenspace instead of the native space
+
+## [Chapter 4. Optimization Basics: A Machine Learning View](./CHAPTER_4.md)
+
 ## Cleanup
 
 At end of book, pull togethter all the named Definitions and Observations
