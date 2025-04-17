@@ -253,7 +253,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 | Std. Deviation | $\sigma = \sqrt{variance} = \sqrt{\lambda} $ | How far the typical point deviates |  |
 | Matrix normalization | z-score of mean centered: $z' = \frac{z}{\sigma} = \frac{z}{\sqrt{\lambda}} $ | Then, either do $Z' = \frac{Z}{\sqrt{\lambda}} $ or $Z' = \Z\lambda^{1/2} $ |  |
 | PCA | $\frac{1}{n}D^T D = C = P\Lambda P^{-1} $, then transform data as $ Z = DP$, where D is data and P are the eigenvectors | Diagonalizes the covariance matrix of a mean centered dataset |  |
-| Whitening | $Z' = Z\Lambda^{-1/2} = Z\frac{1}{\sqrt{\Lambda}} $ | Normalize the variances to 1 |  |
+| Whitening | $Z' = Z\Lambda^{-1/2} = Z\frac{1}{\sqrt{\Lambda}} $ | Normalize the variances to 1 | Remember the left and right side when in diagonal form |
 |  |  |  |  |
 
 ## New terms
