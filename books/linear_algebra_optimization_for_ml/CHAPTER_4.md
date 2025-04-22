@@ -65,7 +65,7 @@ Determining if `critical point` is max, min, saddle:
   - if f'(x) = 0 and f''(x) > 0:
     - is a `local minimum`
 
-Taylor expansion can provide some insight:
+`Taylor expansion` can provide some insight:
 
 $f(x_{0} + \Delta) \approx f(x_{0}) + \Delta f'(x_{0}) + \frac{\Delta^{2}}{2}f''(x_{0})  $
 
@@ -80,3 +80,44 @@ $f(x_{0} + \Delta) \approx f(x_{0}) + \Delta f'(x_{0}) + \frac{\Delta^{2}}{2}f''
     - where $\epsilon $ > 0 (is +)
   - this means that $f(x_{0} < f(x_{0} + \Delta))  $ for any small value of $\Delta $, whether its positive or negative
     - aka $x_{0} $ is a minimum wrt its *immediate locality*
+
+Taylor expansion also provides insights as to why `degenerate` case is problemmatic ($f'(x_{0}) = f''(x_0) = 0 $)
+
+- when $f''(x_0) = 0$:
+  - one would need to keep expanding taylor series until reaching first non-zero term
+  - if first non-zero term is positive (+), then:
+    - $f(x_{0} + \Delta) < f(x_{0}) $
+    - ex: $f(x) = x^{4} $ at $x_{0} = 0 $
+      - here, x_0 is min wrt immediate locality
+      - but first non-zero term is negative, or it depends on the sign of $\Delta$
+
+### Problem 4.2.1
+
+Quadratic functions are easy, with a single min or max depending on the sign of the quadratic term.
+
+Other fns may have multiple turning points. ex: sin(x) is periodic, and has an infinite number of minima/maxima over (-inf, +inf)
+
+Ex:
+
+- $F(x) = (x^4 /4) - (x^3 / 3) - x^2 + 2 $
+- $F'(x) = x^3 - x^2 - 2x = x(x + 1)(x -2 ) = 0 $
+- $F''(x) = 3x^2 - 2x - 2 $
+  - -> local min at x = -1,
+    - F''(-1) > 0 (3 + 2 - 2)
+    - F(-1) = 1/4 + 1/3 - 1 + 2 = 19/12
+  - -> local min at x = 0, F'' < 0 (-2)
+  - -> global min at x = 2,
+    - F''(2) > 0 (12 - 4 - 2)
+    - F(2) = 4 - 8/3 - 4 + 1 = -2/3 **global minimum**
+
+### Problem 4.2.2
+
+### Problem 4.2.3
+
+```python
+# Coefficients of F'(x) = 4x^3 -24x^2 +42x -22
+coefficients = [4, -24, 42, -22]
+
+# Find the roots
+roots = np.roots(coefficients)
+```
