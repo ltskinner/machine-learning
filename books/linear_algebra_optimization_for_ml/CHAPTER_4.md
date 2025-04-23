@@ -121,3 +121,93 @@ coefficients = [4, -24, 42, -22]
 # Find the roots
 roots = np.roots(coefficients)
 ```
+
+#### 4.2.1.1 Why We Need Gradient Descent
+
+Solving f'(x) = 0 for x provides an `analytical` solution for a `critical point`, but it is not always possible to solve analytically
+
+- `analytical solution`
+  - any solution derived from algebraic or calculus-based manipulations
+    - relying on identities, symbolic simplifications, derivatives, integrals, etc
+    - exact expressions, not approximations
+    - "solving by hand with math rules"
+    - uses infinite, limits, series, or special functions
+    - `closed-form solution`
+      - strict subset of analytical solutions
+      - x = -b +- sqrt(b^2 - 4ac) / 2a
+- `numerical solutions`
+  - approximate the answer using a computational method
+
+Gradient descent - populat approach for optimizing objective functions (irrispective of functional form)
+
+- start with an initial point $x = x_0 $
+- successively update x using the steepest descent direction:
+  - $x = \Longleftarrow x - \alpha f'(x) $
+  - where a > 0 regulates step size, aka `learning rate`
+- in univariate problems, x only has two directions of movement:
+  - increase x or decrease x
+  - one direction causes ascent, the other causes descent
+- in multivariate problems, there is an infinite number of directions
+  - the generalization of the notion of univariate detivative leads to steepest descent direction
+- value of x changes in each iteration by $\delta x = -\alpha f'(x) $
+  - when learning rate is "infentesimally" small, the above update will always reduce f(x):
+    - $f(x + \delta x) \approx f(x) + \delta x f'(x) = f(x) - \alpha[f'(x)]^2 < f(x) $
+  - small values of learning rate (\alpha > 0) is not advisable b/c convergence will take a while
+  - too large \alpha makes effect of update unpredictable (b/x computed gradient is no longer good approximation)
+    - remember: gradient is only instantaneous rate of change
+  - extremely large values, can cause solution to *diverge*, exploding to a terminating numerical overflow
+
+#### 4.2.1.2 Convergence of Gradient Descent
+
+Execution of gradient-descent updates will generally result in a sequence of values: x_0, x_1, ..., x_t of the optimization variable, which has become successively closer to an optimum solution
+
+- as x_t nears optimum, f'(x_t) tends to be closer and closer to zero
+  - aka: the absolute step size will tend to reduce over execution of algorithm
+- `monotonically`
+  - consistent increases, or decreases
+- two cases:
+  - convergence (good)
+  - divergence (bad)
+
+#### 4.2.1.3 The Divergence Problem
+
+- basically, things see-saw from one side of a quadratic function to another, because the large overshoot flips the sign of the gradient
+- and, unless learning rate is dramatically reduced, the exploding gradient continues to increase in magnitude while alternating sign
+
+Telltale sign of divergence:
+
+- size of parameter vector seems to increase rapidly
+- optimization objective worsens (at the same time)
+
+First adjustment is to lower initial learning rate
+
+Other literature discusses step size selection in depth
+
+### 4.2.2 Bivariate Optimization
+
+Helpful to bridge gap in complexity from single variable optimization to multivariate optimization
+
+- $F(x, y) = f(x) + f(y) = x^2 + y^2 - 2x - 2y + 6 $
+- $G(x, y) = g(x) + g(y) = ([x^4 + y^4]/4) - ([x^3 + y^3]/3) - x^2 - y^2 + 4 $
+
+Note, both above are `additively separable`:
+
+- when have multivariate fn x^2 + y^2
+- but there are no xy terms - no `interacting terms`
+- all quadratic functions can be represented in additively separable form
+
+F(x) is easy because only one local (and thus global) minimum
+
+G(x) is hard bc multiple minima, only one of which is global. To find this, need to compute the `partial derivative` of the obj functions F(x, y) and G(x, y) in order to perform gradient descent.
+
+- `partial derivative`
+  - comptues derivative wrt a particular variable
+  - while treating other variables as contants
+- `gradient`
+  - a vector of `partial derivatives`
+
+Gradient of $F(x, y) = x^2 + y^2 - 2x - 2y + 6 $ as:
+
+$\nabla F(x,y) = \begin{bmatrix} \frac{\partial F(x,y)}{\partial x} & \frac{\partial F(x,y)}{\partial y} \end{bmatrix}^{T} = \begin{bmatrix}2x - 2 \\ 2y - 2 \end{bmatrix} $
+
+so like if were taking the partial of x and hold all others (y) constant, we just ignore y terms which do not include x

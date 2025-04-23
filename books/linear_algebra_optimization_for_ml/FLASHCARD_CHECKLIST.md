@@ -261,6 +261,10 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 - convex (and determining if convex or not)
 - concave
 - sylvesters criterion
+- `additively separable`
+  - when have multivariate fn x^2 + y^2
+  - but there are no xy terms - no `interacting terms`
+  - all quadratic functions can be represented in additively separable form
 
 ## Proofs? lol
 
