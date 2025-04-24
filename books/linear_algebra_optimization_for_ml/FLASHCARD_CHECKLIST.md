@@ -256,15 +256,28 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 | Whitening | $Z' = Z\Lambda^{-1/2} = Z\frac{1}{\sqrt{\Lambda}} $ | Normalize the variances to 1 | Remember the left and right side when in diagonal form |
 |  |  |  |  |
 
-## New terms
+## Chapter 4 Terms (new terms)
 
-- convex (and determining if convex or not)
-- concave
-- sylvesters criterion
+- `convex` (and determining if convex or not)
+- `concave`
+- `sylvesters criterion`
 - `additively separable`
   - when have multivariate fn x^2 + y^2
   - but there are no xy terms - no `interacting terms`
   - all quadratic functions can be represented in additively separable form
+- critical points (f'(x) = 0)
+- second-order optimality conditions (f''(x) > 0 or < 0 or 0)
+  - min, max, saddle
+- `Jacobian`
+- `Hessian`
+  - very likely this is symmetric matrix
+  - `Schwarz's theorem` will support this
+  - proving positive definiteness:
+    - satisfies $\bar{v}^{T} H \bar{v} > 0 $
+    - det(H) > 0 and tr(A) > 0 (or f_xx > 0) >> positive definite (minima)
+    - det(H) > 0 and tr(A) < 0 (or f_xx < 0) >> negative definite (maxima)
+    - det(H) < 0 >> indefinite (one positive, one negative eigenvalue) (saddle point)
+    - det(H) = 0 >> inconclusive
 
 ## Proofs? lol
 

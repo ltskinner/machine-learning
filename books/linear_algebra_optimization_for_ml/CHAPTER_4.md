@@ -247,4 +247,100 @@ Pay attention to the rapid proliferation of the number of possible critical poin
 
 ### 4.2.3 Multivariate Optimization
 
-\begin{bmatrix}\end{bmatrix}
+Most ML problems are defined on large parameter space containing multiple optimization variables. Variables of optimization problem are parameters used to create a `prediction function` of either observed or hidden attributes of the ML problem
+
+In linear regression, optimization variables w_1, w_2, ... w_d are used to predict the dependent variable y from the independent variables x_1, ..., x_d:
+
+$y = \sum_{i=1}^{d} w_{i} x_{i} $
+
+Going forward, assume the notation "w_1, ..., w_d" represent `optimization variables` (weights) as opposed to other "variables":
+
+- x_i
+- y
+
+Both of which are observed values from the dataset at hand (which are constants from the optimization perspective)
+
+The objective fn often penalize differences in observed an predicted values of specific attributes, such as y
+
+Ex. if ew have many observed tupes of the form: [x_1, x_2, ..., x_d, **y**], one can sum up the values of $(y - \sum_{i=1}^{d} w_{i} x_{i})^{2} $ over all observed tuples. Such objective fns are referred to as `loss functions`
+
+- `loss function` = `objective function`
+  - `loss function` = $J(\bar{w})$
+    - function of a vector of multiple optimization variables
+    - $\bar{w} = [w_{1} ... w_{d}]^T $
+      - (assume is a column vector unless explicitly specified)
+    - here, use "w_1...w_d" for optimization variables
+      - because $\bar{X}, x_{i}, \bar{y}, and y_{i} $ are reserved for attributes of data (data whose values are observed)
+      - *d* corresponds to the number of optimization variables
+    - use "J" because im guessing this is a `Jacobian` under the hood
+      - ith component of d-dimensional gradient (vector) is the partial derivative of J wrt the ith parameter w_i
+
+Simplest approach to solve the optimization problem directly (without gradient descent) is to set gradient (vector) to zero, leading to:
+
+$\frac{\partial J(\bar{w})}{\partial w_{i}} = 0, \forall i \in \{1...d \} $
+
+These conditions lead to a system of d equations, which can be solved to determine parameters w_1...w_d. As in univariate, would like to have a way to characterize whetehr a critical point (i.e., zero-gradient point) is a max, min, or infelction >> leads to second order condition
+
+Second order condition: for single-variable, for f(w) to be min, f''(w) > 0. For multivariate, we generalize to the `Hessian` matrix.
+
+`Hessian` - instead of a *scalar* second derivative, we have dxd matrix of second-derivatives, including the **pairwise** derivatives of J wrt different pairs of variables. The `Hessian` of the loss function $J(\bar{w}) $ wrt w_1...w_d is given by dxd *symmetric* matrix `H`, in which the (i, j)th entry H_{ij}:
+
+$H_{ij} = \frac{\partial^{2}J(\bar{w})}{\partial w_{i} \partial w_{j}} $
+
+Note, the (i, j)th entry of the Hessian is equal to the (j, i)th (yes backward from first instance) entry because partial derivatives are commutative according to `Schwarz's theorem`. Being symmetric is useful fact for many computational algorithms that require eigendecomposition of the matrix
+
+The `Hessian` is a direct generalization of the univariate second derivative f''(w). For a univariate fn, the Hessian is a 1x1 matrix containing f''(w) as its only entry. Strictly speaking, the Hessian is a *function* of \bar{w}, and it should be denoted by $H(\bar{w}) $, though we denote it by H for brevity.
+
+In the event that the fn J(w) is quadratic, the entries in the Hessian do not depend on the parameter vector $\bar{w} = [w_{1}...w_{d}]^T $. This is similar to the univariate case, where the second derivative f''(w) is a constant when the fn f(w) is quadratic (like f(x) = x^2 as the highest power). In general, the Hessian depends on the value of the parameter vector \bar{w} at which it is computed
+
+!!! important !!!
+
+For a parameter vector \bar{w} at which the gradient is zero (critical point), one needs to test the Hessian matrix H the same way we test f''(w) in univariate fns. Needs to be **positive-definite** for a point to be guaranteed to be a minimum (like f''(w) needs to be positive > 0 (+))
+
+To illustrate, consider second-order, multivariate Taylor expansion of J(\bar{w}) in the immediate locality of \bar{w}_{0} along the direction \bar{v} and small radius \epsilon > 0:
+
+$J(\bar{w_{0}}, + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + \epsilon \bar{v}^{T} [\nabla J(\bar{w}_{0})] + \frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] $ where $[\nabla J(\bar{w}_{0})] = 0$ because f'(x) for critical point criterion
+
+The Hessian depends on parameter vector (remember $H(\bar{w})$ ), is computed at $\bar{w} = \bar{w}_{0} $. It is evident that `objective fn` $J(\bar{w}_{0}) < J(\bar{w}_{0} + \epsilon \bar{v}) $ when we have $\bar{v}^{T} H \bar{v} > 0 $. If we can find even a single direction \bar{v} where we have $\bar{v}^{T} H \bar{v} < 0 $, then \bar{w} is clearly not a minimum wrt its immediate locality.
+
+!!! important !!!
+
+A matrix H that satisfies $\bar{v} H \bar{v} > 0 $ is positive definite
+
+The notion of positive definiteness of the Hessian is the direct generalization of the second-derivative condition f''(w) > 0 for univariate fns
+
+Assuming that the gradient is zero at critical point \bar{w}, we can summarize the following second-order optimality conditions:
+
+- 1. If Hessian is positive definite at $\bar{w} = [w_{1}...w_{d}]^{T} $, then $\bar{w} $ is a `local minimum`
+- 2. If the Hessian is negative, then \bar{w} is a local maximum
+- 3. If the Hessian is indefinite (x^T H(w) x = 0), then a saddle point
+- 4. If Hessian is positive- or negative **semi**-definite, then the test is inconclusive
+
+These conditions represent direct generalizations of univariate optimality conditions. Helpful to examine what a saddle point for an indefinite Hessian looks like. Consider:
+
+$g(w_{1}, w_{2}) = w_{1}^{2} - w_{2}^{2} $
+
+The Hessian of this quadratic function is independent of the parameter vector [w_1, w_2]^T, and is defined as follows:
+
+$H = \begin{bmatrix}2 & 0 \\ 0 & -2 \end{bmatrix} $
+
+This Hessian turns out to be a diagonal matrix, which is clearly indefinite b/c one of the two diagonal entries is negative. [0, 0] is a critical point bC the gradient is zero at that point. However, is a saddle point because of the indefinite nature of the Hessian
+
+#### Problem 4.2.5
+
+det < 0 = indefinite = saddle point
+
+- det(H) > 0 and tr(A) > 0 (or f_xx > 0) >> positive definite (minima)
+- det(H) > 0 and tr(A) < 0 (or f_xx < 0) >> negative definite (maxima)
+- det(H) < 0 >> indefinite (one positive, one negative eigenvalue) (saddle point)
+- det(H) = 0 >> inconclusive
+
+Setting the gradient of the obj fn to 0 and then solving the resulting system of equations is usually computationally difficult. Therefore, gradient-descent is used - here with learning rate \alpha:
+
+$[w_{1}...w_{d}]^{T} \Longleftarrow [w_{1}...w_{d}]^{T} - \alpha \begin{bmatrix} \frac{\partial J(\bar{w})}{\partial w_{1}} ... \frac{\partial J(\bar{w})}{\partial w_{d}} \end{bmatrix}^{T} $
+
+Can rewrite the above in terms of the gradient of the obj fn wrt \bar{w}:
+
+$\bar{w} \Longleftarrow \bar{w} - \alpha \nabla J(\bar{w}) $
+
+Here, $\nabla J(\bar{w}) $ is a column vector containing the $\partial $ partial derivatives of $J(\bar{w}) $ wrt different parameters in the column vector \bar{w}. \alpha usually varies over the course of the algorithm
