@@ -211,3 +211,40 @@ Gradient of $F(x, y) = x^2 + y^2 - 2x - 2y + 6 $ as:
 $\nabla F(x,y) = \begin{bmatrix} \frac{\partial F(x,y)}{\partial x} & \frac{\partial F(x,y)}{\partial y} \end{bmatrix}^{T} = \begin{bmatrix}2x - 2 \\ 2y - 2 \end{bmatrix} $
 
 so like if were taking the partial of x and hold all others (y) constant, we just ignore y terms which do not include x
+
+Also note that $\nabla_{x, y} g(x,y) $ denotes choice of variables wrt which the gradient is computed
+
+Once finding the gradient, just set to zero like f'(x) and solve for [x, y] = [1, 1] (for the above equation)
+
+However, this wil **NOT** always lead to a system of equations with a closed form solution. The common solution is ot use gradient-descent updates wrt the optimization variablex [x, y] as follows:
+
+$\begin{bmatrix}x_{t+1}\\ y_{t+1}\end{bmatrix} \Longleftarrow \begin{bmatrix}x_{t}\\ y_{t}\end{bmatrix} - \alpha \nabla g(x_{t}, y_{t}) = \begin{bmatrix}x_{t}\\ y_{t}\end{bmatrix} - \alpha \begin{bmatrix}2x_{t} - 2\\ 2y_{t} - 2\end{bmatrix}  $
+
+Now, consider more complecated fn (that is not additively separable):
+
+$H(x, y) = x^2 - \sin(xy) + y^2 - 2x $ here, sin(xy) ensures not additively separable
+
+$\nabla H(x, y) = \begin{bmatrix}\frac{\partial H(x, y)}{\partial x} & \frac{\partial H(x, y)}{\partial y} \end{bmatrix}^{T} = \begin{bmatrix}2x - y\cos(xy) - 2 \end{bmatrix} \\ 2y - x\cos(xy) $
+
+Despite partial derivative components not being expressed in terms of individual variables, gradient descent updates can be performed in similar manner
+
+Looking at:
+
+$\nabla G(x, y) = \begin{bmatrix}x^3 - x^2 - 2x \\ y^3 - y^2 - 2y \end{bmatrix} = \bar{0} $
+
+We get 9 pairs of $(x, y) \in \{-1, 0, 2 \} \cross \{-1, 0, 2 \} $ which satisfy first order optimality conditions, and therefore all 9 are critical points. Among these there are:
+
+- single global minimum
+- three local minima
+- single local maximum at (0, 0)
+- the other four are saddle points
+
+The classification of points as minima, maxima, or saddle points can only be accomplished with the use of a multivariate second-order conditions.
+
+Pay attention to the rapid proliferation of the number of possible critical points satisfying the optimality conditions (when optimization problem contains two variables instead of one). In general, when a multivariate problem is posed as a sum of univariate functions, the **number of local optima can proliferate exponentially fast** with the number of optimization variables
+
+#### Problem 4.2.4
+
+### 4.2.3 Multivariate Optimization
+
+\begin{bmatrix}\end{bmatrix}
