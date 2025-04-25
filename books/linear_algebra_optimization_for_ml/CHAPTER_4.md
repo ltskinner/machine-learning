@@ -301,6 +301,16 @@ To illustrate, consider second-order, multivariate Taylor expansion of J(\bar{w}
 
 $J(\bar{w_{0}}, + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + \epsilon \bar{v}^{T} [\nabla J(\bar{w}_{0})] + \frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] $ where $[\nabla J(\bar{w}_{0})] = 0$ because f'(x) for critical point criterion
 
+Following univariate pattern, above >>
+
+$J(\bar{w_{0}}, + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + \frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] > J(\bar{w_{0}})$ when $\bar{v}^T H\bar{v} > 0$ (positive definite)
+
+and
+
+$J(\bar{w_{0}}, + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + (-)\frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] < J(\bar{w_{0}})$ when $\bar{v}^T H\bar{v} < 0$ (negative definite)
+
+(note - free handed the above two equations, not from book)
+
 The Hessian depends on parameter vector (remember $H(\bar{w})$ ), is computed at $\bar{w} = \bar{w}_{0} $. It is evident that `objective fn` $J(\bar{w}_{0}) < J(\bar{w}_{0} + \epsilon \bar{v}) $ when we have $\bar{v}^{T} H \bar{v} > 0 $. If we can find even a single direction \bar{v} where we have $\bar{v}^{T} H \bar{v} < 0 $, then \bar{w} is clearly not a minimum wrt its immediate locality.
 
 !!! important !!!
@@ -344,3 +354,173 @@ Can rewrite the above in terms of the gradient of the obj fn wrt \bar{w}:
 $\bar{w} \Longleftarrow \bar{w} - \alpha \nabla J(\bar{w}) $
 
 Here, $\nabla J(\bar{w}) $ is a column vector containing the $\partial $ partial derivatives of $J(\bar{w}) $ wrt different parameters in the column vector \bar{w}. \alpha usually varies over the course of the algorithm
+
+## 4.3 Convex Objective Functions
+
+The presence of local minima creates uncertainty about the effectiveness of gradient-descent algorithms. Ideally, one would like to have an objective fn w/o local minima. Objective functions with this property is in the class of `convex functions`. `Convex functions` are defined only with domains that that are convex, using convex sets
+
+### Definition 4.3.1 - Convex Set
+
+A set S is convex, if for every pair of points $\bar{w}_{1}, \bar{w}_{2} \in S $ the point $\lambda \bar{w}_{1} + [1 - \lambda]\bar{w}_{2} $ must also be in S for all $\lambda \in (0, 1) $
+
+Aka, it is impossible to find a pair of points in the set, such that any of the points on the straight line joining them do not lie in the set.
+
+A `closed convex set` is one in which the boundary points (i.e. limit points) of the set are included in the set [-2, +2]
+
+An `open convex set` is one in which all points within the boundary are included, but not the bounary itself (-2, +2)
+
+![alt text](./4_2_convex_sets.PNG)
+
+A `convex function` $F(\bar{w}) $ is defined as: a function with a convex domain that satisfies the following conditions for any $\lambda \in (0,1) $:
+
+$F(\lambda \bar{w}_{1} + (1 - \lambda) \bar{w}_{2}) \leq \lambda F(\bar{w}_{1}) + (1 - \lambda)F(\bar{w}_{2}) $
+
+- convex if a >= 0
+- strictly convex if a > 0
+- concave if a <= 0
+- strictly concave if a < 0
+
+Also note that the convex sets you can visualize with circles. However, convex functions, in the 2d case, are parabolic U in an x y chart. so as long as *a* is non negative, will be convex. This allows for non-smootheness (aka "kinks") in the line However, this only works for univariate. for multivariate we have to look at Hessian and all that and require positive definiteness to assess convexity.
+
+Also, this inequality is something we can do with univariate to build intuition, but we could also go directly to the F''(w) > 0 condition. this scales into multivariate with the v^T H v > 0 condition, also guaranteeing convexity. Note that the above F <= F inequality is just grounded in the literal definition of convexity
+
+One can generalize the convexity condition to k points, discussed in problem 4.3.1
+
+#### Problem 4.3.1
+
+Im guessing that the function domain eventually has something to do with the span of the domain, and there are lacking directions pointed at making parts of the domain unreachable and thus non-convex
+
+Attaching to the domain of the Function, like in abstract space we *can* draw a line between two points, which "cuts the corner", but the function cannot "cut the corner" because it doesnt point in the directions of the corner, so it is forced to take a longer route (cant shortcut), which is how we get the inequality and a function of each of the individual parts is > the function of the \lambda w1 + (1 - \lambda) w2 vector
+
+The simplest example of a convex objective function is the class of quadratic functinos in which the leading (quadratic) term has a **non-negative coefficient**:
+
+$f(w) = aw^2 + bw + c$
+
+*a* needs to be nonnegative for the fn to be considered quadratic. All linear functions are always convex, because the convexity property holds with equality
+
+#### Lemma 4.3.1
+
+A linear function of the vector $\bar{w}$ is always convex
+
+Convex functions have a number of useful properties that are leveraged in practical applications
+
+#### Lemma 4.3.2
+
+Convex functions obey the following properties
+
+- 1. The sum of convex functions is always convex
+- 2. The maximum of convex functions is convex
+- 3. The square of a nonnegative convex function is convex
+- 4. If F(.) is a convex function with a single argument and G(\bar{w}) is a linear function with a scalar output, then F(G(\bar{w})) is convex
+- 5. If F(.) is a convex non-increasing function and G(\bar{w}) is a concave function with a scalar output, then F(G(\bar{w})) is convex
+  - this means f'(x) is <= 0
+  - like a -log(x) slope that at limit becomes a flat line
+    - note it must be negative log (-log) for 1st and 2nd derivative properties
+  - which bruh: this means we can take a concave function and "broadcast" it into a concave domain with log(f(x)) and optimize in that domain
+    - **this is literally Cross-Entropy** as a convex objective
+- 6. If F(.) is a convex non-decreasing function and G(\bar{w}) is a convex function with a scalar output, then F(G(\bar{w})) is convex
+  - means that f'(x) >= 0
+  - common in:
+    - regularization terms
+    - loss fns
+    - confidence penalties
+  - ex. x^2 (squaring, as we showed in 3.)
+
+#### Problem 4.3.2
+
+Prove all the results of Lemma 4.3.2 using the definition of convexity
+
+The fact that every local minimum is a global minimum can be characterized geometrically (aka `first-derivative condition` aka `first derivative condition`): The entire convex function will always lie above a tangent to a convex function
+
+An important consequence of convexity is that one is often guaranteed to reach a global optimum if successful convergence occurs durring the gradient-descent procedure
+
+![alt text](./4_7_convex_function_above_any_tangent.PNG)
+
+This tangent condition can be written algebraically using the gradient of the convex function at a given point w_0. This provides an alternate definition of convexity:
+
+#### Lemma 4.3.3 - First-Derivative Characterization of Convexity
+
+A differentiable function $F(\bar{w}) $ is a convex function if and only if the following is true for any pair $\bar{w}_{0} $ and $\bar{w} $:
+
+$F(\bar{w}) \geq F(\bar{w}_{0}) + [\nabla F(\bar{w}_{0})] \cdot (\bar{w} - \bar{w}_{0}) $
+
+Note that if the gradient of F(w) = 0 at $\bar{w} = \bar{w}_{0} $, it would imply that $F(\bar{w}) \geq F(\bar{w}_{0}) $ for any $\bar{w} $ aka: $\bar{w}_{0} is a global minimum $
+
+therefore, any critical point that satisfies the first-derivative condition is a global minimum. Disadvantage with this approach is it applies to only differentiable functions like:
+
+- abs()
+- ReLU
+- Hinge Loss
+
+Characterizations:
+
+- graph has sharp corner/kink
+- functions involve max, min, abs
+- piecewise function (esp. linear functions)
+- left and right derivative dont match
+
+#### Lemma 4.3.4 - Second-Derivative Characterization of Convexity
+
+The twice differentiable function $F(\bar{w})$ is convex, if and only if it has a positive semidefinite Hessian at every value of the parameter $\bar{w} $ in the domain of F(.)
+
+This method has a disadvantage of requiring F(w) to be twice differentiable. Therefore, the following convexity definitions are equivalent for twice-differentiable functions defined over R^d:
+
+- 1. Direct:
+  - The convexity condition:
+  - $F(\lambda \bar{w}_{1} + [1 - \lambda]\bar{w}_{2}) \leq \lambda F(\bar{w}_{1}) + (1 - \lambda)F(\bar{w}_{2}) $
+  - is satisfied for all $\bar{w}_{1}, \bar{w}_{2} $ and $\lambda \in (0, 1) $
+- 2. First-derivative:
+  - The first-derivative condition
+  - $F(\bar{w}) \geq F(\bar{w}_{0}) + [\nabla F(\bar{w}_{0})] \cdot (\bar{w} - \bar{w}_{0} ) $ is satisfied for all $\bar{w} $ and $\bar{w}_{0} $
+- 3. Second-derivative:
+  - The Hessian of $F(\bar{w})$ is positive semi-definite for all $\bar{w} $
+  - aka the second derivative > 0 (no need for the v^T H v stuff here)
+    - literally just analytically derive F''
+
+One can use any of the conditions as the definition of convexity, and then derive the other two as lemmas. However, the direct definition is more general (bc no dependency on differentiability). It is often the case that a particular definition is easier to use than another
+
+!!! important !!!
+
+Many ML objective fns are of the form: $F(G(\bar{w})) $ where $G(\bar{w}) $ is the linear function $\bar{w} \cdot \bar{X}^{T} $ for a row vector containing a d-dimensional data point $\bar{X} $, and F(.) is a univariate function.
+
+In such a case, one only needs to prove that the univariate function F(.) is convex, based on the the final portion of Lemma 4.3.2. It is particularly easy to use the second-order condition $F''(.) \geq 0 $ for univariate functions
+
+Next problems showcase convexity of the **logarithmic logistic loss function**. This function is useful for showing the convexity of logistic regression
+
+#### Problem 4.3.4
+
+literally, find second derivative and assess if its >= 0 or not to determine convexity
+
+#### Problem 4.3.5
+
+`strict convexity` is a slightly stronger condition, were we just replace the >= signs with >
+
+Example: a bowl with a flat bottom is convex, but not strictly convex. **A strictly convex function will have a unique global minimum**
+
+#### Lemma 4.3.5
+
+A strictly convex function can at most contain one critical point. If such a point exists, it will be the global minimum of the structly convex function
+
+The above property is easy to show by using either the direct or first-order definition of strict convexity.
+
+!!! important !!!
+
+One often constructs objective functions in ML by adding convex and strictly convex functions. In such cases, the sum of these functions is strictly convex
+
+#### lemma 4.3.6
+
+The sum of a convex function and a strictly convex function is strictly convex
+
+Many objective fns in ML are convex, and they can often be made strictly convex by adding a **strictly convex regularizer**
+
+A special case of convex functions is that of quadratic convex functions, which can be directly expressed in terms of the positive semidefinite Hessian. Although the Hessian of a function depends on the value of the parameter vector at a specific point, it is a constant matrix in the case of quadratic functions - example:
+
+$f(\bar{w}) = \frac{1}{2}[\bar{w} - \bar{b}]^{T}H[\bar{w} - \bar{b}] + c $
+
+Here, $\bar{b} $ is a d-dimensional column vector and *c* is scalar
+
+A convex objective function is an ideal setting for a gradient-descent algorithm; the approach will never get stuck in a local minimum. Although the objective functions in comples ML models (like NNs) are not convex, they are often close to convex. As a result, gradient-descent methods work quite well in spite of the presence of local optima
+
+For any convex function $F(\bar{w}) $, the region of space bounded by $F(\bar{w}) \leq b $ for any constant *b* can be shown to be a convex set. This type of constraint is encountered often in optimization problems. Such problems are easier to solve because of the convexity of the space in which one wants to search for the parameter vector.
+
+Read: I think b is some arbitrary constraint we put in. is it learned or like a 0-1 regularized term?

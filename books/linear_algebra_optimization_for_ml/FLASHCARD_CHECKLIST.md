@@ -268,7 +268,12 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 - critical points (f'(x) = 0)
 - second-order optimality conditions (f''(x) > 0 or < 0 or 0)
   - min, max, saddle
+- `Gradient`
+  - for functions with scalar outputs (univariate **output**)
+  - "how does *one* output value change wrt all inputs"
 - `Jacobian`
+  - for functions with vector output (multivariate **output**)
+  - "how does *every* output component change wrt all inputs"
 - `Hessian`
   - very likely this is symmetric matrix
   - `Schwarz's theorem` will support this
@@ -278,6 +283,18 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
     - det(H) > 0 and tr(A) < 0 (or f_xx < 0) >> negative definite (maxima)
     - det(H) < 0 >> indefinite (one positive, one negative eigenvalue) (saddle point)
     - det(H) = 0 >> inconclusive
+- `convex function`
+  - strict convexity (> instead of >=) guarantees unique global minimum
+    - else, could have bowl with flat bottom
+    - Only works for Direct and First-derivative convexity conditions
+      - not useful for second-derivative conditions
+- `convex set`
+  - `closed convex set`
+    - the boundary points (i.e. limit points) of the set are included in the set
+    - [-2, +2]
+  - `open convex set`
+    - all points within the boundary are included, but not the bounary itself
+    - (-2, +2)
 
 ## Proofs? lol
 
