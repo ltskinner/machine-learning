@@ -471,7 +471,7 @@ This method has a disadvantage of requiring F(w) to be twice differentiable. The
   - is satisfied for all $\bar{w}_{1}, \bar{w}_{2} $ and $\lambda \in (0, 1) $
 - 2. First-derivative:
   - The first-derivative condition
-  - $F(\bar{w}) \geq F(\bar{w}_{0}) + [\nabla F(\bar{w}_{0})] \cdot (\bar{w} - \bar{w}_{0} ) $ is satisfied for all $\bar{w} $ and $\bar{w}_{0} $
+  - $F(\bar{w}) > F(\bar{w}_{0}) + [\nabla F(\bar{w}_{0})] \cdot (\bar{w} - \bar{w}_{0} ) $ is satisfied for all $\bar{w} $ and $\bar{w}_{0} $
 - 3. Second-derivative:
   - The Hessian of $F(\bar{w})$ is positive semi-definite for all $\bar{w} $
   - aka the second derivative > 0 (no need for the v^T H v stuff here)
