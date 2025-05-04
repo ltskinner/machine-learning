@@ -524,3 +524,7 @@ A convex objective function is an ideal setting for a gradient-descent algorithm
 For any convex function $F(\bar{w}) $, the region of space bounded by $F(\bar{w}) \leq b $ for any constant *b* can be shown to be a convex set. This type of constraint is encountered often in optimization problems. Such problems are easier to solve because of the convexity of the space in which one wants to search for the parameter vector.
 
 Read: I think b is some arbitrary constraint we put in. is it learned or like a 0-1 regularized term?
+
+## 4.4 The Minutiae of Gradient Descent
+
+
