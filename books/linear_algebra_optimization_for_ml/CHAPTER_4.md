@@ -527,4 +527,189 @@ Read: I think b is some arbitrary constraint we put in. is it learned or like a 
 
 ## 4.4 The Minutiae of Gradient Descent
 
+Such as selecting learning rate \alpha can have huge consequence in both good and bad way
 
+### 4.4.1 Checking Gradient Correctness with Finite Differences
+
+Many ML models use complex obj fns over millions of parameters. Gradients are computed analytically and hand-coded into the alg, or computed using automatic differentiation methods in applications like NNs. In all cases, analytical or coding errors remain a real possibility, which may not be obvious during execution. Knowing the reason for poor performance of an anlgorithm is a critical step in deciding whether to simply debug the alg or to make fundamental design changes
+
+Consider situation where we compute gradient of obj fn: $J(\bar{w}) = J(w_{1}...w_{d}) $. In the finite-difference method, we sample a few of the optimization parameters from w_1...w_d and check their partial derivatives using `finite-difference approximation`.
+
+- `finite-difference approximation`
+  - perturb an optimization parameter w_i by a small ammount \Delta
+  - and approximate the partial derivative wrt w_i using the difference between the perturbed value of the obj fn and the original value
+
+$\frac{\partial J(\bar{w})}{\partial w_{i}} = \frac{J(w_{1}..., w_{i} + \Delta, ..., w_{d}) - J(w_{1}..., w_{i}, ..., w_{d})}{\Delta} $
+
+- This way of estimating gradient referred to as finite-difference approximation
+- one will not obtain an exact value of the partial derivative
+  - however, in cases where gradients are computed incorrectly, the value of a `finite-difference approx` is often **so wildly different** from the analytical valuu that the error becomes self evident
+- Typcially, it suffices to check the pds of small subset of the params to detect systematic problem in gradient computation
+
+### 4.4.2 Learning Rate Decay and Bold Driver
+
+A constant learning rate often poses a dilemma to the analyst.
+
+- a lower learning rate used early on will cause the alg to take too long to reach anywhere close to an optimal solution
+- a large learning rate will sllow the algorithm to come reasonably close to a good solution at first, but the alg will then oscillate around the point for a very long time
+
+Allowing the learning rate to decay over time can naturally achieve the desired learning rate adjustment to avoid these challanges
+
+$\alpha_{t} $ is the decaying learning rate, and subscripted with *t* for the time stamp
+
+$\bar{w} \Longleftarrow \bar{w} - \alpha_{t} \nabla J $
+
+Time *t* is typicall ymeasured in terms of the number of cycles over all training points. The most common decay functions are:
+
+- Exponential decay:
+  - $\alpha_{t} = \alpha_{0} \exp(-k \cdot t) $
+- Inverse decay:
+  - $\alpha = \frac{\alpha_{0}}{1 + k\cdot t} $
+- Step decay
+  - Rate reduced by a particular factor every few steps of gradient descent
+
+Parameter k controls the rate of decay
+
+Another popular approach for adjusting the lr is the `bold-driver algorithm`. Here, the LR changes depending on whether the obj fn is improving or worsening
+
+- lr increased by a factor of ~5% in each iteration as long as steps improve
+- as soon as worsen in a step, the step is *undone* and an attempt is made again with lr reduced by factor of ~50% (yes 50)
+- continue until convergence
+- note:
+  - does not work in some noisy settings of gradient descent, where obj fn is approximated by using samples of the data.
+  - examples of such a noisy setting:
+    - `stochastic gradient descent`
+  - here, test obj fn and adjust lr after m steps, rather than a single step
+  - change in obj fn can be measured more robustly across multiple steps
+  - and all m steps must be undone when the obj fn worsens over these steps
+
+### 4.4.3 Line Search
+
+Line search directly uses the optimum step size in order to provide the best improvement. Useful in specialized variations of gradient descent (but rarely used in vanilla GD bc computationally expensive). Armijo rule can be used in vanilla GD bc of efficiency
+
+Let $J(\bar{w})$ be the obj fn being optimized and $\bar{g}_{t} $ be the descent direction at the beginning of the *t*th step with parameter vector $\bar{w}_{t} $. In `steepest-descent` method, the direction:
+
+$\bar{g}_{t} = -\nabla J(\bar{w}_{t}) $
+
+Although advanced methods might use other descent directions.
+
+For below, assume $\bar{g}_{t} $ is not the steepest-descent direction (in order to preserve generalizty of the exposition).
+
+From above:
+
+$\bar{w} \Longleftarrow \bar{w} - \alpha_{t} \nabla J $
+
+Clearly the parameter vector is updated as:
+
+$\bar{w}_{t+1} \Longleftarrow \bar{w}_{t} + \alpha_{t}\bar{g}_{t} $
+
+In line search, the lr \alpha_{t} is chosen in each step, so as to minimize the value of the obj fn at \bar{w}_{t+1}, where step size comptued as:
+
+$\alpha_{t} = \argmin_{\alpha} J(\bar{w}_{t} + \alpha \bar{g}_{t}) $
+
+After performing the next step, the gradient is computed at $\bar{w}_{t+1} $ for the next step. The gradient at $\bar{w}_{t+1} $ will be perpendicular to the search direction $\bar{g}_{t} $ or else $\alpha_{t} $ will not be optimal.
+
+This result can be shown by observing that if the gradient of the obj fn at $\bar{w}_{t} + \alpha \bar{g}_{t} $ nas a **non-zer** dot product with the current movement direction $\bar{g}_{t} $, then one can improve the obj fn by moving an amount of either $+\delta $ or $-\delta $ along $\bar{g}_{t} $ from $\bar{w}_{t+1} $:
+
+$J(\bar{w}_{t} + \alpha_{t}\bar{g}_{t} \pm \delta\bar{g}_{t}) \approx J(\bar{w}_{t} + \alpha_{t}\bar{g}_{t}) \pm \delta\bar{g}_{t}^{T}[\nabla J(\bar{w}_{t} + \alpha_{t} \bar{g}_{t})] $ where $\bar{g}_{t}^{T}[..] = 0 $ is the Taylor Expansion
+
+#### Lemma 4.4.1
+
+The gradient at the optimal point of a `line search` is always orthogonal to the current search direction
+
+read:
+
+- optimal point when the gradient is equal to zero (for current search direction)
+- so the only way the gradient can be non-zero is if its pointing in a different direction
+- I know we can get the orthogonality from the dot product being 0 but geometrically im not sure how we get there lol
+
+A natural question arises as to how the minimization of Eq. 4.11 is performed. An important property of line-search is that that the obj fn $H(\alpha) = J(\bar{w} + \alpha\bar{g}_{t}) $ when expressed in terms of \alpha is often a `unimodal function`
+
+- `unimodal function`
+  - function with simgle maximum point
+  - monotonicity
+
+Main reason for being unimodal function is that typical ML settings that use the line-search method use quadratic, convex approximations of the original obj fn on which the search is done. Examples: Newton method, conjugate gradient method
+
+Steps:
+
+- 1. Identify a range [0, a_max] in which to perform the search
+  - can be performed efficiently by evaluating the obj fn value at gegometrically increasing values of a (increasing every time by a factor of 2)
+- 2. It is possible to use a variety of methods to narrow the interval such as the `binary search method`, the `golden-section search method`, and the `Armijo rule`
+  - `binary search method` and `golden-section search method` are exact methods
+    - leverage the unimodality of the obj fn in terms of the step size a.
+  - `Armijo rule` is inexact
+    - works even when $H(\alpha) = J(\bar{w}_{t} + \alpha \bar{g}_{t}) $ is multimodal/non-convex
+    - therefore, has broader use than exact line-search methods
+
+#### 4.4.3.1 Binary Search
+
+We start by initializing the binary search interval for \alpha to [a, b] = [0, alpha_max]. In binary search over [a, b], the interval is narrowed by evaluating the obj function at two closely spaced points near (a+b)/2
+
+We evaluate the obj fn at (a+b)/2 and (a+b)/2 + \eps, where \eps is a numerically small value like 10^-6. In other words, we compute:
+
+- H[(a+b)/2]
+- H[(a+b)/2 + \eps]
+
+This allows us to evaluate whether the fn is increasingn or decreasing at (a+b)/2 by determining which of the two evaluations is larger.
+
+- if fn is increasing at (a+b)/2
+  - narrow the interval to [a, (a+b)/2 + \eps]
+- otherwise
+  - narrow to [(a+b)/2, b]
+
+Repeat until an interval is reached with the required level of accuracy
+
+#### 4.4.3.2 Golden-Section Search
+
+Like binary search, start by init [a, b] = [0, alpha_max] however process of narrowing the interval is different
+
+Basic principle in golden-section search is:
+
+- use the fact that if we pick any pair of middle samples m1, m2 for a in the interval [a, b]
+  - where a < m1 < m2 < b
+- at least one of the intervals [a, m1] and [m2, b] can be dropped
+  - In some cases, an even larger interval like [a, m2] and [m1, b] can be dropped
+  - this is because the min value for unimodal fn must always lie in an adjacent interval to the choice of alpha \in {a, m1, m2, b} that yields the min value of H(alpha)
+    - when alpha = a yields min, exclude (m1, b]
+    - when alpha = m1 yields min, exclude (m2, b]
+    - when alpha = m2 yields min, exclude [a, m1)
+    - when alpha = b yields min, exclude [a, m2)
+    - set new bounds [a, b] for these
+  - At the end of the process, we are left with an interval containing either 0 or 1 evaluated point
+  - if we have an interval containing no evaluated point
+    - first select random point \alpha = p in the (reset) interval [a, b]
+    - and then another point \alpha = q in the larger of the two intervals [a, p] and [p, b]
+    - on the other hand, if left with an interval [a, b] containing a single evaluated point \alpha = p, then we select \alpha = q in the larger of the two intervals [a, p] and [p, b]
+      - this yields another set of four points over which we can apply golden-section search
+  - note this last bit with p and q I think there are some typos in the book
+
+#### 4.4.3.3. Armijo Rule
+
+The basic idea is that the descent direction $\bar{g}_{t}$ at the starting point $\bar{w}_{t} $ (i.e. at \alpha = 0) often deteriorates in thers of rate of improvement of obj fn as one moves further along this direction. The rate of improvement of the obj fn along the search direction at the starting point is: $|\bar{g}_{t}^{T}[\nabla F(\bar{w}_{t})]| $
+
+Therefore, the (typical) improvement of the obj fn at a particular value of alpha can optimistically be expected to be $\alpha |\bar{g}_{t}^{T}[\nabla F(\bar{w}_{t})]| $ for most real-world objective fns
+
+The `Armijo rule` is satisfied with a fraction $\mu \in (0, 0.5) $ of this improvement. A typical valyu of \mu is ~0.25 . In other words, we want to find the largest step-size \alpha satisfying the following:
+
+$F(\bar{w}_{t}) - F(\bar{w}_{t} + \alpha \bar{g}_{t}) \geq \mu\alpha|\bar{g}_{t}^{T}[\nabla F(\bar{w}_{t})] | $
+
+Note that for small enough values of \alpha, the condition above will always be satisfied. One can show using the finite-difference approximation that for infintesimally small values of alpha, the condition is satisfied at mu = 1. However, we want larget step size to ensure faster progress
+
+What is the largest step-size one can use?
+
+We test successively decreasing values of \alpha for the condition above, and stop the first time above the is satisfied. In backtracking line search, we start by testing $H(\alpha_{max}), H(\beta\alpha_{max})...H(\beta^{r}\alpha_{max})$ until the condition above is satisfied. At that point we use $\alpha = \beta^{r}\alpha_{max} $. here, \beta is a parameter drawn from (0, 1) and a typical value is 0.5
+
+#### When to Use Line Search
+
+Although line-search method can be shown to converge to at least a local optimum, it is expensive
+
+When exact line search is required, the n steps is often relatively small, and the fewer the number of steps more than compensate for the expensive nature of individual steps
+
+An important point with the use of line search is that convergence is guaranteed, even if the resulting solution is a local optimum
+
+### 4.4.4 Initialization
+
+GD starts at an initial point, and successively improves paramter vector at particular learning rate
+
+Heurisitic initializatinos are good, esp for NNs because there are dependencies between optimization parameters

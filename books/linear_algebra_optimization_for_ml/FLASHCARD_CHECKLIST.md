@@ -295,6 +295,27 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - `open convex set`
     - all points within the boundary are included, but not the bounary itself
     - (-2, +2)
+- twice-differentiable function definitions
+  - 1. Direct convexity condition (equation)
+  - 2. First-derivative
+  - 3. Second-derivative
+- finite-difference approximation
+- decay functions
+  - exponential decay
+  - inverse decay
+  - step decay
+  - bold-driver algorithm
+- line search
+  - binary search
+  - golden-section search
+  - armijo rule
+- `unimodal function`
+  - function with simgle maximum point
+  - monotonicity
+- multimodal function
+  - the function itself does not have a single maximum (or minimum)
+
+Remember: as doing end of chapter problems add to this list
 
 ## Proofs? lol
 
