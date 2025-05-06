@@ -874,3 +874,88 @@ Therefore, it is often helpful to have features with similar variance. There are
 Min-max normalization is useful when the data needs to be scaled to the range (0, 1)
 
 Feature normalization avoids ill-conditioning and ensures much smoother convergence of gradient-descent methods
+
+## 4.6 Computing Derivatives wrt Vectors
+
+In typical optimization models in ML, one is differentiating scalar obj fns (or even vectored quantities) wrt **vectors of parameters**
+
+This is bc the loss fn J(\bar{w}) is often a function of a vector of parameters \bar{w}. Rather than having to write out large numbers of partial derivatives wrt each component of the vector, it is often convenient to represent such derivatives in *matrix calculus notation*
+
+In *matrix calculus notation*, one can compute a derivative of a scalar, vector, or matrix wrt another scalar, vector, or matrix. The result might be a scalar, vector, matrix, or tensor; the final result can often be compactly expressed in terms of the vectors/matrices in the partial derivative (and therefore one does not have to tediously compute them in elementwise form)
+
+Here, we only look at computing the derivatives of scalars/vectors wrt other scalars/vectors, however occasionally will consider derivatives of scalars wrt matrices. The result is always a scalar, vector, or matrix
+
+Being able to differentiate blocks of variables wrt other blocs us useful from the perspective of brevity and quick computation. Although the field of matrix calculus is very broad, there are **a few important identities**, which are useful for addressing the vast majority of ML problems likely to be encountered in practice
+
+### 4.6.1 Matrix Calculus Notation
+
+The simplest (and most common) example of matrix calculus notation arises during the computation of gradients. For ex, consider the gradient-descent update for multivariate opotimization problems:
+
+$\bar{w} \Longleftarrow \bar{w} - \alpha \nabla J $
+
+An equivalent notation for:
+
+- the gradient $\nabla J $, is:
+- the matrix-calculus notation $\frac{\partial J(\bar{w})}{\partial \bar{w}} $
+  - this notation is a scalar-to-vector derivative, which always returns a vector
+
+Therefore, we have:
+
+$\nabla J = \frac{\partial J(\bar{w})}{\partial \bar{w}} = [\frac{\partial J(\bar{w})}{\partial w_{1}} ... \frac{\partial J(\bar{w})}{\partial w_{d}} ]^{T} $
+
+Note, that each index is an individual w_{i} as oppposed to the vector \bar{w}, which is passed into the obj fn J
+
+Here, it is important to note that there is some convention-centric ambiguity in the treatments of matrix calcuclus by various communities as to whether the derivative of a scalar wrt a column vect4or is a reow vector or whther it is a column vector. In this book, we use convention that:
+
+- derivative of a scalar wrt column vector is also a column vector
+  - known as `denominator layout`
+- for derivatives of row vector, producing a row vector, known as the `numerator layout`
+
+Here, `denominator layout` is used bc frees us from notational clutter of always having to transpose a row vector into a column vector in order to perform gradient descent updates on \bar{w} (which are extremely common in ML)
+
+Indeed the choice of using the numerator layout and denominator layout in different communities is often regulated by these types of notational conveniences. Therefore, we can directly write the update in matrix calculus notation as follows:
+
+$\bar{w} = \Longleftarrow \bar{w} - \alpha [\frac{\partial J(\bar{w})}{\partial \bar{w}}] $
+
+The matrix calculationn notation allow allows derivatives of vectors wrt to vectors. Such as a derivative results in a matrix, referred to as `the Jacobian` 0.0
+
+Jacobians arise frequently when computing the gradients of recursively nested multivariate functions. A specific example is multilayer neural networks
+
+For example, the derivative of an m-dimensional column vector h (of dimension m) wrt a d-dimensional column vector w (of dimension d) is a dxm matrix in the denominator layout
+
+The (i,j)th entry of this matrix is the derivative of h_j wrt w_i:
+
+$[\frac{\partial \bar{h}}{\partial \bar{w}}]_{ij} = \frac{\partial h_{j}}{\partial w_{i}} $ (4.19)
+
+The (i,j)th element of the Jacobian is always $\frac{\partial h_{i}}{\partial w_{j}} $, and therefore is it s the transpose of the matrix $\frac{\partial \bar{h}}{\partial \bar{w}} $ from the above equation (4.19)
+
+Another useful derivative that arises quickly in different types of matrix factorization is the derivative of a scalar obj fn J wrt an mxn matrix W. In the denominator layout, the result inherits the shape of the matrix in the deonominator. The (i,j)th entry of the derivative is simply the derivative of J wrt the (i,j)th entry in W:
+
+$[\frac{\partial J}{\partial W} ]_{ij} = \frac{\partial J}{\partial W_{ij}} $ (4.20)
+
+#### Table 4.1 Matrix Calculus operations in numerator and denominator layouts
+
+\frac{}{}
+
+##### Denominator Layout
+
+| Derivative of | wrt | Output Size | ith or (i,j)th element |
+| - | - | - | - |
+| Scalar J | Scalar x | Scalar | $\frac{\partial J}{\partial x} $ |
+| Column vector $\bar{j} $ in *m* dimensions | Scalar x | Row vector in *m* dimensions | $[\frac{\partial \bar{h}}{\partial x}]_{i} = \frac{\partial h_{i}}{\partial x} $ |
+| Scalar J | Column vector $\bar{w}$ in *d* dimensions | Column vector in *d* dimensions | $[\frac{\partial J}{\partial \bar{w}}]_{i} = \frac{\partial J}{\partial w_{i}} $ |
+| Column vector $\bar{h} $ in *m* dimensions | Column vector $\bar{w}$ in *d* dimensions | *d* x *m* matrix | $[\frac{\partial \bar{h}}{\partial \bar{w}}]_{ij} = \frac{\partial h_{j}}{\partial w_{i}} $ |
+| Scalar J | *m* x *n* matrix W | *m* x *n* matrix | $[\frac{\partial J}{\partial W}]_{ij} = \frac{\partial J}{\partial W_{ij}} $ |
+|  |  |  |  |
+
+##### Numerator Layout
+
+| Derivative of | wrt | Output Size | ith or (i,j)th element |
+| - | - | - | - |
+| Scalar J | Scalar x | Scalar | $\frac{\partial J}{\partial x} $ |
+| Column vector $\bar{h} $ in *m* dimensions | Scalar x | Column vector in *m* directions | $[\frac{\partial \bar{h}}{\partial x}]_{i} = \frac{\partial h_{j}}{\partial{x}}  $ |
+| Scalar J | Column vector $\bar{w} $ in *d* dimensions | Row vector in *d* dimensions | $[\frac{\partial J}{\partial \bar{w}}]_{i} = \frac{\partial J}{\partial w_{i}} $ |
+| Column vector $\bar{h}$ in *m* dimensions | Column vector $\bar{w} $ in *d* dimensions | *m* x *d* matrix | $[\frac{\partial \bar{h}}{\partial \bar{w}} ]_{ij} = \frac{\partial h_{i}}{\partial w_{j}} $ I want to say this is the legit Jacobian |
+| Scalar J | *m* x *n* matrix W | *n* x *m* matrix | $[\frac{\partial J}{\partial W}]_{ij} = \frac{\partial J}{\partial W_{ji}} $ |
+
+### 4.6.2 Useful Matrix Calculus Identities

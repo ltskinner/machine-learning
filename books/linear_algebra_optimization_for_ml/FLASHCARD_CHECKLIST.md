@@ -271,9 +271,12 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 - `Gradient`
   - for functions with scalar outputs (univariate **output**)
   - "how does *one* output value change wrt all inputs"
+  - write matrix-calculus notation (deonominator form)
 - `Jacobian`
   - for functions with vector output (multivariate **output**)
   - "how does *every* output component change wrt all inputs"
+  - write matrix-calculus notation (denominator form)
+    - believe: $[\frac{\partial \bar{h}}{\partial \bar{w}}]_{ij} = \frac{\partial h_{j}}{\partial w_{i}} $ (4.19)
 - `Hessian`
   - very likely this is symmetric matrix
   - `Schwarz's theorem` will support this
@@ -324,6 +327,8 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 - feature preprocessing:
   - mean-centering
   - feature normalization
+- matrix-calculus notation form
+  - vs default form
 
 Remember: as doing end of chapter problems add to this list
 
