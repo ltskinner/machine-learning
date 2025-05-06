@@ -314,6 +314,16 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - monotonicity
 - multimodal function
   - the function itself does not have a single maximum (or minimum)
+- stochastic gradient descent
+  - mini batch
+  - `epoch`
+    - "An epoch essentiall ymeans that every point in the training dataset has been seen exactly once"
+  - `regularization`
+    - obj fn modified to penalize the squared norms of weight vectors
+    - concise parameter vectors with smaller squared norms are less prone to overfitting
+- feature preprocessing:
+  - mean-centering
+  - feature normalization
 
 Remember: as doing end of chapter problems add to this list
 

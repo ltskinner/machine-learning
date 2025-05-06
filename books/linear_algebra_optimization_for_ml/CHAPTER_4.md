@@ -713,3 +713,164 @@ An important point with the use of line search is that convergence is guaranteed
 GD starts at an initial point, and successively improves paramter vector at particular learning rate
 
 Heurisitic initializatinos are good, esp for NNs because there are dependencies between optimization parameters
+
+## 4.5 Properties of Optimization in ML
+
+Optimization problems in ML have some typical properties that are often not encountered in other generic optimization settings
+
+### 4.5.1 Typical Objective Functions and Additive Separability
+
+Modt obj fns in ML penalize the deviation of a **predicted value** from an **observed value** in one ofrm or another. Ex, obj fn of least squares regression is:
+
+$J(\bar{w}) = \sum_{i=1}^{n} \| \bar{w} \cdot \bar{X}_{i}^{T} - y_{i}\|^{2} $
+
+- $\bar{X}_{i} $ is a d-dimensional row vector containing the ith of n training points
+- $\bar{w} $ is a d-dimensional col vector of optimization variables
+- $y_{i} $ contains real-valued observation of the ith training point
+
+Note that this obj fn represents an additively separable sum of squared differences between the **predicted values** $\hat{y}_{i} \bar{w} \cdot \bar{X}_{i}^{T} $ and the observed values y_i in the actual data
+
+Another form of penalization is the `negative log-likelihood objective function`. This form of the obj fn uses the probability that the models prediction of a dependent variable matches the observed value in the data. Clearly, higher values of the probability are desirable, and therefore, the models should learn parameters that maximize these probabilities (or likelihoods)
+
+For ex, such a model might output the probability of each class in a binary classification setting, and it is desired to maximize the probability of the true (observed) class. For the ith training point, denoted as $P(\bar{X}_{i}, y_{i}, \bar{w}) $ which depends on the paramter vector \bar{w} and training pair (X, y). The probability of correct prediciotn over all training points is given by the products of the probabilities P(X, y, w) over all (X, y). The negative logarithm is applied to this product to convert the max problem into a min problem (while addressing numerical underflow issues caused by repeated multiplication)
+
+$J(\bar{w}) -\log_{e}[\prod_{i=1}^{n}P(\bar{X}_{i}, y_{i}, \bar{w}) ] = -\sum_{i=1}^{n} \log_{e}[P(\bar{X}_{i}, y_{i}, \bar{w})] $
+
+Using the log also makes the obj function appear as an `additively separable sum` over training points
+
+Many ML problems use additively separable data-centric objective functions, whether squared loss or log-likelihood loss. This means that each individual data point creates a small (additive) component of the obj fn. In each case, the obj fn contains n additively separable terms, and each point-specific error [ such as $J_{i} = (y_{i} - \bar{w}\cdot\bar{X}_{i}^{T})^{2} $ in least squares regression] can be viewed as a point-specific loss. Therefore, the oberall obj fn can be expressed as the sum of these point-specific losses:
+
+$J(\bar{w}) = \sum_{i=1}^{n} J_{i}(\bar{w}) $
+
+This type of linear separability is useful bc enables use of fast optimization methods like `stochastic gradient descent` and `mini-batch stochastic gradient descent`, where one can replace the obj fn with a sampled approx
+
+### 4.5.2 Stochastic Gradient Descent
+
+Linear and additive nature of obj fns in ml enables use of techniques referred to as `stochastic gradient descent`. Particularly useful in the case in which the datasets are very large and one can often estimate good descent directions using modest samples of the data.
+
+Consider a sample S of the n data points X1...Xn, where S contains the indices of the relevant data points from {1...n}. The set S of data points is referred to as a `mini-batch`. One can set up a sample-centric obj fn J(S) as:
+
+$J(S) = \frac{1}{2} \sum_{i \in S}(y_{i} - \bar{w}\cdot\bar{X}_{i}^{T})^2 $
+
+The key idea in mini-batch stochastic gradient descent is that the gradient of J(S) wrt the parameter vector \bar{w} is an excellent approximation of the gradient of the full obj fn J. therefore, the gradient descent update above is modified to mini-batch stochastic gradient descent as:
+
+$[w_{1}...w_{d}]^{T} \Longleftarrow [w_{1}...w_{d}]^{T} - \alpha[\frac{\partial J(S)}{\partial w_{1}}...\frac{\partial J(S)}{\partial w_{d}} ] $
+
+Note that computing the gradient of J(S) is far less computationally intensive compared to computing the gradient of the full obj fn. A special case of mini-batch stochastic gradient descent is one in which the set S contains a single randomly chosen data point (regular stochastic gradient descent). The use of SGD is rare, and one tends to use the mini-batch method more often. Typical mini-batch sizes are powers of 2, such as 64, 128, 256, etc. Driver is powers of 2 good for compute
+
+SGD typically cycle through the full dataset, rather than simp0ly sampling the data points at random. Aka, the data points are permuted in some random order and blocks of points are drawn from this ordering. Therefore, all other points are processed before arriving at a data point again. Each cycle of the mini-batch SGD is referred to as an `epoch`.
+
+- When mini-batch size is 1, epoch contains n updates
+  - where n is the training data size
+- in case where mini-batch size is k
+  - epoch contains $\lceil n / k \rceil $ updates
+
+SGD methods have much lower memory requirements than pure gradient descent, bc one is processing only a small sample of data in each step. Although each update is more noisey, the sampled gradient can be comptued much faster. Therefore, despite more updates, overall process is much faster
+
+Why does SGD work so well in ML? At its core, mini-batch methods are random sampling methods. One is trying to estimate the gradient of a loss function using a random subset of the data
+
+At the beginning of GD, the parameter vector $\bar{w} $ is grossly incorrect. Therefore, using only a small subset of the data is often sufficient to estimate the direction of descent very well, and the updates of mini-batch SGD are almost as good as those obtained using the full data (for a fraction of the comptuational effort).
+
+When the parameter vector $\bar{w} $ nears the optimal value during descent, the effect of sampling error is more significant. Interestingly, it turns out this type of error is actually beneficial in ML applications bc of an effect referred to as `regularization`
+
+### 4.5.3 How Optimization in ML is Different
+
+Traditional optimization focuses on learning parameters to optimize the obj fn as much as possible
+
+in ML, there is a differentiation between the **training data** and the (roughly similar) unseen **test data**
+
+General rule of thumb: the optimized model will almost always predict the dependent variable of the training data more accurately than that of the test data (obviously lmao)
+
+Consider the example of linear regression, where one will often have training samples (X, y) and a separate set of test examples (Z, y'). The labels of the test examples are unavailable in real-world applications at the time they are predicted. In practice, the only become available in retrospect, when the true accuracy of the ML alg can be computed
+
+In ML, one only cares about accuracy on the unseen test examples rather than training examples. It is possible for excellently designed optimization methods to perform very well on the training data, but have disatrously poor results on the test data. This separation between training and test data is also respected during benchmarking of ML algs by creating simulated training and test data sets from a single labeled data set
+
+Ok w/e the key difference between ML and traditional optimization: in ML a different (but similar) dataset is used to eval performance, as opposed to just using the whole dataset
+
+Good ML models generalize to unseen data. Im guessing like we compare an optimal control algorithm for step responses where the entire input and output domain is known, and we need to find the optimal way to transition between states.
+
+So like regular regression, depending on the size of the datset and number of parameters, its possible to have an infinite number of equally good best-fit solutions if there are low impact (noise) features with permuted coefficients
+
+Ok so literal `overfitting` is like when the coefficients of one of many infinitely good best fit functions are found for a loss/error of zero. But minor variations to inputs like break this
+
+"Poor generalization is a result of models adapting to the quirks and random nuances of a specific training data set; it is likely to occur when the training data is small"
+
+- When the number of training instances is fewer than the number of features, an infinite number of equally "good" solutions exist
+
+There are a number of special properties of optimization in ML:
+
+- 1. In traditional optimization, one optimizes the parameters as much as possible to improve the obj fn.
+  - However, in ML, optimizting a the parameter vector beyond a certain point often leads to overfitting
+  - If validation (hold-out data) accuracy decreases (even though loss on training is reducing)
+  - Therefore, the criterion for termination is different from that in traditional optimization
+- 2. While SGD methods have lower accuracy than GD methods (bc of sampling appx), they often perform comparably (or even better) on the test data
+  - This is because the random sampling of training instances during optimization reduces overfitting
+- 3. The obj fn is sometimes modified by penalizing the squared norms of weight vectors
+  - While the the unmodified obj fn is the most direct surrogate for the performance on the training data, the penalzied obj fn performs better on the out-of-sample test data
+  - Concise parameter vectors with smaller squared norms are less prone to overfitting
+  - This is `regularization`
+
+These differences between traditional optimization and ML are important bc they affect the design of virtually every optimization procedure in ML
+
+### 4.5.4 Tuning Hyperparameters
+
+Learning process requires us to specify a number of hyperparameters such as:
+
+- \alpha learning rate
+- weight of regularization
+- etc
+
+`Hyperparameter` is used to specifically refer to the parameters regulating the design of the model (like learning rate an regularization) and they are different from the more fundamental parameters such as the weights of the linear regression model. ML always uses a two-tiered organization of parameters in the model:
+
+- primary model parameters (like weights)
+  - are optimized with computational learning algorithms (e.g. SGD) only *after* fixing the >>
+- hyperparameters
+  - which are fixed manually or with use of a *tuning* phase
+
+Hyperparemters should be tuned using the validation data, and we see how model performance varies on the validation set to inform hanges
+
+The main challenge w hyperparameter optimization is that different combinations of hyperparaemters need to be tested for their performance:
+
+- grid search
+  - number of grid points increases exponentially w number of params
+  - start with coarse grids
+  - then narrow down to a particular rang eof interest
+    - one needs to be careful if the optimal parameter is at the edge of the grid range
+    - should increase grid range
+
+Common to search for hyperparameters in the logarithmic space (but some should be searched for on a uniform scale)
+
+- e.g. instead of sampling lr between .1 and .0001
+  - first sample log_10(lr) uniformly between -1 and -3, and then exponentiate it as a power of 10
+
+### 4.5.5 The Importance of Feature Preprocessing
+
+Vastly varying sensitivities of the loss function to different parameters tennds to hurt the learning, and this aspect is controlled by the scale of the features
+
+Consider a model in which a persons wealth is modeled as a linear funtion of:
+
+- x1 age [0, 100]
+- x2 n_years_college_education [0, 10]
+
+$y = w_{1} x_{1}^{2} + w_{2}x_{2}^{2} $
+
+In such a case, the partial derivative $\frac{\partial y}{\partial w_{1}} = x_{1}^{2} $ and $\frac{\partial y}{\partial w_{2}} = x_{2}^{2} $ will show up as multiplicative terms in the compnents of the error gradient wrt w1 and w2 respectively
+
+Since x1^2 is usually much larger than x2^2 (and often by a factor of 100), the components of the error gradient wrt w1 will typically be much greater in magnitude than those wrt w2. Often, small steps along w2 will lead to large steps along w1 (and therefore an overshooting of the optimal value along w1)
+
+Note that the sign of the gradient componetns along the w1 direction will often keep flipping in successive steps to compensate for the overshooting along the w1 direction after large steps. In practice, this leads to a pack-and-forth "bouncing" behavior along the w1 direction and tiny (but consistent) process along the w2 direction. As a result, convergence will be very slow
+
+Therefore, it is often helpful to have features with similar variance. There are two forms of feature preprocessing:
+
+- 1. Mean-centering
+  - In many models, can be useful to mean-center data to remove certain types of bias effects
+  - PCA works on assumption of mean-centered data
+  - A vector of column-wise means is subtracted from each data point
+- 2. Feature normalization
+  - Divide each feature by its std
+  - When combined with mean-centering, is known as `standardized`
+    - basic idea is that each feature is presumed to have been drawn from a `standard` normal distribution with zero mean and unit variance
+
+Min-max normalization is useful when the data needs to be scaled to the range (0, 1)
+
+Feature normalization avoids ill-conditioning and ensures much smoother convergence of gradient-descent methods
