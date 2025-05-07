@@ -268,6 +268,12 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 - critical points (f'(x) = 0)
 - second-order optimality conditions (f''(x) > 0 or < 0 or 0)
   - min, max, saddle
+- partial derivatives
+  - any term that does not interact with the variable being differentiated against we ignore because it doesnt contribute any direction to the derivative
+  - e.g.
+    - F(w) = x1^2 + 2x1x2 + x2^2
+    - \partial x / \partial x1 = 2x1 + 2x2 (ignore x2^2)
+    - \partial x / \partial x2 = (ignore x2^2) 2x1 + 2x2
 - `Gradient`
   - for functions with scalar outputs (univariate **output**)
   - "how does *one* output value change wrt all inputs"

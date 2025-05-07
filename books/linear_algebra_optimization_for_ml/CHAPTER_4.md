@@ -959,3 +959,33 @@ $[\frac{\partial J}{\partial W} ]_{ij} = \frac{\partial J}{\partial W_{ij}} $ (4
 | Scalar J | *m* x *n* matrix W | *n* x *m* matrix | $[\frac{\partial J}{\partial W}]_{ij} = \frac{\partial J}{\partial W_{ji}} $ |
 
 ### 4.6.2 Useful Matrix Calculus Identities
+
+Some matrix calculus identities that are frequently used in ML
+
+A common expression is of the form:
+
+$F(\bar{w}) = \bar{w}^{T}A\bar{w} $
+
+Where A is a dxd symmetric matrix of constant values, and \bar{w} is a d-dimensional column vector of optimization variables
+
+Note that this type of obj fn occurs in virtually every convex quadratic loss fn like least-squares regression and in the (dual) support-vector machine. The gradient $\nabla F(\bar{w}) $ can be written as:
+
+$\nabla F(\bar{w}) = \frac{\partial F(\bar{w})}{\partial \bar{w}} = 2A\bar{2} $
+
+The algebraic similarity of the derivative to the scalar case is quite noticable. Also note that $\nabla F(\bar{w}) $ is a column vector
+
+Another common obj fn $G(\bar{w}) $ in ML is:
+
+$G(\bar{w}) = \bar{b}^{T} B \bar{w} = \bar{w}^{T}B^{T}\bar{b} $
+
+Here, B is an nxd matrix of constant values and $\bar{w} $ is a d-dimensional column vector of optimization variables. $\bar{b} $ is an n-dimensional constant vector that does not depend on $\bar{w} $. Therefore, this is a linear function in $\bar{w} $ and all components of the gradient are constants.
+
+The values $\bar{b}^{T} B \bar{w} $ and $\bar{w}^{T}B^{T}\bar{b} $ are the same because the transposition of a scalar is the same scalar. In such cases, the gradient of $G(\bar{w}) $ is computed as:
+
+$\nabla G(\bar{w}) = \frac{\partial G(\bar{w})}{\partial \bar{w}} = B^{T}\bar{w} $
+
+In this case, every component of the gradient is a constant
+
+#### Problem 4.6.1
+
+Remember: any term that does not interact with the variable being differentiated against we ignore because it doesnt contribute any direction to the derivative
