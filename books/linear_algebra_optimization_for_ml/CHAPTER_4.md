@@ -989,3 +989,134 @@ In this case, every component of the gradient is a constant
 #### Problem 4.6.1
 
 Remember: any term that does not interact with the variable being differentiated against we ignore because it doesnt contribute any direction to the derivative
+
+Aight this was a pain to compute lol "one can then appreciate the compactness of the matrix calculus approach for quick computation"
+
+Bc it is common to compute the gradient wrt a column vector of parameters, the below identities represent drivatives wrt col vectors
+
+#### Table 4.2
+
+List of common matrix calculus identities in denominator layout
+
+- A is a constant dxd matrix
+- B is a constant nxd matrix
+- $\bar{b}$ is a constant n-dimensional vector (independent of the parameter vector $\bar{w} $)
+- C is a kxd matrix
+
+##### 4.2a - Scalar-to-vector derivatives
+
+| Objective (fn) J | Derivative of J wrt $\bar{w} $ |
+| - | - |
+| (i) $\bar{w}^{T} A \bar{w} $ | $2A\bar{w} $ (symmetric A) |
+|  | $(A + A^{T})\bar{w} $ (asymmetric A) |
+| (ii) $\bar{b}^{T}B\bar{w} $ or $\bar{w}^T B^{T}\bar{b} $ | $B^{T}\bar{b} $ |
+| (iii) $\|B\bar{w} + \bar{b}\|^{2} $ | $2B^{T}(B\bar{w} + \bar{b}) $ |
+| (iv) $f(g(\bar{w})) $ | $f'(g(\bar{w}))\nabla_{w} g(\bar{w}) $ Note $g(\bar{w}) $ is scalar of example below |
+| (v) $f(\bar{w} \cdot \bar{a}) $ | $f'(\bar{w} \cdot \bar{a})\bar{a} $ where $g(\bar{w} = \bar{w} \cdot \bar{a}) $ |
+
+##### 4.2b Vector-to-vector derivatives
+
+| Vector $\bar{h} $ | Derivative of $\bar{h} $ wrt $\bar{w} $ |
+| - | - |
+| (i) $\bar{h} = C\bar{w} $ | $C^{T} $ |
+| (ii) $\bar{h} = F(\bar{w}) $ where F(.) is elementwise function (Product-of-variables identity) | Diagonal matrix with (i,i)th entry containing partial derivative of ith component of $F(\bar{w}) $ wrt $w_{l} $ |
+| (iii) $\bar{h} = f_{s}(\bar{w})\bar{x} $ where $f_{s}(\bar{w}) $ is vector-to-scalar function | $\frac{\partial f_{s}(\bar{w})}{\partial \bar{w}} \bar{x}^{T} + f_{s}(\bar{w})\frac{\partial \bar{x}}{\partial \bar{w}} $ |
+
+#### 4.6.2.1 Application: Unconstrained Quadratic Programming
+
+In `quadratic programming`, the obj fn contains a quadratic term of the form:
+
+- $\bar{w}^{T}A\bar{w} $
+- a linear term: $\bar{b}^{T}\bar{w} $
+- and a constant
+
+An unconstrained quadratic program has the form:
+
+Minimize $\bar{w}\frac{1}{2}\bar{w}^{T}A\bar{w} + \bar{b}^{T}\bar{w + c} $
+
+Here, we assume that:
+
+- A is a **poasitive definite** dxd matrix
+- $\bar{b}$ is a d-dimensional column vector
+- c is a scalar constant
+- $\bar{w} $ is a d-dimensional column vector containing the optimization variables
+
+An unconstrained quadratic program is a direct generalization of 1-dimensional  quadratic functions like $\frac{1}{2}ax^2 + bc + c $. Note that a minimum exists at x = -b/a for 1-dimensional quadratic functions when a > 0, and a minimum exists for multidimensional quadratic functions when A is **positive definite**
+
+The two terms in the objective function can be differentiated wrt $\bar{w} $ by using the identities (i) and (ii) in 4.2a. Since the matrix A is positive definite, it follows that the Hessian A is positive definite irrespective of the value of \bar{w}. Therefore, the obj fn is **strictly convex**, and setting the gradient to zero is a necessary and sufficient condition for minimization of the obj fn. Using identities (i) and (ii) of Table 4.2, we obtain the following optimality condition:
+
+$A\bar{w} + \bar{b} = \bar{0} $
+
+Therefore, we obtain the solution $\bar{w} = -A^{-1}\bar{b} $
+
+Note that this is a direct generalization of the solution for the 1-dimensional quadratic function. In the event that A is singular, a solution is not guaranteed even when A is positive and semidefinite. For example, when A is the zero matrix, the obj fn becomes linear with no minimum. When A is positive semidefinite, tit can be shown that a minimum exists IFF \bar{b} lies in the column space of A
+
+#### 4.6.2.2 Application: Derivative of Squared Norm
+
+A special case of unconstrained quadratic programming is the norm of a vector that is itself a linear function of another vector (with an additional constant offset). Such a problem arises in least-squares regression, which is known to have a closed form solution like the quadratic program of the previous section. This particular obj form ahs the form:
+
+$J(\bar{w}) = \|B\bar{w} + \bar{b}\|^{2} $
+
+$J(\bar{w}) = \bar{w}^{T}B^{T}B\bar{w} + 2\bar{b}^{T}B\bar{w} + \bar{b}^{T}\bar{b} $
+
+Here:
+
+- B is a nxd data matrix
+- $\bar{w}$ is a d-dimensional vector
+- $\bar{b}$ is an n-dimensional vector
+
+This form of the obj fn arises frequently in least-squares-regression, where B is set to the observed data matrix D, and the constant vector $\bar{b}$ is set to the negative of the response vector $\bar{y}$. One needs to compute the gradient wrt \bar{w} in order to perform the updates
+
+When we have expanded the squared norm in term sof matric vector products, the individual terms are of the same form as the results (i) and (ii) of 4.2a. In this case, we can compute the derivative of the squared norm wrt $\bar{w} $ by substituting for the scalar-to-vector derivatives in results (i) and (ii) of 4.2a. therefore, we obtain the results:
+
+$\frac{J(\bar{w})}{\partial \bar{w}} = 2B^{T}B\bar{w} + 2B^{T}\bar{b} $
+
+$\frac{J(\bar{w})}{\partial \bar{w}} = 2B^{T}(B\bar{w} + \bar{b}) $
+
+This form of the gradient is often used in least-squares regression. Setting this gradient to zero yields the closed-form solution to least-squares regression
+
+### 4.6.3 The Chain Rule of Calculus for Vectored Derivatives
+
+The chain rule of calculus is extremely useful for differentiating compositions of functions. In the univariate case with scalars, the rule is simple. Consider case where the scalar objective J is a function of the scalar w:
+
+$J = f(g(h(w))) $
+
+All of f(.), g(.), and h(.) are assumed to be scalar functions. In such a case, the derivatives of J wrt the scalar w is simply $f'(g(h(w))) g'(h(w)) h'(w) $. This rule is referred to as the `univariate chain rule` of differential calculus. Note, order of multiplication does not matter bc scalar multiplication is commutative
+
+Similarly, consider the case where you have the follow functions, where on e of the fns is a vector-to-scalar function:
+
+$J = f(g_{1}(w), g_{2}(w), ..., g_{k}(w)) $
+
+In such a case, the `multivariate chain rule` states that one can compute the derivative of J wrt w as the sum of the products of the partial derivatives using all arguments of the function:
+
+$\frac{\partial J}{\partial w} = \sum_{i=1}^{k} [\frac{\partial J}{\partial g_{i}(w)}][\frac{\partial g_{i}(w)}{\partial w}] $
+
+One can generalize *both* of the above results into a single form by considering the case where the functions are vector-to-vector functions. Note that vector-to-vector derivatives are matrices, and therefore we will be multiplying matrices together instead of scalars
+
+Surpisingly, very large classes of ML algorithms perform the repeated composition of only two types of functions, which are shown in Table 4.2b
+
+**Unlike the case of the scalar chain rule, the order of multiplication is important when dealing with matrices and vectors**. In a composition function, the derivative of the argument (inner level variable) is always pre-multiplied with the derivative of the fn (outer level variable). In many cases, the order of multiplication is self-evident because of the size constraints associated w matrix multiplication
+
+#### Theorem 4.6.1 - Vectored Chain Rule
+
+Consider a composition function of the form:
+
+$\bar{o} = F_{k}(F_{k-1}(...F_{1}(\bar{x}))) $
+
+Assume that each $F_{i}(.) $ takes as input an $n_{i}$-dimensional column vector and outputs an $n_{i+1} $-dimensional col vector.
+
+Therefore, the input $\bar{x} $ is an $n_{1} $-dimensional vector and the final output $\bar{o} $ is an $n_{k+1} $-dimensional vector. For brevity, denote the vector output of $F_{i}(.) $ by $\bar{h}_{i} $.
+
+Then, the vectored chain rule asserts:
+
+$[\frac{\partial \bar{o}}{\partial \bar{x}}] = [\frac{\partial \bar{h}_{1}}{\partial \bar{x}}] [\frac{\partial \bar{h}_{2}}{\partial \bar{h}_{1}}] ... [\frac{\partial \bar{h}_{k-1}}{\partial \bar{h}_{k-2}}] [\frac{\partial \bar{o}}{\partial \bar{h}_{k-1}}] $
+
+Term dimensions:
+
+- 1. n_1 x n_k+1
+- =
+- 2 n_1 x n_2
+- 3 n_2 x n_3
+- ...
+- n_k-1 x n_k
+- n_k x n_k+1

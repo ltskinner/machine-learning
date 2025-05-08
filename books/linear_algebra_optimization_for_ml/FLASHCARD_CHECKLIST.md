@@ -335,6 +335,10 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - feature normalization
 - matrix-calculus notation form
   - vs default form
+- `quadratic programming`
+- `univariate chain rule` (of differential calculus)
+- `multivariate chain rule`
+
 
 Remember: as doing end of chapter problems add to this list
 
