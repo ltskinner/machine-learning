@@ -970,7 +970,7 @@ Where A is a dxd symmetric matrix of constant values, and \bar{w} is a d-dimensi
 
 Note that this type of obj fn occurs in virtually every convex quadratic loss fn like least-squares regression and in the (dual) support-vector machine. The gradient $\nabla F(\bar{w}) $ can be written as:
 
-$\nabla F(\bar{w}) = \frac{\partial F(\bar{w})}{\partial \bar{w}} = 2A\bar{2} $
+$\nabla F(\bar{w}) = \frac{\partial F(\bar{w})}{\partial \bar{w}} = 2A\bar{w} $
 
 The algebraic similarity of the derivative to the scalar case is quite noticable. Also note that $\nabla F(\bar{w}) $ is a column vector
 
@@ -1264,3 +1264,5 @@ It is easy to see this is exactly the same prediction fn as the one with bias. T
 Choosing a good initialization can sometimes be helpful in speeding up the updates. Consider a linear regression problem with an nxd data matrix D. In most cases, the number of training examples n is much greater than the number of features d. A simple approach for heuristic initialization is to select d randomly chosen training points and solve the dxd system using any of the methods discussed in Ch2. Solving a system of linear equations is a special case of linear regression, and it is also much simpler. This provides a good initial starting point for the weight vector.
 
 #### Problem 4.7.1 - Matrix Least-Squares
+
+Left inverse only b/c tall matrix. just happens to have form of right inverse, which is projection matrix. prove projection with A^2 = A, and symmetric (which performs an orthogonal projection) with A^T = A
