@@ -1220,3 +1220,47 @@ Therefore, one can simply write the solution W in terms of the MP as:
 $\bar{W} D^{+}\bar{y} $
 
 ### 4.7.2 Stochastic Gradient Descent
+
+In ML, it is rare to obtain a closed-form solution like above equation. In most cases, one uses (stochastic) gradient-descent updates of the form:
+
+$\bar{W} \Longleftarrow \bar{W} - \alpha \nabla J $
+
+One advantage of (stochastic) gradient descent is that it is an efficient solution both in terms of memory requirements and computational efficiency. In the case of least-squares regression, the update for the above equaiton can be instantiated as:
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) - \alpha D^{T} (D\bar{W} - \bar{y}) \bar{e} $ Note, I think formatting got messed up in Kindle
+
+- \alpha > 0 is learning rate
+- $\bar{e} = (D\bar{W} - \bar{y}) $ is the error vector, n-dimensional
+- $D^T \bar{e}$ is a d-dimensional vector computed on the update
+
+Such an approach only requires matrix-vector multiplication, rather than requiring the materialization of the potentially large matrix D^T D
+
+One can also perform mini-batch SGD by selecting subsets of rows from D. Let S be set of training examples from current mini-batch, containing feature-target pairs (X, y). GD update modified as:
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha \lambda) - \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} \bar{X}_{i}^{T}(\bar{W}\cdot \bar{X}_{i}^{T} - y_{i}) $
+
+Where the error value is: $(\bar{W}\cdot \bar{X}_{i}^{T} - y_{i})$
+
+### 4.7.3 The Use of Bias
+
+It is common in ML to introduce an additional bias variable to account for unexplained constant effects in the targets. For example, consider case where target variable is temperature in tropical city in Fahrenheit and the two feature variables are: n days since beginning of year, and n minutes since midnight. The modeling $y_{i} = \bar{W} \cdot \bar{X}_{i}^{T} $ is bound to lead to large errors because of unexplained constant effects. When both features are 0, is new years eve. The temp in a tropical city is bound to be much higher than 0. However, the modeling $y_{i} = \bar{W} \cdot \bar{X}_{i}^{T} $ will always yield 0 as a predicted value. This problem can be avoided with the use of a bias variable $b $, so that the new model is:
+
+$y_{i} = \bar{W} \cdot \bar{X}_{i}^{T} + b $
+
+The bias variable absorbs the additional constant effects (i.e., bias specific to the city at hand) and needs to be learned like the other parameters in $\bar{W} $. Modifications to GD updates are as folloows:
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) - \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} \bar{X}_{i}^{T}(\bar{W}\cdot \bar{X}_{i}^{T} + b - \y_{i}) $
+
+$b \Longleftarrow b(1 - \alpha\lambda) - \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} (\bar{W}\cdot \bar{X}_{i}^{T} + b - \y_{i}) $
+
+It turns out that is is possible to achieve *exactly* the same effect as the above updates without changing the original (i.e., bias-free) model. **The trick is to add an additional dimension to the training and test data with a constant value of 1.** Therefore, one would have an additional (d + 1)th parameter $w_{d+1} $ vector in $\bar{W} $, and the target variable for $\bar{X} = [x_{1}...x_{d}] $ is predicted as follows:
+
+$\hat{y} = [\sum_{i=1}^{d} w_{i}x_{i}] + w_{i+1} $
+
+It is easy to see this is exactly the same prediction fn as the one with bias. The coefficient $w_{d+1} $ if this additional dimension is the bias varaible b. since the bias variable can be incorporated with a feature engineering trick, it will largely be omitted in most of the ML applications in the book. However, as a practical matter, it is very important to use the bias (in some form) in order to aboid undesirable constant effects
+
+#### 4.7.3.1 Heuristic Initialization
+
+Choosing a good initialization can sometimes be helpful in speeding up the updates. Consider a linear regression problem with an nxd data matrix D. In most cases, the number of training examples n is much greater than the number of features d. A simple approach for heuristic initialization is to select d randomly chosen training points and solve the dxd system using any of the methods discussed in Ch2. Solving a system of linear equations is a special case of linear regression, and it is also much simpler. This provides a good initial starting point for the weight vector.
+
+#### Problem 4.7.1 - Matrix Least-Squares
