@@ -1120,3 +1120,103 @@ Term dimensions:
 - ...
 - n_k-1 x n_k
 - n_k x n_k+1
+
+#### 4.6.3.1 Useful Examples of Vectored Derivatives
+
+Some common examples of vectored derivatives in ML
+
+Consider the case where the fn f(.) has a d-dimensional vector argument and its output is scalar. Futhermore, the fn f(.) is a scalar-to-scalar fn
+
+$J = f(g(\bar{w})) $
+
+In such a case, we can apply the vectored chain rule to obtain:
+
+$\nabla J = \frac{\partial J}{\partial \bar{w}} = \nabla g(\bar{w}) f'(g(\bar{w})) $ where the f'(.) term is scalar
+
+In this case, the order of multiplication does not matter, bc one of the factors in the product is a scalar. Note that this result is used frequently in ML, because many loss-functions in ML are computed by applying a scalar fn f(.) to the dot product of $\bar{w}$ with a training point $\bar{a}$. In other words, we have $g(\bar{w}) = \bar{w} \cdot \bar{a} $. Note that $\bar{w} \cdot \bar{a} $ can be written as $\bar{w}^{T}(I)\bar{a} $, where I is the identity matrix. This is in the form of the matrix identity (ii) of 4.2a. In such a case, one can use the chain rule to obtain:
+
+$\frac{\partial J}{\partial \bar{w}} = [f'(g(\bar{w}))] \bar{a} $ where the bracket term resolves to a scalar
+
+This result is extremely useful, and can be used for computing the derivatives of many loss fns like least-squares regression, SVMs, and logisitc regression. The vector $\bar{a}$ is simply replaced with the vector of the training point at hand. The funciton f(.) defines the specific form of the loss fn for the model at hand. These are in (iv) and (v) of 4.2a
+
+4.2b contains a nubmer of useful derivatives for vector-to-vector functions. The first is the linear transformation $\bar{h} = C\bar{w} $ where C is a matrix that does not depend on the parameter vector w. The corresponding vector-to-vector derivative of h wrt w is C^T (from id (i)). This type of transformation is used commonly in **linear layers** of **feed-forward neural networks**
+
+Another common vector-to-vector fn is the element-wise function $F(\bar{w})$, which is also used in nns (in the form of `activation functions`). In this case, the corresponding derivative is a diagonal matrix containing the element-wise derivatives shown in the (ii) of 4.2b
+
+Finally, we consider a generalization of the `product identity` in differntial calcuclus. Instead of differentiating the product of two scalar variables, we consider the product of a scalar and a vector variable. Consider the relationship $\bar{h} = f_{s}(\bar{w})\bar{x} $, which is the product of a vector and a scalar. Here, $f_{s}(.)$ is a vector-to-scalar fn, and x is a column vector that depends on w. In such a case, the derivative of h wrt w is tha matrix $\frac{\partial f_{s}(\bar{w})}{\partial \bar{w}}\bar{x}^{T} + f_{s}(\bar{w})\frac{\partial \bar{x}}{\partial \bar{w}} $ (see (iii) of 4.2b). Note that the first term is the outer product of the two vectors $\frac{\partial f_{x}(\bar{w})}{\partial \bar{w}} $ and $\bar{x}$, whereas the second term is a scalar multiple of a vector-to-vector derivative
+
+## 4.7 Linear Regression: Optimization with Numerical Targets
+
+Linear regression is also referred to as least-squares regression, because it is usually paired with a least-squares objective fn.
+
+A natural application of least-squares regression is to model the dependence of a target variable on the feature variables. We have n pairs of observations (X, y) for i in {1, ..., n}. The target y is predicted using $\hat{y}_{i} \approx \bar{W} \cdot \bar{X}_{i}^{T} $. The circumflex on top of $\hat{y}_{i} $ indicates that it is a predicted value. Here, $\bar{W} = [ w_{1}, ... w_{d}]^{T} $ is a d-dimensional column vector of optimization parameters
+
+Each vector X is referred to as the set of independent variables or `regressors`, whereas the variable y is referred to as the target variable, response variable, or `regressand`. Each X is a row vector, because it is common for data points to be represented as rows of data matrices in ML. Therefore, the row vector X needs to be transposed before performing a dot product with the column vector W. The vector W needs to be learned in a data driven manner, so that $\hat{y}_{i} = \bar{W} \cdot \bar{X}_{i}^{T} $ is as close to each y as possible. Therefore, we compute the loss $(y_{i} - \bar{W} \cdot \bar{X}_{i}^{T})^{2} $ for each training point and then add up these losses over all points in order to create the obj fn:
+
+$J = \frac{1}{2} \sum_{i=1}^{n} (y_{i} - \bar{W} \cdot \bar{X}_{i}^{T})^{2} $
+
+Once the vector W has been learned from the training data by optimizing the aformentioned obj fn, the numberical value of the target variable of an unseen test instance Z (which is a d-dimensional row vector) can be predicted as $\bar{W} \cdot \bar{Z}^{T} $
+
+It is particularly convenient to write this obj fn in terms of an nxd data matrix. Note $D\bar{W} $ is an n-dimensional column vector of `predictions` which should ideally equal the observed vector $\bar{y} $. Therefore, the vector of erros is given by $(D\bar{W} - \bar{y}) $, and the squared norm of the error vector is the loss fn. Therefore, the minimizatino loss fn can be written as:
+
+$J = \frac{1}{2} \|D\bar{W} - \bar{y}\|^{2} = \frac{1}{2}[D\bar{W} - \bar{y}^{T}[D\bar{W} - \bar{y}]] $
+
+One can expand the expression above into:
+
+$J = \frac{1}{2}\bar{W}^{T}D^{T}D\bar{W} - \frac{1}{2}\bar{W}^{T}D^{T}\bar{y} - \frac{1}{2}\bar{y}^{T}D\bar{W} + \frac{1}{2}\bar{y}^{T}\bar{y} $
+
+It is easy to see that the above expression is convex, because $D^{T}D $ is the positive semidefinite Hessian in the quadratic term. This means that if we find a value of the vector W at which the gradient is zero (i.e. a critical point), it will be a global min of the obj fn
+
+In order to compute the gradient J wrt W, one can directly use the squared-norm result of 4.6.2.2 to yield:
+
+$\nabla J = D^{T}D\bar{W} - D^{T}\bar{y} $
+
+Setting the gradient to zero yields the following:
+
+$D^{T}D\bar{W} = D^{T}\bar{y} $
+
+Pre-multiplying both sides with $(D^{T} D)^{-1} $, one obtains:
+
+$\bar{W} = (D^{T}D)^{-1}D^{T}\bar{y} $
+
+Note that this formula is identical to the use of the left-inverse of D for solving a system of equations, and the derivation of Section 2.8 uses the normal equation rather than calculus. The problem of solving a system of equations is a special case of least-squares regression. When the system of equatinos has a feasible solution, the optimal solution has zero loss on the training data. in the case that the system is inconsistent, we obtain the best-fit solution
+
+How can one compute W efficiently when D^T D is invertible? This can be achieved via QR decomposition of D as $D = QR $, where Q is an nxd matrix with orthonormal columns and R is a dxd upper-triangular matrix. One can simply substitute D = QR in the above equation and use Q^T Q = I_d to obtain:
+
+$R^{T}R\bar{W} = R^{T}Q^{T}\bar{y} $
+
+Multiplying both sides with $(R^{T})^{-1} $, one obtains $R\bar{W} = Q^{T}\bar{y} $. This triangular system of equations can be solved efficiently using back-substitution
+
+The above solution assumes that matrix D^T D is invertible. However, in cases where the number of data points is small, the matrix D^T D might not beinvertible. In such cases, infinitely many solutions exists to this system of equations, which will overfil the training data; such methods will not generalize easily to unseen test data. In such cases, ``regularization`` is important
+
+### 4.7.1 Tikhonov Regularization
+
+The closed-form solution to the problem does not work in under-determined cases, where the number of optimization variables is greater than the number of points. One possible solution is to reduce the number of variables in the data by posing the problem as a constrained optimization problem. In other words, we could try to optimize the same loss fn while posing the hard constraint that at most k values of w_i are non-zero. However, such a constrained optimziation problem is hard to solve. A softer solution is to impose a small penalty on the absolute value of each w_i in irder to discourage non-zero values of w_i. Therefore, the resulting liss fn is:
+
+$J = \frac{1}{2}\|D\bar{W} - \bar{y}\|^{2} + \frac{\lambda}{2}\|\bar{W}\|^{2} $
+
+Here, $\lambda > 0$ is the regularization parameter. By adding the squared norm penalty, we are encouraging each w_i to be small in magnitude, unless it is absolutely essential for learning. Note that the addition of the strictly convex term $\lambda \|\bar{w}\|^{2} $ to the convex least-squares regression loss fn makes the regularized obj function *strictly* convex. A strictly convex obj fn has a unique optimal solution
+
+In order to solve the optimization problem, one can set the gradient of J to 0. The gradient of the added term (the \lambda/2 |W|^2) is \lambda W
+
+On setting the gradient of J to 0, we obtain the following modified condition:
+
+$(D^{T} D + \lambda I)\bar{W} = D^{T}\bar{y} $
+
+Pre-multiplyingg both sides with $(D^{T}D + \lambda I)^{-1} $ one obtains:
+
+$\bar{W} = (D^{T} D + \lambda I )^{-1} D^{T} \bar{y} $
+
+Here, it is important to note that $(D^{T}D + \lambda I) $ is always invertible for lambda > 0, since the matrix is positive definite. The resulting solution is regularized, and it generalizes much better to out-of-sample data. Because of the `push-through identity`, the solution can also be written in the alternative form:
+
+$\bar{W} = D^{T} (DD^{T} + \lambda I)^{-1} \bar{y} $
+
+#### 4.7.1.1 Pseudoinverse and Connections to Regularization
+
+A special case of Tikhonov regularization is the Moore-Penrose pseudoinverse. The MP D^{+} is the limiting case of Tikhonov regularization in which lambda > 0 is infintesimally small
+
+Therefore, one can simply write the solution W in terms of the MP as:
+
+$\bar{W} D^{+}\bar{y} $
+
+### 4.7.2 Stochastic Gradient Descent
