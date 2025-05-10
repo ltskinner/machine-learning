@@ -1249,9 +1249,9 @@ $y_{i} = \bar{W} \cdot \bar{X}_{i}^{T} + b $
 
 The bias variable absorbs the additional constant effects (i.e., bias specific to the city at hand) and needs to be learned like the other parameters in $\bar{W} $. Modifications to GD updates are as folloows:
 
-$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) - \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} \bar{X}_{i}^{T}(\bar{W}\cdot \bar{X}_{i}^{T} + b - \y_{i}) $
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) - \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} \bar{X}_{i}^{T}(\bar{W}\cdot \bar{X}_{i}^{T} + b - y_{i}) $
 
-$b \Longleftarrow b(1 - \alpha\lambda) - \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} (\bar{W}\cdot \bar{X}_{i}^{T} + b - \y_{i}) $
+$b \Longleftarrow b(1 - \alpha\lambda) - \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} (\bar{W}\cdot \bar{X}_{i}^{T} + b - y_{i}) $
 
 It turns out that is is possible to achieve *exactly* the same effect as the above updates without changing the original (i.e., bias-free) model. **The trick is to add an additional dimension to the training and test data with a constant value of 1.** Therefore, one would have an additional (d + 1)th parameter $w_{d+1} $ vector in $\bar{W} $, and the target variable for $\bar{X} = [x_{1}...x_{d}] $ is predicted as follows:
 
@@ -1266,3 +1266,73 @@ Choosing a good initialization can sometimes be helpful in speeding up the updat
 #### Problem 4.7.1 - Matrix Least-Squares
 
 Left inverse only b/c tall matrix. just happens to have form of right inverse, which is projection matrix. prove projection with A^2 = A, and symmetric (which performs an orthogonal projection) with A^T = A
+
+## 4.8 Optimization Models for Binary Targets
+
+Least-squares regression learns how to relate numerical feature variables (independent variables or regressor) to a numerical target (i.e., dependent variable or regressand)
+
+In many applications, the targets are discrete rather tha nreal valued, like {Blue, Green, Red} where there is no natural ordering
+
+A special case of discrete targets is the case in which the target variable y is binary and drawn from {-1, +1}. the instances with label +1 are referred to as `positive class instances`, and -1 is `negative class instances`. In the binary class case, we can impose an ordering between the two possible target values
+
+aka: we can pretend the targets are numeric, and perform linear regression. This is known as `least-squares classification`
+
+Treating discrete targets as numerical values does have disadvantages. Therefore, many alternative loss fns have been proposed for discrete (binary) data to avoid problems. Examples include support vector machine and logistic regression
+
+### 4.8.1 Least-Squares Classification: Regression on Binary Targets
+
+In least-squares classification, linear regression is directly applied to binary targets. The nxd data matrix D still contains (X, y) but y only contains binary values drawn from {-1, +1}
+
+In least-squares classification, we pretend that the binary targets are real valued. So we can model each target as $y_{i} \approx \bar{W}\cdot \bar{X}_{i}^{T} $, where $\bar{W} = [w_{1}, ..., w_{d}]^{T} $ is a column vector containing the weights. We set up the same squared loss fn as least-squares regression by treating binary targets as speical cases of numerical targets. This results in the same closed-form solution for $\bar{W}$:
+
+$\bar{W} = (D^{T} D + \lambda I)^{-1}\bar{y} $
+
+Even though $\bar{W}\cdot\bar{X}_{i}^{T} $ yields a real-valued prediction for instance X_i (like regression) it makes more sense to view the hyperplane $\bar{W}\bar{X}^{T} = 0 $ as a `separator` or `modeled decision boundary`, where any instance X with label +1 will satisfy $\bar{W} \cdot \bar{X}_{i}^{T} > 0 $, and is < 0 for -1 labeled instances
+
+Because of the way in which the model has been trained, most *trainign* points will align themselves on the two sides of the separator, so that the sign of the training label y_i matches the sign of WX^T.
+
+Note that some data distributions might not have neat separability. In such cases, one either needs to live with errors or use feature transformation techniques to create linear separability - these are known as `kernel methods` (and discussed in Ch 9)
+
+![alt-text](./4_8_linear_separation.PNG)
+
+Once the weight vector $\bar{W}$ has been learned in the training phase, the classification is performed on an unseen test instance $\bar{Z}$. Since $\bar{Z} $ is a row vector, whereas $\bar{W} $ is a col vector, the test instance needs to be transposed before computing the dot product. This dot product yields a real-valued prediction which is converted to a binary prediction using the sign fn:
+
+$\hat{y} = sign\{\bar{W}\cdot \bar{Z}^{T}} $
+
+In effect, the model learns a linear hyperplane $\bar{W}\bar{X}^{T} = 0 $ separating the positive and negative class
+
+As in the case of real-valued targets, one can also use the mini-batch SGD
+
+Mini-batch update for least-squares classification is identical to least-dquares regression
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha \lambda) - \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} \bar{X}_{i}^{T}(\bar{W}\cdot \bar{X}_{i}^{T} - y_{i}) $
+
+- alpha > 0 is learning rate
+- lambda > 0 is regularization
+- S is minibatch pairs
+
+Since y_i is drawn from {-1, +1}, an alternative approach also exists for writing the targets using the fact that $y_{i}^{2} = 1 $. The alternative update form is:
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) - \alpha \sum_{(\bar{X}_{i}, y_i) \in S} y_{i}^{2} \bar{X}_{i}^{T}(\bar{W}\cdot \bar{X}_{i}^{T} - y_{i}) $
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) - \alpha \sum_{(\bar{X}_{i}, y_i) \in S} y_{i}\bar{X}_{i}^{T}(y_{i} [\bar{W} \cdot \bar{X}_{i}^{T}] - y_{i}^{T}) $
+
+Setting $y_{i}^{2} = 1 $ we obtain:
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) + \alpha \sum_{(\bar{X}_{i}, y_i) \in S} y_{i}\bar{X}_{i}^{T}(1 - y_{i}[\bar{W} \cdot \bar{X}_{i}^{T}]) $
+
+This form of update is more convenient bc it is more closely related to updates of other classification models discusses later, such as svm and logistic regression
+
+#### Alternative Representation of Loss Function
+
+The alternative form of the above can be derived from an alternative form. With $y_{i}^{2} $, we obtain:
+
+$J = \frac{1}{2} \sum_{i=1}^{n}(1 - y_{i}[\bar{W} \cdot \bar{X}_{i}^{T}])^{2} + \frac{\lambda}{2}\|\bar{W}\|^{2} $
+
+Differentiating this loss fn leads directly to the equation of 4.48. However, it is important to note that the loss fn/updates of lq-classification are identical to the loss fn/updates of ls-regression
+
+The updates of least-squares classification are also referred to as `Widrow-Hoff updates`. The rule was proposed in the context of neural network learning, and it was the second major neural learning algorithm proposed after the perceptron. Interestingly, the neural models were proposed independently of the classifcal literature on least-squares regression; yet, the updates turn out to be identical
+
+#### Heuristic Initialization
+
+A good way to perform heuristic initialization is to determine the mean $\mu_{0} and \mu_{1} $ of the points belonging to the negative and positive class respectfully. The difference between the two means is $\bar{w}_{0} = \bar{mu}_{1}^{T} - \bar{mu}_{0}^{T} $ is a d-dimensional column vector which satisfies $\bar{w}_{0}\cdot\bar{mu}_{1}^{T} \geq \bar{w}_{0}\cdot \bar{mu}_{0}^{T} $. The choice $\bar{W} = \bar{w}_{0} $ is a good starting point, because positive-class instances will have larger dot products with $\bar{w}_{0} $ than will negative-class instances (on the average). In many real applications, the classes are roughly separable with a linear hyperplane, and the normal hyperplane to the line joining the class centraoids provides a good initial separator
