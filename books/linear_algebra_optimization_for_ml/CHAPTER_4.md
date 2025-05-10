@@ -1297,7 +1297,7 @@ Note that some data distributions might not have neat separability. In such case
 
 Once the weight vector $\bar{W}$ has been learned in the training phase, the classification is performed on an unseen test instance $\bar{Z}$. Since $\bar{Z} $ is a row vector, whereas $\bar{W} $ is a col vector, the test instance needs to be transposed before computing the dot product. This dot product yields a real-valued prediction which is converted to a binary prediction using the sign fn:
 
-$\hat{y} = sign\{\bar{W}\cdot \bar{Z}^{T}} $
+$\hat{y} = sign\{\bar{W}\cdot \bar{Z}^{T}\} $
 
 In effect, the model learns a linear hyperplane $\bar{W}\bar{X}^{T} = 0 $ separating the positive and negative class
 
@@ -1336,3 +1336,82 @@ The updates of least-squares classification are also referred to as `Widrow-Hoff
 #### Heuristic Initialization
 
 A good way to perform heuristic initialization is to determine the mean $\mu_{0} and \mu_{1} $ of the points belonging to the negative and positive class respectfully. The difference between the two means is $\bar{w}_{0} = \bar{mu}_{1}^{T} - \bar{mu}_{0}^{T} $ is a d-dimensional column vector which satisfies $\bar{w}_{0}\cdot\bar{mu}_{1}^{T} \geq \bar{w}_{0}\cdot \bar{mu}_{0}^{T} $. The choice $\bar{W} = \bar{w}_{0} $ is a good starting point, because positive-class instances will have larger dot products with $\bar{w}_{0} $ than will negative-class instances (on the average). In many real applications, the classes are roughly separable with a linear hyperplane, and the normal hyperplane to the line joining the class centraoids provides a good initial separator
+
+#### 4.8.1.1 Why Least-Squares Classification Loss Needs Repair
+
+The least-squares classification model has an important weakness, which is revealed when one examines its loss fn:
+
+$\frac{1}{2} \sum_{i=1}^{2}(1 - y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}])^{2} + \frac{\lambda}{2}\|\bar{W}\|^{2} $
+
+Now consider a positive class instance for which $\bar{W}\cdot\bar{X}_{i}^{T} = 100 $ is highly positive. So it is correct, and confidently correct, however the loss fn treats the pred as a large loss of:
+
+$(1 - y_{i}[\bar{W}\cdot\bar{X}_{i}])^{2} = (1 - (1)(100))^{2} = 99^2 = 9801 $
+
+Therefore, a large gradient descent update will occur for a training instance that is located at large distance from the hyperplane $\bar{W}\cdot\bar{X}^{T} = 0 $. Such a situation is undesirable bc it tends to confuse least squares classification; updates from these points on the correct side of $\bar{W}\cdot\bar{X}^{T} = 0 $ tend to push the hyperplane in the same direction as some of the incorrectly classified points.
+
+To address this, many ML algs treat such points in a more nuanced way
+
+### 4.8.2 The Support Vector Machine
+
+As in the case of least-squares classification, assume n training pairs (X, y) where yx are {-1,+1}. Want to find d-dimensional column vector W so that sign of $WX^T $ yields a class label
+
+The SVM treats *well-separated points* in the loss fn in a more careful way by not penalizing them at all.
+
+What is a well separated point? When $y_{i}[\bar{W}\bar{X}_{i}] > 1 $ (as opposed to just being > 0 for + class). Therefore, the loss fn of ls-classifciation can be modified by setting the loss to 0, when this condition is satisfied. Done as:
+
+$J = \frac{1}{2}\sum_{i=1}^{n} \max\{0, (1 - y_{i}[\bar{W}\cdot\bar{X}_{i}^{2}]) \}^{2} + \frac{\lambda}{2}\|\bar{W}\|^{2} $ [L2-loss SVM]
+
+*Only* difference is use of max term to set loss of well separated points to zero
+
+A more common form of SVM loss is the `hinge-loss` aka the L1-version of squared loss above:
+
+$J = \sum_{i=1}^{n} \max\{0, (1 = y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}]) \} + \frac{\lambda}{2}\|\bar{W}\|^{2} $
+
+#### Lemma 4.8.1
+
+Both the L2-Loss SVM and hinge loss are convex in the parameter vector $\bar{W} $. Furthermore, these functions are strictly convex when the regularization term is included
+
+`Regularized Loss` - L2 Regularization is strictly convex. since the sum of a convex and strictly convex function is strictly convex, both obj fns according to Lemma 4.3.6 (including the regularization term) are strictly convex
+
+Therefore, one can find the **global** optimum of an SVM by using gradient descent
+
+#### 4.8.2.1 Computing Gradients
+
+Both the obj fn for L1-loss (hinge loss) and L2-loss SVM are of the form
+
+$J = \sum_{i}J_{i} + \Omega(\bar{W}) $, where
+
+- J_i is a point-specific loss
+- $\Omega(\bar{W}) = \lambda\|\bar{W}\|^{2}/2 $ is regularization term
+  - its gradient is $\lambda\bar{W} $
+
+The main challenge is in computing the gradient of the point specific loss J_i. Here, the key point is that the point-specific loss of both the L1-loss (hinge loss) and L2-loss can be expressed in the form of identity (v) of 4.2a for an appropriately chosen fn:
+
+$J_{i} = f_{i}(\bar{W}\cdot\bar{X}_{i}^{T}) $
+
+Here, the fn f_i(.) is defined as:
+
+- $f_{i}(z) = \max\{0, 1- y_{i}z \} $ [Hinge Loss]
+- $f_{i}(z) = \max\{0, 1- y_{i}z \}^{2} $ [L2-Loss]
+
+Therefore, the gradient of J wrt W is:
+
+$\frac{\partial J_{i}}{\partial \bar{W}} = \bar{X}_{i}^{T}f_{i}'(\bar{W} \cdot \bar{X}_{i}^{T}) $
+
+The corresponding derivatives are:
+
+- $f_{i}'(z) = -y_{i}I[1 - y_{i}z] > 0 $ [Hinge Loss]
+- $f_{i}'(z) = \y_{i}\max\{0, 1 - y_{i}z \} $ [L2-Loss]
+
+Where, I(.) is an indicator function, which takes on the value of 1 when condition inside is true, and 0 otherwise
+
+So loss derivatives are:
+
+- $\frac{\partial J_{i}}{\partial \bar{W}} = -y_{i}\bar{X}_{i}^{T}I([1 - y_{i}(\bar{W}\cdot\bar{X}_{i}^{T})] > 0) $ Hinge Loss
+- $\frac{\partial J_{i}}{\partial \bar{W}} = -y_{i}\bar{X}_{i}^{T}\max\{0, 1 - y_{i}(\bar{W}\cdot\bar{X}_{i}^{T}) \} $ L2 loss
+
+#### 4.8.2.2 Stochastic Gradient Descent
+
+For greatest generality, we use mini-batch SGD where S is training set. For hinge-loss SVM, we first determine set $S^{+} \subseteq S $ of training instances in which $y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}] < 1 $
+
+$S^{+} = \{(\bar{X}_{i}, y_{i}) : (\bar{X}_{i}, y_{i}) \} $
