@@ -1414,4 +1414,27 @@ So loss derivatives are:
 
 For greatest generality, we use mini-batch SGD where S is training set. For hinge-loss SVM, we first determine set $S^{+} \subseteq S $ of training instances in which $y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}] < 1 $
 
-$S^{+} = \{(\bar{X}_{i}, y_{i}) : (\bar{X}_{i}, y_{i}) \} $
+$S^{+} = \{(\bar{X}_{i}, y_{i}) : (\bar{X}_{i}, y_{i}) \} \in S, y_{i}[\bar{W}\cdot\bar{X}_{i}^{T} < 1] $
+
+The subset of instances in S+ correspond to those for which the indicator fn I(.) of the previous section takes on the value of 1.
+
+So two cases for $y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}] $
+
+- < 0 means misclassified instance on wrong side of decision boundary
+- \in {0, 1} meaning is on correct side of decision boundary, but uncomfortably close to decision boundary
+
+Each of the above instances will not trigger updates to the SVM aka, well separated points do not play a role in the update
+
+By using the gradient of the loss fn, the updates in the L1-Loss SVM are:
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha \lambda) + \sum_{(\bar{X}_{i}, y_{i}) \in S^{+}} \alpha y_{i} \bar{X}_{i}^{T} $
+
+This algorithm is referred to as the `primal support vector machine algorithm`.
+
+Hinge-loss is a piece-wise linear function
+
+Updates for SVM with L2 loss are:
+
+$\bar{W} \Longleftaroow \bar{W}(1 - \alpha \lambda) + \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} y_{i}\bar{X}_{i}^{T}(\max\{1 - y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}], 0 \}) $
+
+Identical updates are made for misclassified points and those near the decision boundary, whereas no updates are made for well separated points on the correct side of the decision boundary
