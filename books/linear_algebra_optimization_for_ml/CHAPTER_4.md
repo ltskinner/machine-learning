@@ -1435,6 +1435,48 @@ Hinge-loss is a piece-wise linear function
 
 Updates for SVM with L2 loss are:
 
-$\bar{W} \Longleftaroow \bar{W}(1 - \alpha \lambda) + \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} y_{i}\bar{X}_{i}^{T}(\max\{1 - y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}], 0 \}) $
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha \lambda) + \alpha \sum_{(\bar{X}_{i}, y_{i}) \in S} y_{i}\bar{X}_{i}^{T}(\max\{1 - y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}], 0 \}) $
 
 Identical updates are made for misclassified points and those near the decision boundary, whereas no updates are made for well separated points on the correct side of the decision boundary
+
+### 4.8.3 Logistic Regression
+
+Again, assuming (X, y) data
+
+Goal: find $\bar{W} $ so that sign of $\bar{W}\cdot\bar{X_{i}^{T}} $ yields class label of X, where W is d-dimensional col vector
+
+Loss fn for logistic regression:
+
+- is smooth loss function, which has similar shape to hinge-loss SVM however hinge-loss is piecewise linear
+- probabilistic interpretation in terms of log-likelihood loss of data point
+- all logs are natural log
+
+$J = \sum_{i=1}^{n} \log(1 + \exp (-y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}])) + \frac{\lambda}{2} \|\bar{W}\|^{2} $ where J_i is the summed term before the lambda\2 term
+
+When WX^T is large in abs magnitude and has same sign as y_i, the point-specific loss (J_i) is close to log(1 + exp(-inf)) = 0
+
+As opposed to being log(1 + exp(0)) = log(2) when the signs disagree
+
+When the signs disagree, the loss increases almost inearly with WX^T as magnitude of WX^T becomes increasingly large bc:
+
+$\lim_{z -> -\inf} \frac{\log(1 + \exp(-z))}{-z} = \lim{z -> -\inf} \frac{\exp(-z)}{1 + \exp(-z)} = \lim_{z -> - \inf} = \frac{1}{1 + \exp(z)} = 1 $ becuase of L'Hopitals rule (which differentiates the numerator and denominator to evaluate)
+
+Note the hinge loss of an SVM is always (1 - z) for $z = y_{i}\bar{W}\cdot\bar{X}_{i}^{T} < 1 $. One can show that the logistic loss differs from the hinge loss by a constant offset of 1 for grossly misclassified instances
+
+#### Problem 4.8.1
+
+Since constant offsets do not affect gradient descent, logistic loss and hinge loss treat grossly mosclassified training instances in a similar way. However, unlike the hinge loss, all instances have non-zero logistic losses.
+
+Like SVMs, the loss fn of logistic regression is convex:
+
+#### Lemma 4.8.2
+
+The loss fn of logistic regression is a convex fn. Adding the regularization term makes the loss strictly convex
+
+Logistic regression is strictly convex even without regularization
+
+#### Problem 4.8.2
+
+Show the loss fn in logistic regression is strictly convex even w/o regularization lmao
+
+
