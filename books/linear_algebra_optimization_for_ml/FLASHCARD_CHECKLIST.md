@@ -308,6 +308,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - 1. Direct convexity condition (equation)
   - 2. First-derivative
   - 3. Second-derivative
+    - >> these are really important, note all the rules as well for strictly and regular
 - finite-difference approximation
 - decay functions
   - exponential decay

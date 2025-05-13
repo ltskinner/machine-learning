@@ -1479,4 +1479,69 @@ Logistic regression is strictly convex even without regularization
 
 Show the loss fn in logistic regression is strictly convex even w/o regularization lmao
 
+#### 4.8.3.1 Computing Gradients
 
+B/c logistic regression loss fn is strictly convex, can reach global optimum with SGD
+
+Like SVM, obj fn is in form:
+
+$J = \sum_{i} J_{i} + \Omega(\bar{W}) $
+
+- J_i = point-specific loss
+- $\Omega(\bar{W}) = \lambda \|\bar{W}\|^{2} / 2 $ is regularization term
+  - gradient ($\nabla $) is $\lambda \bar{W} $
+
+Logistic loss J_i gradient follows identity (v) of 4.2a for an appropriately chosen fn f(.):
+
+- $J_{i} = f_{i}(\bar{W}\cdot\bar{X}_{i}^{T}) $
+  - $f_{i}(z) = \log(1 + \exp(-y_{i}z)) $ where f_i(.) is "appropriately chosen fn"
+
+So, gradient of J_i wrt W is:
+
+$\frac{\partial J_{i}}{\bar{W}} = \bar{X}_{i}^{T} f_{i}'(\bar{W}\cdot\bar{X}_{i}^{T}) $
+
+So corresponding derivative is:
+
+$f_{i}(z) = \frac{-y_{i}\exp(-y_{i}z)}{1 + \exp(-y_{i}z)} = \frac{-y_{i}}{1 + \exp(y_{i}z)} $.
+
+If $z = \bar{W}\cdot\bar{X_{i}}^{T} $, then f_i(z) results in:
+
+$\frac{\partial J_{i}}{\partial \bar{W}} = \frac{-y_{i}\bar{W}_{i}^{T}}{(1 + \exp(y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}]))} $
+
+The point-wise loss derivatives can be used to derive the stochastic gradient-descent updates
+
+#### 4.8.3.2 Stochastic Gradient Descent
+
+Given mini-batch of S (X, y), can define an obj fn J(S), which only uses the losss of only the training instances in S. The regularization term remains unchanged, because one can simply rescale the regularization parameter by $|S| / n $. Compute gradient $\nabla J(S) $ based on mini-batch S as:
+
+$\nabla J(S) = \lambda \bar{W} - \sum_{(\bar{X}_{i}, y_{i}) \in S} \frac{y_{i}\bar{X}_{i}^{T}}{(1 + \exp(y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}]))} $
+
+Therefore, the mini-batch SGD can be implemented as:
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) + \sum_{(\bar{X}_{i}, \y_{i}) \sum S} \frac{\alpha y_{i}\bar{X}_{i}^{T}}{(1 + \exp(y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}]))} $
+
+Logistic regression makes similar updates as the hinge-loss SVM. The main difference is in terms of the treatment of well-separated points, where SVM does not make any updates and logistic regression makes (small) updates
+
+### 4.8.4 How Linear Regression is a Parent Problem in ML
+
+Many binary classification models use loss fns that are modifications of the least-squares regression loss fn in order to handle binary target values. The most extreme example of this inheritance is least squares classification, where one directly uses the regression loss fn by pretending that labels from {-1, +1} are numerical values
+
+The direct inheritance of regression loss fn has undesirable consequences for binary data. In LSC, the value of the loss first decreasess as WX^T increases **as long as** WX^T <= 1; however, it increases for the same positive instance when WX^T increases beyond 1 - this is counterintuitive. This is why the max() fn is critical because beyond WX^T = 1, the point is neither rewarded nor penalized. This point is referred to as the `margin boundary` in SVMs. In logistic regression, increasing distance of a training point X from hyperplane WX^T = 0 on the correct side is slightly rewarded
+
+![alt-text](./4_9_loss_fns.PNG)
+
+For each class, the SGD updates are of the form:
+
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha \lambda) + \alpha y_{i}[\delta(\bar{X}_{i}, y_{i})]\bar{X}_{i}^{T} $
+
+where $\delta(\bar{X}_{i}, y_{i}) = (y_{i} - \bar{W}\cdot\bar{X}_{i}^{T}) $ is:
+
+- the "mistake fn" for
+  - LS regression
+  - LS classification
+- the indicator variable for
+  - SVMs
+- the probability value for
+  - logistic regression
+
+where "mistake fn" is a unifying term to describe the "wrongness" of each training pair as $y_{i} - \bar{W}\cdot\bar{X}_{i}^{T} $
