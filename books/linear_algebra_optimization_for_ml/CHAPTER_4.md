@@ -1359,13 +1359,13 @@ The SVM treats *well-separated points* in the loss fn in a more careful way by n
 
 What is a well separated point? When $y_{i}[\bar{W}\bar{X}_{i}] > 1 $ (as opposed to just being > 0 for + class). Therefore, the loss fn of ls-classifciation can be modified by setting the loss to 0, when this condition is satisfied. Done as:
 
-$J = \frac{1}{2}\sum_{i=1}^{n} \max\{0, (1 - y_{i}[\bar{W}\cdot\bar{X}_{i}^{2}]) \}^{2} + \frac{\lambda}{2}\|\bar{W}\|^{2} $ [L2-loss SVM]
+$J = \frac{1}{2}\sum_{i=1}^{n} \max\{0, (1 - y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}]) \}^{2} + \frac{\lambda}{2}\|\bar{W}\|^{2} $ [L2-loss SVM]
 
 *Only* difference is use of max term to set loss of well separated points to zero
 
 A more common form of SVM loss is the `hinge-loss` aka the L1-version of squared loss above:
 
-$J = \sum_{i=1}^{n} \max\{0, (1 = y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}]) \} + \frac{\lambda}{2}\|\bar{W}\|^{2} $
+$J = \sum_{i=1}^{n} \max\{0, (1 - y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}]) \} + \frac{\lambda}{2}\|\bar{W}\|^{2} $
 
 #### Lemma 4.8.1
 
@@ -1391,8 +1391,8 @@ $J_{i} = f_{i}(\bar{W}\cdot\bar{X}_{i}^{T}) $
 
 Here, the fn f_i(.) is defined as:
 
-- $f_{i}(z) = \max\{0, 1- y_{i}z \} $ [Hinge Loss]
-- $f_{i}(z) = \max\{0, 1- y_{i}z \}^{2} $ [L2-Loss]
+- $f_{i}(z) = \max\{0, 1 - y_{i}z \} $ [Hinge Loss]
+- $f_{i}(z) = \max\{0, 1 - y_{i}z \}^{2} $ [L2-Loss]
 
 Therefore, the gradient of J wrt W is:
 
@@ -1401,7 +1401,7 @@ $\frac{\partial J_{i}}{\partial \bar{W}} = \bar{X}_{i}^{T}f_{i}'(\bar{W} \cdot \
 The corresponding derivatives are:
 
 - $f_{i}'(z) = -y_{i}I[1 - y_{i}z] > 0 $ [Hinge Loss]
-- $f_{i}'(z) = \y_{i}\max\{0, 1 - y_{i}z \} $ [L2-Loss]
+- $f_{i}'(z) = y_{i}\max\{0, 1 - y_{i}z \} $ [L2-Loss]
 
 Where, I(.) is an indicator function, which takes on the value of 1 when condition inside is true, and 0 otherwise
 
@@ -1545,3 +1545,107 @@ where $\delta(\bar{X}_{i}, y_{i}) = (y_{i} - \bar{W}\cdot\bar{X}_{i}^{T}) $ is:
   - logistic regression
 
 where "mistake fn" is a unifying term to describe the "wrongness" of each training pair as $y_{i} - \bar{W}\cdot\bar{X}_{i}^{T} $
+
+## 4.9 Optimization Models for the MultiClass Setting
+
+In multi-class classification, the discrete labels are no longer binary. Rather, they are drawn from a set of *k unordered* possibilities, whose indecies are {1, ..., k}. Like colors are unordered. Unordered nature requires further algorithmic modifications
+
+Each training instance (X, c(i)) contains:
+
+- d-dimensional feature vector X (as row vector)
+- index c(i) \in {1, ..., k} observed class
+
+Goal: find k different column vectors W1...Wk simultaneously so that the value of $\bar{W}_{c(i)} \cdot \bar{X}_{i}^{T} > \bar{W}_{r} \cdot \bar{X}_{i}^{T} $ for each $r \neq c(i) $
+
+Aka, the training instance X is predicted to the class r with the largest value of Wr Xi^T. After training the test instances are predicted to the class with the largest dot product with the weight vector
+
+### 4.9.1 Weston-Watkins Support Vector Machine
+
+For the ith training instance Xi, we want:
+
+$\bar{W}_{c(i)} \cdot \bar{X}_{i}^{T} - \bar{W}_{j}\cdot\bar{X}_{i}^{T} > 0 $ for each $j \neq c(i) $
+
+In keeping with notion of margin in a SVM, we not only penalize incorrect classification, but also "barely correct" predictions. Aka, we want to penalize cases in which Wci Xi^T - WjXi^T is less than some fixed positive value of the margin. This margin value can be set to 1, because using any other value a simply scales up the parameters by the same factor a (yes "a" not alpha).
+
+aka, the "ideal" setting with zero lsos is one in which the following is satisfied for each $j \neq c(i) $:
+
+$\bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} - \bar{W}_{j}\cdot\bar{X}_{i}^{T} \geq 1 $
+
+So one can set up a loss value Ji for the ith training instance as:
+
+$J_{i} = \sum_{j: j \neq c(i)} \max(\bar{W}_{j}\cdot\bar{X}_{i}^{T} - \bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} + 1, 0) $
+
+Overall obj fn can be computed by adding the losses over the different training instances, and adding the regularization term
+
+$J_ = \sum_{i=1}^{n} \sum_{j: j \neq c(i)} \max(\bar{W}_{j}\cdot\bar{X}_{i}^{T} - \bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} + 1, 0) + \frac{\lambda}{2}\sum_{r=1}^{k} \|\bar{W}_{r}\|^{2} $
+
+Weston-Watkins loss being convex has proof similar to the binary case. One needs ot show that each additiive term of Ji is convex in terms of the parameter vector W; after all, this additive term is the composition of a linear and a max fn. This can be used to show that Ji is convex as well
+
+Weight vectors learned w gradient descent
+
+#### Problem 4.9.1
+
+The Weston-Watkins loss fn is convex in terms of its parameters
+
+#### 4.9.1.1 Computing Gradients
+
+The main point in computing gradients is the vector derivative of Ji wrt Wr. The above gradient is computed using the chain rule, while recognizing that J contains additive terms of the form max{v_ji, 0} where:
+
+$v_{ji} = \bar{W}_{j}\cdot\bar{X}_{i}^{T} - \bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} + 1s $
+
+The derivative of Ji can be written wrt Wr by using multivariate chain rule as:
+
+$\frac{\partial J_{i}}{\partial \bar{W}_{r}} = \sum_{j=1}^{k} \frac{\partial J_{i}}{\partial v_{ji}} \frac{\partial v_{ji}}{\bar{W}_{r}} $ where the first pd = $\delta(j, \bar{X}_{i}) $
+
+The partial derivative of $J_{i} = \sum_{r} \max\{v_{ri}, 0 \} $ wrt v_ji is equal to the partial derivative of max{v_ji, 0} wrt v_ji.
+
+The partial derivative of the fn max{v_ji, 0} wrt v_ji:
+
+- = 1 for positive
+- = 0 otherwise
+
+This is denoted as $\delta(j, \bar{X}_{i}) $
+
+Aka. the value $\delta(j, \bar{X}_{i}) $ = 1 when $\bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} < \bar{W}_{j}\cdot\bar{X}_{i}^{T} + 1 $ and therefore the correct class is not preferred wrt class j w sufficient margin
+
+The right hand side of 4.63 requires us to compute the derivative of:
+
+$v_{ji} = \bar{W}_{j}\cdot\bar{X}_{i}^{T} - \bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} + 1 $ wrt Wr
+
+This is an easy derivative to compute bc of its linearity, as long as we are careful to track which weight vectors Wr appear w positive signs in v_ji.
+
+When r != c(i) (separator for wrong class):
+
+- derivative of v_ji wrt Wr = Xi^t when j = r
+- 0 otherwise
+
+When r = c(i):
+
+- derivative is -Xi^T when j != r
+- 0 otherwise
+
+On subsituting these values, one obtains the gradients of J_i wrt W_r as follows
+
+$\frac{\partial J_{i}}{\partial \bar{W}_{r}} = \delta(r, \bar{X}_{i})\bar{X}_{i}^{T} $ for $r \neq c(i) $
+
+$\frac{\partial J_{i}}{\partial \bar{W}_{r}} = -\sum_{j \neq r} \delta(j, \bar{X}_{i})\bar{X}_{i}^{T}  $ for $r = c(i) $
+
+One can obtain the gradient of J wrt Wr by summing up the contributions of the different Ji and the regularization component of $\lambda \bar{W}_{r} $. Therefore, the updates for SGD are:
+
+$\bar{W} \Longleftarrow \bar{W}_{r}(1 - \alpha\lambda) - \alpha \frac{\partial J_{i}}{\partial \bar{W}_{r}} \forall r \in \{1....k \} $
+
+$\bar{W} \Longleftarrow \bar{W}_{r}(1 - \alpha\lambda) - \alpha \delta(r, \bar{X}_{i})\bar{X}_{i}^{T} $ for $r \neq c(i) \forall r \in \{1....k \} $
+
+$\bar{W} \Longleftarrow \bar{W}_{r}(1 - \alpha\lambda) - \alpha -\sum_{j \neq r} \delta(j, \bar{X}_{i})\bar{X}_{i}^{T} $ for $r \neq c(i) \forall r \in \{1....k \} $
+
+An important special case is one in which there are only two classes. In such case, it can be shown that the resulting updates of the separator belonging to the positive class will be identical to those in the hinge-loss SVM. Furthermore, the relationship $\bar{W}_{1} = -\bar{W}_{2} $ will always be maintained, assuming that the parameters are initialized in this way. This is bc the update to each separator will be the negative of the update to the other separator
+
+#### Problem 4.9.2
+
+Show that the WEston-Watkins SVM defaults to the binary hinge-loss SVM in the special case of two classes
+
+One observation from $\bar{W}_[1] = -\bar{W}_{2} $ in the binary case is that there is a slight redundancy in the number of parameters of the multiclass SVM. This is bc we really need (k - 1) separators in order to model k classes, and one separator is redundant. However, since the update of the kth separator is always exactly defined by the updates of the other (k - 1) separators, this redundancy does not make a difference
+
+#### Problem 4.9.3
+
+Propose a natural L2-loss fn for the multiclass SVM. Derive the gradient and the details of stochastic gradient descent in this case
