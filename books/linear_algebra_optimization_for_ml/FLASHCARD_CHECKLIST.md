@@ -331,6 +331,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - `regularization`
     - obj fn modified to penalize the squared norms of weight vectors
     - concise parameter vectors with smaller squared norms are less prone to overfitting
+    - how is the regularization parameter picked?
 - feature preprocessing:
   - mean-centering
   - feature normalization

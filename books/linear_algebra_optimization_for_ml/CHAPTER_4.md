@@ -1699,8 +1699,6 @@ aka
 
 $\bar{W}_{this}\cdot\bar{X}_{i}^{T} - \bar{W}_{others}\cdot\bar{X}_{i}^{T} \geq 1 $
 
-aka
-
 - WthisXi - WotherXi >= 1
   - right - wrong >= 1
   - 1 - (-1) >= 1
