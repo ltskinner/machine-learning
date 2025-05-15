@@ -1649,3 +1649,91 @@ One observation from $\bar{W}_[1] = -\bar{W}_{2} $ in the binary case is that th
 #### Problem 4.9.3
 
 Propose a natural L2-loss fn for the multiclass SVM. Derive the gradient and the details of stochastic gradient descent in this case
+
+## 4.9 Optimization Models for the MultiClass Setting Synopsis
+
+- labels are {1, ..., k} unordered options
+- training instances:
+  - $(\bar{X}_{i}, c(i)) $
+    - X = row vector of inputs
+    - c(i) \in {1, ..., k} = index of observed class
+- $\bar{W} = \bar{W}_{1}...\bar{W}_{k} $
+  - = k different column vectors
+
+need:
+
+$\bar{W}_{c(i)} \cdot \bar{X}_{i}^{T} > \bar{W}_{r}\cdot\bar{X}_{i}^{T} $
+
+for each index in k, where index c(i) != r
+
+- Wc != Wr
+
+so each training instance Xi^T
+
+- Wci.Xi^T = weights for actual class label
+- Wr.Xi^T = weights for all other classes
+
+remember
+
+- WthisXi = {-1, 1} (notionally)
+  - WthisXi = 1 = correct
+  - WthisXi = -1 = wrong
+- WotherXi = {-1, 1} (notionally)
+  - WotherXi = 1 = WRONG
+  - WotherXi = -1 = CORRECT because this is successfully predicting the NOT
+
+so for condition WthisXi - WotherXi
+
+- WthisXi - WotherXi > 0
+  - right - wrong > 0
+  - +1 - -1 = 2 > 0
+- WthisXi - WotherXi < 0
+  - wrong - right
+  - -1 - +1 < 0 so bad loss
+
+So like "ideal" setting w "most correctness":
+
+$\bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} - \bar{W}_{j}\cdot\bar{X}_{i}^{T} \geq 1 $
+
+aka
+
+$\bar{W}_{this}\cdot\bar{X}_{i}^{T} - \bar{W}_{others}\cdot\bar{X}_{i}^{T} \geq 1 $
+
+aka
+
+- WthisXi - WotherXi >= 1
+  - right - wrong >= 1
+  - 1 - (-1) >= 1
+
+And for the others, we must iterate over all *others*
+
+So to capture the *others*, we set up a max:
+
+- like we dont care about which of the others we are furthest from
+  - all we care about is how far off of the "right" k we are
+
+So for each instance, we have the loss as
+
+$J_{i} = \sum_{j: j \neq c(i)} \max(\bar{W}_{j}\cdot\bar{X}_{i}^{T} - \bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} + 1, 0 ) $
+
+Which reads as:
+
+- for each k that is not this_i index
+  - max of margin, 0
+    - floor is 0
+    - ceil is margin
+    - greatest margin is carried forward
+  - and remember we want to minimize this
+    - so smallest margin is ideal
+    - meaning only way to get 0 loss is if:
+      - WotherXi = -1 (correctly incorrect)
+      - WthisXi = 1 (correct)
+      - -1 - 1 + 1 = -1
+    - worst case is:
+      - WotherXi = +1 (incorrectly "correct")
+      - WthisXi = -1 incorrect
+      - 1 - -1 + 1 = 3
+
+Then, to form the full loss fn, we need to bundle up loss for all training samples:
+
+$J = \sum_{i=1}^{n}\sum_{j: j \neq c(i)} \max(\bar{W}_{j}\cdot\bar{X}_{i}^{T} - \bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} + 1, 0 ) + \frac{\lambda}{2}\sum_{r=1}^{k}\|\bar{W}_{r}\|^{2} $
