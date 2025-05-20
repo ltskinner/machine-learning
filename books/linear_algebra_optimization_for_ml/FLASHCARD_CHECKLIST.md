@@ -342,6 +342,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 - `multivariate chain rule`
 - lowkey we need to memorize the identities from the tables
   - well, or do we? why isnt that referenceable?
+- `cross-entropy` loss
 
 Remember: as doing end of chapter problems add to this list
 

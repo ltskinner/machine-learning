@@ -1518,7 +1518,7 @@ $\nabla J(S) = \lambda \bar{W} - \sum_{(\bar{X}_{i}, y_{i}) \in S} \frac{y_{i}\b
 
 Therefore, the mini-batch SGD can be implemented as:
 
-$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) + \sum_{(\bar{X}_{i}, \y_{i}) \sum S} \frac{\alpha y_{i}\bar{X}_{i}^{T}}{(1 + \exp(y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}]))} $
+$\bar{W} \Longleftarrow \bar{W}(1 - \alpha\lambda) + \sum_{(\bar{X}_{i}, y_{i}) \sum S} \frac{\alpha y_{i}\bar{X}_{i}^{T}}{(1 + \exp(y_{i}[\bar{W}\cdot\bar{X}_{i}^{T}]))} $
 
 Logistic regression makes similar updates as the hinge-loss SVM. The main difference is in terms of the treatment of well-separated points, where SVM does not make any updates and logistic regression makes (small) updates
 
@@ -1642,7 +1642,7 @@ An important special case is one in which there are only two classes. In such ca
 
 #### Problem 4.9.2
 
-Show that the WEston-Watkins SVM defaults to the binary hinge-loss SVM in the special case of two classes
+Show that the Weston-Watkins SVM defaults to the binary hinge-loss SVM in the special case of two classes
 
 One observation from $\bar{W}_[1] = -\bar{W}_{2} $ in the binary case is that there is a slight redundancy in the number of parameters of the multiclass SVM. This is bc we really need (k - 1) separators in order to model k classes, and one separator is redundant. However, since the update of the kth separator is always exactly defined by the updates of the other (k - 1) separators, this redundancy does not make a difference
 
@@ -1735,3 +1735,24 @@ Which reads as:
 Then, to form the full loss fn, we need to bundle up loss for all training samples:
 
 $J = \sum_{i=1}^{n}\sum_{j: j \neq c(i)} \max(\bar{W}_{j}\cdot\bar{X}_{i}^{T} - \bar{W}_{c(i)}\cdot\bar{X}_{i}^{T} + 1, 0 ) + \frac{\lambda}{2}\sum_{r=1}^{k}\|\bar{W}_{r}\|^{2} $
+
+### 4.9.2 Multinomial Logistic Regression
+
+Generalization of logistic regression to multiple classes
+
+- c(i) in {1...k} as the observed class
+- k different separators whose parameter vectors are W1...Wk
+
+Prediction rule for test instances same as Weston-Watkins SVM, since class j w largest dot product $\bar{W}_{j}\cdot\bar{Z}^{T} $ is predicted class of test instance
+
+Multinomial logistic regression models the probability of a point belonging to the rth class. Probability of Xi belonging to class r is given by applying the softmax function to $\bar{W}_{1}\cdot\bar{X}_{i}^{T} ... \bar{W}_{k}\bar{X}_{i}^{T} $:
+
+$P(r|\bar{X}_{i}) = \frac{\exp(\bar{W}_{r}\cdot\bar{X}_{i}^{T})}{\sum_{j=1}^{k}\exp(\bar{W}_{j}\cdot\bar{X}_{i}^{T})} $
+
+Expect to see probability of X having class r increasing exponentially with increasing dot product between Wr and Xi
+
+The goal in learning W1...Wk is to ensure probability is high for class c(i) for each instance X. This is achieved with `cross-entropy` loss, which is the negative logarithm of the probability of instance X belonging to correct class c(i)
+
+$J = -\sum_{i=1}^{n} \log[P(c(i)|\bar{X}_{i})] + \frac{\lambda}{2}\sum_{r=1}^{k}\|\bar{W}_{r}\|^{2} $ where log term is Ji
+
+Easy to show J_i = -log[P(c(i|Xi))] is convex using approach similar to case of binary logistic regression
