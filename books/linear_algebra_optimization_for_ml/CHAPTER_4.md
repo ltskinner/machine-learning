@@ -1756,3 +1756,46 @@ The goal in learning W1...Wk is to ensure probability is high for class c(i) for
 $J = -\sum_{i=1}^{n} \log[P(c(i)|\bar{X}_{i})] + \frac{\lambda}{2}\sum_{r=1}^{k}\|\bar{W}_{r}\|^{2} $ where log term is Ji
 
 Easy to show J_i = -log[P(c(i|Xi))] is convex using approach similar to case of binary logistic regression
+
+#### 4.9.2.1 Computing Gradients
+
+Need to compute gradient of J wrt each Wr. Decompose into sum of gradients of $J_{i} = -\log[P(c(i)|\bar{X}_{i})] $ (along w gradient of regularization term)
+
+$\frac{\partial J_{i}}{\partial \bar{W}_{r}} = \sum_{j}(\frac{\partial J_{i}}{\partial v_{ji}})\frac{\partial v_{ji}}{\partial\bar{W}_{r}} = \frac{\partial J_{i}}{\partial v_{ri}} \frac{\partial v_{ri}}{\partial \bar{W}_{r}} = \bar{X}_{i}^{T} \frac{\partial J_{i}}{\partial v_{ri}} $
+
+- v_ji has zero gradient wrt Wr for j != r, therefore, all terms in summation except for case of j=r drop to 0
+- still need to compute partial of Ji wrt vr
+
+First, express Ji directly as fn of v1i, v2i, ..., vki as:
+
+- $J_{i} = \log[P(c(i)|\bar{X}_{i})] = -\bar{W}_{c(i)}\cdot\bar{X_{i}^{T}} + \log[\sum_{j=1}^{k} \exp(\bar{W}_{j}\cdot\bar{X}_{i}^{T})] $
+- $J_{i} = -v_{c(i),i} + \log[\sum_{j=1}^{k}\exp(vj)] $
+
+So, compute partial derivative of Ji wrt v_ri as:
+
+- $\frac{\partial J_{i}}{\partial v_{ri}} = -(1 - P(r|\bar{X}_{i})) $ if r = c(i)
+- $\frac{\partial J_{i}}{\partial v_{ri}} = P(r|\bar{X}_{i}) $ if r != c(i)
+
+Finally:
+
+- $\frac{\partial J_{i}}{\partial \bar{W}_{r}} = -\bar{X}_{i}^{T}(1 - P(r|\bar{X}_{i})) $ if r = c(i)
+$\frac{\partial J_{i}}{\partial \bar{W}_{r}} = \bar{X}_{i}^{T}P(r|\bar{X}_{i}) $ if r != c(i)
+
+#### 4.9.2.2 Stochastic Gradient Descent
+
+Use point-specific gradient to compute the stochastic gradient descent updates
+
+- $\bar{W}_{r} \Longleftarrow \bar{W}_{r}(1 - \alpha \lambda) + \alpha -\bar{X}_{i}^{T}(1 - P(r|\bar{X}_{i})) $ if r = c(i)
+- $\bar{W}_{r} \Longleftarrow \bar{W}_{r}(1 - \alpha \lambda) + \alpha -\bar{X}_{i}^{T}P(r|\bar{X}_{i}) $ if r != c(i)
+
+Here, updates use the probabilities of mistakes to change the separator. Whereas, LS regression, uses the magnitudes of mistakes
+
+#### Problem 4.9.4
+
+Provide a derivation of the update of each separator Wr for a mini-batch S containing pairs (X, c)
+
+Just as the Weston-Watkins SVM defaults to the hinge-loss SVM for the two-class case, multinomial logistic regression defaults to logistic regression in the special case of two classes
+
+#### Problem 4.9.5
+
+Show that multinomial logistic regression defaults to binary logistic regression in the special case of two classes

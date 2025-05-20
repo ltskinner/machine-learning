@@ -343,6 +343,16 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 - lowkey we need to memorize the identities from the tables
   - well, or do we? why isnt that referenceable?
 - `cross-entropy` loss
+- For each class, the SGD updates are of the form:
+  - $\bar{W} \Longleftarrow \bar{W}(1 - \alpha \lambda) + \alpha y_{i}[\delta(\bar{X}_{i}, y_{i})]\bar{X}_{i}^{T} $
+  - where $\delta(\bar{X}_{i}, y_{i}) $
+    - $ = = (y_{i} - \bar{W}\cdot\bar{X}_{i}^{T}) $ for LS regression, classification
+    - indicator variable for SVMs
+    - probability value for logistic regression
+- no bs need to get into logarithms
+  - `logarithm product rule` is critical
+  - `rules of exponents`
+    - $\frac{e^a}{e^b} = e^{a - b} $
 
 Remember: as doing end of chapter problems add to this list
 
