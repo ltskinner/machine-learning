@@ -353,6 +353,14 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - `logarithm product rule` is critical
   - `rules of exponents`
     - $\frac{e^a}{e^b} = e^{a - b} $
+- 4.10.1 variable transformation:
+  - The main trick here is that variable transformation changes the direciton of movement, so that a path to the optimum solution exists
+- `stochastic gradient descent` vs `coordinate descent`
+  - `coordinate descent`
+    - univariate
+    - not guaranteed to find globally optimal solution
+    - conditions for convergence (or inability to converge)
+    - CD enables decomposition of a complex problem into smaller subproblems, which makes it perform better than SGD in many cases (in fact, oftenly)
 
 Remember: as doing end of chapter problems add to this list
 

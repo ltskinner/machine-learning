@@ -1799,3 +1799,169 @@ Just as the Weston-Watkins SVM defaults to the hinge-loss SVM for the two-class 
 #### Problem 4.9.5
 
 Show that multinomial logistic regression defaults to binary logistic regression in the special case of two classes
+
+## 4.10 Coordinate Descent
+
+Method that optimizes the objective fn one variable at a time. Therefore, if we have na obj fn J(w), which is a fn of d-dimensional vector variables, we can try to optimize a single variable w_i from the vector $\bar{w} $, while holding all other parameters fixed. Corresponds to optimization problem of:
+
+$\bar{w} \argmin_{[w_{i} varies only]} J(\bar{w}) $ [All parameters except w_{i} are fixed]
+
+Usually these are simple to solve. In some cases, can use line-search to determine w_i when a closed form solution is not available
+
+If one cycles through all the variables, and no improvement occurs, convergence has occured. If optimized fn is convex and differentiable in minimization form, solution at convergence will be optimal. Remember, non-convex optimality is not guaranteed
+
+Key points:
+
+- Convergence can sometimes be faster with coordinate descent, as compared to stochastic gradient descent
+- Convergence is usually guaranteed even if the resulting solution is a local optimum
+
+Key problems:
+
+- Inherently sequential in nature
+  - optimizes one variable at a time
+  - therefore, requires having optimized wrt one variable before moving to next step, so parallelization is a challenge
+- Gets stuck at suboptimal points (local minima)
+
+Basically, problem is no path exists to optimal solution using axis parallel directions. Occurs with non-differentiable functions having pointed contour plots (this situation cannot arise in differentiable functions)
+
+Natural question: how to characterize conditions when coordinate descent is well behaved for non-differentiable fns
+
+In general, a sufficient condition for coordinate descent to reach a global optimum solution:
+
+- the additive components of the non-differentiable portion of the multivariate function:
+  - need to be expressed in terms of individual variables
+  - each must be convex
+
+### Lemma 4.10.1
+
+Consider a multivariabe function $F(\bar{w}) $ that can be expressed in the following form:
+
+$F(\bar{w}) = G(\bar{w}) + \sum_{i=1}^{d}H_{i}(w_{i}) $
+
+Where:
+
+- $G(\bar{w}) $ is convex and differentiable function
+- $H_{i}(w_{i}) $ convex, univariate function, possibly non-differentiable
+
+Then, Coordinate descent will converge to a global optimum of the function $F(\bar{w}) $
+
+An example of a non-differentiable function H(w), which is also convex, is: $H_{i}(w_{i}) = |{w_{i}}| $, which is used for L1 regularization
+
+The issue of additive separability is important, and it is sometimes helpful to perform a variable transformation, so that the non-differentiable part is additively separable.
+
+Consider, where we assume g(x, y) is differentiable
+
+$f(x, y) = g(x, y) + |x + y| + 2|x - y| $
+
+Then, perform variable transformations:
+
+- u = x + y
+- v = x - y
+
+Now, can rewrite obj fn after variable transform as:
+
+$F(u, v) = g([u + v]/2, [u-v]/2) + |u| + 2|v| $
+
+Each of the non-differentiable components is a convex fn. Now, can perform coordinate descent wrt u and v without any problem.
+
+The main trick here is that variable transformation changes the direciton of movement, so that a path to the optimum solution exists
+
+Despite non-differentiable fns causing problems for coordinate descent, they can often be better solved by coordinate descent than gradient descent (as can discrete optimization problems). This is bc CD enables decomposition of a complex problem into smaller subproblems. K-means is an example of CD when applied to a potentially difficult mixed integer problem
+
+### 4.10.1 Linear Regression w Coordinate Descent
+
+Consider nxd D data matrix, n dimensional col vector y of response variables, d-dimensional col vector $\bar{W} = [w_{1}...w_{d}]^{T} $ of parameters
+
+linear regression obj fn as:
+
+$J = \frac{1}{2} \|D\bar{W} - \bar{y}\|^{2} $
+
+Corresponding gradient wrt all variables used in regular SGD:
+
+$\nabla j + D^{T}(D\bar{W} - \bar{y}) $
+
+CD optimized obj wrt single var at a time. To optimize against w_i, we need to pick out ith component of $\nabla J $ and set it to zero.
+
+Let $\bar{d}_{i} $ be the ith col of D. Let $\bar{r} $ denote n-dim residual vector $\bar{y} - D\bar{W} $, then we obtain:
+
+$\bar{d}_{i}^{T}(D\bar{W} - \bar{y}) = 0 $
+
+$\bar{d}_{i}^{T}(\bar{r}) = 0 $
+
+$\bar{d}_{i}^{T}\bar{r} + w_{i}\bar{d}_{i}^{T}\bar{d}_{i} = w_{i}\bar{d}_{i}^{T}\bar{d}_{i} $ where $w_{i} $ is specific parameter corresponding to feature d_i
+
+Note, left-had side is free of w_i bc two terms involving w_i cancel each other out, this is bc term $\bar{d}_{i}^{T}\bar{r} $ contributes $-w_{i}\bar{d}_{i}^{T}\bar{d}_{i} $ which cancels with $w_{i}\bar{d}_{i}^{T}\bar{d}_{i} $
+
+Because of the fact that one of the sides does not depend on w_i, we obtain an update that yields the optimal value of w_i in a *single* iteration:
+
+$\bar{w}_{i} \Longleftarrow \bar{w}_{i} + \frac{\bar{d}_{i}^{T}\bar{r}}{\|\bar{d}_{i}\|^{2}} $
+
+Here, we use the fact that $\bar{d}_{i}^{T}\bar{d}_{i} = \|\bar{d}_{i}\|^{2} $
+
+It is common to standardize each column of the data matrix to zero mean and unit variance. In such a case, $\|\bar{d}_{i}\|^{2} = 1 $, so we can further simplify the update to:
+
+$\bar{w}_{i} \Longleftarrow \bar{w}_{i} + \bar{d}_{i}^{T}\bar{r} $
+
+This update is extremely efficient.
+
+One full cycle of CD through all variables requires asymptotically similar time as one full cycle of SGD through all points, however the number of cycles required by CD tends to be smaller than that in least-squares regression. Therefore, the CD approach is more efficient.
+
+One can also derive a form of CD for regularized LS regression
+
+#### Problem 4.10.1
+
+Show taht if Tikhonov regularization is used with parameter $\lambda $ on LS regression, then the update of 4.74 needs to be modified to:
+
+$w_{i} \Longleftarrow \frac{w_{i}\|\bar{d}_{i}\|^{2} + \bar{d}_{i}^{T}\bar{r}}{\|\bar{d}_{i}\|^{2} + \lambda} $
+
+The simplification of optimization subproblems that are inherent in solving for one variable at a time (while keeping others fixed) is very significant in CD.
+
+### 4.10.2 Block Coordinate Descent
+
+Block CD generalizes coordinate descent by optimizing a *block* of variables at a time, rather than a single variable
+
+Each step in BCD is more expensive, fewer steps are required. An example is **alternating least-squares method**, which is often used in matrix factorization
+
+Often used in multi-convex problems where the objective fn is non-convex, but each block of variables can be used to create a convex subproblem. Alternatively, each block admits to easy optimization, even when some of the variables are discrete. Sometimes it is also easy to handle constrained optimization problems with CD, bc the constraints tent to simplify themselves when one is only considering a few carefully chosen variables
+
+### 4.10.3 K-Means as Block Coordinate Descent
+
+Good example of how choosing specific blocks of variables carefully allows good alternating minimization over different blocks of variables. One often views k-means as a simple heuristic method, although the reality is that it is fundamentally rooted in important ideas from CD
+
+It is assumed that there are a total of n data points denoted by d-dim row vectors X1...Xn. k-means creates k prototypes, which are denoted by $\bar{z}_{1}...\bar{z}_{k} $, so the sum of squared distances of the data points from their nearest prototype is as small as possible. Let $y_{ij} $ be a 0-1 indicator of whether point i gets assigned to cluster j. Each point only gets assigned to only a single cluster, and therefore we have:
+
+$\sum_{j} y_{ij} = 1 $.
+
+One can therfore, formulate the k-means problem as a **mixed integer program** over the real-valued d-dimensional prototype row vectors $\bar{z}_{1}...\bar{z}_{k} $ and the matrix $Y = [y_{ij}_{n \cross k}] $ of discrete variables:
+
+Minimize:
+
+$\sum_{j=1}^{k}\sum_{i=1}^{n} y_{ij} \|\bar{X}_{i} - \bar{z}_{j}\|^{2} $, where the inner sum is O_j
+
+Subject to:
+
+$\sum_{j=1}^{k}y_{ij} = 1 $ for $y_{ij} \in \{0, 1 \} $
+
+This is a **mixed integer program**, and such optimization problems are known to be very hard to solve in general. However, in this case, carefully choosing the blocks of variabls is essential
+
+Choosing the blocks carefully also trivializes the underlying constraints. In this case, the variables are divided into two blocks corresponding to the kxd prototype variables in the vectors $\bar{z}_{1}...\bar{z}_{k} $ and the nxk assignment variables $Y = [y_{ij}_{n \cross k}] $
+
+We alternatively minimize over these two blocks of variables, bc it provides the best possible decompositionn of the problem into smaller subproblems. Note that if the prototype variables are fixed, the resulting assignment problem becomes trivial and one assigns each point to the nearest prototype
+
+On the otherhand, if the cluster assignments are fixed, then the obj fn can be decomposed into separate obj fns over different clusters. The portion of the obj fn Oj contributed by the jth cluster is shown by an underbrace in the optimization formation above.
+
+For each new cluster, the relevant optimal solution $\bar{z}_{j} $ is the mean of the points assigned to that cluster. this result can be shown by setting the gradient of the obj fn Oj wrt to each $\bar{z}_{j} $ to 0:
+
+$\frac{\partial O_{j}}{\partial z_{j}} = 2 \sum_{i=1}^{n} y_{ij}(\bar{X}_{i} - \bar{z}_{j}) = 0 \forall j \in \{1...k \} $
+
+The points that do not belong to cluster j drop out in the above condition because y_{ij} = 0 for such points. As a result, $\bar{z}_{j}$ is simply the mean of the points in its cluster
+
+Therefore, we need to alternative assign points to their closest prototypes, and set the prototypes to the centroids of the clusters defined by the assignment; these are exactly the sets of the well-known k-means algorithm
+
+The centroid computation is a continuous optimization step, whereas cluster assignment is a discrete optimization step (which is greatly simplified by the decomposition approach of CD)
+
+## 4.11 Summary
+
+Optimization problems in ML often have obj fns which can be separated into compontents across individuall data points - this property enables use of efficient sampling methods like SGD
+
+Optimization models in ML are significantly different from traditional optimization in terms of the need to maximize performance on out-of-sample data rather, than on the original optimization problem defined on the data
