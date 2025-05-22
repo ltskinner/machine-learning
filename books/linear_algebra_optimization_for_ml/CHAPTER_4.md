@@ -299,15 +299,15 @@ For a parameter vector \bar{w} at which the gradient is zero (critical point), o
 
 To illustrate, consider second-order, multivariate Taylor expansion of J(\bar{w}) in the immediate locality of \bar{w}_{0} along the direction \bar{v} and small radius \epsilon > 0:
 
-$J(\bar{w_{0}}, + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + \epsilon \bar{v}^{T} [\nabla J(\bar{w}_{0})] + \frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] $ where $[\nabla J(\bar{w}_{0})] = 0$ because f'(x) for critical point criterion
+$J(\bar{w_{0}} + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + \epsilon \bar{v}^{T} [\nabla J(\bar{w}_{0})] + \frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] $ where $[\nabla J(\bar{w}_{0})] = 0$ because f'(x) for critical point criterion
 
 Following univariate pattern, above >>
 
-$J(\bar{w_{0}}, + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + \frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] > J(\bar{w_{0}})$ when $\bar{v}^T H\bar{v} > 0$ (positive definite)
+$J(\bar{w_{0}} + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + \frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] > J(\bar{w_{0}})$ when $\bar{v}^T H\bar{v} > 0$ (positive definite)
 
 and
 
-$J(\bar{w_{0}}, + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + (-)\frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] < J(\bar{w_{0}})$ when $\bar{v}^T H\bar{v} < 0$ (negative definite)
+$J(\bar{w_{0}} + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + (-)\frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] < J(\bar{w_{0}})$ when $\bar{v}^T H\bar{v} < 0$ (negative definite)
 
 (note - free handed the above two equations, not from book)
 
@@ -1965,3 +1965,19 @@ The centroid computation is a continuous optimization step, whereas cluster assi
 Optimization problems in ML often have obj fns which can be separated into compontents across individuall data points - this property enables use of efficient sampling methods like SGD
 
 Optimization models in ML are significantly different from traditional optimization in terms of the need to maximize performance on out-of-sample data rather, than on the original optimization problem defined on the data
+
+## 4.13 Exercises
+
+- 1. Find saddle points, minima, maxima of
+- 2. show y^T H y is ~ 2x delta J(w)
+- 3. How how use Hessian to:
+  - find a vector direction along which infintesimal movements in either direction decrease J(w)
+  - find a vector direction along which infinitesimal moveements in either direction increase J(w)
+  - so $\epsilon \bar{v} = \delta \bar{w} $
+    - $\bar{v} $ is a unit eigenvector of hessian H
+    - $\epsilon $ is a small scalar step
+  - and $H\bar{v} = \lambda \bar{v} $
+  - rewriting above as:
+    - $J(\bar{w}_{0} + \epsilon \bar{v}) \approx J(\bar{w}_{0}) + \frac{\epsilon^{2}}{2} \lambda $
+  - and
+    - $\bar{v}^{T}H\bar{v} = \lambda\bar{v}^{T}\bar{v} = \lambda $ assuming $\|\bar{v}\|^{2} = 1 $

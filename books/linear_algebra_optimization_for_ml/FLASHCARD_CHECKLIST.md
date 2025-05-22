@@ -274,6 +274,8 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
     - F(w) = x1^2 + 2x1x2 + x2^2
     - \partial x / \partial x1 = 2x1 + 2x2 (ignore x2^2)
     - \partial x / \partial x2 = (ignore x2^2) 2x1 + 2x2
+- partial derivatives for doing 1st, 2nd order differentiation
+  - this is critical - needs to become second nature
 - `Gradient`
   - for functions with scalar outputs (univariate **output**)
   - "how does *one* output value change wrt all inputs"
@@ -285,6 +287,16 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
     - believe: $[\frac{\partial \bar{h}}{\partial \bar{w}}]_{ij} = \frac{\partial h_{j}}{\partial w_{i}} $ (4.19)
 - `Hessian`
   - very likely this is symmetric matrix
+  - $J(\bar{w_{0}} + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + \epsilon \bar{v}^{T} [\nabla J(\bar{w}_{0})] + \frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] $ where $[\nabla J(\bar{w}_{0})] = 0$ because f'(x) for critical point criterion
+    - where:
+      - so $\epsilon \bar{v} = \delta \bar{w} $
+        - $\bar{v} $ is a unit eigenvector of hessian H
+        - $\epsilon $ is a small scalar step
+      - and $H\bar{v} = \lambda \bar{v} $
+      - rewriting above as:
+        - $J(\bar{w}_{0} + \epsilon \bar{v}) \approx J(\bar{w}_{0}) + \frac{\epsilon^{2}}{2} \lambda $
+      - and
+        - $\bar{v}^{T}H\bar{v} = \lambda\bar{v}^{T}\bar{v} = \lambda $ assuming $\|\bar{v}\|^{2} = 1 $
   - `Schwarz's theorem` will support this
   - proving positive definiteness:
     - satisfies $\bar{v}^{T} H \bar{v} > 0 $
