@@ -1972,7 +1972,10 @@ Optimization models in ML are significantly different from traditional optimizat
 - 2. show y^T H y is ~ 2x delta J(w)
 - 3. How how use Hessian to:
   - find a vector direction along which infintesimal movements in either direction decrease J(w)
+    - perform eigendecomposition
+    - any eigenvector corresponding to negative eigenvalue indicates a direction along which infintesimal movement away from w_0 will decrease J(w)
   - find a vector direction along which infinitesimal moveements in either direction increase J(w)
+    - any eigenvalue with a positive eigenvector
   - so $\epsilon \bar{v} = \delta \bar{w} $
     - $\bar{v} $ is a unit eigenvector of hessian H
     - $\epsilon $ is a small scalar step
@@ -1981,3 +1984,13 @@ Optimization models in ML are significantly different from traditional optimizat
     - $J(\bar{w}_{0} + \epsilon \bar{v}) \approx J(\bar{w}_{0}) + \frac{\epsilon^{2}}{2} \lambda $
   - and
     - $\bar{v}^{T}H\bar{v} = \lambda\bar{v}^{T}\bar{v} = \lambda $ assuming $\|\bar{v}\|^{2} = 1 $
+    - $\bar{v}^{T}H\bar{v} = \lambda $ bc $H\bar{v}_{i} = \lambda_{i}\bar{v}_{i} $
+- 4. We know that the max of two convex functions is a convex function
+  - is the min of two convex functions convex?
+  - is the intersection of two convex sets convex?
+  - is the union of two convex sets convex?
+- 5.
+  - F(x, y) = f(x) + g(x) is convex
+  - F(x, y) = f(x) . g(x) is not
+    - F(x, y) = x^2 y^2
+    - if x = y, then x^2 x^2 = x^4, which is not convex

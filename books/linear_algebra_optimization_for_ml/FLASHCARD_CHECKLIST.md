@@ -297,12 +297,16 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
         - $J(\bar{w}_{0} + \epsilon \bar{v}) \approx J(\bar{w}_{0}) + \frac{\epsilon^{2}}{2} \lambda $
       - and
         - $\bar{v}^{T}H\bar{v} = \lambda\bar{v}^{T}\bar{v} = \lambda $ assuming $\|\bar{v}\|^{2} = 1 $
+        - $\bar{v}^{T}H\bar{v} = \lambda $ bc $H\bar{v}_{i} = \lambda_{i}\bar{v}_{i} $
   - `Schwarz's theorem` will support this
   - proving positive definiteness:
     - satisfies $\bar{v}^{T} H \bar{v} > 0 $
     - det(H) > 0 and tr(A) > 0 (or f_xx > 0) >> positive definite (minima)
+      - or all + eigenvalues (positive definite)
     - det(H) > 0 and tr(A) < 0 (or f_xx < 0) >> negative definite (maxima)
+      - or all - eigenvalues (negative definite)
     - det(H) < 0 >> indefinite (one positive, one negative eigenvalue) (saddle point)
+      - mixed +, - eigenvalues (indefinite)
     - det(H) = 0 >> inconclusive
 - `convex function`
   - strict convexity (> instead of >=) guarantees unique global minimum
