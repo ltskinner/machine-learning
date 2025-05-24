@@ -1994,3 +1994,7 @@ Optimization models in ML are significantly different from traditional optimizat
   - F(x, y) = f(x) . g(x) is not
     - F(x, y) = x^2 y^2
     - if x = y, then x^2 x^2 = x^4, which is not convex
+- 6.
+- 7. 
+  - hinge loss is more sensitive to W because it excplicitly incentivizes increasing W to push points further from the decision boundary (until margin <1)
+    - whereas perceptron is fine with weights just being +.0001 or -.00001 on DCBY

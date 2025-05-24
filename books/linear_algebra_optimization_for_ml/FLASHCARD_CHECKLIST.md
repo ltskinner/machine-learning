@@ -340,6 +340,32 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - monotonicity
 - multimodal function
   - the function itself does not have a single maximum (or minimum)
+- `data fitting loss` vs `regularization loss`
+- `degenerate minimum`
+  - when weights vector is 0 vector
+    - max(0, 0) is loss of 0, but no information has been learned
+- Loss profiles:
+  - one of the graphics shows this nicely
+  - Perceptron loss
+    - binary cutoff at decision boundary - only updates misclassified points
+    - max(0, -yz) aka max(0, -ywx) >> 0, 1
+  - L1 Loss Hinge Loss
+    - has region near decision boundary where correct predictions are still penalized
+    - max(0, 1 - yz)
+  - L2 Loss
+    - stronger penalty near margin
+    - max(0, 1 -yz)^2
+  - log loss (I think this was covered)
+- SGD update:
+  - take derivative of loss fn
+    - likely will need chain rule:
+      - some simple functions can do standard derivative
+      - others require gradient (fn with scalar output)
+  - derivative wrt W is the partial form $\frac{\partial J}{\partial \bar{W}} $
+  - SGD update:
+    - $\bar{W} \Longleftarrow \bar{W} - \alpha \cdot (\frac{\partial J}{\partial \bar{W}} + \lambda \bar{W}) $
+  - which becomes:
+    - $\bar{W} \Longleftarrow (1 - \alpha \lambda)\bar{W} + \alpha \frac{\partial J}{\partial \bar{W}} $
 - stochastic gradient descent
   - mini batch
   - `epoch`
