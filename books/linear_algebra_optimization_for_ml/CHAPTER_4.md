@@ -1997,4 +1997,7 @@ Optimization models in ML are significantly different from traditional optimizat
 - 6.
 - 7. 
   - hinge loss is more sensitive to W because it excplicitly incentivizes increasing W to push points further from the decision boundary (until margin <1)
-    - whereas perceptron is fine with weights just being +.0001 or -.00001 on DCBY
+    - whereas perceptron is fine with weights just being +.0001 or -.00001 on decision boundary
+- 8.
+  - PSD of A is fine for global minimum
+  - Positive Definite is only needed for unique global minimum
