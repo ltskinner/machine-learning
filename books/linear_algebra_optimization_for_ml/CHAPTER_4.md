@@ -232,7 +232,7 @@ Looking at:
 
 $\nabla G(x, y) = \begin{bmatrix}x^3 - x^2 - 2x \\ y^3 - y^2 - 2y \end{bmatrix} = \bar{0} $
 
-We get 9 pairs of $(x, y) \in \{-1, 0, 2 \} \cross \{-1, 0, 2 \} $ which satisfy first order optimality conditions, and therefore all 9 are critical points. Among these there are:
+We get 9 pairs of $(x, y) \in \{-1, 0, 2 \} \times \{-1, 0, 2 \} $ which satisfy first order optimality conditions, and therefore all 9 are critical points. Among these there are:
 
 - single global minimum
 - three local minima
@@ -1632,11 +1632,18 @@ $\frac{\partial J_{i}}{\partial \bar{W}_{r}} = -\sum_{j \neq r} \delta(j, \bar{X
 
 One can obtain the gradient of J wrt Wr by summing up the contributions of the different Ji and the regularization component of $\lambda \bar{W}_{r} $. Therefore, the updates for SGD are:
 
-$\bar{W} \Longleftarrow \bar{W}_{r}(1 - \alpha\lambda) - \alpha \frac{\partial J_{i}}{\partial \bar{W}_{r}} \forall r \in \{1....k \} $
+1. $\bar{W}_{r} \Longleftarrow \bar{W}_{r}(1 - \alpha\lambda) - \alpha \frac{\partial J_{i}}{\partial \bar{W}_{r}} \forall r \in \{1....k \} $
 
-$\bar{W} \Longleftarrow \bar{W}_{r}(1 - \alpha\lambda) - \alpha \delta(r, \bar{X}_{i})\bar{X}_{i}^{T} $ for $r \neq c(i) \forall r \in \{1....k \} $
+2.1.  $\bar{W}_{r} \Longleftarrow \bar{W}_{r}(1 - \alpha\lambda) - \alpha (\delta(r, \bar{X}_{i})\bar{X}_{i}^{T}) $ for $r \neq c(i) \forall r \in \{1....k \} $
 
-$\bar{W} \Longleftarrow \bar{W}_{r}(1 - \alpha\lambda) - \alpha -\sum_{j \neq r} \delta(j, \bar{X}_{i})\bar{X}_{i}^{T} $ for $r \neq c(i) \forall r \in \{1....k \} $
+2.2. $\bar{W} \Longleftarrow \bar{W}_{r}(1 - \alpha\lambda) - \alpha (-\sum_{j \neq r} \delta(j, \bar{X}_{i})\bar{X}_{i}^{T}) $ for $r = c(i) \forall r \in \{1....k \} $
+
+Note the above:
+
+- the 1st line is the parent class
+- the 2nd line is the r != c(i) condition
+- the 3rd line is the r = c(i) condition
+
 
 An important special case is one in which there are only two classes. In such case, it can be shown that the resulting updates of the separator belonging to the positive class will be identical to those in the hinge-loss SVM. Furthermore, the relationship $\bar{W}_{1} = -\bar{W}_{2} $ will always be maintained, assuming that the parameters are initialized in this way. This is bc the update to each separator will be the negative of the update to the other separator
 
@@ -2001,3 +2008,8 @@ Optimization models in ML are significantly different from traditional optimizat
 - 8.
   - PSD of A is fine for global minimum
   - Positive Definite is only needed for unique global minimum
+- 9.
+- 10. sylvesters criterion to look at H
+  - this is an important problem for going from f(x, y) with interacting xy terms to the Hessian
+- 11. ok not bad, need to remember sylvesters criterion
+- 12.

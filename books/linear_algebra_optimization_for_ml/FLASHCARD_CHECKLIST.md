@@ -287,6 +287,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
     - believe: $[\frac{\partial \bar{h}}{\partial \bar{w}}]_{ij} = \frac{\partial h_{j}}{\partial w_{i}} $ (4.19)
 - `Hessian`
   - very likely this is symmetric matrix
+  - **review problem 10 on pen and paper for structural flow of deriving Hessian**
   - $J(\bar{w_{0}} + \epsilon \bar{v}) \approx J(\bar{w_{0}}) + \epsilon \bar{v}^{T} [\nabla J(\bar{w}_{0})] + \frac{\epsilon^{2}}{2}[\bar{v}^{T} H \bar{v}] $ where $[\nabla J(\bar{w}_{0})] = 0$ because f'(x) for critical point criterion
     - where:
       - so $\epsilon \bar{v} = \delta \bar{w} $
