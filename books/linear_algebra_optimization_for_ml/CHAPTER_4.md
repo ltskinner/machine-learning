@@ -1022,6 +1022,10 @@ List of common matrix calculus identities in denominator layout
 | (ii) $\bar{h} = F(\bar{w}) $ where F(.) is elementwise function (Product-of-variables identity) | Diagonal matrix with (i,i)th entry containing partial derivative of ith component of $F(\bar{w}) $ wrt $w_{l} $ |
 | (iii) $\bar{h} = f_{s}(\bar{w})\bar{x} $ where $f_{s}(\bar{w}) $ is vector-to-scalar function | $\frac{\partial f_{s}(\bar{w})}{\partial \bar{w}} \bar{x}^{T} + f_{s}(\bar{w})\frac{\partial \bar{x}}{\partial \bar{w}} $ |
 
+For these, assume ReLU(u), tanh(u), sigmoid(u):
+
+![alt-text](./4_2_c_activation_fn_derivatives.PNG)
+
 #### 4.6.2.1 Application: Unconstrained Quadratic Programming
 
 In `quadratic programming`, the obj fn contains a quadratic term of the form:
@@ -2013,3 +2017,6 @@ Optimization models in ML are significantly different from traditional optimizat
   - this is an important problem for going from f(x, y) with interacting xy terms to the Hessian
 - 11. ok not bad, need to remember sylvesters criterion
 - 12.
+- 13.
+  - (Wx)\cdot(Wx) = (Wx)^T(Wx) = z^T z where z = Wx
+  - "In a composition function, the derivative of the argument (inner level variable) is always pre-multiplied with the derivative of the fn (outer level variable)"

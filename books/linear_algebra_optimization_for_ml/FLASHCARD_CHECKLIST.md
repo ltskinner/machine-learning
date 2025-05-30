@@ -278,6 +278,7 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - this is critical - needs to become second nature
 - `Gradient`
   - for functions with scalar outputs (univariate **output**)
+    - BUT for vectors, written as $\nabla_{\bar{x}} $ it means scalar value for derivative of each scalar index of the vector $\bar{x}$
   - "how does *one* output value change wrt all inputs"
   - write matrix-calculus notation (deonominator form)
 - `Jacobian`
@@ -309,6 +310,8 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
     - det(H) < 0 >> indefinite (one positive, one negative eigenvalue) (saddle point)
       - mixed +, - eigenvalues (indefinite)
     - det(H) = 0 >> inconclusive
+- table 4.2a, b
+  - "In a composition function, the derivative of the argument (inner level variable) is always pre-multiplied with the derivative of the fn (outer level variable)"
 - `convex function`
   - strict convexity (> instead of >=) guarantees unique global minimum
     - else, could have bowl with flat bottom
