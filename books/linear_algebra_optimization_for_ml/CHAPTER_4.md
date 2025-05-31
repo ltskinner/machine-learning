@@ -2020,3 +2020,6 @@ Optimization models in ML are significantly different from traditional optimizat
 - 13.
   - (Wx)\cdot(Wx) = (Wx)^T(Wx) = z^T z where z = Wx
   - "In a composition function, the derivative of the argument (inner level variable) is always pre-multiplied with the derivative of the fn (outer level variable)"
+- 14. so that \cdot element wise operation between vectors results in the diag thing
+  - $\frac{\partial (\bar{x} \cdot \bar{x} \cdot \bar{x})}{\partial x} = \diag(3\bar{x} \cdot \bar{x}) $
+  - also \odot is another operator...
