@@ -360,7 +360,7 @@ Suppose that I and P are two kxk matrices. Show the following result
 
 If U and V are two nxd matrices, show the following result:
 
-$U^{\top}(I_{n} + VU^{\top})^{-1} = (I_{d} + U^{\top V})^{-1}U^{\top} $
+$U^{\top}(I_{n} + VU^{\top})^{-1} = (I_{d} + U^{\top}V)^{-1}U^{\top} $
 
 ### Push-Through Identity
 
