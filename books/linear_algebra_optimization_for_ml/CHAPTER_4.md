@@ -2026,3 +2026,5 @@ Optimization models in ML are significantly different from traditional optimizat
 - 15.
 - 16. Incremental linear regression with added points
   - see paper notes for full derivation procedure to get a W update
+- 17. Incremental linear regression with added features
+  
