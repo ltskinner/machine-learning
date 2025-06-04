@@ -2027,4 +2027,6 @@ Optimization models in ML are significantly different from traditional optimizat
 - 16. Incremental linear regression with added points
   - see paper notes for full derivation procedure to get a W update
 - 17. Incremental linear regression with added features
-  
+- 18. Frobenius norm to matrix derivative
+  - basically, one can compute the derivatives row-by-row, or column by column, and then stack them to build the full derivative table
+  - this lets you pick the smallest dimension, upon which we can have more efficient downstream compute use of the Jacobian
