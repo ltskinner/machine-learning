@@ -408,6 +408,10 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
     - conditions for convergence (or inability to converge)
     - CD enables decomposition of a complex problem into smaller subproblems, which makes it perform better than SGD in many cases (in fact, oftenly)
 - push through identity - note -1s vs Ts
+- `geometric mean`
+  - \sqrt(ab)
+- `arithmetic mean`
+  - (a+b)/2
 
 Remember: as doing end of chapter problems add to this list
 

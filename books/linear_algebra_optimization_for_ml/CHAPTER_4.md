@@ -2031,3 +2031,5 @@ Optimization models in ML are significantly different from traditional optimizat
   - basically, one can compute the derivatives row-by-row, or column by column, and then stack them to build the full derivative table
   - this lets you pick the smallest dimension, upon which we can have more efficient downstream compute use of the Jacobian
 - 19.
+- 20.
+- 21.
