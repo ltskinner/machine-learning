@@ -2033,3 +2033,4 @@ Optimization models in ML are significantly different from traditional optimizat
 - 19.
 - 20.
 - 21.
+- 22. $<x,x> = x^T x$ (inner product = dot product)

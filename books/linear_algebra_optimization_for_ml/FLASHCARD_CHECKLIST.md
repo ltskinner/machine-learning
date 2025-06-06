@@ -412,6 +412,12 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - \sqrt(ab)
 - `arithmetic mean`
   - (a+b)/2
+- `inner product` = `dot product`
+  - note these are double bars
+  - $<x,x> = x^T x = \|x\|^2 = \sqrt{<x, x>}^2 $
+- `euclidean norm`
+  - note these are double bars
+  - $\|x\| = \sqrt{<x, x>} $
 
 Remember: as doing end of chapter problems add to this list
 
