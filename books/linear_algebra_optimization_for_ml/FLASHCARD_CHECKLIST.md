@@ -7,7 +7,7 @@
 | Determinant | det(A) is a scalar that determines *invertibility* | det(A) = 0 means A is singular (non-invertible), at least one eigenvalue is 0 |
 | Invertibility | $AA^{-1} = A^{-1}A = I $ | det(A) != 0, has full rank, has no zero eigenvalues, Ax = b has unique solutions for any b |
 | Left-inverse | $LA = I$ where $L = (A^T A)^{-1}A^T  $, when A has full column rank (rank(A) = n) | - when A is tall, - useful for exact solutions in consistent, `overdetermined systems`, - appears in pseudo-inverses (Moore-Penrose) |
-| Right-inverse | $AR = I$ where $R = A^T(AA^T)^{-1}  $, when A has full row rank (rank(A) = d) | - when A is wide, - useful for underdetermined systems, - guarantees solutions when system is inconsistent |
+| Right-inverse | $AR = I$ where $R = A^T(AA^T)^{-1}  $, when A has full row rank (rank(A) = d) | - when A is wide, - useful for underdetermined systems, - guarantees solutions when system is inconsistent (also Moore-Penrose) |
 |  |  |  |
 | Singularity | det(A) = 0, not invertible | at least one eigenvalue is 0. Emphasizes the determinant (not collapsing to zero), as opposed to the function/operator view |
 | Eigenvalues $\lambda$ | Scalars satisfying $A\bar{v} = \lambda\bar{v} $ | The scaling factors that describe how much the matrix stretches or compresses along eigenvector directions. Determine stability, transformations, and diagonalizability. The "spectrum of a matrix" (e.g. eigenvalues correspond to natural frequencies (vibrations, energy levels)) |
@@ -418,6 +418,11 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
 - `euclidean norm`
   - note these are double bars
   - $\|x\| = \sqrt{<x, x>} $
+- | (iii) $\|C - AXB\|^{2} $ | $- 2A^{T}(C - AXB)B^T $ |
+- trace derivative rules
+  - search "Tr() Rules"
+- "find derivative of J wrt X and the optimality conditions"
+  - aka "find derivative of J wrt X and set dJ/dx = 0 then solve for X"
 
 Remember: as doing end of chapter problems add to this list
 

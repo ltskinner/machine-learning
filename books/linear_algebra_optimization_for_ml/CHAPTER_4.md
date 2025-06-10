@@ -1003,6 +1003,8 @@ List of common matrix calculus identities in denominator layout
 - $\bar{b}$ is a constant n-dimensional vector (independent of the parameter vector $\bar{w} $)
 - C is a kxd matrix
 
+6/9/2025 LTS - these variables are absolute dogshit and super confusing
+
 ##### 4.2a - Scalar-to-vector derivatives
 
 | Objective (fn) J | Derivative of J wrt $\bar{w} $ |
@@ -1010,7 +1012,9 @@ List of common matrix calculus identities in denominator layout
 | (i) $\bar{w}^{T} A \bar{w} $ | $2A\bar{w} $ (symmetric A) |
 |  | $(A + A^{T})\bar{w} $ (asymmetric A) |
 | (ii) $\bar{b}^{T}B\bar{w} $ or $\bar{w}^T B^{T}\bar{b} $ | $B^{T}\bar{b} $ |
-| (iii) $\|B\bar{w} + \bar{b}\|^{2} $ | $2B^{T}(B\bar{w} + \bar{b}) $ |
+| (iii) $\|A\bar{w} + \bar{c}\|^{2} $ | $2A^{T}(A\bar{w} + \bar{c}) $ |
+| (iii) $\|A\bar{w}B + \bar{c}\|^{2} $ | $2A^{T}(A\bar{w}B + \bar{c})B^T $ |
+| (iii) $\|C - AXB\|^{2} $ | $- 2A^{T}(C - AXB)B^T $ |
 | (iv) $f(g(\bar{w})) $ | $f'(g(\bar{w}))\nabla_{w} g(\bar{w}) $ Note $g(\bar{w}) $ is scalar of example below |
 | (v) $f(\bar{w} \cdot \bar{a}) $ | $f'(\bar{w} \cdot \bar{a})\bar{a} $ where $g(\bar{w} = \bar{w} \cdot \bar{a}) $ |
 
@@ -1021,6 +1025,15 @@ List of common matrix calculus identities in denominator layout
 | (i) $\bar{h} = C\bar{w} $ | $C^{T} $ |
 | (ii) $\bar{h} = F(\bar{w}) $ where F(.) is elementwise function (Product-of-variables identity) | Diagonal matrix with (i,i)th entry containing partial derivative of ith component of $F(\bar{w}) $ wrt $w_{l} $ |
 | (iii) $\bar{h} = f_{s}(\bar{w})\bar{x} $ where $f_{s}(\bar{w}) $ is vector-to-scalar function | $\frac{\partial f_{s}(\bar{w})}{\partial \bar{w}} \bar{x}^{T} + f_{s}(\bar{w})\frac{\partial \bar{x}}{\partial \bar{w}} $ |
+
+##### Tr() Rules
+
+| Term | Rule |
+| - | - |
+| Linear term | $\frac{\partial tr(AX) }{\partial X} = A^T $ (if A is a constant matrix) |
+| Transpose Trick | $\frac{\partial tr(X^T A) }{\partial X} = A $  |
+| Quadratic Term | $\frac{\partial tr(X^T AX) }{\partial X} = AX + A^T X $ (if A is symmetric, then AX is fine) |
+| Sandwich term | $\frac{\partial tr(AXB) }{\partial X} = A^T B^T $ |
 
 For these, assume ReLU(u), tanh(u), sigmoid(u):
 
@@ -2034,3 +2047,4 @@ Optimization models in ML are significantly different from traditional optimizat
 - 20.
 - 21.
 - 22. $<x,x> = x^T x$ (inner product = dot product)
+- 23.
