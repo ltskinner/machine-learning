@@ -1956,7 +1956,7 @@ It is assumed that there are a total of n data points denoted by d-dim row vecto
 
 $\sum_{j} y_{ij} = 1 $.
 
-One can therfore, formulate the k-means problem as a **mixed integer program** over the real-valued d-dimensional prototype row vectors $\bar{z}_{1}...\bar{z}_{k} $ and the matrix $Y = [y_{ij}_{n \cross k}] $ of discrete variables:
+One can therfore, formulate the k-means problem as a **mixed integer program** over the real-valued d-dimensional prototype row vectors $\bar{z}_{1}...\bar{z}_{k} $ and the matrix $Y = [y_{ij}]_{n x k} $ of discrete variables:
 
 Minimize:
 
@@ -1968,7 +1968,7 @@ $\sum_{j=1}^{k}y_{ij} = 1 $ for $y_{ij} \in \{0, 1 \} $
 
 This is a **mixed integer program**, and such optimization problems are known to be very hard to solve in general. However, in this case, carefully choosing the blocks of variabls is essential
 
-Choosing the blocks carefully also trivializes the underlying constraints. In this case, the variables are divided into two blocks corresponding to the kxd prototype variables in the vectors $\bar{z}_{1}...\bar{z}_{k} $ and the nxk assignment variables $Y = [y_{ij}_{n \cross k}] $
+Choosing the blocks carefully also trivializes the underlying constraints. In this case, the variables are divided into two blocks corresponding to the kxd prototype variables in the vectors $\bar{z}_{1}...\bar{z}_{k} $ and the nxk assignment variables $Y = [y_{ij}]_{n x k} $
 
 We alternatively minimize over these two blocks of variables, bc it provides the best possible decompositionn of the problem into smaller subproblems. Note that if the prototype variables are fixed, the resulting assignment problem becomes trivial and one assigns each point to the nearest prototype
 
@@ -2048,3 +2048,8 @@ Optimization models in ML are significantly different from traditional optimizat
 - 21.
 - 22. $<x,x> = x^T x$ (inner product = dot product)
 - 23.
+- 24.
+- 25.
+- 26.
+- 27.
+- 28.

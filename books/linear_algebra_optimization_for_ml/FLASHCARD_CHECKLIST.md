@@ -423,6 +423,19 @@ $|\sum_{i=1}^{d}x_{i}y_{i}| = |\bar{x} \cdot \bar{y}  | \leq  \|\bar{x}\| \|\bar
   - search "Tr() Rules"
 - "find derivative of J wrt X and the optimality conditions"
   - aka "find derivative of J wrt X and set dJ/dx = 0 then solve for X"
+- manhattan distance vs eucliden distance
+  - manhattan is for each index of two vectors, you take the difference and sum across all dims
+    - `L1 norm`
+    - robust to outliers
+    - used in k medians, l1 regression
+    - median in each dimension
+  - euclidean is the sum of the differences, with a square root over it all
+    - `L2 norm`
+    - sensitive to outliers
+    - used in k-means, least squares
+    - mean in each dimension
+  - prolly consult external to build final flash card lol
+  
 
 Remember: as doing end of chapter problems add to this list
 
