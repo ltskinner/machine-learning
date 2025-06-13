@@ -38,3 +38,7 @@ Similarity search --> Information Geometry instead of Euclidian
 - [ ] [Category Theory Illustrated](https://abuseofnotation.github.io/category-theory-illustrated/00_about/)
 - [ ] [Some blog](https://k-bx.github.io/articles/boring-monoid-category.html)
 - [ ] [Category Theory](https://www.amazon.com/Category-Theory-Oxford-Logic-Guides/dp/0199237182)
+
+## 6/12/2025 LTS
+
+Reviewed books for legit prep, not off the beaten path prep
