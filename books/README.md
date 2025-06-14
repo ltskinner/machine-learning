@@ -42,3 +42,5 @@ Similarity search --> Information Geometry instead of Euclidian
 ## 6/12/2025 LTS
 
 Reviewed books for legit prep, not off the beaten path prep
+
+Up next: How to Prove It - this thru end of Aug
