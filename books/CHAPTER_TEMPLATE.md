@@ -29,6 +29,13 @@ Monday
 
 > "This chapter probably teaches __ so I can __."
 
+**What Should I be able to Answer by the End of this Chapter**
+
+- Core conceptual questions
+- Technical mastery questions
+- Proof/intuition checkpoints
+- Connection-to-practice questions
+
 ## 📘 2. Active Reading
 
 Tuesday
@@ -95,6 +102,18 @@ Thursday
 
 > [Write out or explain one derivation, result, or proof sketch in your own words]
 
+### Answers to "What Should I be able to Answer by the End of this Chapter"
+
+- Core conceptual questions
+- Technical mastery questions
+- Proof/intuition checkpoints
+- Connection-to-practice questions
+
+| Type | Question | Answer |
+| - | - | - |
+|  |  |  |
+|  |  |  |
+
 ## ✅ Summary Checklist
 
 - [ ] Monday: 1-2hr Pre-read + prediction complete
@@ -104,6 +123,6 @@ Thursday
 - [ ] Thursday: 1hr One derivation re-done
 - [ ] Friday: 1hr Review hardest/most confusing thing (optional/not serious)
 - [ ] Saturday: 3-4hr Deep dive into hands on problems from end of chapter
-- [ ] Sunday: 1-2hr Finalize flashcards
+- [ ] Sunday: 1-2hr What Should I be able to Answer by the End of this Chapter?
 
 Dang this is like, totally reasonable
