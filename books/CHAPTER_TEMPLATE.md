@@ -120,9 +120,15 @@ Thursday
 - [ ] Tuesday: 1-2hr Active read with notes
 - [ ] Wednesday: 1-2hr Summary written
 - [ ] Thursday: 1hr Flashcards created
-- [ ] Thursday: 1hr One derivation re-done
-- [ ] Friday: 1hr Review hardest/most confusing thing (optional/not serious)
-- [ ] Saturday: 3-4hr Deep dive into hands on problems from end of chapter
+- [ ] Thursday: 1hr One derivation re-done (proof oriented)
+- [ ] Friday: 1hr however long I want
+  - Transcribe equations into native python (simple)
+  - Transcribe equations into numpy (better)
+  - Review hardest/most confusing thing (optional/not serious)
+- [ ] Saturday: 3-4hr Deep dive
+  - hands on problems from end of chapter
+  - at least one proof
 - [ ] Sunday: 1-2hr What Should I be able to Answer by the End of this Chapter?
+  - at least one "proof" proving I learned what I need
 
 Dang this is like, totally reasonable
