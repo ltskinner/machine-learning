@@ -1,4 +1,6 @@
-# 📘 Chapter Summary: [Title] – [Book Name]
+# 📘 [Book] – Chapter [X]: [Chapter]
+
+SLOW DOWN: Slow is smooth, and smooth is fast
 
 tags:
 
@@ -38,14 +40,16 @@ Monday
 
 ## 📘 2. Active Reading
 
+SLOW DOWN: Slow is smooth, and smooth is fast
+
 Tuesday
 
 **⏱ Time:** ~20–40 min
 
-| Key Id | Key Point | Why It Matters | Proof Sketch |
-| - | - | - | - |
-| 1 |  |  |  |
-| 2 |  |  |  |
+| Key Point | Why It Matters | Proof Sketch |
+| - | - | - |
+|  |  |  |
+|  |  |  |
 
 **Key derivations/proofs:**
 
@@ -53,6 +57,8 @@ Tuesday
 - ...
 
 ## 🧠 3. Compression and Encoding
+
+SLOW DOWN: Slow is smooth, and smooth is fast
 
 Wednesday
 
@@ -84,6 +90,8 @@ Wednesday
 
 ## 🃏 Flashcard Table
 
+SLOW DOWN: Slow is smooth, and smooth is fast
+
 Thursday
 
 3-5 Flashcards - nothing crazy
@@ -94,7 +102,7 @@ Thursday
 | Why ? |  |
 | How ? |  |
 | When ? |  |
-| ... | ... |
+|  |  |
 
 ### 🧪 Re-derived Concept
 
@@ -131,4 +139,4 @@ Thursday
 - [ ] Sunday: 1-2hr What Should I be able to Answer by the End of this Chapter?
   - at least one "proof" proving I learned what I need
 
-Dang this is like, totally reasonable
+Dang this is like, totally reasonable. These are not rigorous, rushed, sessions trying to cover as much material as quickly as possible, exerting maximum brainpower. Be here to absorb.
