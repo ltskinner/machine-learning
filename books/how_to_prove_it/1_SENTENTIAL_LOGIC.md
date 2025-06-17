@@ -66,12 +66,27 @@ Tuesday
 | Its ok to use indentation of patterns while learning this |  |  |
 | Proof statements are like control statements in programming | Colored purple and usually have open and close terms (statements) |  |
 | The existence of one `counterexample` | Establishes a `conjecture` is incorrect, however, the lack of `counterexample` does not prove something to be correct |  |
+| Valid argument | If the premises are all true, the conclusion must also be true. Basically, set up truth table and look at rows where all premises are True, and verify conclusion is also True |  |
+| Invalid argument | Conclusion could be false even if both premises are true |  |
+| connective symbol | and, or, not | and = conjunction, or = disjunction, not = negation. Note and/or can only be used *between* two statements, and not *before* a statement |
+| To keep truth tables simple, just list T/F directly under the symbol (within the column) for compactness |  |  |
+| $\therefore $ | "therefore" |  |
+| When variables are involved, e.g. P(x) | cannot simply assign True or False value to the statement P(x), because the values of the variable x matter |  |
+| Set definition | $B = \{ x I x is a prime number\} $ | "B is equal to the set of all x such that x is a prime number", where "x is a prime number" is an elementhood test |
+| Set with "universe" | $\{ x \in \mathbb{R} I x^2 < 9 \} $ | "x is a real number, defined by this elementhood test" |
+|  |  |  |
+|  |  |  |
+|  |  |  |
 |  |  |  |
 |  |  |  |
 
 **Key derivations/proofs:**
 
-- ...
+- Standard argument form:
+  - P or Q
+  - Not Q
+  - Therefore, P
+  - really abstract (and even nonsensicle) premises/arguments can be encoded in this tructure
 - ...
 
 ## 🧠 3. Compression and Encoding
@@ -82,14 +97,46 @@ Wednesday
 
 ### 🔑 Key Definitions
 
+- **valid:** an arugment is `valid` if the premises cannot all be true without the conclusion being true as well
 - **conjecture:** a guess
 - **theorem:** a conjecture that has been proven
 - **factorial:** n! = 1*2*3*...n
-- **tautology:** ...
-- **contradiction:** ...
+- **tautology:** forulas that are always true
+- **contradiction:** formulas that are always false
 - **statement:** ...
-- **variable:** ... (bound and free)
-- **set:** ...
+- **variable:**
+  - P(x) where x is a variable, which stresses importance of x (bound and free)
+  - consider $y \in \{x | x^2 < 9 \} $
+    - x is a `bound variable` ( {x| ...} is the binding act)
+      - simply letters used to help express idea, not representing a particular object
+      - can easliy replace without changing meaning of statement
+      - x may just as well be w or k
+    - y is a `free variable`
+      - free variables stand for objects that the statement says something about
+      - different values of free variables affect th emeaning of a statement (and possible change truth value)
+- **set:**
+  - a collection of objects
+  - the objects in the collection are `elements`
+  - $\isin $ means element of
+  - is completely determined once its elements have been specified
+  - order does not matter
+  - elements can appear more than once
+- **elementhood test:**
+  - "is a prime number"
+  - x^2 < 9
+  - "was a president of the united states"
+- `truth set` (of P(x)) Definition 1.3.4
+  - The `truth set` of a statement P(x) is the set of all values of x that make the statement P(x) True
+  - In other words, it is the set defined by using the statement P(x) as an elementhood test: $\{x | P(x) \} $
+- `universe of discourse`
+  - the set of all possible values for the variable
+  - the `range`
+- `intersection \cap`
+  - $A \cap B = \{x | x \in A and x \in B \} $
+- `union \cap`
+  - $A \cup B = \{x | x \in A or x \in B \} $
+- `difference \setminus`
+  - $A \setminus B = \{x | x \in A and x \notin B \} $
 - **conditional statement:** antecedent and consequent
 - **Definition:** ...
 - **Definition:** ...
@@ -102,7 +149,9 @@ Wednesday
 
 - there is a set of "control statements" like in software, with entry and exit conditions that are used to construct proofs
 - defining variable type with {x| something} is like type declarations in software
-- ...
+- **important** distinguish between
+  - expressions that are mathematical statements
+  - expressions that are names for mathematical objects
 - ...
 
 ### 🔗 Connections to Prior Knowledge
@@ -127,19 +176,19 @@ Thursday
 | Why ? |  |
 | How ? |  |
 | When ? |  |
-| De Morgan's laws |  |
-| Commutative laws |  |
-| Associative laws |  |
-| Idempotent laws |  |
-| Distributive laws |  |
-| Absorption laws |  |
-| Double Negation law |  |
-| Tautology laws |  |
-| Contradiction laws |  |
-| Real numbers |  |
-| Rational numbers |  |
-| Integers |  |
-| Natural numbers |  |
+| De Morgan's laws | -(P ^ Q) eqivalent to -Q v -Q; -(P v Q) is equivalent to  -P ^ -Q |
+| Commutative laws | P ^ Q is equivalent to Q ^ P (same for or) |
+| Associative laws | P ^ (Q ^ R) is equivalent to (P ^ Q) ^ R (same for or) |
+| Idempotent laws | P ^ P is equivalent to P (same ofr or) |
+| Distributive laws | P ^ (Q v R) is equivalent to (P ^ Q) v (P ^ R) (same for or) |
+| Absorption laws | P v (P ^ Q) is equivalent to P |
+| Double Negation law | - - P is equivalent to P |
+| Tautology laws | P ^ (a tautology) is equivalent to P; P v (a tautology) is a tautology; -(a tautology) is a contradiction |
+| Contradiction laws | P ^ (a contradiction) is a contradiction; P v (a constradiction) is equivalent to P; -(a contradiction) is a tautology |
+| Real numbers | $\mathbb{R} = \{x I x is a real number \} $ as opposed to imaginary |
+| Rational numbers | $\mathbb{Q} = \{x I x is a real number \} $ any number that can be written as a fraction p/q of two integers |
+| Integers | $\mathbb{Z} = \{x I x is a real number \} = (..., -2, -1, 0, 1, 2, ...) $ |
+| Natural numbers | $\mathbb{N} = \{x I x is a real number \} = (0, 1, 2, 3, ...) $ |
 | Contrapositive law |  |
 |  |  |
 |  |  |
