@@ -133,17 +133,38 @@ Wednesday
   - the `range`
 - `intersection \cap`
   - $A \cap B = \{x | x \in A and x \in B \} $
-- `union \cap`
+- `union \cup`
   - $A \cup B = \{x | x \in A or x \in B \} $
 - `difference \setminus`
   - $A \setminus B = \{x | x \in A and x \notin B \} $
-- **conditional statement:** antecedent and consequent
+- `symmetric difference \Delta`
+  - $A \Delta B = (A \setminus B) \cup (B \setminus A) = (A \cup B) \setminus (A \cap B) $
+  - basically, everything that is not in the intersection
+- `definition 1.4.5`
+  - A is a `subset` of B if every element of A is also an element of B
+    - $A \subseteq B $
+  - A and B are `disjoint` if they have no elements in common
+    - $A \cap B = \emptyset $
+- `conditional statement`
+  - $P \implies Q $ = "if P then Q"
+  - P is the `antecedent`
+  - Q is the `consequent`
+  - review truth table, $F \implies T $, only $T \implies F $ is False
+  - also, $P \implies Q $ and $\lnot P \lor Q $ are equivalent ()
+- `converse`
+  - if you invert $P \implies Q $ to $Q \implies P $
+  - dont do this lol never confuse a conditional statement with its converse
+- `biconditional statement`
+  - $P \iff Q = (P \implies Q) \land (Q \implies P) $
+  - same as "P if and only if Q" (IFF)
+  - "P is a neccessary and sufficient condition for Q"
 - **Definition:** ...
 - **Definition:** ...
 
 ### 📏 Main Theorem Statements
 
-- **[Theorem Name]:** [Plain language description]
+- `Theorem 1.4.7`
+  - for any sets A and B, $(A \cup B) \setminus B \subseteq A $
 
 ### 💡 Core Takeaways
 
@@ -189,7 +210,8 @@ Thursday
 | Rational numbers | $\mathbb{Q} = \{x I x is a real number \} $ any number that can be written as a fraction p/q of two integers |
 | Integers | $\mathbb{Z} = \{x I x is a real number \} = (..., -2, -1, 0, 1, 2, ...) $ |
 | Natural numbers | $\mathbb{N} = \{x I x is a real number \} = (0, 1, 2, 3, ...) $ |
-| Contrapositive law |  |
+| Conditional laws | $P \implies Q$ is equivalent to $\lnot P \lor Q $; $P \implies Q $ is equivalent to $\lnot(P \land \lnot Q) $ |
+| Contrapositive law | $P \implies Q $ is equivalent to $\lnot Q \implies \lnot P $ |
 |  |  |
 |  |  |
 |  |  |
@@ -216,7 +238,7 @@ Thursday
 ## ✅ Summary Checklist
 
 - [x] Monday: 1-2hr Pre-read + prediction complete
-- [ ] Tuesday: 1-2hr Active read with notes
+- [x] Tuesday: 1-2hr Active read with notes
 - [ ] Wednesday: 1-2hr Summary written
 - [ ] Thursday: 1hr Flashcards created
 - [ ] Thursday: 1hr One derivation re-done (proof oriented)

@@ -71,7 +71,7 @@ Wednesday
 
 ### 📏 Main Theorem Statements
 
-- **[Theorem Name]:** [Plain language description]
+- `[Theorem Name]` [Plain language description]
 
 ### 💡 Core Takeaways
 
