@@ -3,8 +3,8 @@
 tags:
 
 - probability
-- LLN
-- CLT
+- truth tables
+- logic
 
 ## 🧭 1. Skeleton Building (Before Reading)
 
@@ -72,7 +72,7 @@ Tuesday
 | To keep truth tables simple, just list T/F directly under the symbol (within the column) for compactness |  |  |
 | $\therefore $ | "therefore" |  |
 | When variables are involved, e.g. P(x) | cannot simply assign True or False value to the statement P(x), because the values of the variable x matter |  |
-| Set definition | $B = \{ x I x is a prime number\} $ | "B is equal to the set of all x such that x is a prime number", where "x is a prime number" is an elementhood test |
+| Set definition | B = { x I (elementhood test)} | "B is equal to the set of all x such that x is a prime number", where "x is a prime number" is an elementhood test |
 | Set with "universe" | $\{ x \in \mathbb{R} I x^2 < 9 \} $ | "x is a real number, defined by this elementhood test" |
 |  |  |  |
 |  |  |  |
@@ -100,8 +100,8 @@ Wednesday
 - **valid:** an arugment is `valid` if the premises cannot all be true without the conclusion being true as well
 - **conjecture:** a guess
 - **theorem:** a conjecture that has been proven
-- **factorial:** n! = 1*2*3*...n
-- **tautology:** forulas that are always true
+- **factorial:** $n! = 1*2*3*...n $
+- **tautology:** formulas that are always true
 - **contradiction:** formulas that are always false
 - **statement:** ...
 - **variable:**
@@ -113,7 +113,7 @@ Wednesday
       - x may just as well be w or k
     - y is a `free variable`
       - free variables stand for objects that the statement says something about
-      - different values of free variables affect th emeaning of a statement (and possible change truth value)
+      - different values of free variables affect the meaning of a statement (and possible change truth value)
 - **set:**
   - a collection of objects
   - the objects in the collection are `elements`
@@ -158,8 +158,6 @@ Wednesday
   - $P \iff Q = (P \implies Q) \land (Q \implies P) $
   - same as "P if and only if Q" (IFF)
   - "P is a neccessary and sufficient condition for Q"
-- **Definition:** ...
-- **Definition:** ...
 
 ### 📏 Main Theorem Statements
 
@@ -173,16 +171,19 @@ Wednesday
 - **important** distinguish between
   - expressions that are mathematical statements
   - expressions that are names for mathematical objects
-- ...
+- if you get lost, make a truth table
 
 ### 🔗 Connections to Prior Knowledge
 
 - Relates to:
-  - ...
+  - truth tables relate to proof building (obviously)
+  - reminds me of reasoning work, and the PAS exercises (and underlying logical work) I did many years ago
 - Similar to:
-  - ...
+  - writing software
+  - basically just symbols for if/else blocks, written more elegantly
 - Builds on:
-  - ...
+  - set theory
+  - truth values and how terms interact
 
 ## 🃏 Flashcard Table
 
@@ -212,10 +213,6 @@ Thursday
 | Natural numbers | $\mathbb{N} = \{x I x is a real number \} = (0, 1, 2, 3, ...) $ |
 | Conditional laws | $P \implies Q$ is equivalent to $\lnot P \lor Q $; $P \implies Q $ is equivalent to $\lnot(P \land \lnot Q) $ |
 | Contrapositive law | $P \implies Q $ is equivalent to $\lnot Q \implies \lnot P $ |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
 
 ### 🧪 Re-derived Concept
 
@@ -239,7 +236,7 @@ Thursday
 
 - [x] Monday: 1-2hr Pre-read + prediction complete
 - [x] Tuesday: 1-2hr Active read with notes
-- [ ] Wednesday: 1-2hr Summary written
+- [x] Wednesday: 1-2hr Summary written
 - [ ] Thursday: 1hr Flashcards created
 - [ ] Thursday: 1hr One derivation re-done (proof oriented)
 - [ ] Friday: 1hr however long I want
