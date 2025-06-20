@@ -237,7 +237,7 @@ Thursday
 - [x] Monday: 1-2hr Pre-read + prediction complete
 - [x] Tuesday: 1-2hr Active read with notes
 - [x] Wednesday: 1-2hr Summary written
-- [ ] Thursday: 1hr Flashcards created
+- [x] Thursday: 1hr Flashcards created
 - [ ] Thursday: 1hr One derivation re-done (proof oriented)
 - [ ] Friday: 1hr however long I want
   - Transcribe equations into native python (simple)
