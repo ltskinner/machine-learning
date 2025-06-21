@@ -97,6 +97,8 @@ Wednesday
 
 ### 🔑 Key Definitions
 
+- `well formed`
+  - like correct structuring and use of symbols and operators
 - **valid:** an arugment is `valid` if the premises cannot all be true without the conclusion being true as well
 - **conjecture:** a guess
 - **theorem:** a conjecture that has been proven
@@ -198,10 +200,10 @@ Thursday
 | Why ? |  |
 | How ? |  |
 | When ? |  |
-| De Morgan's laws | -(P ^ Q) eqivalent to -Q v -Q; -(P v Q) is equivalent to  -P ^ -Q |
+| De Morgan's laws | -(P ^ Q) eqivalent to -P v -Q; -(P v Q) is equivalent to  -P ^ -Q |
 | Commutative laws | P ^ Q is equivalent to Q ^ P (same for or) |
 | Associative laws | P ^ (Q ^ R) is equivalent to (P ^ Q) ^ R (same for or) |
-| Idempotent laws | P ^ P is equivalent to P (same ofr or) |
+| Idempotent laws | P ^ P is equivalent to P (same for or) |
 | Distributive laws | P ^ (Q v R) is equivalent to (P ^ Q) v (P ^ R) (same for or) |
 | Absorption laws | P v (P ^ Q) is equivalent to P |
 | Double Negation law | - - P is equivalent to P |
