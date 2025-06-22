@@ -206,7 +206,7 @@ Thursday
 | Idempotent laws | P ^ P is equivalent to P (same for or) |
 | Distributive laws | P ^ (Q v R) is equivalent to (P ^ Q) v (P ^ R) (same for or) |
 | Absorption laws | P v (P ^ Q) is equivalent to P |
-| Double Negation law | - - P is equivalent to P |
+| Double Negation law | -- P is equivalent to P |
 | Tautology laws | P ^ (a tautology) is equivalent to P; P v (a tautology) is a tautology; -(a tautology) is a contradiction |
 | Contradiction laws | P ^ (a contradiction) is a contradiction; P v (a constradiction) is equivalent to P; -(a contradiction) is a tautology |
 | Real numbers | $\mathbb{R} = \{x I x is a real number \} $ as opposed to imaginary |
