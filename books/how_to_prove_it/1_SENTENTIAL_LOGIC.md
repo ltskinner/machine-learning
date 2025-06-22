@@ -142,6 +142,7 @@ Wednesday
 - `symmetric difference \Delta`
   - $A \Delta B = (A \setminus B) \cup (B \setminus A) = (A \cup B) \setminus (A \cap B) $
   - basically, everything that is not in the intersection
+  - "either set, but not both"
 - `definition 1.4.5`
   - A is a `subset` of B if every element of A is also an element of B
     - $A \subseteq B $
@@ -174,6 +175,10 @@ Wednesday
   - expressions that are mathematical statements
   - expressions that are names for mathematical objects
 - if you get lost, make a truth table
+- in set notation:
+  - $y \in \{x \in \mathbb{R}^{+} | x^2 < 9 \} $
+  - is sameas
+  - $y \in \mathbb{R}^{+} \land (y^2 < 9) $
 
 ### 🔗 Connections to Prior Knowledge
 
