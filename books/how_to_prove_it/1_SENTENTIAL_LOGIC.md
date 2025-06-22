@@ -143,6 +143,7 @@ Wednesday
   - $A \Delta B = (A \setminus B) \cup (B \setminus A) = (A \cup B) \setminus (A \cap B) $
   - basically, everything that is not in the intersection
   - "either set, but not both"
+  - $A \Delta B = (A \lor B) \land \lnot (A \land B) $
 - `definition 1.4.5`
   - A is a `subset` of B if every element of A is also an element of B
     - $A \subseteq B $
@@ -153,7 +154,7 @@ Wednesday
   - P is the `antecedent`
   - Q is the `consequent`
   - review truth table, $F \implies T $, only $T \implies F $ is False
-  - also, $P \implies Q $ and $\lnot P \lor Q $ are equivalent ()
+  - also, $P \implies Q $ and $\lnot P \lor Q $ are equivalent
 - `converse`
   - if you invert $P \implies Q $ to $Q \implies P $
   - dont do this lol never confuse a conditional statement with its converse
@@ -161,6 +162,7 @@ Wednesday
   - $P \iff Q = (P \implies Q) \land (Q \implies P) $
   - same as "P if and only if Q" (IFF)
   - "P is a neccessary and sufficient condition for Q"
+  - $(P \implies Q) \land (\lnot P \implies \lnot Q) $
 
 ### 📏 Main Theorem Statements
 
@@ -179,6 +181,22 @@ Wednesday
   - $y \in \{x \in \mathbb{R}^{+} | x^2 < 9 \} $
   - is sameas
   - $y \in \mathbb{R}^{+} \land (y^2 < 9) $
+- symmetric distance is a real pain in the ass, its just whatever is not in both sets
+- $P \implies Q $ = $\lnot P \lor Q $
+
+| P | Q | $P \implies Q $ |
+| - | - | - |
+| T | T | T |
+| T | F | F |
+| F | T | T |
+| F | F | T |
+
+| P | Q | $P \iff Q $ |
+| - | - | - |
+| T | T | T |
+| T | F | F |
+| F | T | F |
+| F | F | T |
 
 ### 🔗 Connections to Prior Knowledge
 
@@ -246,15 +264,15 @@ Thursday
 - [x] Wednesday: 1-2hr Summary written
 - [x] Thursday: 1hr Flashcards created
 - [ ] Thursday: 1hr One derivation re-done (proof oriented)
-- [ ] Friday: 1hr however long I want
+- [x] Friday: 1hr however long I want
   - Transcribe equations into native python (simple)
   - Transcribe equations into numpy (better)
   - Review hardest/most confusing thing (optional/not serious)
-- [ ] Saturday: 3-4hr Deep dive
+- [x] Saturday: 3-4hr Deep dive
   - mid-chapter exercises
   - hands on problems from end of chapter
   - at least one proof
-- [ ] Sunday: 1-2hr What Should I be able to Answer by the End of this Chapter?
+- [x] Sunday: 1-2hr What Should I be able to Answer by the End of this Chapter?
   - at least one "proof" proving I learned what I need
 
 Dang this is like, totally reasonable
