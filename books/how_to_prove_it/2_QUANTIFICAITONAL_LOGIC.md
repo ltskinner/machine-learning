@@ -60,12 +60,17 @@ Tuesday
 
 | Key Point | Why It Matters | Proof Sketch |
 | - | - | - |
-|  |  |  |
+| Quantifiers | 1. P(x) is true for *every* value of x, or 2. *at least one* value of x makes P(x) true | Quantifiers `bind` a variable (into a bound varaible). "Everyone, someone, everything, something, some" tip off the need for a quantifier |
+| Bounded Quantifiers | $\forall x \in \mathbb{R}^{+} \exists y (y^2 = x) $ | With the $\in \mathbb{R}^{+} $ marks bounds for which values of the variable can be considered |
+| Distribution | Quantifiers distribute over a statement: $\forall x(E(x \land T(x))) $ sameas $\forall x E(x) \land \forall x T(x) $ | **Only works for** $\forall $ |
+| Sets can contain other sets | Families of sets |  |
 |  |  |  |
 
 **Key derivations/proofs:**
 
-- ...
+- Different ways to work with elementhood test notation:
+  - $S = \{n^2 | n \in \mathbb{N} \} $, sameas
+  - $S = \{x | \exists n \in \mathbb{N} (x = n^2) \} $
 - ...
 
 ## 🧠 3. Compression and Encoding
@@ -78,12 +83,29 @@ Wednesday
 
 ### 🔑 Key Definitions
 
+- $\forall $
+  - $\forall x P(x) $ means "For all x, P(x)"
+  - $\forall x P(x) \implies Q(x) $ means $(\forall x P(x)) \implies Q(x) $
+- $\exists $
+  - $\exists x P(x) $ means "There exists an x such that P(x)"
+  - aka the truth set is not equal to $\emptyset $
+- $\exists !$
+  - $\exists ! x P(x) $ means "there is **exactly one** value of x such that P(x)"
+- `families`
+  - a set that contains other sets is a family
 - `Definition 2.3.2` - `power set`
   - basically the set containing all possible subsets of a given set
     - like all combinatorial possibilities of the set
+  - a type of `family`
 - `Definition 2.3.5` - `families of sets`
   - `intersection`
+    - $\cap F = \{x | \forall A \in F(x \in A) \} = \{x | \forall A(A \in F \implies x \in A) \} $
   - `union`
+    - $\cup F = \{x | \exists A \in F(x \in A) \} = \{x | \exists A (A \in F \land x \in A) \} $
+- `vacuously true`
+  - basically working around an empty set (a vaccum), means that because there is nothing in a set, so anything that set applies to must be true
+  - "all unicorns are purple" so there are no unicorns, an empty set, so the statement must be true
+
 
 ### 📏 Main Theorem Statements
 
@@ -91,7 +113,7 @@ Wednesday
 
 ### 💡 Core Takeaways
 
-- ...
+- Converting negative statements into positive statements makes it much easier to understand. This is very important in working with negative statements in proofs
 - ...
 - ...
 
@@ -118,7 +140,7 @@ Thursday
 | Why ? |  |
 | How ? |  |
 | When ? |  |
-| Quantifier Negation Laws |  |
+| Quantifier Negation Laws | $\lnot \exists x P(x) $ is equivalent to $\forall x \lnot P(x) $; and $\lnot \forall x P(x) $ is equivalent to $\exists x \lnot P(x) $ |
 |  |  |
 |  |  |
 |  |  |
@@ -148,8 +170,8 @@ Thursday
 
 ## ✅ Summary Checklist
 
-- [ ] Monday: 1-2hr Pre-read + prediction complete
-- [ ] Tuesday: 1-2hr Active read with notes
+- [x] Monday: 1-2hr Pre-read + prediction complete
+- [x] Tuesday: 1-2hr Active read with notes
 - [ ] Wednesday: 1-2hr Summary written
 - [ ] Thursday: 1hr Flashcards created
 - [ ] Thursday: 1hr One derivation re-done (proof oriented)
