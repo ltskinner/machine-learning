@@ -106,7 +106,6 @@ Wednesday
   - basically working around an empty set (a vaccum), means that because there is nothing in a set, so anything that set applies to must be true
   - "all unicorns are purple" so there are no unicorns, an empty set, so the statement must be true
 
-
 ### 📏 Main Theorem Statements
 
 - `[Theorem Name]` [Plain language description]
@@ -114,17 +113,23 @@ Wednesday
 ### 💡 Core Takeaways
 
 - Converting negative statements into positive statements makes it much easier to understand. This is very important in working with negative statements in proofs
-- ...
-- ...
+- `\forall` and `\exists` are the main operators
+- they get weaved in with the other symbols here
+- they are key operators in setting up proofs, for partitioning off or declaring all
+  - like we need two things with proofs:
+    - something is always the case ("positive" style proving)
+    - there is one example where something is not the case ("negative" style proving)
+      - single instances of a `counterexample`
 
 ### 🔗 Connections to Prior Knowledge
 
 - Relates to:
-  - ...
+  - I think this thing rears its head up into actual proof strategies
 - Similar to:
-  - ...
+  - set theory and discrete mathematics
 - Builds on:
-  - ...
+  - core logic from firstt chapter
+  - flushes out full set of operators we need to begin constructing proofs logically
 
 ## 🃏 Flashcard Table
 
@@ -172,7 +177,7 @@ Thursday
 
 - [x] Monday: 1-2hr Pre-read + prediction complete
 - [x] Tuesday: 1-2hr Active read with notes
-- [ ] Wednesday: 1-2hr Summary written
+- [x] Wednesday: 1-2hr Summary written
 - [ ] Thursday: 1hr Flashcards created
 - [ ] Thursday: 1hr One derivation re-done (proof oriented)
 - [ ] Friday: 1hr however long I want
