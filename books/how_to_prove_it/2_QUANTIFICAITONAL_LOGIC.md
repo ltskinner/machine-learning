@@ -84,9 +84,11 @@ Wednesday
 ### 🔑 Key Definitions
 
 - $\forall $
+  - `universal quantifier`
   - $\forall x P(x) $ means "For all x, P(x)"
   - $\forall x P(x) \implies Q(x) $ means $(\forall x P(x)) \implies Q(x) $
 - $\exists $
+  - `existential quantifier`
   - $\exists x P(x) $ means "There exists an x such that P(x)"
   - aka the truth set is not equal to $\emptyset $
 - $\exists !$
@@ -145,6 +147,7 @@ Thursday
 | Why ? |  |
 | How ? |  |
 | When ? |  |
+| Purpose of quantifiers | Quantify *how many* values of x make P(x) true. All values, or at least one value, or exactly one |
 | Quantifier Negation Laws | $\lnot \exists x P(x) $ is equivalent to $\forall x \lnot P(x) $; and $\lnot \forall x P(x) $ is equivalent to $\exists x \lnot P(x) $ |
 | Pull in all key definitions |  |
 
