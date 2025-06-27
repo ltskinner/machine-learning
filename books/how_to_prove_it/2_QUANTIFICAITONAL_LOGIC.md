@@ -122,6 +122,7 @@ Wednesday
     - something is always the case ("positive" style proving)
     - there is one example where something is not the case ("negative" style proving)
       - single instances of a `counterexample`
+- $A \subseteq B $ means $\forall x (x \in A \implies x \in B) $
 
 ### 🔗 Connections to Prior Knowledge
 
