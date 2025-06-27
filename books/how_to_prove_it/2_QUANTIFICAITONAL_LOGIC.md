@@ -146,14 +146,13 @@ Thursday
 | How ? |  |
 | When ? |  |
 | Quantifier Negation Laws | $\lnot \exists x P(x) $ is equivalent to $\forall x \lnot P(x) $; and $\lnot \forall x P(x) $ is equivalent to $\exists x \lnot P(x) $ |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
+| Pull in all key definitions |  |
+
+Need $| $ again:
+
+- Different ways to express elementhood test (make card for each)
+  - $S = \{n^2 | n \in \mathbb{N} \} $, sameas
+  - $S = \{x | \exists n \in \mathbb{N} (x = n^2) \} $
 
 ### 🧪 Re-derived Concept
 
@@ -178,7 +177,7 @@ Thursday
 - [x] Monday: 1-2hr Pre-read + prediction complete
 - [x] Tuesday: 1-2hr Active read with notes
 - [x] Wednesday: 1-2hr Summary written
-- [ ] Thursday: 1hr Flashcards created
+- [x] Thursday: 1hr Flashcards created
 - [ ] Thursday: 1hr One derivation re-done (proof oriented)
 - [ ] Friday: 1hr however long I want
   - Transcribe equations into native python (simple)

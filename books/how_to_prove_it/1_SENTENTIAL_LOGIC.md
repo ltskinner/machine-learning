@@ -239,6 +239,17 @@ Thursday
 | Conditional laws | $P \implies Q$ is equivalent to $\lnot P \lor Q $; $P \implies Q $ is equivalent to $\lnot(P \land \lnot Q) $ |
 | Contrapositive law | $P \implies Q $ is equivalent to $\lnot Q \implies \lnot P $ |
 
+Still flashcards, but need the | symbol:
+
+- B = $\{ x \in \mathbb{R} |$ (elementhood test) $\}$
+  - "B is equal to
+    - $\{ $ the set of x that are Real
+      - $| $ such that
+        - (elementhood test)
+        - ("x is a prime number")
+        - $(x^2 < 9) $
+    - $\} $
+
 ### 🧪 Re-derived Concept
 
 Thursday
