@@ -5,3 +5,5 @@
 Time to become friends with proofs!
 
 ## [Chapter 1. Sentential Logic](./1_SENTENTIAL_LOGIC.md)
+
+## [Chapter 2. Quantification Logic](./2_QUANTIFICAITONAL_LOGIC.md)

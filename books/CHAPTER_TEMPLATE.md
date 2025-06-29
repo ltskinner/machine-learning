@@ -142,3 +142,5 @@ Thursday
 Dang this is like, totally reasonable. These are not rigorous, rushed, sessions trying to cover as much material as quickly as possible, exerting maximum brainpower. Be here to absorb.
 
 **Critical Observation:** When I feel obligated to complete every problem in the chapter, I begin rushing, lowering the value of each problem and reinforce the habit of rushing through problems. This habit may very well manifest on tests as not going slow enough to fully comprehend whats being asked, and be THE major obstacle in my test taking performance.
+
+![alt-text](./learning_pyramid.png)

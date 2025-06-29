@@ -93,6 +93,7 @@ Wednesday
   - aka the truth set is not equal to $\emptyset $
 - $\exists !$
   - $\exists ! x P(x) $ means "there is **exactly one** value of x such that P(x)"
+  - $\exists ! x P(x) $ abbreviation of $\exists x (P(x) \land \lnot \exists y (P(y) \land y \neq x)) $
 - `families`
   - a set that contains other sets is a family
 - `Definition 2.3.2` - `power set`
