@@ -195,3 +195,7 @@ Thursday
   - at least one "proof" proving I learned what I need
 
 Dang this is like, totally reasonable. These are not rigorous, rushed, sessions trying to cover as much material as quickly as possible, exerting maximum brainpower. Be here to absorb.
+
+Aight real: pushed off studying too late, stuff was not clicking
+
+I think I need to restart the chapter exercises and go low and slow here
