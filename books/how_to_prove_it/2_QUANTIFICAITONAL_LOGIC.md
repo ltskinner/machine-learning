@@ -150,7 +150,7 @@ Thursday
 | How ? |  |
 | When ? |  |
 | Purpose of quantifiers | Quantify *how many* values of x make P(x) true. All values, or at least one value, or exactly one |
-| Quantifier Negation Laws | $\lnot \exists x P(x) $ is equivalent to $\forall x \lnot P(x) $; and $\lnot \forall x P(x) $ is equivalent to $\exists x \lnot P(x) $ |
+| Quantifier Negation Laws | $\lnot \exists x P(x) $ is equivalent to $\forall x \lnot P(x) $; and $\lnot \forall x P(x) $ is equivalent to $\exists x \lnot P(x) $ **Critical:** when working with implications: $\lnot (P \implies Q) \implies (P \land \lnot Q) $ **and** $\lnot (P \implies Q) \implies (P \implies \lnot Q)$ note we are only negating the implication (consequent) as opposed to both antecedent P and consequent Q |
 | Pull in all key definitions |  |
 
 Need $| $ again:
