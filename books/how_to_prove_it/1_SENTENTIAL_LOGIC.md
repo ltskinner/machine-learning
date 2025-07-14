@@ -236,7 +236,7 @@ Thursday
 | Rational numbers | $\mathbb{Q} = \{x I x is a real number \} $ any number that can be written as a fraction p/q of two integers |
 | Integers | $\mathbb{Z} = \{x I x is a real number \} = (..., -2, -1, 0, 1, 2, ...) $ |
 | Natural numbers | $\mathbb{N} = \{x I x is a real number \} = (0, 1, 2, 3, ...) $ |
-| Conditional laws | $P \implies Q$ is equivalent to $\lnot P \lor Q $; $P \implies Q $ is equivalent to $\lnot(P \land \lnot Q) $ |
+| Conditional laws | $P \implies Q$ is equivalent to $\lnot P \lor Q $ (also $(P \implies \lnot Q) \equiv (\lnot P \lor \lnot Q) $ leaving the Q sign untouched); $P \implies Q $ is equivalent to $\lnot(P \land \lnot Q) $ |
 | Contrapositive law | $P \implies Q $ is equivalent to $\lnot Q \implies \lnot P $ |
 
 Still flashcards, but need the | symbol:
