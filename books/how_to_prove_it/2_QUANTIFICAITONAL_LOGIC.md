@@ -100,6 +100,10 @@ Wednesday
   - basically the set containing all possible subsets of a given set
     - like all combinatorial possibilities of the set
   - a type of `family`
+  - all these are equivalent
+    - $\mathbb{P}(A) = \{x | x \subseteq A \} $
+    - $x \subseteq A $
+    - $\forall y (y \in x \implies y \in A) $
 - `Definition 2.3.5` - `families of sets`
   - `intersection`
     - $\cap F = \{x | \forall A \in F(x \in A) \} = \{x | \forall A(A \in F \implies x \in A) \} $
@@ -108,6 +112,24 @@ Wednesday
 - `vacuously true`
   - basically working around an empty set (a vaccum), means that because there is nothing in a set, so anything that set applies to must be true
   - "all unicorns are purple" so there are no unicorns, an empty set, so the statement must be true
+- `indexed family`
+  - $A = \{ x_i | i \in I \} $
+    - where I is the `index set`
+    - where each i is the `index`
+  - $A = \{ x | \exists i \in I(x = x_i)\} $
+    - so $x \in \{ x_i | i \in I \} $ sameas $\exists i \in I(x = x_i) $
+- `set notations` [See 2_SET_NOTATION.md](./2_SET_NOTATION.md)
+  - `elementhood test notation` / `set theory notation`
+    - $\{x | P(x)\} $
+  - `set definition`
+    - $\exists x \in \mathbb{R} (0 \leq x \leq 10) $
+  - `index notation` (not sure if this is a real thing, sort of reaching here)
+    - $\{x_i | i \in I \} $
+  - Example:
+    - `set theory notation`
+      - $y \in \{ \sqrt{x} | x \in \mathbb{Q} \} $
+    - `set definition`
+      - $\exists x \in \mathbb{Q} (y = \sqrt{x}) $
 
 ### 📏 Main Theorem Statements
 
