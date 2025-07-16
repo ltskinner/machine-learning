@@ -54,8 +54,23 @@ Three layers of notation:
   - $\forall y (y \in x \implies y \in A) $
   - x is a set
   - y is any element in x
+- $F !\subseteq G$
+  - $\exists x (x \in F \land x \notin G) $
 - $x = P(A) $
   - $\forall y (y \in x \iff y \subseteq A) $
   - $\forall y (y \in x \iff \forall y (y \in x \implies y \in A)) $
 - $x \in \mathbb{P}(A) $
   - $x \subseteq A $
+- $x \in \cap F $
+  - (note here, A serves the same role as y above)
+  - $\forall A \in F(x \in A) $
+    - $\forall A ( A \in F \implies x \in A) $
+
+### Families of Sets
+
+- `intersection`
+  - $\cap F = \{x | \forall A \in F(x \in A) \} = \{x | \forall A(A \in F \implies x \in A) \} $
+  - $\cap F = \cap_{i \in I} A_i = \{x | \forall i \in I (x \in A_i) \} $
+- `union`
+  - $\cup F = \{x | \exists A \in F(x \in A) \} = \{x | \exists A (A \in F \land x \in A) \} $
+  - $\cup F = \cup_{i \in I} A_i = \{x | \exists i \in I(x \in A_i) \} $
