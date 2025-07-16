@@ -68,6 +68,16 @@ Three layers of notation:
 
 ### Families of Sets
 
+- a family is a set that contains other sets
+  - this necessitates using a double nested unpacker
+- $\mathbb{F} \subseteq \mathbb{P} $
+  - $\forall x (x \in F \implies x \in P(A)) $
+    - $x \subseteq P(A) $
+      - $\forall y (y \in x \implies y \in A) $
+    - $\forall x (x \in F \implies \forall y (y \in x \implies y \in A)) $
+
+#### Operations
+
 - `intersection`
   - $\cap F = \{x | \forall A \in F(x \in A) \} = \{x | \forall A(A \in F \implies x \in A) \} $
   - $\cap F = \cap_{i \in I} A_i = \{x | \forall i \in I (x \in A_i) \} $
