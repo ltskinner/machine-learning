@@ -79,8 +79,25 @@ Three layers of notation:
 #### Operations
 
 - `intersection`
-  - $\cap F = \{x | \forall A \in F(x \in A) \} = \{x | \forall A(A \in F \implies x \in A) \} $
+  - The elements that appear in **every** set
+  - $\cap F = \{x | \forall A \in F(x \in A) \} $
+    - "Is x in **every** set A in the family"
+  - $\cap F = \{x | \forall A(A \in F \implies x \in A) \} $
   - $\cap F = \cap_{i \in I} A_i = \{x | \forall i \in I (x \in A_i) \} $
 - `union`
-  - $\cup F = \{x | \exists A \in F(x \in A) \} = \{x | \exists A (A \in F \land x \in A) \} $
+  - All the elements that appear in **any** of the sets
+  - $\cup F = \{x | \exists A \in F(x \in A) \}$
+    - "Is there some set A, in the family F, such that $x \in A$"
+  - $\cup F = \{x | \exists A (A \in F \land x \in A) \} $
   - $\cup F = \cup_{i \in I} A_i = \{x | \exists i \in I(x \in A_i) \} $
+
+## General Comments
+
+- there are `flat sets` containing:
+  - contain basic objects like: numbers, strings, tuples
+  - in logic, checking properties of **values themselves**:
+    - $x = n^2 $
+    - $x \in N $
+    - $x \lt 10 $
+  - **Generated values**: $n^2 | n \in N $
+  - **Equality conditions**: $x = f(n) $
