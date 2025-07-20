@@ -26,6 +26,8 @@ Three Layers of Notation:
   - Makes a global claim about:
     - some of x $\exists x \in D (P(x)) $
     - all of x $\forall x \in D (P(x)) $
+  - **All** variables must be defined in terns of a $\forall $ or $\exists in \mathbb{X} $
+    - Unless we are coming from membership check form and the variable being checked has already been defined
 
 ## Skeletons
 
@@ -35,10 +37,10 @@ Three Layers of Notation:
 
 ## Part 1: Flat Set Builder <-> Quantified Logic
 
-- 1. Understand Set-Builder Syntax Semantics
-- 2. Translate Set Membership into Quantified Logic
-- 3. Move Between: Set-builder notation; Membership check expressions; Quantificational logic
-- 4. Know when to use \exists vs \forall
+- [x] 1. Understand Set-Builder Syntax Semantics
+- [x] 2. Translate Set Membership into Quantified Logic
+- [x] 3. Move Between: Set-builder notation; Membership check expressions; Quantificational logic
+- [x] 4. Know when to use \exists vs \forall
 
 ## Part 2: Families of Sets
 
