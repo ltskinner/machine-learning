@@ -23,21 +23,29 @@ Monday
 **Guiding Questions:**
 
 - What is this chapter trying to help me:
-  - ✅ Do: ...
+  - ✅ Do:
   - ✅ Prove: ...
   - ✅ Understand:
     - identify several proof-writing strategies
     - id which strategies will most likely work for various forms of hypotheses and conclusions
+    - understand how to write proofs incolving:
+      - negations and conditionals
+      - conjunctions and biconditionals
+      - disjunctions
+      - existence and uniqueness
 
 **Prediction:**
 
-> "This chapter probably teaches __ so I can __."
+> "This chapter probably teaches various strategies for chunking proofs so I can write solid, logically backed proofs."
 
 **What Should I be able to Answer by the End of this Chapter**
 
 - Core conceptual questions
+  - rules for proof writing
+  - strategies for approaching and solving
 - Technical mastery questions
 - Proof/intuition checkpoints
+  - when to use which strategy
 - Connection-to-practice questions
 
 ## 📘 2. Active Reading
@@ -189,6 +197,8 @@ This works for most proofs, but try other strategies first, however you can alwa
 
 >> if possible, reexpress in some other form
 
+!! Page 107, location 2861
+
 ####
 
 ## 🧠 3. Compression and Encoding
@@ -223,6 +233,8 @@ Wednesday
 - `goal`
   - the statement that remains to be proven
   - initially will be the `conclusion`, though may evolve several times through figuring out the proof
+- `modus ponens`
+- `modus tollens`
 
 ### 📏 Main Theorem Statements
 
