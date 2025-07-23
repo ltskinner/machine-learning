@@ -92,6 +92,7 @@ Tuesday
   - You are not convincing yourself, you are convincing everyone else
 - 3. Carefully distinguish between `assertions` and `assumptions`
 - 4. Its typically easier to prove a positive statement than a negative statement
+- 5. If you know something exists, you should give it a name (re: `existential instantiation` $\exists x P(x_0) $)
 
 ### Loose Strategies
 
@@ -99,7 +100,7 @@ Tuesday
 - Based on the logical form of the conclusion
   - Focus on transforming the problem into an equivalent one which is easier to solve
 
-### Formal Strategies
+### Proofs Involving Negation and Conditionals
 
 #### 1. Goal of the form $P \implies Q $
 
@@ -197,7 +198,72 @@ This works for most proofs, but try other strategies first, however you can alwa
 
 >> if possible, reexpress in some other form
 
-!! Page 107, location 2861
+### Proofs Involving Quantifiers
+
+#### Goal of the form $\forall x P(x) $
+
+>> let x stand for an arbitrary object and prove P(x)
+>> x must be a new variable (not already used in the proof for something else)
+
+```tex
+Before:
+  - Givens:
+  - Goal:
+    - $\forall x P(x) $
+
+After:
+  - Givens:
+  - Goal:
+    - P(x)
+
+Let x be arbitrary
+  [Proof of P(x) goes here.]
+Since x was arbitrary, we can conclude that $\forall x P(x) $
+```
+
+#### Goal of the form $\exists x P(x) $
+
+>> try to find a value of x for which you think P(x) will be True
+>> Start proof with "Let x = (my value)
+>> Prove P(x) for this value x
+>> again, x needs to be new variable
+
+```tex
+Before:
+  - Givens:
+  - Goal:
+    - $\exists x P(x) $
+
+After:
+  - Givens:
+    - x = (value you decided on)
+  - Goal:
+    - P(x)
+
+Let x = (the value you decided on).
+  [Proof of P(x) goes here.]
+Thus, $\exists x P(x) $
+```
+
+- Can be helpful to assume P(x) is true and then see if you can figure out what x must be, based on this assumption
+  - if working equations, amounts to solving the eqn for x
+- remember, the reasoning used to find a value for x will not appear in the final proof
+
+#### To use a given of the form $\exists x P(x) $
+
+>> introduce a new variable x_0 into the proof to stand for an object for which P(x_0) is true
+>> can now assume that P(x_0) is true - this is called `existential instantiation`
+
+Note, using a given of form $\exists x P(x) $ is very different from proving a goal of the form $\exists x P(x) $ because when using a given, you dont get to choose a particular value. You just assume x_0 stands for some object for which P(x_0) is true, but cant assume anything else about x_0
+
+- this is in contrast to a given of the form $\forall x P(x) $ which means you can assign any value for x
+
+Use this ASAP
+
+#### To use a given of the form $\forall x P(x) $
+
+>> Plug in any value
+>> called `universal instantiation`
 
 ####
 
