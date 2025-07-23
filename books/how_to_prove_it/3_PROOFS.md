@@ -234,11 +234,16 @@ Wednesday
   - the statement that remains to be proven
   - initially will be the `conclusion`, though may evolve several times through figuring out the proof
 - `modus ponens`
+  - if you know both P and $P \implies Q$ are true
+  - can conclude that Q must also be true
 - `modus tollens`
+  - if you know $P \implies Q$ is true and Q is false
+  - can conclude that P must also be balse
 
 ### 📏 Main Theorem Statements
 
 - `[Theorem Name]` [Plain language description]
+- just memorize `modus ponens` and `modus tollens`
 
 ### 💡 Core Takeaways
 
@@ -269,6 +274,8 @@ Thursday
 | Why ? |  |
 | How ? |  |
 | When ? |  |
+| `modus ponens` |  |
+| `modus tollens` |  |
 |  |  |
 
 ### 🧪 Re-derived Concept
