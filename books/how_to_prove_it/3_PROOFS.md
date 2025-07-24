@@ -29,10 +29,12 @@ Monday
     - identify several proof-writing strategies
     - id which strategies will most likely work for various forms of hypotheses and conclusions
     - understand how to write proofs incolving:
-      - negations and conditionals
-      - conjunctions and biconditionals
-      - disjunctions
-      - existence and uniqueness
+      - [x] negations and conditionals
+      - [x] quantifiers
+      - [x] conjunctions and biconditionals
+      - [x] disjunctions
+      - [ ] existence and uniqueness
+      - [ ] more examples
 
 **Prediction:**
 
@@ -102,7 +104,7 @@ Tuesday
 
 ### Proofs Involving Negation and Conditionals
 
-#### 1. Goal of the form $P \implies Q $
+#### 1. To Prove Goal of the form $P \implies Q $
 
 To prove a goal of the form $P \implies Q $
 
@@ -126,7 +128,7 @@ Suppose P.
 Therefore P \implies Q
 ```
 
-#### 2. Goal of the form $P \implies Q $
+#### 2. To Prove Goal of the form $P \implies Q $
 
 $P \implies Q $ is equivalent to its contrapositive $\lnot Q \implies \lnot P $
 
@@ -147,7 +149,7 @@ Suppose Q is false.
 Therefore P \implies Q
 ```
 
-#### 3. Goal of the form $\lnot P $
+#### 3. To Prove Goal of the form $\lnot P $
 
 >> Reexpress the goal in some other form, and then use one of the other proof strategies
 
@@ -171,7 +173,7 @@ Suppose P is true.
 Thus, P is false
 ```
 
-#### 5. Use a Given of the form $\lnot P $
+#### 5. To Use a Given of the form $\lnot P $
 
 >> If youre doing a proof by contradiction, try making P your goal
 >> If you can prove P, then the proof will be complete, because P contradicts the given \lnot P
@@ -194,13 +196,13 @@ Since we already know \lnot P, this is a contradiction
 
 This works for most proofs, but try other strategies first, however you can always fall back on this if youre really stuck
 
-#### 6. Use a Given of the form $\lnot P $
+#### 6. To Use a Given of the form $\lnot P $
 
 >> if possible, reexpress in some other form
 
 ### Proofs Involving Quantifiers
 
-#### Goal of the form $\forall x P(x) $
+#### 7. To Prove Goal of the form $\forall x P(x) $
 
 >> let x stand for an arbitrary object and prove P(x)
 >> x must be a new variable (not already used in the proof for something else)
@@ -221,7 +223,7 @@ Let x be arbitrary
 Since x was arbitrary, we can conclude that $\forall x P(x) $
 ```
 
-#### Goal of the form $\exists x P(x) $
+#### 8. To Prove Goal of the form $\exists x P(x) $
 
 >> try to find a value of x for which you think P(x) will be True
 >> Start proof with "Let x = (my value)
@@ -249,7 +251,7 @@ Thus, $\exists x P(x) $
   - if working equations, amounts to solving the eqn for x
 - remember, the reasoning used to find a value for x will not appear in the final proof
 
-#### To use a given of the form $\exists x P(x) $
+#### 9. To Use a Given of the form $\exists x P(x) $
 
 >> introduce a new variable x_0 into the proof to stand for an object for which P(x_0) is true
 >> can now assume that P(x_0) is true - this is called `existential instantiation`
@@ -260,12 +262,106 @@ Note, using a given of form $\exists x P(x) $ is very different from proving a g
 
 Use this ASAP
 
-#### To use a given of the form $\forall x P(x) $
+#### 10. To Use a Given of the form $\forall x P(x) $
 
 >> Plug in any value
 >> called `universal instantiation`
 
-####
+### Proofs Involving Conjunctions and Biconditionals
+
+#### 11. To Prove Goal of the form $P \land Q $
+
+>> Prove P and Q separately (treat as two separate goals)
+
+#### 12. To Use a Given of the form $P \land Q $
+
+>> Treat as two separate givens: P and Q
+
+#### 13. To Prove Goal of the form $P \iff Q $
+
+>> Prove $P \implies Q $ and $Q \implies P $ separately
+
+#### 14. To Use a Given of the form $P \iff Q $
+
+>> Treat as two separate givens $P \implies Q $ \land $Q \implies P $
+
+### 3.5 Proofs Involving Disjunctions
+
+#### 15. To Use a Given of the form $P \lor Q $
+
+>> break proof into cases:
+>> case 1: assume P is true and use this assumption to prove the goal
+>> case 2: assume Q is true and give another proof of the goal
+
+```tex
+Before:
+  - Givens:
+    - $P \lor Q $
+  - Goal
+
+After:
+
+Case 1:
+  Givens:
+    - P
+  Goal:
+
+Case 2:
+  Givens:
+    - Q
+  Goal
+
+
+Case 1. P is true.
+  [Proof of goal goes here.]
+Case 2. Q is true.
+  [Proof of goal goes here.]
+
+Sicne we know $P \lor Q$, these cases cover all the possibilities. Therefore the goal must be true.
+```
+
+#### 16. To Prove a Goal of the form $P \lor Q $
+
+>> break your proof into cases
+>> in each case, wither prove P or prove Q
+
+#### 17. To Prove a Goal of the form $P \lor Q $
+
+(note: this is a dupe title from above)
+
+>> if P is true, then clearly the goal is true
+>> so, you onlyneed to worry about the case in which P is false
+>> can complete the proof in this case by proving that Q is true
+
+```tex
+Before:
+  - Givens:
+  - Goal:
+    - $P \lor Q $
+
+After:
+  - Givens:
+    - $\lnot P $
+  - Goal:
+    - Q
+
+If P is true, then of course $P \lor Q $ is true. Now suppose P is false.
+  [Proof of Q goes here.]
+Thus, $P \lor Q $ is true.
+```
+
+#### 18. To Use a Given of the form $P \lor Q $
+
+(again: dupe but different strategy)
+
+Called `disjunctive syllogism `
+
+>> If also given $\lnot P $, or you can prove that P is false, the you can use this given to conclude that Q is true
+>> Similarly, if you are given $\lnot Q $ or can prove that Q is false, then you can conclude that P is true
+
+### Big TODO: go back and note when to use each
+
+### 3.5 Proofs Involving Disjunctions
 
 ## 🧠 3. Compression and Encoding
 
@@ -316,6 +412,10 @@ Wednesday
 - ...
 - ...
 - ...
+- [ ] 7/23/2025 - Did you go back and parse out the *when* each of these strategies is useful?
+  - this is critical metadata for identifying when to best employ each
+  - ABSOLUTELY worth memorizing each strategy directly
+    - w/ all assocaited metadata for employment
 
 ### 🔗 Connections to Prior Knowledge
 
