@@ -361,7 +361,44 @@ Called `disjunctive syllogism `
 
 ### Big TODO: go back and note when to use each
 
-### 3.5 Proofs Involving Disjunctions
+### 3.6 Existence and Uniqueness Proofs
+
+- the laws matter here:
+  - quantifier negation law
+  - de morgans law
+  - conditional law
+
+#### 19. To Prove a Goal of the form $\exists ! x P(x) $
+
+>> Prove $\exists P(x) $ and $\forall y \forall z ((P(y) \land P(z)) \implies y = z) $
+>> the first goal shows there exists an x such that P(x) is true
+>> the second shows that it is unique
+
+The two parts of this proof are sometimes labeled:
+
+- `existence`
+- `uniqueness`
+
+```tex
+Existence: [Proof of $\exists x P(x) $ goes here]
+Uniqueness: [Proof of $\forall y \forall z ((P(y) \land P(z)) \implies y = z) $ goes here.]
+```
+
+#### 20. To Prove a Goal of the form $\exists ! x P(x) $
+
+>> Prove $\exists x (P(x) \land \forall y (P(y) \implies y = x)) $
+>> use strategies from previous sections
+
+#### To Use a Given of the form $\exists ! x P(x) $
+
+Treat as two statements:
+
+>> 1. $\exists x P(x)$
+>> Choose name like $x_0$ to stand for some object such that $P(x_0) $ is true
+>> 2. $\forall y \forall z ((P(y) \land P(z)) \implies y = z) $
+>> says that if you come across two objects y and z such that P(y) and P(z) are both true, then you can conclude that y = z
+
+### 3.7 More Examples of Proof
 
 ## 🧠 3. Compression and Encoding
 
@@ -416,6 +453,8 @@ Wednesday
   - this is critical metadata for identifying when to best employ each
   - ABSOLUTELY worth memorizing each strategy directly
     - w/ all assocaited metadata for employment
+  - as part of indexing, do like 1.1, 2.7, 3.12, 4.20 etc
+    - learn full index to help stratify by source section [1, 2, 3, 4, 5, 6]
 
 ### 🔗 Connections to Prior Knowledge
 
