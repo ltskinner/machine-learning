@@ -354,7 +354,7 @@ Thus, $P \lor Q $ is true.
 
 (again: dupe but different strategy)
 
-Called `disjunctive syllogism `
+Called `disjunctive syllogism`
 
 >> If also given $\lnot P $, or you can prove that P is false, the you can use this given to conclude that Q is true
 >> Similarly, if you are given $\lnot Q $ or can prove that Q is false, then you can conclude that P is true
@@ -437,7 +437,7 @@ Wednesday
   - can conclude that Q must also be true
 - `modus tollens`
   - if you know $P \implies Q$ is true and Q is false
-  - can conclude that P must also be balse
+  - can conclude that P must also be false
 
 ### 📏 Main Theorem Statements
 
