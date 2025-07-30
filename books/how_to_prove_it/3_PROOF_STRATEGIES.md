@@ -13,10 +13,11 @@ What is the difference between a `conclusion` and a `goal`?
 | 0 | Init | Conclusion $P \implies Q $ | 0.1 | Conclusion |  | $T \implies T $ and $F \implies T $ so as long as Q can never be False, then $P \implies Q $ must be True. This is why we prove Q |
 | 1 |  | Goal $P \implies Q $ | 1.1a | Direct | New Given: P (is True); Goal: P |  |
 | 2 |  |  | 1.1b | Contrapositive | New Givens: $\lnot Q $; Goal: $\lnot P $ |  |
-| 3 | Negation and Conditionals | Goal $\lnot P $ | 1.2a | Reexpress |  |  |
-| 4 |  |  | 1.2b | Contradiction by **assuming** P is True |  |  |
-| 5 |  | Given $\lnot P $ | 1.3a | Contradiction by **proving** P is True |  |  |
+| 3 | Negation and Conditionals | Goal $\lnot P $ | 1.2a | Reexpress |  | Easier to comprehend positive statements than negative ones |
+| 4 |  |  | 1.2b | Contradiction by **assuming** P is True | New Given: P; Goal: Contradiction; |  |
+| 5 |  | Given $\lnot P $ | 1.3a | Contradiction by **proving** P is True | Goal: P (if doing proof by contradiction) |  |
 | 6 |  |  | 1.3b | Reexpress |  |  |
+| 6.1 | | Given $P \implies Q $| 1.4 | `modus ponens` and `modus tollens` | | |
 | 7 | Quantifiers | Goal $\forall x P(x) $ | 2.1 | Arbitrary x; Prove P(x) |  |  |
 | 8 |  | Goal $\exists x P(x) $ | 2.2 | Find value of x where P(x) True |  |  |
 | 9 |  | Given $\exists x P(x) $ | 2.3 | `existential instantiation` |  |  |

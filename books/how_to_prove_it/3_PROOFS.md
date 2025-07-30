@@ -200,6 +200,14 @@ This works for most proofs, but try other strategies first, however you can alwa
 
 >> if possible, reexpress in some other form
 
+#### 6.1 To Use a Given of the Form $P \implies Q $
+
+>> if you are also given P, or you can prove P is thrue, then you can use this given to conclude that Q is true.
+>> since it is equivalent to $\lnot Q \implies \lnot P $, if you can prove that Q is false, you can use this given to conclude that P is false
+
+- first rule is `modus ponens`
+- second rule is `modus tollens`
+
 ### Proofs Involving Quantifiers
 
 #### 7. To Prove Goal of the form $\forall x P(x) $
