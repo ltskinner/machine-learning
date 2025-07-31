@@ -18,9 +18,9 @@ What is the difference between a `conclusion` and a `goal`?
 | 5 |  | Given $\lnot P $ | 1.3a | Contradiction by **proving** P is True | Goal: P (if doing proof by contradiction) |  |
 | 6 |  |  | 1.3b | Reexpress |  |  |
 | 6.1 | | Given $P \implies Q $| 1.4 | `modus ponens` and `modus tollens` | | |
-| 7 | Quantifiers | Goal $\forall x P(x) $ | 2.1 | Arbitrary x; Prove P(x) |  |  |
-| 8 |  | Goal $\exists x P(x) $ | 2.2 | Find value of x where P(x) True |  |  |
-| 9 |  | Given $\exists x P(x) $ | 2.3 | `existential instantiation` |  |  |
+| 7 | Quantifiers | Goal $\forall x P(x) $ | 2.1 | Arbitrary x; Prove P(x) |  | Because x is a generic variable, proving this works for anything means it works for everything |
+| 8 |  | Goal $\exists x P(x) $ | 2.2 | Find value of x where P(x) True |  | Just need one instance to work |
+| 9 |  | Given $\exists x P(x) $ | 2.3 | `existential instantiation` |  | Pick arbitrary variable that satisfies P(x_0) as True |
 | 10 |  | Given $\forall x P(x) $ | 2.4 | `universal instantiation` |  |  |
 | 11 | Conjunctions and Biconditionals | Goal $P \land Q $ | 3.1 | Prove P and Q separately |  |  |
 | 12 |  | Given $P \land Q $ | 3.2 | P and Q as separate givens |  |  |
