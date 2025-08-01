@@ -22,7 +22,7 @@ What is the difference between a `conclusion` and a `goal`?
 | 8 |  | Goal $\exists x P(x) $ | 2.2 | Find value of x where P(x) True |  | Just need one instance to work |
 | 9 |  | Given $\exists x P(x) $ | 2.3 | `existential instantiation` |  | Pick arbitrary variable that satisfies P(x_0) as True |
 | 10 |  | Given $\forall x P(x) $ | 2.4 | `universal instantiation` |  |  |
-| 11 | Conjunctions and Biconditionals | Goal $P \land Q $ | 3.1 | Prove P and Q separately |  |  |
+| 11 | Conjunctions and Biconditionals | Goal $P \land Q $ | 3.1 | Prove P and Q separately |  | Simplify into building blocks - reduces complexity |
 | 12 |  | Given $P \land Q $ | 3.2 | P and Q as separate givens |  |  |
 | 13 |  | Goal $P \iff Q $ | 3.3 | Prove each implication direction separately |  |  |
 | 14 |  | Given of form $P \iff Q $ | 3.4 | Treat each implication as separate given |  |  |
