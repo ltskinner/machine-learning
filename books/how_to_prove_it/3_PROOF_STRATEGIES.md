@@ -26,10 +26,10 @@ What is the difference between a `conclusion` and a `goal`?
 | 12 |  | Given $P \land Q $ | 3.2 | P and Q as separate givens |  |  |
 | 13 |  | Goal $P \iff Q $ | 3.3 | Prove each implication direction separately |  |  |
 | 14 |  | Given of form $P \iff Q $ | 3.4 | Treat each implication as separate given |  |  |
-| 15 | Disjunctions | Given $P \lor Q $ | 4.1a | Prove two cases, assuming P and then Q are true |  |  |
+| 15 | Disjunctions | Given $P \lor Q $ | 4.1a | Prove two cases, assuming P and then Q are true |  | Two separate threads proving the goal given each P or Q are True |
 | 18 |  |  | 4.1b | `disjunctive syllogism` |  |  |
 | 16 |  | Goal $P \lor Q $ | 4.3 | Prove P or Q in separate cases |  |  |
-| 17 |  |  | 4.4 | Suppose P False, prove Q True |  |  |
+| 17 |  |  | 4.4 | Suppose P False, prove Q True |  | Negate P, prove Q |
 | 19 | Existence and Uniqueness | Goal $\exists ! x P(x) $ | 5.1a | 1. show `existence`, 2. show `uniqueness` |  |  |
 | 20 |  |  | 5.1b | Prove $\exists x (P(x) \land \forall y (P(y) \implies y = x)) $ |  |  |
 | 21 |  | Given $\exists ! x P(x) $ | 5.2 | Two statements |  |  |
