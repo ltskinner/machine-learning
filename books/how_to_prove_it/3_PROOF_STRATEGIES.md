@@ -1,5 +1,9 @@
 # Proof Strategies
 
+- A proof of a theorem is simply a deductive argument whose premises are the hypotheses of the theorem and whose conclusion is the conclusion of the theorem.
+- How you figure out and write up the proof (of a theorem) will depend mostly on the logical form of the conclusion.
+  - It will also likely depend on the logical forms of the hypotheses
+
 What is the difference between a `conclusion` and a `goal`?
 
 - `conclusion`
@@ -7,6 +11,14 @@ What is the difference between a `conclusion` and a `goal`?
 - `goal`
   - a statement or proposition you are trying to demonstrate as true
   - occur throughout the proof
+
+## Tips n Tricks
+
+- 0. identify the goal
+- 1. identify the givens
+- 2. identify plain english logical statements
+  - identify "if/then" patterns immediately
+- 3. convert $\leq $ into $\gt $ with contrapositive (negate and invert $ \implies $ statements)
 
 | index | id | Grouping | Form | Keyword | Aux Structures | Why works? |
 | - | - | - | - | - | - | - |
