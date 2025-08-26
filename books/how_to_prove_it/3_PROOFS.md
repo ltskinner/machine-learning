@@ -33,8 +33,8 @@ Monday
       - [x] quantifiers
       - [x] conjunctions and biconditionals
       - [x] disjunctions
-      - [ ] existence and uniqueness
-      - [ ] more examples
+      - [x] existence and uniqueness
+      - [x] more examples
 
 **Prediction:**
 
