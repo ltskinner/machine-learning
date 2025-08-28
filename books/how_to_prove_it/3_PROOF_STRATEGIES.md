@@ -19,6 +19,9 @@ What is the difference between a `conclusion` and a `goal`?
 - 2. identify plain english logical statements
   - identify "if/then" patterns immediately
 - 3. convert $\leq $ into $\gt $ with contrapositive (negate and invert $ \implies $ statements)
+- 4. hypothesis and conclusion
+  - hypothesis is the "suppose"
+  - conclusion is the "then"
 
 | index | id | Grouping | Form | Keyword | Aux Structures | Why works? |
 | - | - | - | - | - | - | - |
