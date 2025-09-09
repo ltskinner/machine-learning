@@ -27,7 +27,7 @@ What is the difference between a `conclusion` and a `goal`?
 
 | index | id | Grouping | Form | Keyword | Aux Structures | Why works? |
 | - | - | - | - | - | - | - |
-| 0 | Init | Conclusion $P \implies Q $ | 0.1 | Conclusion |  | $T \implies T $ and $F \implies T $ so as long as Q can never be False, then $P \implies Q $ must be True. This is why we prove Q |
+| 0 | Init | Conclusion $P \implies Q $ | 0.1 | Conclusion |  | $T \implies T $ and $F \implies T $ so as long as Q can never be False, then $P \implies Q $ must always be True. This is why we prove Q |
 | 1 |  | Goal $P \implies Q $ | 1.1a | Direct | New Given: P (is True); Goal: P |  |
 | 2 |  |  | 1.1b | Contrapositive | New Givens: $\lnot Q $; Goal: $\lnot P $ |  |
 | 3 | Negation and Conditionals | Goal $\lnot P $ | 1.2a | Reexpress |  | Easier to comprehend positive statements than negative ones |
