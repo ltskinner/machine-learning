@@ -24,6 +24,8 @@ What is the difference between a `conclusion` and a `goal`?
   - conclusion is the "then"
 - 5. weird thing where you can take a "true" given and invert it and make something else a goal... 3.2 stuff
 - 6. "since", "but", "it follows", "thus", "we can conclude"
+- 7. "it cannot" > use contradiction
+- 8. if told to solve with contradiction, negate original goal to create conditions for contradiction to appear
 
 | index | id | Grouping | Form | Keyword | Aux Structures | Why works? |
 | - | - | - | - | - | - | - |
