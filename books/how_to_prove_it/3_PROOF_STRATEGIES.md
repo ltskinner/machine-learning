@@ -30,6 +30,7 @@ What is the difference between a `conclusion` and a `goal`?
   - restate the goals in this form
   - also be sure to introduce the "let x be some arbitrary/particular element of"
     - just be explicit
+- 10. When given \exists "then we can choose some x_0 such that (P(x_0) -> Q(x_0))"
 
 | index | id | Grouping | Form | Keyword | Aux Structures | Why works? |
 | - | - | - | - | - | - | - |
@@ -42,7 +43,7 @@ What is the difference between a `conclusion` and a `goal`?
 | 6 |  |  | 1.3b | Reexpress |  |  |
 | 6.1 | | Given $P \implies Q $| 1.4 | `modus ponens` and `modus tollens` | | |
 | 7 | Quantifiers | Goal $\forall x P(x) $ | 2.1 | Arbitrary x; Prove P(x) |  | Because x is a generic variable, proving this works for anything means it works for everything |
-| 8 |  | Goal $\exists x P(x) $ | 2.2 | Find value of x where P(x) True |  | Just need one instance to work |
+| 8 |  | Goal $\exists x P(x) $ | 2.2 | Find value of x where P(x) True (like $x_0$) |  | Just need one instance to work |
 | 9 |  | Given $\exists x P(x) $ | 2.3 | `existential instantiation` |  | Pick arbitrary variable that satisfies P(x_0) as True |
 | 10 |  | Given $\forall x P(x) $ | 2.4 | `universal instantiation` |  |  |
 | 11 | Conjunctions and Biconditionals | Goal $P \land Q $ | 3.1 | Prove P and Q separately |  | Simplify into building blocks - reduces complexity |
