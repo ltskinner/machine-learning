@@ -34,7 +34,7 @@ What is the difference between a `conclusion` and a `goal`?
 
 | index | id | Grouping | Form | Keyword | Aux Structures | Why works? |
 | - | - | - | - | - | - | - |
-| 0 | Init | Conclusion $P \implies Q $ | 0.1 | Conclusion |  | $T \implies T $ and $F \implies T $ so as long as Q can never be False, then $P \implies Q $ must always be True. This is why we prove Q |
+| 0 | Init | Conclusion $P \implies Q $ | 0.1 | Conclusion | Assume P is True; Then prove Q | $T \implies T $ and $F \implies T $ so as long as Q can never be False, then $P \implies Q $ must always be True. This is why we prove Q |
 | 1 |  | Goal $P \implies Q $ | 1.1a | Direct | New Given: P (is True); Goal: P |  |
 | 2 |  |  | 1.1b | Contrapositive | New Givens: $\lnot Q $; Goal: $\lnot P $ |  |
 | 3 | Negation and Conditionals | Goal $\lnot P $ | 1.2a | Reexpress |  | Easier to comprehend positive statements than negative ones |
@@ -57,3 +57,132 @@ What is the difference between a `conclusion` and a `goal`?
 | 19 | Existence and Uniqueness | Goal $\exists ! x P(x) $ | 5.1a | 1. show `existence`, 2. show `uniqueness` |  |  |
 | 20 |  |  | 5.1b | Prove $\exists x (P(x) \land \forall y (P(y) \implies y = x)) $ |  |  |
 | 21 |  | Given $\exists ! x P(x) $ | 5.2 | Two statements |  |  |
+
+## Basics
+
+- Prove Conclusion: $P \implies Q $
+  - What:
+    - the final statement reached at the end of a completed proof
+  - How:
+    - Assume P is True
+    - Then Prove Q
+  - Why:
+    - $T \implies T $ and $F \implies T $
+    - If Q is never False
+    - Then $P \implies Q $ must always be True
+- Prove a Goal: $P \implies Q $
+  - **Normal**
+  - What:
+    - a statement or proposition you are trying to demonstrate as true
+    - occur throughout the proof
+  - How:
+    - Assume P is True
+      - Givens: P
+    - Then Prove Q
+      - Goal: Q
+  - Sketch:
+    - `Suppose` P
+      - >> Proof of Q
+    - `Therefore`, $P \implies Q$
+- Prove a Goal: $P \implies Q $
+  - **Contrapositive**
+  - How:
+    - Assume Q is False
+      - Givens: $\lnot Q $
+    - Then Prove $\lnot P $
+  - Sketch:
+    - `Suppose` Q is False
+      - >> Proof of $\lnot P $
+    - `Therefore`, $P \implies Q $
+
+## Negation and Conditionals
+
+- Prove a Goal: $\lnot P$
+  - **Reexpress** goal in some other form
+  - Why:
+    - Easier to comprehend positive statements than negative ones
+- Prove a Goal: $\lnot P $
+  - **Contradiction**
+  - How:
+    - Before:
+      - Goal: $\lnot P $
+    - Assume P
+      - Givens: P
+    - Then try to reach contradiction
+      - Goal: contradiction
+  - Sketch:
+    - `Suppose` P is True
+      - >> Proof of contradiction
+    - `Thus`, P is false
+- Use a Given: $\lnot P $
+  - When doing proof by **Contradiction**
+  - Prove $P$, b/c contradicts $\lnot P $
+  - How:
+    - Before:
+      - Given: $\lnot P $
+      - Goal: contradiction
+    - After:
+      - Given: $\lnot P $
+      - Goal: $P $
+  - Sketch:
+    - >> Proof of P
+    - `Since` we already know $\lnot P $, this is a contradiction.
+- Use a Given: $\lnot P $
+  - **Reexpress**
+- Use a Given: $P \implies Q $
+  - Path 1. `Modus Ponens`:
+    - If you know P and $P \implies Q $ are True,
+    - Then Q must also be True
+  - Path 2. `Modus Tollens`
+    - If you know $P \implies Q $ is True and Q is False,
+    - Then P must also be False
+
+## Quantifiers
+
+- Prove a Goal: $\forall x P(x) $
+  - **arbitrary x**
+    - (note - if 'x' is literally already in use, pick something like 'y' or w/e)
+  - How:
+    - Before:
+      - Goal: $\forall x P(x) $
+    - After:
+      - Goal: $P(x) $
+  - Sketch:
+    - `Let` x be `arbitrary`.
+      - >> Proof of P(x)
+    - `Since` x was `arbitrary`, we can conclude that $\forall P(x) $
+- Prove a Goal: $\exists x P(x) $
+  - **Literal value**
+  - How:
+    - Before:
+      - Given: $\exists x P(x) $
+    - 1 Find value of x that makes $P(x) $ True
+    - 2 Prove $P(x)$ (for this specific x)
+    - After:
+      - Given: x (that we chose)
+      - Goal: $P(x) $
+  - Sketch:
+    - `Let` x = (my value)
+      - >> Proof of $P(x)$
+    - `Thus`, $\exists x P(x) $
+- Use Given: $\exists x P(x) $
+  - **Existential instantiation**
+  - Assume $x_0 $ is some object for which $P(x_0) $ is True
+    - Assume nothing else
+    - Insert this immediately - dont wait
+  - How:
+    - Before:
+      - Given: $\exists x P(x) $
+    - 1 Introduce new variable $x_0 $ (must be new new variable id)
+    - 2 Insert to $P(x_0)$ and assume True
+    - After:
+      - Given: $P(x_0) $ (is True)
+- Use Given: $\forall x P(x) $
+  - **Universal instantiation**
+  - Wait - dont do until have a need for $P(a)$
+    - This says that P(a) is trye no matter what value is assigned to a
+  - How:
+    - Before:
+      - Given: $\forall x P(x) $
+    - After:
+      - Given: $P(a) $ (is True)
