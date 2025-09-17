@@ -22,6 +22,7 @@ What is the difference between a `conclusion` and a `goal`?
 - 4. hypothesis and conclusion
   - hypothesis is the "suppose"
   - conclusion is the "then"
+- 4. If doing "multiply both sides by" operation, need to check that the expression is nonnegative (i.e. > 0). Just look at the numbers and use your brain
 - 5. weird thing where you can take a "true" given and invert it and make something else a goal... 3.2 stuff
 - 6. "since", "but", "it follows", "thus", "we can conclude"
 - 7. "it cannot" > use contradiction
