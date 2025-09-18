@@ -27,11 +27,11 @@ What is the difference between a `conclusion` and a `goal`?
 - 6. "since", "but", "it follows", "thus", "we can conclude"
 - 7. "it cannot" > use contradiction
 - 8. if told to solve with contradiction, negate original goal to create conditions for contradiction to appear
-- 9. When working exclusively on sets, we need the \forall and \exists and to introduce new variables
+- 9. When working exclusively on sets, we need the $\forall$ and $\exists$ and to introduce new variables
   - restate the goals in this form
   - also be sure to introduce the "let x be some arbitrary/particular element of"
     - just be explicit
-- 10. When given \exists "then we can choose some x_0 such that (P(x_0) -> Q(x_0))"
+- 10. When given $\exists$ "then we can choose some x_0 such that (P(x_0) -> Q(x_0))"
 
 | index | id | Grouping | Form | Keyword | Aux Structures | Why works? |
 | - | - | - | - | - | - | - |
