@@ -87,11 +87,15 @@ What is the difference between a `conclusion` and a `goal`?
     - `Therefore`, $P \implies Q$
 - Prove a Goal: $P \implies Q $
   - **Contrapositive**
+  - Declare: "We will prove the contrapositive"
+    - dont say "this is contradiction"
+    - need to negate the P from $P \implies Q $ after we have Supposed it into a given
   - How:
     - Assume Q is False
       - Givens: $\lnot Q $
     - Then Prove $\lnot P $
   - Sketch:
+    - `We will prove the contrapositive`
     - `Suppose` Q is False
       - >> Proof of $\lnot P $
     - `Therefore`, $P \implies Q $
