@@ -25,7 +25,7 @@ What is the difference between a `conclusion` and a `goal`?
 - 4. If doing "multiply both sides by" operation, need to check that the expression is nonnegative (i.e. > 0). Just look at the numbers and use your brain
 - 5. weird thing where you can take a "true" given and invert it and make something else a goal... 3.2 stuff
 - 6. "since", "but", "it follows", "thus", "we can conclude"
-- 7. "it cannot" > use contradiction
+- 7. "it cannot" >> use contradiction
 - 8. if told to solve with contradiction, negate original goal to create conditions for contradiction to appear
 - 9. When working exclusively on sets, we need the $\forall$ and $\exists$ and to introduce new variables
   - restate the goals in this form
