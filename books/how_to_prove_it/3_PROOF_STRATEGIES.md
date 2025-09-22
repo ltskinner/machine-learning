@@ -89,7 +89,18 @@ What is the difference between a `conclusion` and a `goal`?
   - **Contrapositive**
   - Declare: "We will prove the contrapositive"
     - dont say "this is contradiction"
-    - need to negate the P from $P \implies Q $ after we have Supposed it into a given
+    - need to negate the P from $P \implies Q $ after we have "Supposed" it into a given
+  - Difference between `contradiction` and `contrapositive`
+    - `Contradiction`
+      - the "parent" class
+      - used for *any* statement (and yes, just need to negate whatever the original statement is)
+      - "push until you break something"
+    - `Contrapositive`
+      - Special case of `contradiction`
+      - Consider the goal of form $P \implies Q $ (do NOT `Suppose` P and make the goal Q)
+      - Instead of prove $P \implies Q $ directly,
+        - prove its logical equivalent $\lnot Q \implies \lnot P $
+          - (Essentially a form of **reexpressing** the original goal)
   - How:
     - Assume Q is False
       - Givens: $\lnot Q $
@@ -144,6 +155,15 @@ What is the difference between a `conclusion` and a `goal`?
 
 ## Quantifiers
 
+"If you can give a proof of the goal P(x) that would work no matter what x was, then you can conclude that $\forall x P(x) $ must be true" - x must be arbitrary
+
+Recall that $\forall x \in A P(x) $ means the same thing as $\forall x (x \in A \implies P(x)) $
+
+- Here, do:
+  - Suppose $x \in A $
+    - Let x be arbitrary (based on the need to prove P(x))
+  - (basically just order of operations with the $\implies $ operator - it would be improper to begin with the "let x be arbitrary" here)
+
 - Prove a Goal: $\forall x P(x) $
   - **arbitrary x**
     - (note - if 'x' is literally already in use, pick something like 'y' or w/e)
@@ -155,7 +175,7 @@ What is the difference between a `conclusion` and a `goal`?
   - Sketch:
     - `Let` x be `arbitrary`.
       - >> Proof of P(x)
-    - `Since` x was `arbitrary`, we can conclude that $\forall P(x) $
+    - `Since` x was `arbitrary`, we can conclude that $\forall P(x) $ so, (original non-$\forall$-ed version of P(x))
 - Prove a Goal: $\exists x P(x) $
   - **Literal value**
   - How:
