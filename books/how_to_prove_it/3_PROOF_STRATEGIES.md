@@ -178,6 +178,9 @@ Recall that $\forall x \in A P(x) $ means the same thing as $\forall x (x \in A 
     - `Since` x was `arbitrary`, we can conclude that $\forall P(x) $ so, (original non-$\forall$-ed version of P(x))
 - Prove a Goal: $\exists x P(x) $
   - **Literal value**
+  - This one is a real pain in the ass
+    - so whatever variable is defined after the "then", you need to rewrite whatever equation in terms of that
+    - probable general rule of thumb, take any given and algebraically move around until ugly side is clean, and clean side is ugly
   - How:
     - Before:
       - Given: $\exists x P(x) $
@@ -195,6 +198,7 @@ Recall that $\forall x \in A P(x) $ means the same thing as $\forall x (x \in A 
   - Assume $x_0 $ is some object for which $P(x_0) $ is True
     - Assume nothing else
     - Insert this immediately - dont wait
+    - Can be useful to assume that "someone else" picked this, so you have absolutely minimal information about it other than it exists
   - How:
     - Before:
       - Given: $\exists x P(x) $
@@ -205,7 +209,7 @@ Recall that $\forall x \in A P(x) $ means the same thing as $\forall x (x \in A 
 - Use Given: $\forall x P(x) $
   - **Universal instantiation**
   - Wait - dont do until have a need for $P(a)$
-    - This says that P(a) is trye no matter what value is assigned to a
+    - This says that P(a) is true no matter what value is assigned to a
   - How:
     - Before:
       - Given: $\forall x P(x) $
