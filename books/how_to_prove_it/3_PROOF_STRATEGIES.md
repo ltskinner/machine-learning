@@ -210,7 +210,7 @@ Recall that $\forall x \in A P(x) $ means the same thing as $\forall x (x \in A 
       - `Suppose` $\exists $ (your clause)
         - `Then we can choose some` $x_0$ such that (your clause instantiated w P(x_0)).
           - >> Rest of proof
-        - Since we have found a particular value of x for which P(x) holds...
+        - Since we have found a particular value of x for which P(x) holds, we can `conclude` that
       - `Thus` ...
 - Use Given: $\forall x P(x) $
   - **Universal instantiation**
