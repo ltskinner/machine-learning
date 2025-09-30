@@ -190,7 +190,7 @@ Recall that $\forall x \in A P(x) $ means the same thing as $\forall x (x \in A 
       - Given: x (that we chose)
       - Goal: $P(x) $
   - Sketch:
-    - `Let` x = (my value)
+    - `Let` x = (my value), `which is defined since` (some rule about type of number and other givens)
       - >> Proof of $P(x)$
     - `Thus`, $\exists x P(x) $
 - Use Given: $\exists x P(x) $
