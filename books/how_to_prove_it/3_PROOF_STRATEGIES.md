@@ -221,3 +221,28 @@ Recall that $\forall x \in A P(x) $ means the same thing as $\forall x (x \in A 
       - Given: $\forall x P(x) $
     - After:
       - Given: $P(a) $ (is True)
+
+## Conjunctions and Biconditionals
+
+- Prove a Goal: $P \land Q $
+  - Prove P and Q separately
+    - one goal for P
+    - and another goal for Q
+  - Why:
+    - Simplify into building blocks to **reduce complexity**
+- Use Given: $P \land Q $
+  - Treat P and Q as separate givens
+- Prove a Goal: $P \iff Q $
+  - Prove separately:
+    - Prove $P \implies Q $ as distinct goal
+    - Prove $Q \implies P $ as distinct separately
+  - Tip:
+    - Use two separate free variables (like x and y) to keep things from getting confusing
+    - In many cases, the proof steps for each respective direction are reverses of each other
+    - use this for {set} = {set} type proofs
+    - start with the "final equivalence" of the thing that must be equal = to be true
+      - and then work backwards to the $\iff $ goal
+- Use Given: $P \iff Q $
+  - Treat as two separate givens:
+    - Given $P \implies Q $
+    - Given $Q \implies P $
