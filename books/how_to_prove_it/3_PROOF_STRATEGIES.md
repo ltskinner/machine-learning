@@ -232,6 +232,7 @@ Recall that $\forall x \in A P(x) $ means the same thing as $\forall x (x \in A 
     - Simplify into building blocks to **reduce complexity**
 - Use Given: $P \land Q $
   - Treat P and Q as separate givens
+    - like two separate line items, not with the $\land $ operator
 - Prove a Goal: $P \iff Q $
   - Prove separately:
     - Prove $P \implies Q $ as distinct goal
