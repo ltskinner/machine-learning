@@ -161,7 +161,7 @@ Two flavors:
   - typically use multiple tree-based models (such as decision or regression trees)
   - can be further split into:
     - averaging methods
-      - Gagging, random forests
+      - Bagging, random forests
     - boosting approaches
       - sequentially adds new ensemble members to reduce errors of previous members
 - heterogeneous predictors
@@ -271,7 +271,7 @@ In p18s, learning is performed in two steps:
 - 1. Constructing complex relational features, transforming the relational representation into a propositional single-table format
 - 2. Applying a propositional learner on the transformed single-table representation
 
-Basically, construct a bunch of complex feature relations, *then* bring forward variety of queries q1, ..., 1n, and complete the table to True or False values
+Basically, construct a bunch of complex feature relations, *then* bring forward variety of queries q1, ..., qn, and complete the table to True or False values
 
 Note: the propositoinal representations (a single table format) impose the constraint that: each training example is represented by a single fixed-length tuple; the transformation into propositoinal representation can be done with many ML or data mining tasks in mind (such as classification, association discovery, clustering, etc)
 
@@ -290,3 +290,181 @@ For some relational problems, there may not exist an elegant propositoinal encod
   - here, the problem is naturally represented using multiple relations
 
 ## 2.4 Network Analysis
+
+For non-tabular data, especially when instances are interconnected to a varying (non-fixed) number of other instances. Representing each connection from an instance as a separate col would result in a different number of columns for each row. Alternatively, if we encoded connections of an instance with a single column, columns would have to contain composite data structures of varying length (such as lists)
+
+Alternative is to represent as a network
+
+Network analysis grounded in:
+
+- mathematical graph theory
+- social science
+
+Information networks: directed connections encode flow of information between nodes
+
+### 2.4.1 Selected Homogeneous Network Analysis Tasks
+
+Network node classification
+
+- given a network and class labels for some of the network entities
+  - predict the class labels for the rest of the tntities in the network
+    - known as `label propagation`
+
+Link Prediction
+
+- focuses on unknown connections between the entities
+- assume some edges not known
+- some approaches
+  - assign score s(u,v) to each pair of vertices u and v, which models probabilitiy of the connected vertices
+  - calculate score as product of vertex degrees
+  - number of common neighbors of two vertices
+
+Community detection
+
+- community summarized as:
+  - a group of network nodes, with dense links within the group and sparse links between the rest of the groups
+
+Network node ranking
+
+- objective of ranking in information networks is to assess the relevance of a given object:
+  - globally (concerning the whole graph)
+  - locally (relative to some object in graph)
+- PageRank is one example
+  - random walk style - each edge has some probability of it
+    - the PageRank of the vertex is the expected proportion of time the walker spends in the vertex
+  - score propagation
+
+### 2.4.2 Selected Heterogeneous Network Analysis Tasks
+
+Authority ranking
+
+- rank vertices of a bipartite network
+
+Ranking based clustering
+
+- joins ranking and clustering
+  - RankClus
+    - for bipartite information networks
+  - NetClus
+    - networks with star schema
+  - both of these
+    - cluster entities into certain types
+    - then rank entities within clusters
+
+Classification through label propagation
+
+- find probability distribution of node being labeled with a positive label
+- GNETMINE
+  - idea of knowledge propagation through heterogeneous informatoin network to find probability estimates for labels of the unlabeled data
+
+Ranking based classification
+
+- builds on GNETMINE:
+  - RankClass relies on within-class ranking functions to achieve better classification results
+
+Relational link prediction
+
+- expanding ideas of link prediction from homogeneous information networks
+  - link prediction for each pair of object types in the network
+  - where the score is higher if the two objects are likely to be linked
+
+Semantic link association prediction
+
+- Semantic Link Assocaiation Prediction (SLAP) (bro lmao)
+  - statistical model
+  - measures associations between elements of a heterogeneous network
+
+### 2.4.3 Semantic Data Mining
+
+Domain specific knowledge (background knowledge) usually structured as taxonomies (or some more elaborate knowledge structures curated by human experts)
+
+Ongologies are directed acyclic graphs, formed of concepts and their relations, encoded as subject-predicate-object (s, p, o) triplets
+
+`Semantic Data Mining (SDM)` is when learning is performed on the knowledge structure directly
+
+- goal:
+  - find descriptions of target class instances as a set of rules of the form TargetClass $\Longleftarrow $ Explanation
+    - where the explanation is a logical conjunction of terms from the ontology
+    - this has roots in symbolic rule learning, subgroup discovery, and enrichment analysis
+
+Semantics-aware learning:
+
+- entity resolutoin
+- heterogeneous network embedding
+- author profiling
+- recommendation systems
+- ontology learning
+
+### 2.4.4 Network Representation Learning
+
+Process of:
+
+- transforming a network
+  - topology
+  - node and edge labels
+- into a vector representation format
+
+In transformed vector representation:
+
+- rows correspond to individual network nodes
+- columns correspond to automatically constructed features used for describing properties of nodes
+- (rarely) rows correspond to edges and columns to their properties
+
+Knowledge Graphs babyy
+
+## 2.5 Evaluation
+
+- k-fold cross-validation
+
+### 2.5.1 Classifier Evaluation Measures
+
+- tp, fp, fn, tn
+- acc = (tp + tn) / all
+- error = 1 - acc
+- precision
+- recall
+- f-measure
+
+### 2.5.2 Rule Evaluation Measures
+
+For data mining, including association rule learning and subgroup discovery, assess rule quality by computing `coverage` and `support` of each individual rule R
+
+- Coverage(R) = |TP| + |FP|
+  - total number of instances covered by the rule
+- Support(R) = (|TP| + |FP|) / |all|
+
+Both coverage and support assume binary class and return values in [0,1] range, where larger values mean better rules
+
+- Lift(R) = Support(R) / $\hat{p} $
+  - frequently used measure
+  - ratio between support and expected support
+  - $\hat{p} = \frac{\|P\|}{\|E\|} $
+    - corresponding to the support of the empty rule that classifies all examples as positive
+  - range is [0, \inf], where larger values indicate better rules
+
+To eval the whole rule set, treat rule set as any other classifier, using eval measures such as class accuracy
+
+## 2.6 Data Mining and Selected Data Mining Platforms
+
+### 2.6.1 Data Mining
+
+- ML for supervised learning
+- data mining for pattern mining
+
+Notable approaches
+
+- association rule learning
+- `mining closed itemsets` and `maximal frequent itemsets` for unlabeled data
+  - `itemset` is **closed** if none of its immediate supersets has the same support as the itemset
+  - `itemset` is **maximally frequent** if none of its immediate supersets is frequent
+  - can be used to analyze labeled data
+    - adapt closed sets mining to task of discriminating different classes by contrasting covering properties on the positive and negative samples
+- subgroup discovery is cool
+  - aims to find interesting patterns as sets of individual rules that best describe the target class
+- contrast set mining
+  - learns patterns that differentiate one group of instances from another
+- emerging pattern mining algorithms
+  - construct itemsets that significantly differ from one class to the other
+  - I feel like there might be something here...
+
+### 2.6.2 Selected Data Mining Platforms
