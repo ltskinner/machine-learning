@@ -22,3 +22,6 @@
   - then, the kernel function on instances $x_1$ and $x_2 $ is defined as:
   - $k(x_1, x_2) = \phi(x_1)^T \cdot \phi(x_2) $
   - Kernel fns allow learning in a **high dimensional, implicit feature space without computing the explicit representation of the data in that space**
+- Boosting is sick nasty
+
+## [Chapter 3: Text Embeddings](./CHAPTER_3.md)
