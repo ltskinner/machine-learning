@@ -218,6 +218,177 @@ $= \sum_{i=1}^{\|V\|} \sum_{j=1}^{\|V\|} f(C_{ij})(\hat{w}_{i}^{T}\hat{w}_{j} + 
 - $f(C_{ij}) $ is weighting function that assigns relatively lower weights to rare and higher weight to frequent cooccurrences
 - bi and bj are bias terms
 
-GloVe is comparable and in some cases better than populat word2vec
+GloVe is comparable and in some cases better than popular word2vec
 
 Shortcomings: they both produce a single vector, disregard different meanings (plant = grow or machinery)
+
+### 3.3.3 Contextual Word Embeddings
+
+Problem with word3vec: failure to express polysemous words
+
+- the final vector is placed somewhere in the weighted middle of all words meanings
+  - thus, rare meanings are poorly expressed
+
+Idea of contextual word embeddings: generate a different vector for each context a word appears in (context is typically defined sentence wise and solves problem of polysemy to a large extent)
+
+NN training takes pairs of neighboring words and uses one as an input and the other as the prediction.
+
+Language modeling:
+
+- frequent approach is to concatenate weights from several layers into a vector
+  - note: this follows step of encoding inputs via word2vec before doing classification or w/e
+- often more convenient ot use the whole pretrained LM as a starting point (transfer learning)
+
+Main representatives of contextual embeddings:
+
+#### ELMo (Embeddings from Language Models)
+
+Bro the first of an era this was such a sick time to be doing this stuff
+
+- actual embeddings are bidirectional LSTM
+  - higher level layers capture context-dependent aspects of the input
+  - lower level layers capture aspects of the syntax
+- treats input on character level
+- builds words from subword tokens (groups of characters)
+  - trained one sentence as a time as input
+
+Outperformed previous pretrained word embeddings (word2vec and GloVe) on many tasks
+
+- If **explicit vectors are required**, ELMos compact three-layer architecture may be preferable to BERTs deeper architecture
+
+#### ULMFiT (Universal Language Model Fine-Tuning)
+
+- Aims to transfer knowledge captured in a source task to one or more target tasks
+  - language modeling is the source task
+- LSTM w dropout
+- 3 phases of training:
+  - general domain LM training
+  - target task LM fine-tuning
+  - target task classifier fine-tuning
+    - in each fine-tuning, gradually start reactivating different layers of the network to allow adaptation to target domain
+    - basically diff learning rate for each layer
+      - reccomended to geometrically decreasing
+
+#### BERT (Bidirectional Encoder Representaitons from Transformers)
+
+The GOAT dude bless
+
+- masked language models, inspired by gap-filling tests
+- another task: if two sentences appear in a sequence
+
+#### UniLM (Universal Language Model)
+
+- extends learning tasks of BERT
+  - masked language modeling
+  - predicting if two sentences are consecuitive
+  - >> sequence to sequence prediction task
+- left to right masked word prediction
+- right to left masked word prediction
+- seq-t0-seq predicts masked word in second (target) sequence based on words in first (source) sequence
+
+To predict tokens in the second segment, UniLM learns to encode the first segment. In this way, the gap-filling task corresponds to sequence-to-sequence LM and is composed of two parts, encoder and decoder. The encoder part is bidirectional, and the decoder is unidirectional (left-to-right) *(is this fully correct?)*
+
+Similar to other encoder-decoder models, this can be exploited for text generation tasks such as summarization
+
+## 3.4 Sentence and Document Embeddings
+
+Like word embeddings, embeddings can be constructed for longer units of texts such as sentences, paragraphs, and documents
+
+The longer the text, the more challenging to capture the semantics, which must be encapsulated in the embedded vectors, and is much more diverse and complex than the semantics of words
+
+- Deep averaging network
+  - simplest approach
+  - average word embeddings of all words
+  - one apprach (deep averaging network):
+    - first averages embeddings of words and bigrams
+    - then, uses them as input to ffn dnn to produce sentence embeddings
+- doc2vec
+  - extension of word2vec
+  - behave as if a doc has another floating word-like vector (named doc-vector) contributing to all training predictions
+  - `paragraph vector-distributed memory (PV-DM)` is analogous to the word2vec CBOW variant
+   - doc-vectors are obtained by training a nn on the `synthetic task` (bro love this term) of predicting a center word based on an average of both context word-vectors and the documents doc-vector
+  - `paragraph vector-distributed bag of words (PV-DBOW)` is analogous to word2vec skip-gram variant
+    - doc vecs trained on synthetic task of predicting a target word just from the documents doc-vector
+- Transformer-based universal sentence encoder
+  - skip-thought tasks
+    - unsupervised learning from arbitrary running text (based on an input sequence)
+    - task is to predic the previous and next sentence around a given sentence
+  - conversational input-response task
+    - assures inclusion of parsed conversation data
+      - uses pairs of email messages and their responses
+
+## 3.5 Cross-Lingual Embeddings
+
+Has been observed that dense word embedding spaces exhibit similar structures across languages
+
+Assuming embedding vectors in matrix, can use a transformation that approx aligns vector spaces of two languages L1 and L2:
+
+- $W\cdot L_2 \approx L_1 $
+
+Alignment transformations:
+
+- supervised
+  - obtained from dictionary
+- semi-supervised
+  - small seeding dictionary to construct initial mappings that more words can be derived from
+- unsupervised
+  - initial matching words are obtained by frequence of words in two languages or a learning task
+    - referred to as "dictionary induction"
+
+## 3.6 Intrinsic Evaluation of Text Embeddings
+
+### Extrinsic Evaluation
+
+- most common
+- quality of embedding evaluated in some downstream learning task, such as classification
+
+### Intrinsic Evaluation
+
+relates produced embeddings to similarity of entities in the original space
+
+- similarity in original space can be expressed with "loss function" used in the data transformatoin task
+- in some cases, can reconstruct original entities from transformed ones
+  - here *data reconstruction error* is the eval metric
+    - think: autoencoders
+- compare to human-annotated gold-standard dataset
+
+#### Word Analogy
+
+See Mikolov 2013 for "word analogy task for intrinsic evaluation of word embeddings"
+
+Definition 3.1 (Word Analogy)
+
+The word analogy task is defined as follows. For a given relationship a:b, the task is to find a term y for a given term x so that the relationship between x and y best resembles the given relationship a:b in the pair x:y
+
+There are two main groups of analogy categories: semantic and syntactic
+
+- Semantic relationships
+  - Consider capital of country, i.e. city a is capital of country b
+  - if given word pair is Helsinki:Finland
+  - and given Stockholm -> need to answer with Sweden
+- Syntactic relationship
+  - each category refers to a grammatical feature, e.g. 'adjective a is the comparative form of adjective b'
+  - the two words in any given pair have a common stem (or even the same lamma)
+    - ex: longer:long
+
+In vector space, the analogy task is transformed into vector arithmetic.
+
+- search for nearest neighbors, i.e. compute distance between vectors
+  - search for word y which would give the closest result in the expression:
+    - d(vec(Stockholm), vec(y))
+  - In Mikolov, the analogies are already pre specified, so one does not need to search for closest result
+    - just check if prespecified word is indeed the closest
+    - many listed analogies will be matched if the relations from the dataset are correctly expressed in the embedding space.
+      - therefore, the eval metric, use classification accuracy of nearest neighbor classifier
+        - where query point is given as vec(x) - vec(a) + vec(b)
+
+15 categories: 5 semantic and 10 syntactic/morphological
+
+- capital cities to countries
+- family member relations
+- non-capital city
+- species
+
+etc theres a bunch (all of 15 lazy boi), theyre pretty neat fr
+
+## 3.7 Implementation and Reuse
