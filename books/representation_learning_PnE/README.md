@@ -25,3 +25,11 @@
 - Boosting is sick nasty
 
 ## [Chapter 3: Text Embeddings](./CHAPTER_3.md)
+
+## [Chapter 4: Propositionalization of Relational Data](./CHAPTER_4.md)
+
+- transformation of relational data into single table is good **only** when the problem at hand is *individual-centered*
+  - i.e. when learning occurs only at the level of the individual
+    - train problem
+    - author collaborator problem
+- sparse matrices resulting from propositionalization are not suitable inputs to DNNs
