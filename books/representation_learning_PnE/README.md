@@ -33,3 +33,5 @@
     - train problem
     - author collaborator problem
 - sparse matrices resulting from propositionalization are not suitable inputs to DNNs
+
+## [Chapter 5: Graph and Heterogeneouse Network Transformations](./CHAPTER_5.md)
