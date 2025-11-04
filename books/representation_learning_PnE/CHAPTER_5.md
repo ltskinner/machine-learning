@@ -100,3 +100,110 @@ here:
 To calculate maximizing matrix F*, a set of random walks of limited size is simulated starting from each node in the network to generate samples of sets N(u)
 
 SGD is used to find maximizing matrix. The matrix of feature vectors is estimated at each sampling of neighborhoods N(u) for all nodes in the network. The resulting matrix F* maximizes the expression for the simulated neighborhood set
+
+### 5.1.3 Other Random Walk-Based Graph Embedding Algorithms
+
+- LINE
+  - extends DeepWalk and node2vec
+  - takes into account local and global network structure, but can efficiently handle large networks
+- PTE
+  - exploits heterogeneous networks w/ texts for supervised embedding construction
+  - leverage documents labels to improve the quality of the final embeddings
+- NetMF
+  - generalization of DeepWalk, node2vec, LINE, and PTE
+  - reformulates algs as matrix factorization problem
+    - indicates that node embedding algs can be described as part of a more general theoretical framework
+- struc2vec
+  - two main ideas
+    - reps of two nodes must be close if the two nodes are structurally similar
+    - latent node rep should not depend on any node or edge attribute (including the node labels)
+      - the structural identity of a given pair of nodes must be independent of their 'position' in the network
+    - struc2vec attempts to determine node similarity by varying neighborhood size
+- HARP
+  - hierarchical representation learning for networks
+  - address weaknesses of DeepWalk and node2vec (random init node embed)
+    - leads to local optima
+  - HARP creates hierarchy of nodes
+    - aggregates nodes in each layer using graph goarsening
+    - embeddings of higher level graphs are used to initialize lower levels, all the way down to original graph
+  - can be used in conjunction with random walk based
+
+## 5.2 Embedding Heterogeneous Information Networks
+
+`heterogeonous information networks` describe heterogenous types of entities and different types of relations
+
+### 5.2.1 Heterogeneous Information Networks
+
+graphs dont hold any real data - information networks hoever are graphs where nodes have properties
+
+#### Definition 5.1 Heterogeneous Information Network
+
+A heterogenous informatoin network is a tuple $(V, E, \mathcal{A}, \mathcal{E}, \tau, \phi)$, where
+
+- $G = (V, E) $ is a directed graph
+- $\mathcal{A} $ is a set of object types
+- $\mathcal{E} $ is a set of edge types
+- function $\tau : V \rightarrow \mathcal{A} $, establish relations between nodes
+- function $\phi : E \rightarrow \mathcal{E} $, establish relation between edges
+  - by the following conditions:
+    - if edge e1 = (x1, y1) and e2 = (x2, y2) belonging to the same edge type
+      - (i.e. $\phi(e_1) = \phi(e_2) $)
+    - then their start points and their end points belong to the same node type
+      - (i.e. $\tau(x_1) = \tau(x_2) $ and $\tau(y_1) = \tau(y_2) $)
+
+Sun and Han node that sets $\mathcal{A} \mathcal{E} $ (along with the restrictions imposed by the definition of a heterogeneous information network) can be seen as a network as well, with edges connecting two node types if there exists an edge type whose edges connect vertices of the two node types. This meta-level desc of a network is a *network schema*
+
+#### Definition 5.2 Network Schema
+
+A network schema of a heterogeneous information network $G = (V, E, \mathcal{A}, \mathcal{E}, \tau, \phi)$, denoted $T_{G} $, is a directed graph with vertices $\mathcal{A} $ and edges $\mathcal{E} $, where edge type $t \in \mathcal{E} $ whose edges donnect different vertices of type $t_1 \in \mathcal{A} $ to vertices of type $t_2 \in \mathcal{A} $, defines an edge in $\mathcal{E} $ from type $t_{1} $ to $t_{2} $
+
+### 5.2.2 Examples of Heterogeneous Information Networks
+
+An information network includes both the network structure and the data attached to individual nodes or edges
+
+Forms of networks:
+
+- Bibliographic networks or citation networks
+- Online social networks
+- Biological networks
+
+### 5.2.3 Embedding Feature-Rich Graphs with GCNs
+
+Real-world graphs often consist of nodes, which are further described by a set of features
+
+Graph-convolutional neural networks (GCNs) exploit this extra info. Sort of like looking for presence of features within the neighborhood (akin to pixel regions)
+
+- For a given node, its neighboring nodes' features are aggregated into a single representation which, apart from local topology,  contains feature information from all the considered neighbors.
+- This aggregation starts from the most distant nodes, using predefined aggregation operators such as max- and mean-pooling
+- the representation of each node closer to the node of interest is obtained by aggregating its neighbors feature vectors
+
+Some well known GCNs
+
+- Spectral GCN
+  - NN arch, one of the first
+  - generalize convolutions over structured grids (e.g. images) to spectral graph theory
+  - efficient neighborhood-based feature aggregation achieves sota classification performance on many datasets
+- Laplacian GCN
+  - similar to spectral GCN
+  - shows how the harmonic spectrum of a graph Laplacian can be used to construct NN with relatively low number of parameters
+- GCN for node classification
+  - semi-supervised learning on graphs by using GCNs offer SOTA classification performance
+- GraphSAGE
+  - many node embedding methods do not generalize well to unseen nodes (when graph dynamics are considered)
+  - **inductive graph embedding learner**
+  - first samples a given nodes neighborhood, then aggregates features of sampled nodes
+
+### 5.2.4 Other Heterogeneous Network Embedding Approaches
+
+- metapath2vec
+  - uses set of pre-defined paths for sampling, yielding embeddings that are SOTA on node class tasks
+- OhmNet
+  - heterogeneous biological setting
+  - outperforms tensor factorization methods
+- HIN2Vec
+  - works with probability that there is a meta-path between nodes u and v
+  - generates positive tuples using homogeneous random walks disregarding the type of nodes and links
+  - for each positive instance, generates several negative instances by replacing node u with a random node
+- Heterogeneous data embeddings
+  - images, text, video could all form a heterogenous graph
+  - when embedded properly, offers sota annotation performance
