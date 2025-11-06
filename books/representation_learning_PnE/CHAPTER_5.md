@@ -342,4 +342,165 @@ Empirical results of HINMINE show the choice of heuristics impacts the performan
 
 The best choice of weighting heuristic depends on the structure of the network
 
-## 5.4
+## 5.4 Ontology Transformations
+
+Approaches which leverage domain-curated background knowledge
+
+Semantic Data Mining (SDM)
+
+### 5.4.1 Ontologies and Semantic Data Mining
+
+Ontology:
+
+- DAGs
+- formed of concepts, relations
+  - (subject, predicate, object) triplets
+
+`taxonomy` = simplest ontologies (hmm)
+
+- hierarchically ordered
+  - general nodes up top
+  - specific leaf nodes
+  - relationships are "is-a" or "part-of"
+
+To find patterns in data annotated with ontologies, *semantic data mining* take as input a set of class labeled instances, and the background knowledge encoded in the form of ontologies
+
+- frequent goal: find descriptions of target class instances as a set of rules of the form:
+  - $\operatorname{TargetClass} \leftarrow \operatorname{Explanation} $
+  - where Explanation is a logical conjunction of the terms from the ontology
+  - roots in:
+    - symbolic rule learning
+    - subgroup discovery
+    - enrichment analysis
+
+SDM toolkit:
+
+- SDM-SEGS
+  - extension of domain-specific algorithm SEGS for semantic subgroup discovery in gene expression data
+- SDM-Aleph
+  - populat inductive logic program Aleph
+
+Hedwig system takes best of both
+
+- search mechanism to exploit hierarchical nature of ontologies
+- uses background knowledge in RDF triplets
+- output is set of descriptive patterns in the form of rules
+  - rule conditions are conjunctions of domain ontology terms
+- seeks to discover explanations that best describe and cover as many target instances (and as few non-target instances) as possible
+
+### 5.4.2 NetSDM Ontology Reduction Methodology
+
+SDM algs perform well on relatively small datasets. Even within these, the algorithms search in a very large space of patterns
+
+NetSDM constrains the search space to only most relevant concepts - useful for data and ontology reduction, as well as data preprocessing, before using an alg for network propositionalization or embeddings
+
+Four main steps:
+
+- 1. Convert examples and background knowledge to network, where background knowledge terms represent nodes
+- 2. Estimate the significance of background knowledge terms using a node scoring function
+- 3. Reduce the background knowledge by removing less significant terms, keeping only a proportion c of the top-ranking terms
+- 4. Apply a semantic data mining alg to the original dataset and the reduced background knowledge
+
+Scoring function used in the onltology shrinkage should:
+
+- 1. evaluate the significance of terms based on the data
+- 2. be efficiently computed
+
+#### 5.4.2.1 Converting Ontology and Examples into Network Format
+
+Direct conversion:
+
+- convert each relation between two ontology terms into an edge
+
+Hypergraph conversion:
+
+- every triplet of ontology-based background knowledge (along with background knowledge terms) forms an additional node in the network with three connections:
+  - one with subject
+  - one with object
+  - one with predicate
+- results in larger information network, but less information is loss
+
+#### 5.4.2.2 Term Significance Calculation
+
+After converting background knowledge and input data intoa network, score significance of background
+
+Two approaches:
+
+- P-PR
+- node2vec
+
+#### 5.4.2.3 Network Node Removal
+
+Low-scored nodes are removed. Two variants of removal
+
+- Naive node removal
+  - delete both node and any edges
+  - can cause resulting network to decompose into several disjoint components
+- Transitive node removal
+  - many edges are transitive
+    - i.e. $a R b \land b R c \implies a R c $
+  - when removing node b, insert a bridging/stitch relation between a and c
+
+## 5.5 Embedding Knowledge Graphs
+
+In knowledge graphs, edges correspond to relations between entities (nodes) and the graphs present subject-predicate-object triplets
+
+The learning algorithms on KGs solve problems like:
+
+- triplet completion
+- relation extraction
+- entity resolution
+
+KG embedding algs are highly scalable for large, semantics-rich graphs
+
+- (h, r, t) = (head, relation, tail)
+- embedding methods optimize the total *plausability* of the input set of triplets
+  - plausability of signle triplet is $f_{r}(h, t) $
+
+Translational distance models
+
+- exploit distance-based scoring functions
+- assess plausability of a fact with the distance between the two entities, usually after a translation carried out by the relation
+  - TransE
+    - models relationships by interpreting them as translations operating on the low-dimensional embeddings of the tntities
+    - cost fn to minimize:
+      - $f_{r}(h, t) = \|h + r - t\|^{2} $
+
+Non-deterministic KG embeddings
+
+- take into account the uncertainty of observing a given triplet
+  - KG2E
+    - models triplets with multivariate Gaussians
+    - models individual entities, and relations, as vectors
+    - assume h, r, t are normally distributed
+      - mean vectors: $\mu_h, \mu_r, \mu_t \in R^d $
+      - covariance matrices: $\Sigma_h, \Sigma_r, \Sigma_t \in R^{d \times d} $
+    - uses Kullback-Liebler divergence to directly compare distributions
+
+Semantic matching models
+
+- exploit similarity-based scoring funcitons
+- measure plausability of facts by matching latent semantics of entities and relations embodied in their vector space representations
+  - RESCAL
+
+Matching using Neural Networks
+
+- train NNs and extract weights as embeddings
+  - Semantic Matching Energy (SME)
+    - projects entities and their relations to their corresponding vector embeddings
+    - representaiton is combined with relations head and tail entities to obtain:
+      - $g_1(h, r) = W_{1}^{(1)} \cdot h + W_{1}^{(2)} \cdot r + b_1 $
+      - $g_2(t, r) = W_{2}^{(1)} \cdot h + W_{2}^{(2)} \cdot r + b_1 $
+        - Ws are R^dxd dimensional weight matrices, and bs are bias vectors
+    - output layer:
+      - $f_r(h, t) = g_1(h, r)^T \cdot g_2(t, r) $
+
+Future research directions:
+
+- **Hyperbolic geometry** is used to better capture latent hierarchies, commonly present in real-world graphs
+  - POG BRO (not new but love to see it)
+- KG embedding based on large, multi-topic data collections
+  - Linked Data (LD) which standardize and fuse data from different resources
+- RDF2vec exploits information in LD and transform it into a learning-suitable format
+- other trends explore how symbolic, logical structures could be used during embedding construction
+  - KALE
