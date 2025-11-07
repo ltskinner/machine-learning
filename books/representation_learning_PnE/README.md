@@ -39,3 +39,7 @@
 - GraphSAGE looks pog
   - inductive graph embedding learner
 - TEHmINe is absolutely gross dude it would be sick to implement on GoT
+
+## [Chapter 6: Unified Representation Learning Approaches](./CHAPTER_6.md)
+
+- See StarSpace
