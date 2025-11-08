@@ -75,3 +75,51 @@ Tasks successfully addressed with StarSpace transformation
   - positive instances: a and b are sentences from same doc (or close together in a document)
   - negative come from different docs
   - attempts to capture the semantic similarity between sentences in a document
+
+## 6.2 Unified Approaches for Relational Data
+
+Propositionalization results in sparse symbolic feature vector reporesentation, which may not be optimal as input to contemporary learners
+
+This weakness can be overcome by embedding the constructed sparse feature vectors intoa lower-dimensional numeric vector space, resulting in a dense numeric feature vector rep appropriate for deep learning
+
+Two variants:
+
+- PropStar
+- PropDRM
+
+Both start from sparse data reps of relational data (like what is returned from wordification algorithm). Here, each instance described by bag of features in form TableName_AttributeName_Value
+
+### 6.2.1 PropStar: Feature-Based Relational Embeddings
+
+Idea is to generate embeddings that represent the features describing the dataset
+
+- individual features are used by a supervised embedding learner, based on StarSpace
+  - produces reps of features in same latent space as the transformed instance labels
+    - opposed to PropDRM (where reps are learned for individual instances)
+    - PropStar reps are learned separately for every realtional feature returned from wordification (or other)
+- labels (true and false) are also represented by vector in same dense space
+  - enables easy classification
+  - embeddings of set of features evalued as true are averaged
+  - then, the result is compared to the embedding class of the labels
+  - nearest class is chosen as the predicted class
+- whole dataset is required for PropStar to obtain reps for individual features
+  - PropDRM works in batches
+- StarSpace-based algs profit from operating on sparse bag-like inputs to avoid spatial complexity
+- any sparse input is well suited for PropStar
+
+Consists of two main steps
+
+- 1. relational db transformed into sets of features describing individual instances
+- 2. sets of relational items (features) are used as input to StarSpace entity embedding algorithm
+- the problem is framed as multiclass classification
+  - positive and negative items
+    - positive are features (words from wordification)
+    - negative are sampled from other features (not in the bag)
+- here, words = triplet of (tablename, columnname, value)
+- output is $R^{\|W\| \times d} $
+  - W is number of unique relational items considered
+- intuitively, embedding construction can be understood as determining relational item locations in a latent space based on cooccurrence with other items present in all training instances
+- uses the inner product similarity between a pair of vectors for construciton of embeddings
+  - $\operatorname{sim}(e_1, e_2) = e_{1}^{T}\cdot e_{2} $
+- the individual features of each word in a bag are averaged (and normalized)
+  - adn then compared to label embeddings in the common space

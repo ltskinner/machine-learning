@@ -43,3 +43,8 @@
 ## [Chapter 6: Unified Representation Learning Approaches](./CHAPTER_6.md)
 
 - See StarSpace
+- Propositionalization results in sparse symbolic feature vector reporesentation, which may not be optimal as input to contemporary learners
+  - This weakness can be overcome by embedding the constructed sparse feature vectors intoa lower-dimensional numeric vector space, resulting in a dense numeric feature vector rep appropriate for deep learning
+  - PropStar
+    - this is pretty badass - main thing is everything resides in a common latent space
+  - PropDRM
