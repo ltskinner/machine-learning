@@ -48,3 +48,5 @@
   - PropStar
     - this is pretty badass - main thing is everything resides in a common latent space
   - PropDRM
+
+## [Chapter 7: Many Faces of Representation Learning](./CHAPTER_7.md)
