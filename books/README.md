@@ -11,9 +11,20 @@
 
 - [x] [Representation Learning for Natural Language Processing](https://www.amazon.com/Representation-Learning-Natural-Language-Processing/dp/9819915996/ref=sr_1_2?)
 - [x] [Binary Representation Learning on Visual Images: Learning to Hash for Similarity Search](https://www.amazon.com/Binary-Representation-Learning-Visual-Images-ebook/dp/B0CX83R73K/ref=tmm_kin_swatch_0?)
-- [ ] [Representation Learning: Propositionalization and Embeddings](https://www.amazon.com/Representation-Learning-Propositionalization-Nada-Lavra%C4%8D/dp/3030688194/ref=tmm_pap_swatch_0)
+- [x] [Representation Learning: Propositionalization and Embeddings](https://www.amazon.com/Representation-Learning-Propositionalization-Nada-Lavra%C4%8D/dp/3030688194/ref=tmm_pap_swatch_0)
 
+### Graph Representation Learning
+
+- [ ] [Graph Representation Learning](https://www.cs.mcgill.ca/~wlh/grl_book/files/GRL_Book.pdf)
+- [ ] [Heterogeneous Graph Representation Learning and Applications](https://www.amazon.com/Heterogeneous-Representation-Applications-Artificial-Intelligence-ebook/dp/B09RJZVY4Z/)
+- [ ] [A Complete Guide to Graph Representation Learning with Case Studies](https://www.amazon.com/Complete-Guide-Representation-Learning-Studies/dp/1394314841/)
 Similarity search --> Information Geometry instead of Euclidian
+
+## Misc Interesting
+
+- [ ] [Scaling Graph Learning for the Enterprise](https://www.amazon.com/Scaling-Graph-Learning-Enterprise-Production-Ready-ebook/dp/B0FLLWLDZJ/)
+- [ ] [Building Knowledge Graphs: A Practitioner's Guide](https://www.amazon.com/Building-Knowledge-Graphs-Jesus-Barrasa-ebook/dp/B0C92QH9Z3/)
+- [ ] [Date Engineering Design Patterns](https://www.amazon.com/Data-Engineering-Design-Patterns-Problems-ebook/dp/B0F513GT2R/)
 
 ### Manifold Learning
 
