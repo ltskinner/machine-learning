@@ -149,3 +149,53 @@ One alternative approach is to use `path-based methods`
   - `shortest path kernel`
 
 Characterizing graphs based on walks and paths is very powerful
+
+## 2.2 Neighborhood Overlap Detection
+
+Node-level statistics do not quanitify *relationships* between nodes
+
+Simplest neighborhood overlap measure - just counts number of neighbors that two nodes share:
+
+$S[u, v] = |N(u) \cap N(v) | $
+
+Where S[u, v] denotes the value quanitfying the relationship between nodes. Let $S \in \mathbb{R}^{|V| \times |V| } $ denote the *similarity matrix* summarizing pairwise node statistics
+
+Given overlap statistic S[u, v], a common strategy is to assume that the likelihood of an edge (u,v) is simply proportional to S[u,v]:
+
+$P(A[u, v] = 1) \propto S[u,v] $
+
+### 2.2.1 Local overlap measures
+
+`local overlap` statistics are simply functions of the number of common neighbors two nodes share
+
+These are surprisingly "extremely" effective heuristics for link prediction - often achieve competitive performance even compared to advanced learning approaches
+
+`Sorensen index` normalizes count of common neighbors by the sum of node degrees
+
+$S_{Sorensen}[u, v] = \frac{2|N(u) \cap N(v)| }{d_u + d_v} $
+
+Normalization of some kind is usually very important; otherwise the overlap measure would be highly biased towards predicting edges for nodes with large degrees
+
+$S_{Salton} = \frac{2|N(u) \cap N(v)| }{\sqrt{d_u d_v}} $
+
+$S_{Jaccard} = \frac{|N(u) \cap N(v)| }{|N(u) \cup N(v)|} $
+
+There are also measures that go beyond counting - these seek to consider the *importance* of common neighbors in some way
+
+`Resource Allocation (RA)` counts the inverse degree of the common neighbors
+
+$S_{RA}[v_1, v_2] = \sum_{u \in N(v_1) \cap N(v2)} \frac{1}{d_u} $
+
+Adamic-Adar (AA) uses the inverse log of the degrees
+
+$S_{AA}[v_1, v_2] = \sum_{u \in N(v_1) \cap N(v2)} \frac{1}{\log(d_u)} $
+
+### 2.2.2 Gloval overlap measures
+
+These dont just consider the local neighborhood - in some cases, two nodes may have no overlap in their neighborhoods but still are members of the same community
+
+`Katz index` is the most basic global overlap stat. Here, count the number of paths of *all lengths* between a pair of nodes
+
+$S_{Katz}[u, v] = \sum_{i=1}^{\inf} \beta^{i}A^{i}[u,v] $
+
+where $\beta \in \mathbb{R}^+ $ is user defined param controlling how much weight is given to short vs long paths. A small value of $\beta < 1 $ would down-weight the importance of long paths
