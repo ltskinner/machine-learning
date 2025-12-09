@@ -199,3 +199,50 @@ These dont just consider the local neighborhood - in some cases, two nodes may h
 $S_{Katz}[u, v] = \sum_{i=1}^{\inf} \beta^{i}A^{i}[u,v] $
 
 where $\beta \in \mathbb{R}^+ $ is user defined param controlling how much weight is given to short vs long paths. A small value of $\beta < 1 $ would down-weight the importance of long paths
+
+#### Geometric Series of Matrices
+
+Katz index is one example of a `geometric series of matrices`, variants of which occur frequently in graph analysis and graph representation learning
+
+The solution to a basic `geometric series of matrices` is given by the following Theorem 1
+
+Theorem 1.
+
+- Let **X** be a real-valued *square matrix*
+- let $\lambda_1 $ denote the *largest eigenvalue* of X
+
+Then:
+
+$(I - X)^{-1} = \sum_{i=0}^{\infty} X^i $
+
+- iff and only if $\lambda_1 < 1 $ and $(I - X) $ is *non-singular* (non-invertible)
+  - singular =
+    - det(A) = 0
+    - not invertible
+    - at least one eigenvalue = 0
+
+Proof:
+
+- let $s_n  = \sum_{i=0}^{n} X^i $
+  - then we have that:
+    - $X s_n = X\sum_{i=0}^{n}X^i $
+    - $X s_n = \sum_{i=1}^{n+1}X^i $
+  - and
+    - $s_n - X s_n = \sum_{i=0}^n X^i - \sum_{i=1}^{n+1}X^i $
+      - I think this step uses let s_n = ...
+    - $s_n (I - X) = I - X^{n+1} $
+    - $s_n = (I - X^{n+1})(I - X)^{-1} $
+      - (note this step takes the $(I - X)^{-1} $ of each side)
+- And
+  - if $\lambda_1 < 1 $
+  - we have that $\lim_{n \rightarrow \infty} X^n = 0 $
+  - so
+    - $\lim_{n \rightarrow \infty} s_n = \lim_{n \rightarrow \infty} (I - X^{n+1})(I - X)^{-1} $
+    - $\lim_{n \rightarrow \infty} s_n = I(I - X)^{-1} $
+    - $\lim_{n \rightarrow \infty} s_n = (I - X)^-1 $
+
+Based on Theorem 1, we can see that the solution to the Katz index is given by
+
+$S_{\operatorname{Katz}} = (I - \beta A)^{-1} - I $
+
+Where $S_{\operatorname{Katz}} \in \mathbb{R}^{|V| \times |V|  } $ is the full matrix of node-similarity values
