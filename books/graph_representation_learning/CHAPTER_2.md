@@ -246,3 +246,53 @@ Based on Theorem 1, we can see that the solution to the Katz index is given by
 $S_{\operatorname{Katz}} = (I - \beta A)^{-1} - I $
 
 Where $S_{\operatorname{Katz}} \in \mathbb{R}^{|V| \times |V|  } $ is the full matrix of node-similarity values
+
+#### Leicht, Holme, and Newman (LHN) Similarity
+
+One issue with the Katz index is that it is strongly biased by node degree. Eqn 2.14 will generally give higher overall similarity scores when considering high-degree nodes, compared to low-degree ones, since high-degree nodes will generally be involved in more paths
+
+To alleviate this, LHN proposes an improved metric by considering the ratio between the actual number of observed paths and *the number of expected paths between two nodes*
+
+$\frac{A^i}{\mathbb{E}[A^i]} $
+
+i.e. the number of paths between two nodes is normalized based on our expectations of how many paths we expect under a random model
+
+To compute the expectation $\mathbb{E}[A^i] $, we rely on what is called the `configuration model`, which assumes that we draw a random graph with the same set of degrees as our given graph. Under this assumption, we can analytically compute that:
+
+$\mathbb{E}[A[u,v]] = \frac{d_u d_v}{2m} $
+
+where we have used $m = | E | $ to deonte the total number of edges in the graph. this states taht under a random configuration model, the likelihood of an edge is simply proportional to the product of the two node degrees
+
+This can be seen by noting that there are $d_u $ edges leaving u, and each of these edges has a $\frac{d_v}{2m} $ chance of ending at v.
+
+For $\mathbb{E}[A^2[v_1, v_2]] = \frac{d_{v1}d_{v2}}{(2m)^2} \sum_{u \in V} (d_u - 1)d_u $
+
+This follows from the fact that path of length 2 could pass through any intermediate vertex u, and the likelihood of such a path is proportional to the likelihood that an edge leaving v1 hits u multiplied by the probab that an edge leaving u hits v2
+
+The analytical computation of expected node path counts under random configuration model becomes intractable as we go beyind path lengths of three. So to obtain the expection $E[A^i]$ for longer paths (i.e., i > 2), LHN relies on the fact the largest eigenvalue can be used to approximate the growth in the number of paths
+
+In particular, if we define $\bar{p}_i \in \mathbb{R}^{|V|} $ as the vector counting the number of length-i paths between node u and all other nodes, then we have that for large i
+
+$A \bar{p}_{i} = \lambda_{i \bar{p}_{i-1}} $
+
+since $\bar{p}_{i} $ will eventually converge to the dominant eigenvector of the graph.
+
+This implies that the number of paths between two nodes grows by a factor of $\lambda_{1} $ at each iteration, where $\lambda_{i} $ is the largest eigenvalue of A
+
+Based on this approximation for large i as well as the exact solution for i = 1 we obtain:
+
+$\mathbb{E}[A^i[u,v]] = \frac{d_u d_v \lambda^{i-1}}{2m} $
+
+Finally, putting all together we obtain the *normalized version* of the `Katz index`, aka the `LNH index`
+
+$S_{\operatorname{LNH}}[u,v] = I[u,v] + \frac{2m}{d_u d_v} \sum_{i=0}^{\infty} \beta^{i}\lambda_{i}^{1 - i} A^{i}[u,b] $
+
+where I VxV identity matrix
+
+Unlike the `Katz index`, the `LNH index` accounts for the *expected* number of paths between nodes and only gives a high similarity measure if two nodes occur on more paths than we expect
+
+using Theorem 1, the solution to the matrix series (after ignoring diagonal terms) can be written as:
+
+$S_{\operatorname{LNH}} = 2\alpha m \lambda_1 D^{-1}(I - \frac{\beta}{\lambda_{1}} A)^{-1} D^{-1} $
+
+where D is a matrix with node degrees on the diagonal
