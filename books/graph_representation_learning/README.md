@@ -25,4 +25,20 @@
 
 | Term | Definition | Example |
 | - | - | - |
+| `node degree` | first-order graph statistic; indicates **local importance** high degree -> highly connected node; low degree -> peripheral node |  |
+| `out degree` | how many edges originate from this node; influencers, senders, initiators, etc |  |
+| `in degree` | how many edges point to this node; nodes that receive information, popularity, aggregation points, "consumers" or "sinks" in a flow |  |
+| `node centrality` / `eigenvector centrality` | Node/eigenvector centrality **is** the principal eigenvector of the adjacency matrix (the score of each node comes from the corresponding index in the principal eigenvector) | the centrality of node u is proportional to the sum of the centralities of its neighbors (important neighbors boost your importance) |
+| `eigenvector centrality normalization` | 1. makes values numerically stable; 2. provides meaningful scale (probabilities, max=1, etc); 3. Required for iterative algorithms to prevent divergence; 4. Allows comparisons across graphs or time; 5. Ensures a unique interpretable solution |  |
 |  |  |  |
+
+### Stats progression
+
+- 1. degree vector
+- 2. Laplacian
+- 3. Normalized laplacian
+- 4. Random walk transition matrix
+- 5. k-step walk probabilities
+- 6. Spectral decomposition (fully connects to LA)
+- 7. Graph Fourier transform
+- 8. Convolutions on graphs
