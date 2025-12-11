@@ -296,3 +296,5 @@ using Theorem 1, the solution to the matrix series (after ignoring diagonal term
 $S_{\operatorname{LNH}} = 2\alpha m \lambda_1 D^{-1}(I - \frac{\beta}{\lambda_{1}} A)^{-1} D^{-1} $
 
 where D is a matrix with node degrees on the diagonal
+
+#### Random Walk Methods (start of page 21)
