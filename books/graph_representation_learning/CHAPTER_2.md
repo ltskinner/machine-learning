@@ -69,10 +69,13 @@ What features are useful for distinguishing between other nodes in the graph?
 
 The `local variant` of the clustering coefficient is (Watts and Strogatz)
 
-$c_{u} = \frac{|(v_1, v_2) \in E : v_1, v_2 \in N(u)|}{(\frac{d_u}{2})} $
+$c_{u} = \frac{|(v_1, v_2) \in E : v_1, v_2 \in N(u)|}{(\binom{d_u}{2})} $
 
 - numerator counts number of edges between neighbours of node u
-  - where $N(u) = \{u \in V : (u, v) \in E  \} $ to denote the *neighborhood*
+  - where $N(u) = \{v \in V : (u, v) \in E  \} $ to denote the *neighborhood*
+- $\binom{n}{k} $
+  - aka $\frac{n(n-1)}{k} $
+  - aka "number of neighbor pairs"
 - denominator calcs how many pairs of nodes are in u's neighborhood
 - results
   - 1 means all of u's neighbors are also neighbors of each other

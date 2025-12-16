@@ -98,6 +98,37 @@ def get_node_centrality_eigen_decomp(A):
     return eig_centrality
 
 
+def get_neighborhood(A, u):
+    # set of nodes, not edges
+    neighbors = np.where(A[u] != 0)[0]
+    return neighbors
+
+
+def get_node_clustering_coefficient(A):
+    # coeff of 1 implies all of us neighbors are also neighbors of each other
+    # numerator: counts number of edges between neighbors of node u
+    #   "both endpoints must lie in the neighborhood"
+    # denominator: calcs how many pairs of nodes there are in us neighborhood
+    
+
+    for u in G:
+        N_u = get_neighborhood(A, u)
+
+        numerator = 
+
+        n = G.degree[u]
+        denom = n * (n - 1) / 2
+
+        c_u = abs(numerator) / denom
+
+
+    """
+    (v1, v2) in E (all edges in A)
+
+    v1, v2 in N(u)
+    v1, v2 in {v \in V : (u, v \in E)} (the node neighborhood)
+    """
+
 
 if __name__ == '__main__':
     G = get_graph_by_name('florentine_families')
