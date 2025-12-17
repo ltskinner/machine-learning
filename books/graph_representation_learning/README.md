@@ -23,6 +23,21 @@
 
 ## [Chapter 2: Background and Traditional Approaches](./CHAPTER_2.md)
 
+"How do we preserve the linear-algebraic meaning of this object without materializing it?"
+
+- assume graphs are sparse unless proven otherwise
+  - sparse graphs will not typicall have adjacency matrices
+- sparse vs dense
+  - 2m / n(n-1)
+    - m = edges
+    - n = nodes
+    - $< 10%$ is sparse
+    - $> 10%$ is dense
+- adjacency lists enable constructing "rectangular linear operators" that repolace nxn adj matrices while preserving the same algebraic semantics
+  - node <-> edge <-> node
+- `rectangular linear operators`
+  - maps between different spaces like R^3 and R^4
+
 | Term | Definition | Example |
 | - | - | - |
 | `node degree` | first-order graph statistic; indicates **local importance** high degree -> highly connected node; low degree -> peripheral node |  |
