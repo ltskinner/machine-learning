@@ -98,28 +98,53 @@ def get_node_centrality_eigen_decomp(A):
     return eig_centrality
 
 
-def get_neighborhood(A, u):
+def get_neighborhood(A, u, i):
     # set of nodes, not edges
-    neighbors = np.where(A[u] != 0)[0]
+    neighbors = np.where(A[i] != 0)[0]
+    neighbors = neighbors.tolist()
     return neighbors
 
 
-def get_node_clustering_coefficient(A):
+def get_node_clustering_coefficient(G, A):
     # coeff of 1 implies all of us neighbors are also neighbors of each other
     # numerator: counts number of edges between neighbors of node u
     #   "both endpoints must lie in the neighborhood"
     # denominator: calcs how many pairs of nodes there are in us neighborhood
     
+    adj_lists = {}
 
-    for u in G:
-        N_u = get_neighborhood(A, u)
+    for i, u in enumerate(G):
+        N_u = get_neighborhood(A, u, i)
+        adj_lists[i] = N_u
 
-        numerator = 
+
+    c_us = {}
+
+    # for v1
+    for i, u in enumerate(G):
+        N_u = adj_lists[i]
+        if len(N_u) < 2:
+            continue
+        
+        s = 0
+        # for v2 (which is for certain in N_u)
+        if len(N_u) >= 2:
+            print(N_u)
+            for v in N_u:
+                N_v = adj_lists[v]
+                s += len(set(N_u) & set(N_v))
+            
+            s = s // 2
+
+
+        numerator = s
 
         n = G.degree[u]
         denom = n * (n - 1) / 2
 
         c_u = abs(numerator) / denom
+        c_us[u] = round(c_u, 3)
+
 
 
     """
@@ -128,6 +153,8 @@ def get_node_clustering_coefficient(A):
     v1, v2 in N(u)
     v1, v2 in {v \in V : (u, v \in E)} (the node neighborhood)
     """
+
+    return c_us
 
 
 if __name__ == '__main__':
@@ -158,4 +185,9 @@ if __name__ == '__main__':
     assert np.round(eig_centrality1, decimals=2).tolist() == np.round(eig_centrality2, decimals=2).tolist()
 
     print(round(eig_centrality2[3], 2), round(eig_centrality2[12], 2))
+
+    node_clustering =  get_node_clustering_coefficient(G, A)
+    print(node_clustering)
+    for k, v in node_clustering.items():
+        print(f'{k}: {v}')
 
