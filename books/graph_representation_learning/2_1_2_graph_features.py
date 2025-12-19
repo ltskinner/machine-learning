@@ -18,17 +18,21 @@ def WL(G, K=100):
         signatures = {}
 
         for v in G:
-            multiset = set()
-            nb_labels = sorted(labels[u] for u in G.neighbors(v))
+            nb_labels = tuple(sorted(labels[u] for u in G.neighbors(v)))
 
-            signatures[v] = (labels[v], tuple(nb_labels))
+            v_prev_label = labels[v]
+            signatures[v] = (v_prev_label, nb_labels)
 
+        hashes = {}
+        deduplicated_signatures = set(signatures.values())
+        for sig_label_pseudo_hash, signature in enumerate(sorted(deduplicated_signatures)):
+            hashes[signature] = sig_label_pseudo_hash
 
-        hashes = {
-            signature: index
-            for index, signature in enumerate(sorted(set(signatures.values())))
-        }
-        new_labels = {v: hashes[signatures[v]] for v in G}
+        
+        new_labels = {}
+        for v in G:
+            new_signature = signatures[v]
+            new_labels[v] = hashes[new_signature]
 
         if new_labels == labels:
             print(f'WL completed after {i} iterations')
@@ -41,7 +45,8 @@ def WL(G, K=100):
 
 
 if __name__ == '__main__':
-    G = get_graph_by_name('karate_club')
+    G = get_graph_by_name('florentine_families')
+    #G = get_graph_by_name('karate_club')
 
     wl_res = WL(G)
     print(wl_res)

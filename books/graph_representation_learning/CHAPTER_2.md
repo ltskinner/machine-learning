@@ -136,6 +136,8 @@ WL kernel is popular with theoretical properties
 - one popular way to approx graph isomorphism is to check whether or not two graphs have the same label set after K rounds of WL
   - this approach is known to solve the isomorphism problem for a broad set of graphs
 
+WL is discrete (labels, hashes); not differentiable; not good for continuous attributes, dynamics graphs, learning end-to-end representations | If two nodes end up with the same value, WL failed to distingush them. They are considered to have identical structural equivalence (under 1-WL) (aka, a hash collision). In the Florentine example, they all have different WL values so they are all structurally distinct. In Karate club, there are several with the same label 6, so they are 1-WL-equivalent - think `structural symmetry`.
+
 #### Graphlets and path-based methods
 
 Count the occurrence of different, small subgraph structures `graphlets`
