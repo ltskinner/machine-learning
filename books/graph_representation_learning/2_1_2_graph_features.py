@@ -23,12 +23,12 @@ def WL(G, K=100):
             v_prev_label = labels[v]
             signatures[v] = (v_prev_label, nb_labels)
 
+        # you must know all signatures before you can deduplicate them
         hashes = {}
         deduplicated_signatures = set(signatures.values())
         for sig_label_pseudo_hash, signature in enumerate(sorted(deduplicated_signatures)):
             hashes[signature] = sig_label_pseudo_hash
 
-        
         new_labels = {}
         for v in G:
             new_signature = signatures[v]
