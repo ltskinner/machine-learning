@@ -100,7 +100,7 @@ in doing this, transform task of node-level stats and features into graph-level 
 
 Many methods here fall under group of `graph kernel methods`, which are approaches to designing features for graphs or implicit kernel functions for use in ML models
 
-There are many approaches whicha are not discussed here
+There are many approaches which are not discussed here
 
 - Bag of nodes
 - The Weisfeiler-Lehman kernel

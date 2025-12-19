@@ -51,6 +51,11 @@
 | `graphlet` | Small, induced subgraph (subset of nodes and their direct connections) used as universal building blocks for network analysis, e.g. cycles of particular length | structural significance |
 | `motif` | `graphlets` that occur significantly more often in a real network compared to random graphs (there are also `anti-motifs` whic occur significantly less) | have statistical significance |
 |  |  |  |
+| `kernel function` | Similarity functions whose pairwise evaluations form a PSD matrix and thus correspond to `inner products` in some feature space | linear, polynomial, RBF/gaussian, laplacian, sigmoid |
+| `kernel method` | Learning algorithms reformulated to depend only on inner products, which are in turn replaced by kernel evaluations throughought the model/algorithm |  |
+| `Weisfeiler-Lehman Kernel` | WL is discrete (labels, hashes); not differentiable; not good for continuous attributes, dynamics graphs, learning end-to-end representations | If two nodes end up with the same value, WL failed to distingush them. They are considered to have identical structural equivalence (under 1-WL) (aka, a hash collision). In the Florentine example, they all have different WL values so they are all structurally distinct. In Karate club, there are several with the same label 6, so they are 1-WL-equivalent - think `structural symmetry` |
+| `WL Graph Hash` | Combines the node level hashes for a single representation of an entire graph - allows assessing `structural symmetry` between entire graphs |  |
+|  |  |  |
 
 ### Stats progression
 
