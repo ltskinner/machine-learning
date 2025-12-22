@@ -107,11 +107,37 @@ def count_k3_wedge_graphlet(G):
 
     return wedges
 
+def normalize(arr):
+    norm = np.linalg.norm(arr)
+    if norm == 0:
+        return arr
+    return arr / norm
+
+def k3_graphlet_kernel(G, H):
+    # get_similarity
+    # k3_graphlet_kernel
+    phi_G = np.array([
+        count_k3_triangle_graphlet_simple(G),
+        count_k3_wedge_graphlet(G)
+    ])
+    phi_G_hat = normalize(phi_G)
+
+    phi_H = np.array([
+        count_k3_triangle_graphlet_simple(H),
+        count_k3_wedge_graphlet(H)
+    ])
+    phi_H_hat = normalize(phi_H)
+
+    kernel = np.dot(phi_G_hat.T, phi_H_hat)
+    # 1.0 -> identical k=3 structure
+    # 0.0 -> orthogonal (very different motif composition)
+    # -1.0 -> opposute structure (super rare lol)
+    return kernel
 
 
 if __name__ == '__main__':
     G = get_graph_by_name('florentine_families')
-    #G = get_graph_by_name('karate_club')
+    H = get_graph_by_name('karate_club')
 
     wl_res = WL(G)
     print(wl_res)
@@ -125,3 +151,5 @@ if __name__ == '__main__':
     wedges = count_k3_wedge_graphlet(G)
     print('wedges:', wedges)
 
+    kernel = k3_graphlet_kernel(G, H)
+    print(kernel)
