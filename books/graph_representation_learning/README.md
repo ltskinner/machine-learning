@@ -49,12 +49,15 @@
 | `clustering coefficient` | Measures how tightly clustered a nodes neighborhood is. Measures the proportion of closed triangles in a nodes local neighborhood | Real world networks tend to have far higher clustering coefficients than would be expected for randomly sampled networks. Alternatively, its related to the ratio between the actual numbetr of triangles and the total possible triangles of the `ego graph` |
 | `ego graph` | the subgraph containing a single node, its neighbors, and all the edges between nodes in its neighborhood |  |
 | `graphlet` | Small, induced subgraph (subset of nodes and their direct connections) used as universal building blocks for network analysis, e.g. cycles of particular length | structural significance |
+| `graphlet kernel` | Count small subgraph patterns and compare the count vectors |  |
 | `motif` | `graphlets` that occur significantly more often in a real network compared to random graphs (there are also `anti-motifs` whic occur significantly less) | have statistical significance |
-|  |  |  |
 | `kernel function` | Similarity functions whose pairwise evaluations form a PSD matrix and thus correspond to `inner products` in some feature space | linear, polynomial, RBF/gaussian, laplacian, sigmoid |
 | `kernel method` | Learning algorithms reformulated to depend only on inner products, which are in turn replaced by kernel evaluations throughought the model/algorithm |  |
 | `Weisfeiler-Lehman Kernel` | Purely discrete method. Creates `multi-sets` of the neighborhoods and either there will be *exactly* identical multi-sets, or there will not be. There is no concept of "similarity" of the intersection of the multiset - things are either identical or they are not |
 | `WL Graph Hash` | Combines the node level hashes for a single representation of an entire graph - allows assessing `structural symmetry` between entire graphs |  |
+| `graph isomorphism` | Two graphs to have the exact same structure (same number of vertices, edges, connections) (like identical puzzle pieces being viewed at different angles) |  |
+|  |  |  |
+|  |  |  |
 |  |  |  |
 
 ### Stats progression

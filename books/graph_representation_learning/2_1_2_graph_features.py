@@ -44,9 +44,84 @@ def WL(G, K=100):
     return labels
 
 
+"""
+graphlets
+
+
+random-walk kernel
+shortest path kernel
+
+"""
+
+
+def binom(n, k):
+    return (n * (n-1)) // k
+
+
+def count_k3_triangle_graphlet_simple(G):
+    tri = 0
+    for u, v in G.edges():
+        tri += len(set(G.neighbors(u)) & set(G.neighbors(v)))
+    return tri // 3
+
+def count_k3_triangle_graphlet_ordered(G):
+    tri = 0
+
+    index = {}
+    for c, u in enumerate(G):
+        index[u] = c
+
+    for u, v in G.edges():
+        if index[u] < index[v]:
+            # ok
+            pass
+        else:
+            # escape to avoid double counting
+            continue
+
+        Nu = set(G.neighbors(u))
+        Nv = set(G.neighbors(v))
+        common = Nu & Nv
+
+        # only count w with index > v to avoid triple counting
+        for w in common:
+            if index[v] < index[w]:
+                tri += 1
+            else:
+                # do nothing, dont double count
+                pass
+
+    return tri
+
+
+def count_k3_wedge_graphlet(G):
+    wedges = 0
+    for u, tu in nx.triangles(G).items():
+
+        du = G.degree[u]
+        if du < 2:
+            continue
+
+        wu = binom(du, 2) - tu
+        wedges += wu
+
+    return wedges
+
+
+
 if __name__ == '__main__':
     G = get_graph_by_name('florentine_families')
     #G = get_graph_by_name('karate_club')
 
     wl_res = WL(G)
     print(wl_res)
+
+
+    triangles_simple = count_k3_triangle_graphlet_simple(G)
+    triangles_ordered = count_k3_triangle_graphlet_ordered(G)
+    triangles_official = sum(nx.triangles(G).values()) // 3
+    print('triangles:', triangles_simple, triangles_ordered, triangles_official)
+
+    wedges = count_k3_wedge_graphlet(G)
+    print('wedges:', wedges)
+
