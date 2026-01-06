@@ -56,6 +56,9 @@
 | `Weisfeiler-Lehman Kernel` | Purely discrete method. Creates `multi-sets` of the neighborhoods and either there will be *exactly* identical multi-sets, or there will not be. There is no concept of "similarity" of the intersection of the multiset - things are either identical or they are not |
 | `WL Graph Hash` | Combines the node level hashes for a single representation of an entire graph - allows assessing `structural symmetry` between entire graphs |  |
 | `graph isomorphism` | Two graphs to have the exact same structure (same number of vertices, edges, connections) (like identical puzzle pieces being viewed at different angles) |  |
+| `local overlap measures` | `simple overlap` = $N(u) \cap N(v) $; `Sorensen` = $ \frac{2S}{d_u + d_v}$; `Salton` = $\frac{2S}{\sqrt{d_u d_v}} $; `Jaccard` = $\frac{N(u) \cap N(v)}{N(u) \cup N(v)} $ | These metrics are extemely effective heuristics for link prediction. In many cases, they achieve competitive performance compared to advanced deep learning approaches. The primary limitation is they only consider local node neighborhoods |
+| `importance-based local overlap measures` | `Resource Allocation (RA)` = $ S_{RA}[v_1, v_2] = \sum_{u \in N(v_1) \cap N(v_2)} \frac{1}{d_u} $; `Adamic-Adar (AA)` = $S_{AA}[v_1, v_2] = \sum_{u \in N(v_1) \cap N(v_2)} \frac{1}{\log{(d_u)}} $ | Both measures give more weight to common neighbors that have low degree. The intuition is that a shared low-degree neighor is more informative than a shared high-degree neighbor. |
+|  |  |  |
 |  |  |  |
 |  |  |  |
 |  |  |  |
