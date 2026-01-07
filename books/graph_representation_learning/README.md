@@ -1,5 +1,7 @@
 # Graph Representation Learning
 
+Neat course: [https://bdpedigo.github.io/networks-course/landing.html](https://bdpedigo.github.io/networks-course/landing.html)
+
 [https://www.cs.mcgill.ca/~wlh/grl_book/files/GRL_Book.pdf](https://www.cs.mcgill.ca/~wlh/grl_book/files/GRL_Book.pdf)
 
 ## [Chapter 1: Introduction](./CHAPTER_1.md)
@@ -58,7 +60,25 @@
 | `graph isomorphism` | Two graphs to have the exact same structure (same number of vertices, edges, connections) (like identical puzzle pieces being viewed at different angles) |  |
 | `local overlap measures` | `simple overlap` = $N(u) \cap N(v) $; `Sorensen` = $ \frac{2S}{d_u + d_v}$; `Salton` = $\frac{2S}{\sqrt{d_u d_v}} $; `Jaccard` = $\frac{N(u) \cap N(v)}{N(u) \cup N(v)} $ | These metrics are extemely effective heuristics for link prediction. In many cases, they achieve competitive performance compared to advanced deep learning approaches. The primary limitation is they only consider local node neighborhoods |
 | `importance-based local overlap measures` | `Resource Allocation (RA)` = $ S_{RA}[v_1, v_2] = \sum_{u \in N(v_1) \cap N(v_2)} \frac{1}{d_u} $; `Adamic-Adar (AA)` = $S_{AA}[v_1, v_2] = \sum_{u \in N(v_1) \cap N(v_2)} \frac{1}{\log{(d_u)}} $ | Both measures give more weight to common neighbors that have low degree. The intuition is that a shared low-degree neighor is more informative than a shared high-degree neighbor. |
+| Value of Global vs Local | In some cases, two nodes may have no local overlap in their neighborhoods but they can be members of the same `community` |  |
+| `katz index` |  | Most basic global overlap stat. Here, we count the number of paths *of all lengths* between a pair of nodes. Issue: strongly biased by node degree (higher degree = more paths through it) |
+| `Leicht, Holme, and Newmann (LHN) similarity` |  | Alleviates node degree bias by considering the ratio between the actual observed paths and expected paths |
 |  |  |  |
+
+### Katz and LNH Specific notes
+
+| Term | Definition | Example |
+| - | - | - |
+| `series` | a sum of infinitely many terms; infinite summation |  |
+| `finite sum` | the sum of k (finite, not infinite) |  |
+| `scalar geometric series` | $1 + r + r^2 + r^3 + ... $ |  |
+| `geometric series of matrices` | Means we have the $1 + A + A^2 + ... $ but they are matrices instead of some other data structure | Importantly, this means there is a `closed form inverse`, and convergence depends on $\rho (A) < 1 $. Note, this must start at i=0 |
+| `walk` | nodes/edges may repeat |  |
+| `path` | no repeated nodes (simple path) |  |
+| `bipartite graph` | If the nodes of a graph can be split into two disjoint sets $V = V_1 \cup V_2 $ and $V_1 \cap V_2 = \emptyset $ | `Bipartite graphs` = no odd cycles. Bipartiteness is a global yes/no invariant about the graph, it is not hierarchical (not decomposable) |
+| `odd cycles` | Like a triangle, which why graphlets start at k=3 |  |
+| `convergence` | At limit, values approach a finite, real number. Not diverging to +-infinity and not oscillating |  |
+| `spectral radius` | literally $\rho(A) $ is an operator on A to produce the radius. $\rho(A) = \operatorname{max} \ambda_{i} $. This is the largest absolute magnitude `eigenvalue`. Answers "How far from the origin does the spectrum extend?" |  |
 |  |  |  |
 |  |  |  |
 |  |  |  |

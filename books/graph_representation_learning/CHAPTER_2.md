@@ -252,6 +252,68 @@ $S_{\operatorname{Katz}} = (I - \beta A)^{-1} - I $
 
 Where $S_{\operatorname{Katz}} \in \mathbb{R}^{|V| \times |V|  } $ is the full matrix of node-similarity values
 
+#### Not Garbage Katz Index Notes
+
+The Katz index is the count of the number of walks of all lengths between a pair of nodes
+
+Remember, by definition: $A[u,v]$ counts the walks of **length 1** from u to v
+
+The Adjacency Matrix **is** a linear operator that extends walks by one edge
+
+- Multiplying by A = "take one more step"
+- Raising to power k = "take k steps"
+- Entries in the result count *how many ways* one can do that
+
+>> Matrix multiplication **is** the operation of "count all valid ways to chain steps"
+
+The `walks` under consideration here consider repetition - edges can be walked more than one time in the steps
+
+The key theorem Katz relies on is:
+
+$\|A^k \| \approx \rho(A)^k $ as $l \rightarrow \infty $
+
+where $\rho(A) = \operatorname{max}(\lambda_i) $
+
+- eigenvalues < 1 -> decay
+- eigenvalues = 1 -> persist
+- eigenvalues > 1 -> explode
+
+So to converge:
+
+- $\rho(\beta A) < 1 $
+- aka $\beta \rho(A) < 1 $
+- aka $\beta \lambda_1 < 1 $
+- aka $\beta < \frac{1}{\lambda_1} $
+
+There is a `convergence` criterion that $\beta < 1 / \lambda_1 $
+
+In practice, we just set $\beta $ to be low, like $\beta = 0.01 $ instead of precomputing the largest eigenvalue
+
+##### Closed Form Solution
+
+IFF:
+
+- \lambda_i < 1 for each eigenvalue of A (especially the largest eigenvalue)
+  - aka: the convergence criterion has been met
+- (I - A) is non-singular (invertible)
+
+Then, the `closed form solution` to a `geometric series of matrices` is:
+
+$\sum_{k=0}^{\infty} A^k = (I - A)^{-1} $
+
+So
+
+$S_{\operatorname{Katz}} = (I - \beta A)^{-1} - I $
+
+Where the $- I $ at the end nulls out the 0-length walks of a node to itself
+
+>> So this is critical actually
+
+- The closed form solution to geometric series of matrices, the series must begin at i=0
+  - Obviously, Katz does not
+  - So in that proof above, we effectively make the series start at 0, instead of 1
+  - Then, after gathering the closed form, we then subtract the scaffold identity corresponding to i=1
+
 #### Leicht, Holme, and Newman (LHN) Similarity
 
 One issue with the Katz index is that it is strongly biased by node degree. Eqn 2.14 will generally give higher overall similarity scores when considering high-degree nodes, compared to low-degree ones, since high-degree nodes will generally be involved in more paths
@@ -301,5 +363,74 @@ using Theorem 1, the solution to the matrix series (after ignoring diagonal term
 $S_{\operatorname{LNH}} = 2\alpha m \lambda_1 D^{-1}(I - \frac{\beta}{\lambda_{1}} A)^{-1} D^{-1} $
 
 where D is a matrix with node degrees on the diagonal
+
+#### Not Garbage LHN Notes
+
+Improve on LHN by considering the ratio between the actual # of observed paths, compared to the number of **expected** paths between two nodes
+
+$\frac{A^i}{\mathbb{E}[A^i]} $ Where $\mathbb{E} $ is the expected paths
+
+This expresses a normalization based on the expected # of paths under a random model
+
+$\mathbb{E}[A^i] $ depends on the `configuration model`. The `configuration model` assumes:
+
+- we draw a random graph
+- has the same set of degrees as the given graph, so
+
+$\mathbb{E}[A[u,v]] = \frac{d_u d_v}{2m} $, where $m = |\mathcal{E}| $ is the number of edges in the graph
+
+In laymans terms, the expected likelihood is proportional to the product of the two node degrees
+
+So, standing on $u$, there are $d_u$ edges exiting. Each of these edges has a $\frac{d_v}{2m} $ chance of ending on $v$
+
+This is fine for $A^1$ and $A^2$ but becomes computationally intractable at for >= 3
+
+To work aorund this, the largest eigenvalue can be used to approximate the growth in the number of paths.
+
+Here, we exploit the `power method` to identify a vector. In regular power method, this estimates the eigenvector. But here, this vector is the expected number of paths (I think)
+
+$\bar{p}_{i+1} = A\bar(\bar{p}_i) $
+
+##### Power Method Notes
+
+Iterative method to estimate the eigenvector + eigenvalue numerically
+
+$\bar{x}_{k+1} = \frac{A \bar{x}_{k}}{|A \bar{x}_{k} |}$
+
+Then, $\bar{x}_{k} \rightarrow \bar{v}_{max} $
+
+And, $\lambda_{max} \approx \bar{x}_{k}^{T} A \bar{x}_{k} $
+
+Aka, $A\bar{v}_{i} = \lambda_i \bar{v}_{i} $
+
+Back to the LHN notation, we are given:
+
+$A \bar{p}_{i} = \lambda_{1}\bar{p}_{i-1} $
+
+Im pretty sure this is just a notation mismatch, and its structurally the same. Here, $\bar{p}_{i} $ is the vector counting the number of length-i paths between node u and all other nodes. The above equation holds for large values of i (long paths), because $\bar{p}_i$ will converge to the dominant eigenvector of the graph
+
+Knowing this, we obtain an updated expectation:
+
+$\mathbb{E}[A^{i}[u, v]] = \frac{d_u d_v \lambda^{i-1}}{2m} $
+
+- here, the $\lambda^{i-1} $ basically means that because we start at i=1
+  - at the first iteration, we have $\lambda^{0} = 1 $
+  - which, for i=1 we just get the $E[A^1[u, v]] = \frac{d_u d_v \bar{1}}{2m} $
+
+Then to reconcile this with the Katz index, take the 1/E... to get the non closed form equation
+
+$S_{LNH}[u,v] = I[u,v] + \frac{2m}{d_u d_v}\sum_{i=0}^{\infty} \beta^{i}\lambda_{1}^{1-i}A^{i}[u,v] $
+
+Here, we include the leading I[u,v] because even though we begin at i=0, i=0 does not produce an I matrix. therefore, we need to add that I to have the series form required for inversion.
+
+Also note that the $\sum_{i=0} $ begins at 0, instead of 1.
+
+Then the next big jump is:
+
+$(D^{-1}X D^{-1})_{uv} = \frac{D_{uv}}{d_u d_v} $, for my derivations, just took the entire series term and hid behind X
+
+Additionally, that leading identity doesnt add anything cause it only has values on diagonal for self paths or whatever. The resulting equation only represents off-diagonal entries (which are the interesting ones). Also the book explicitly says "after ignoring diagonal terms" (which originally I thought had to do with D, but its about the identity lol)
+
+$S_LNH = 2 \alpha m \lambda_{1} D^{-1}(I - \frac{\beta}{\lambda_{1}} A)^{-1} D^{-1} $
 
 #### Random Walk Methods (start of page 21)
