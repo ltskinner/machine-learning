@@ -434,3 +434,30 @@ Additionally, that leading identity doesnt add anything cause it only has values
 $S_LNH = 2 \alpha m \lambda_{1} D^{-1}(I - \frac{\beta}{\lambda_{1}} A)^{-1} D^{-1} $
 
 #### Random Walk Methods (start of page 21)
+
+Here, random walks are considered instead of exact counts of paths over the graph
+
+Stochastic matrix: $P = AD^{-1} $, assuming D is degrees on diagonal
+
+Then, compute:
+
+$\bar{q}_u = cP\bar{q}_{u} + (1 - c)e_u $
+
+- $e_u $ is one-hot indicator vector for node u
+- $\bar{q}_{u}[v] $ gives stationary probability that random walk starting at node $u$ visits node $v$
+- $c$ determines probability that random walk restarts at node $u$ at each timestep
+  - *without* this, random walk probabilities converge to a normalized variant of the eigenvector centrality
+  - *with* it, we obtain measure of importance specific to node $u$
+    - this is because random walks are continually "teleported" back to that node
+
+Solution given by:
+
+$\bar{q}_u = (1 - c)(I - cP)^{-1}e_u $
+
+and we can define a node-node random walk similarity measure as
+
+$S_{RW}[u,v] = \bar{q}_{u}[v] + \bar{q}_{v}[u] $
+
+i.e., the similarity between a pair of nodes is proportional to how likely we are to reach each node from a random walk starting from the other node
+
+## 2.3 Graph Laplacians and Spectral Methods
