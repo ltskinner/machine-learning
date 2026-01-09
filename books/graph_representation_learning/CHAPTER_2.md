@@ -460,4 +460,22 @@ $S_{RW}[u,v] = \bar{q}_{u}[v] + \bar{q}_{v}[u] $
 
 i.e., the similarity between a pair of nodes is proportional to how likely we are to reach each node from a random walk starting from the other node
 
+#### Not Ass notes
+
+$\bar{q}_u[v]$ is the stationary probability that a random walk starting at u is at node v, so $\bar{q}_u$ contains probabilities for all nodes
+
+- here, $\bar{q}_u[u] $ is the likelihood of being on node u and staying stationary, including both:
+  - explicit "teleports" back to u
+  - returns via graph structures (cycles, neighbors)
+
+And, $S_{RW}[u,v] = \bar{q}_{u}[v] + \bar{q}_{v}[u] $
+
+effectively answers: "how easily can I reach u from v, and v from u" with the following characteristics:
+
+- balancing graph asymmetry
+- mitigating degree gias
+- balancing directionality
+- makes similarity symmetric
+- aligns w/ kernel-style similarity measures
+
 ## 2.3 Graph Laplacians and Spectral Methods

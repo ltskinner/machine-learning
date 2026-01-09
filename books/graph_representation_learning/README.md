@@ -63,6 +63,9 @@ Neat course: [https://bdpedigo.github.io/networks-course/landing.html](https://b
 | Value of Global vs Local | In some cases, two nodes may have no local overlap in their neighborhoods but they can be members of the same `community` |  |
 | `katz index` |  | Most basic global overlap stat. Here, we count the number of paths *of all lengths* between a pair of nodes. Issue: strongly biased by node degree (higher degree = more paths through it) |
 | `Leicht, Holme, and Newmann (LHN) similarity` |  | Alleviates node degree bias by considering the ratio between the actual observed paths and expected paths |
+| `stochastic matrix` | Square matrix with non-negative entries, where each row (or column) sums to one. Represents probabilities of transitioning between states in a system |  |
+|  |  |  |
+|  |  |  |
 |  |  |  |
 
 ### Katz and LNH Specific notes

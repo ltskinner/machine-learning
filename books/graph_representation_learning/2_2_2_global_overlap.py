@@ -63,7 +63,44 @@ def LHN_similarity(G, b=0.01):
 
 
 
+def random_walk_similarity(G, u_index, v_index):
+    A = nx.to_numpy_array(G, dtype=float)
+    n = A.shape[0]
 
+    I = np.eye(n)
+
+    nodes = list(G.nodes())
+    D = np.zeros((n, n))
+    for i, w in enumerate(nodes):
+        D[i,i] = G.degree(w)
+    
+
+    Dinv = np.linalg.pinv(D)  # mp handles zeros better
+
+    P = A @ Dinv
+
+
+    c = .85 # 1/n  # "not sensible" lmao
+
+    #core = (1 - c)*np.linalg.pinv(I - c*P)
+
+    eu = np.zeros(n)
+    eu[u_index] = 1
+    #qu = core @ eu
+
+    # see: https://stackoverflow.com/questions/31256252/why-does-numpy-linalg-solve-offer-more-precise-matrix-inversions-than-numpy-li
+    qu = (1 - c) * np.linalg.solve(I - c*P, eu)
+    # this is n-dimensional
+
+    ev = np.zeros(n)
+    ev[v_index] = 1
+    #qv = core @ ev
+    qv = (1 - c) * np.linalg.solve(I - c*P, ev)
+
+
+    S_RW_uv = qu[v_index] + qv[u_index]
+
+    return S_RW_uv
 
 
 
@@ -81,6 +118,19 @@ if __name__ == '__main__':
     S_LHN = LHN_similarity(G, b=0.01)
     print('S_LHN:')
     print(S_LHN)
+
+
+    nodes = list(G.nodes)
+    node_to_idx = {u: i for i, u in enumerate(nodes)}
+
+    for _ in range(5):
+        print('-------------------------------')
+        u, v = random.sample(nodes, 2)
+        u_index = node_to_idx[u]
+        v_index =  node_to_idx[v]
+
+        res = random_walk_similarity(G, u_index, v_index)
+        print(f'{u_index} <- {res} -> {v_index}')
 
 
 
