@@ -479,3 +479,51 @@ effectively answers: "how easily can I reach u from v, and v from u" with the fo
 - aligns w/ kernel-style similarity measures
 
 ## 2.3 Graph Laplacians and Spectral Methods
+
+This section:
+
+- addresses learning to cluster the nodes in a graph
+- motivates the task of learning low-dimensional embeddings of nodes
+- introduces important matrices that can be used to represent graphs
+- introduces the foundations of `spectral graph theory`
+
+### 2.3.1 Graph Laplacians
+
+There is no loss of information in an adjacency matrix.
+
+`Laplacians` are formed by various transformations of the adjacency matrix
+
+#### Unnormalized Laplacian (most basic)
+
+$L = D - A$, where D is degree matrix, with the following properties:
+
+- It is symmetric: $L^T = L$
+- positive semi-definite PSD: $\bar{x}^{T}L\bar{x} \geq 0, \forall x \in \mathbb{R}^{|\mathcal{V|}} $
+- The vector identity holds $\forall x \in \mathbb{R}^{|\mathcal{V|}} $
+
+$\bar{x}^{T} L x = \frac{1}{2} \sum_{u \in V}\sum_{v \in V} A[u,v](x[u] - x[v])^{2} $
+
+$\bar{x}^{T} L x = \sum_{(u, v)\in \mathbb{E}} (x[u] - x[v])^{2} $
+
+- $L $ has $|V| $ non-negative eigenvalues:
+  - (eigenvalue for each node, which are non-negative)
+  - $0 = \lambda_{|V|} \leq \lambda_{|V| - 1} \leq ... \lambda_{1} $
+
+#### Normalized Laplacians
+
+1. Symmetric normalized Laplacian:
+
+$L_{sym} = D^{-\frac{1}{2}}LD^{-\frac{1}{2}} $
+
+2. Random walk Laplacian:
+
+$L_{RW} = D^{-1}L $
+
+Both have similar properties as the unnormalized Laplacian, but agebraic properties differ by small constants due to the normalization
+
+Theorem 2 (below):
+
+- holds but with eigenvectors for the 0 eigenvalue scaled by $D^{\frac{1}{2}} $ for $L_{sym} $
+- holds exactly for $L_{RW} $
+
+#### Theorem 2 (blue section)

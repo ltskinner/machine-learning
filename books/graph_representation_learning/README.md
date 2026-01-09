@@ -64,6 +64,9 @@ Neat course: [https://bdpedigo.github.io/networks-course/landing.html](https://b
 | `katz index` |  | Most basic global overlap stat. Here, we count the number of paths *of all lengths* between a pair of nodes. Issue: strongly biased by node degree (higher degree = more paths through it) |
 | `Leicht, Holme, and Newmann (LHN) similarity` |  | Alleviates node degree bias by considering the ratio between the actual observed paths and expected paths |
 | `stochastic matrix` | Square matrix with non-negative entries, where each row (or column) sums to one. Represents probabilities of transitioning between states in a system |  |
+| `stationary probability` | A stationary probability distribution is a probability (vector) that remains unchanged over time. Aka, unchanged under the Markov transition operator, capturing the long-run visitation frequency of each state. | Something like akin to eigenvector centrality as $x = \lambda A x $, but for probability with $\pi $ as a single probability, and $P$ being a `stochastic matrix` $\pi = P\pi $ |
+| `unnormalized laplacian` | $L = D - A $. Characteristics: symmetric, PSD, V non-negative eigenvalues |  |
+|  |  |  |
 |  |  |  |
 |  |  |  |
 |  |  |  |
@@ -81,8 +84,8 @@ Neat course: [https://bdpedigo.github.io/networks-course/landing.html](https://b
 | `bipartite graph` | If the nodes of a graph can be split into two disjoint sets $V = V_1 \cup V_2 $ and $V_1 \cap V_2 = \emptyset $ | `Bipartite graphs` = no odd cycles. Bipartiteness is a global yes/no invariant about the graph, it is not hierarchical (not decomposable) |
 | `odd cycles` | Like a triangle, which why graphlets start at k=3 |  |
 | `convergence` | At limit, values approach a finite, real number. Not diverging to +-infinity and not oscillating |  |
-| `spectral radius` | literally $\rho(A) $ is an operator on A to produce the radius. $\rho(A) = \operatorname{max} \ambda_{i} $. This is the largest absolute magnitude `eigenvalue`. Answers "How far from the origin does the spectrum extend?" |  |
-|  |  |  |
+| `spectral radius` | literally $\rho(A) $ is an operator on A to produce the radius. $\rho(A) = \operatorname{max} \lambda_{i} $. This is the largest absolute magnitude `eigenvalue`. Answers "How far from the origin does the spectrum extend?" |  |
+|  |  |  | 
 |  |  |  |
 |  |  |  |
 
