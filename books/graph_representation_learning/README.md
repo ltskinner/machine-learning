@@ -85,7 +85,7 @@ Neat course: [https://bdpedigo.github.io/networks-course/landing.html](https://b
 | `odd cycles` | Like a triangle, which why graphlets start at k=3 |  |
 | `convergence` | At limit, values approach a finite, real number. Not diverging to +-infinity and not oscillating |  |
 | `spectral radius` | literally $\rho(A) $ is an operator on A to produce the radius. $\rho(A) = \operatorname{max} \lambda_{i} $. This is the largest absolute magnitude `eigenvalue`. Answers "How far from the origin does the spectrum extend?" |  |
-|  |  |  | 
+| `Laplacian` | aka `difference operator` - measures disagreements between neighboring nodes. Different values = large outputs, same values = output of 0 | Think of it like a **graph derivative operator** | 
 |  |  |  |
 |  |  |  |
 

@@ -527,3 +527,22 @@ Theorem 2 (below):
 - holds exactly for $L_{RW} $
 
 #### Theorem 2 (blue section)
+
+The Laplacian sumamrizes many important properties of a graph.
+
+Theorem 2: The `geometric multiplicity` of the 0 eigenvalue of the Laplacian **L** corredpons to the number of connected components in the graph
+
+- GM = the number of linearly independent eigenvectors for that eigenvalue
+  - dimension of the eigenspace for the eigenvalue
+  - GM <= AM, and GM=AM required for diagonalization
+- `0 eigenvalue`
+  - There exists a non-zero vector x such that $Lx = 0 $
+    - aka the `null space`
+    - The dimension of Null(L) equals the number of connected components of the graph
+  - Meaning: there are directions in the vector space that L completely anihilates
+    - no stretch, shrink, or rotating
+  - when 0, means that every node has the same value of all its neighors
+    - aka perfect smoothness
+    - correspond to directions that diffusion cannot act on
+  - in context of contagion dynamics:
+    - zero laplacian eigenvalues correspond to opinion modes that are invariant under diffusion, reflecting disconnected componments where opinions evolve independently - structural independence
