@@ -546,3 +546,7 @@ Theorem 2: The `geometric multiplicity` of the 0 eigenvalue of the Laplacian **L
     - correspond to directions that diffusion cannot act on
   - in context of contagion dynamics:
     - zero laplacian eigenvalues correspond to opinion modes that are invariant under diffusion, reflecting disconnected componments where opinions evolve independently - structural independence
+
+## 2.3.2 Graph Cuts and Clustering
+
+1/14/2026 LTS - hitting pause here... I am loving this book but that proof for Theorem 2 I do not have my foundational Linear Algebra up to this level. Going to revisit LADR and sync back up with this in a bit.
