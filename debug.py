@@ -42,3 +42,8 @@ print(np.dot(Q, Q.T))
 
 b_prime = np.dot(np.dot(Q, Q.T), b)
 print(b_prime)
+
+
+
+print(1 - (3/np.sqrt(2)))
+
