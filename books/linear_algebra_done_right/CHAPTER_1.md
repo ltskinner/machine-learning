@@ -56,48 +56,48 @@ Tuesday
 
 #### 1.1 Complex numbers: C
 
-- A `complex number` is an ordered pair $(a, b) $, where $a, b \in \mathbb{R} $, but we will write this as $a + bi $
-- The set of all complex numbers is denoted by $\mathbb{C} $:
-  - $\mathbb{C} = \{a + bi : a, b \in \mathbb{R}    \} $
-- `Addition` and `multiplication` on $\mathbb{C} $ are defined by:
-  - $(a + bi) + (c + di) = (a + c) + (b + d)i $
-  - $(a + bi)(c + di) = (ac - bd) + (ad + bc)i $
-  - here, $a, b, c, d, \in \mathbb{R} $
+- A `complex number` is an ordered pair $(a, b)$, where $a, b \in \mathbb{R}$, but we will write this as $a + bi$
+- The set of all complex numbers is denoted by $\mathbb{C}$:
+  - $\mathbb{C} = \{a + bi : a, b \in \mathbb{R}    \}$
+- `Addition` and `multiplication` on $\mathbb{C}$ are defined by:
+  - $(a + bi) + (c + di) = (a + c) + (b + d)i$
+  - $(a + bi)(c + di) = (ac - bd) + (ad + bc)i$
+  - here, $a, b, c, d, \in \mathbb{R}$
 
 #### 1.3 Properties of Complex Arithmetic
 
 - `commutativity`
-  - $\alpha + \beta = \beta + \alpha $ and
-  - $\alpha\beta = \beta\alpha $ for all $\alpha, \beta \in \mathbb{C} $
+  - $\alpha + \beta = \beta + \alpha$ and
+  - $\alpha\beta = \beta\alpha$ for all $\alpha, \beta \in \mathbb{C}$
 - `associativity`
-  - $(\alpha + \beta) + \lambda = \alpha + (\beta + \lambda) $, and
-  - $(\alpha\beta)\lambda = \alpha(\beta\lambda) $ for all $\alpha, \beta, \lambda \in \mathbb{C} $
+  - $(\alpha + \beta) + \lambda = \alpha + (\beta + \lambda)$, and
+  - $(\alpha\beta)\lambda = \alpha(\beta\lambda)$ for all $\alpha, \beta, \lambda \in \mathbb{C}$
 - `identities`
-  - $\lambda + 0 = \lambda $ and
-  - $\lambda 1 = \lambda $ for all $\lambda \in \mathbb{C} $
+  - $\lambda + 0 = \lambda$ and
+  - $\lambda 1 = \lambda $ for all $\lambda \in \mathbb{C}$
 - `additive inverse`
-  - For every $\alpha \in \mathbb{C} $, there exists a unique $\beta \in \mathbb{C} $ such that $\alpha + \beta = 0 $
+  - For every $\alpha \in \mathbb{C}$, there exists a unique $\beta \in \mathbb{C}$ such that $\alpha + \beta = 0$
 - `multiplicative inverse`
-  - For every $\alpha \in \mathbb{C} $ with $\alpha \neq 0 $, there exists a unique $\beta \in \mathbb{C} $ such that $\alpha\beta = 1 $
+  - For every $\alpha \in \mathbb{C}$ with $\alpha \neq 0$, there exists a unique $\beta \in \mathbb{C}$ such that $\alpha\beta = 1$
 - `distributative property`
-  - $\lambda(\alpha + \beta) = \lambda\alpha + \lambda\beta $ forall $\lambda, \alpha, \beta in \mathbb{C} $
+  - $\lambda(\alpha + \beta) = \lambda\alpha + \lambda\beta$ for all $\lambda, \alpha, \beta \in \mathbb{C}$
 
-#### 1.5 Definition: $-\alpha $, subtraction, $1/\alpha $, division
+#### 1.5 Definition: $-\alpha$, subtraction, $1/\alpha$, division
 
-Suppose $\alpha, \beta \in C $
+Suppose $\alpha, \beta \in C$
 
-- Let $-\alpha $ denote the `additive inverse` of $\alpha $. Thus $-\alpha $ is the unique complex number such that
-  - $\alpha + (-\alpha) = 0 $
-- `Subtraction` on $\mathbb{C} $ is defined by
-  - $\beta - \alpha = \beta + (-\alpha) $
-- For $\alpha \neq = 0 $, let $1/\alpha $ and $\frac{1}{\alpha} $ denote the `multiplicative inverse` of \alpha. Thus $1/\alpha $ is a unique complex number such that
-  - $\alpha(1 / \alpha) = 1 $
-- For $\alpha \neq 0 $, `division` by $\alpha $ is defined by
-  - $\beta / \alpha = \beta (1 / \alpha) $
+- Let $-\alpha$ denote the `additive inverse` of $\alpha$. Thus $-\alpha$ is the unique complex number such that
+  - $\alpha + (-\alpha) = 0$
+- `Subtraction` on $\mathbb{C}$ is defined by
+  - $\beta - \alpha = \beta + (-\alpha)$
+- For $\alpha \neq = 0$, let $1/\alpha$ and $\frac{1}{\alpha}$ denote the `multiplicative inverse` of $\alpha$. Thus $1/\alpha$ is a unique complex number such that
+  - $\alpha(1 / \alpha) = 1$
+- For $\alpha \neq 0$, `division` by $\alpha$ is defined by
+  - $\beta / \alpha = \beta (1 / \alpha)$
 
 #### 1.6 Notation: $\mathbb{F}$
 
-Throughought the book, $\mathbb{F}$ stands for either $\mathbb{R} $ or $\mathbb{C}$
+Throughought the book, $\mathbb{F}$ stands for either $\mathbb{R}$ or $\mathbb{C}$
 
 $\mathbb{F}$ is used because $\mathbb{R}$ and $\mathbb{C}$ are examples of `fields`
 
@@ -117,7 +117,7 @@ Wednesday
 - `finite-dimensional vector spaces`
 - `vector space`
 - `i`
-  - $i^2 = -1 $ or $i = \sqrt{-1} $
+  - $i^2 = -1$ or $i = \sqrt{-1}$
 - `field`
   - like F bc R and C are both fields
 
