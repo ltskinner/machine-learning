@@ -2,6 +2,25 @@
 # Knowledge Vault
 
 This vault exists to train **availability**, not catalogue every niche detail ever
+
+## Note Patterns
+
+- Definition
+- Examples
+- Intuition
+- Properties
+- Why it Matters
+- Contrast / Failure Cases
+- Links
+### Flashcard Patterns (for each Note)
+
+- Definition Recall (recall the formal idea)
+- Property Recognition (recognize when applies)
+- Meaning / Intuition (significance of it existing)
+- Contrast / Failure Modes (distinguish from nearby concepts)
+- Application Bridge (how connects to LA / Graphs)
+
+
 ## Core philosophy
 
 - This vault stores **concepts**, not chapters

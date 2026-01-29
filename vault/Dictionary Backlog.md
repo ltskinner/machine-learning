@@ -1,15 +1,21 @@
 
-- closed / closure
-- Addition
-- Multiplication
-- Subtraction
-- Division
+- Group
+- Ring
+- Vector Space
+
+
+- Complex
+	- Addition
+	- Multiplication
+	- Subtraction
+	- Division
 - Cauchy sequence
 - completeness
-- field
+- Ring (in relation to field)
 - rotation
 - scaling
-- Vector Space
-- Binary Operation.md
 - Inverse Element.md
 - Matrix Multiplication.md
+## Ready for Flashcards
+
+- closed / closure
