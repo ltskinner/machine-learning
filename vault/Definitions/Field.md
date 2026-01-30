@@ -3,6 +3,7 @@
 - Multiplication forms an [[abelian group]] over nonzero elements
 - Multiplication distributes over addition
 
+Is a stronger ring, that requires [[Multiplicative Inverse]]s - aka division is always possible (except by zero)
 ## Intuition
 
 A field is a number system where you can:
