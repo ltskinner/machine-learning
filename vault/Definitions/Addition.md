@@ -5,6 +5,9 @@ Addition is a [[Binary Operation]] that combines two elements into their `sum`
 
 $\alpha + \beta$
 
+### On [[Vector]]s
+
+`Addition` on a set V is a function that assigns an element $u + v \in V$ to each pair of elements $u, v \in V$
 ## Intuition
 
 Addition accumulates or combines magnitude

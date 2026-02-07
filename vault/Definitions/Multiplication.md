@@ -5,6 +5,11 @@ Multiplication is a [[Binary Operation]] that combines two elements into their `
 
 $\alpha\beta$
 
+
+### Scalar Multiplication for [[Vector]]s
+
+A `scalar multiplication` on a set V is a function that assigns an element $\lambda v \in V$ to each $\lambda \in F$ and each $v \in V$
+
 ## Intuition
 
 Multiplication **scales** or **repeatedly combines** magnitude
