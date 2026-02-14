@@ -46,7 +46,7 @@ Three layers of notation:
 - $x \in A \cup B $
   - $x \in A \lor x \in B $
 - $x \in A \cap B $
-  - $x \in A \land x in B $
+  - $x \in A \land x \in B $
 - $x \in \{ f(n) | n \in N \} $
   - $\exists x \in N (x = f(n)) $
   - n is a *generator*
