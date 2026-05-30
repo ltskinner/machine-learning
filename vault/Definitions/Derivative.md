@@ -6,6 +6,8 @@ Basically the opposite of [[Integral]]
 
 ## Flash Cards
 
+- What is the notation for a differentiable function $f$?
+	- The **derivative** of $f$ is $f'$
 - Something "having" differentiability is a type of what?
 	- differentiability is a **property**
 - Memory Jog: whats the derivative of [$]f(x) = x^2[/$]

@@ -30,6 +30,32 @@ $a \in F, u\in U \implies au \in U$
 		- $(1, 0) + (0, 1) = (1, 1) \notin U$
 
 
+## Proof Templates
+
+
+### Additive Identity
+
+- How do additive identity on subset with homogeneous condition?  $\{(x_1, x_2, x_3) \in F^3 : a_1 + 2x_2 + 3x_3 = 0  \}$
+	- Homogeneous condition: $x_1 + 2x_2 + 3x_3 = 0$, so use Zero Vector Test 
+	- $0 + 2(0) + 3(0) = 0$ so $0 \in F^3$
+
+### Closure under Addition
+
+- How do prove additive closure on subset with homogeneous condition? $\{(x_1, x_2, x_3) \in F^3 : x_1 + 2x_2 + 3x_3 = 0  \}$
+	- Homogeneous condition: $x_1 + 2x_2 + 3x_3 = 0$, so 
+	- $u + w = (u_1 + 2u_2 + 3u_3) + (w_1 + 2w_2 + 3w_3)$
+	- $u + w = 0 + 0 = 0$
+
+### Closure under Scalar Multiplication
+
+- How to prove scalar multiplication **closure** on subset with homogeneous condition? $\{(x_1, x_2, x_3) \in F^3 : a_1 + 2x_2 + 3x_3 = 0  \}$
+	- Homogeneous condition: $x_1 + 2x_2 + 3x_3 = 0$, so  
+	- $av = a(v_1 + 2v_2 + 3v_3)$
+	- $av = a0 = 0$
+
+
+
+
 ## Flash Cards
 
 - What are the conditions for a subspace (formal)
