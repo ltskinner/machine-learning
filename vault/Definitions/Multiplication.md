@@ -37,3 +37,15 @@ Multiplication defines the multiplicative structure of a system
 - [[Division]]
 - [[Field]]
 - [[Distributive Property]]
+
+## Flash Cards
+
+- What is the intuitive meaning of multiplication? (Free)
+	- Multiplication **scales** or repeatedly **combines magnitude**
+- What properties does multiplication have alone? (As instances of abstract property types)
+	- Multiplicative **identity**  
+	- Multiplicative **inverses**  
+	- Interaction with addition via **distributivity**
+- Define **multiplication** (formal)
+	- A **binary operation** that combines two elements into their **product**: 
+	- [$]\alpha\beta[/$]

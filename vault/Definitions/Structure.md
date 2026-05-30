@@ -16,3 +16,14 @@ A `structure` is a set equipped with one or more `operations` that satisfy speci
 	- [[Addition]] + [[Multiplication]]
 - [[Vector Space]] = set + scalar field + operations
 
+
+## Flash Cards
+
+- Definition of structure? (What + what + satisfying what)
+	- A **set** equipped with one or more **operations** that satisfy specified **properties**
+- Examples of structure(s)?
+	- Group  
+	- Ring  
+	- Field  
+	- Vector Space
+

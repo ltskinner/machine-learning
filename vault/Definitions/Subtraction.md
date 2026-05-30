@@ -29,3 +29,16 @@ Subtraction is **not** a `primitive operation` - it is addition applied to an `a
 - [[Additive Inverse]]
 - [[Identity Element]]
 - [[Abelian Group]]
+
+## Flash Cards
+
+
+- Why is subtraction NOT a **primitive operation**?
+	- It is defined in terms of **addition**, not independent of it
+- What algebraic property makes subtraction possible?
+	- **Additive inverses**
+- How are **additive inverses** used for **subtraction**? (Formal)
+	- Subtraction is defined:[$]\alpha - \beta = \alpha + (-\beta)[/$]
+- How is subtraction defined in $\mathbb{C}$? (formal) (dupe)
+	- $\beta - \alpha = \beta + (-\alpha)$  
+	- Subtraction is addition of the additive inverse

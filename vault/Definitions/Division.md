@@ -34,3 +34,16 @@ Division by zero is undefined because 0 has no `multiplicative inverse`
 - [[Multiplicative Inverse]]
 - [[Field]]
 - [[Identity Element]]
+
+## Flash Cards
+
+- What is the intuitive meaning of **division**?
+	- Division means multiplying by the **multiplicative undoing** of a quantity
+- Where does division appear in linear algebra
+	- Scaling vectors
+	- Normalizing magnitudes
+	- Solving linear systems
+- Assuming [$]\alpha \neq 0[/$], how is division defined in [$]\mathbb{C}[/$] (formal)
+	- [$]\frac{\beta}{\alpha} = \beta \cdot \frac{1}{\alpha}[/$]
+	- Division is multiplication by the multiplicative inverse
+- 

@@ -22,3 +22,13 @@ A property constrains what an `operation` is allowed to do
 `Properties` determine what kind of [[Structure]] a system has
 
 A structure is defined by: which properties its operations satisfy
+
+## Flash Cards
+
+- Examples of properties (5)
+	- Associativity  
+	- Closure  
+	- Commutativity  
+	- Identity  
+	- Inverse
+	- 

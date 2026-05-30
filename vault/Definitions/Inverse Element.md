@@ -22,3 +22,13 @@ Inverses are defined **relative to** an `operation` and its `identity`
 
 aka: different operations have different inverses
 
+
+## Flash Cards
+
+- An inverse element is defined relative to what two things?
+	- An **operation** and the operations **identity**
+- What makes B an inverse element of a? (formal)
+	- [$]\beta[/$] is an inverse of [$]\alpha[/$] if: 
+	- [$]\alpha \oplus \beta = e[/$]
+- 
+

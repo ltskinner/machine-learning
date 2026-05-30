@@ -16,3 +16,12 @@ Allows [[Subtraction]] and equation solving
 
 - [[Abelian Group]]
 - [[Identity Element]]
+
+
+## Flash Cards
+
+- Inverses (Additive)
+	- What is the intuitive meaning of an **additive inverse**?
+	- Every element has a **"cancelling partner"**
+- - What is the additive inverse of an element [$]\alpha[/$]
+	- A unique element [$]\beta[/$] such that:  [$]\alpha + \beta = 0[/$]

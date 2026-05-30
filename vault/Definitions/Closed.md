@@ -40,3 +40,16 @@ Without closure, structure cannot exist
 - [[Multiplication]]
 - [[Group]]
 - [[Field]]
+
+## Flash Cards
+
+- Closed
+	- What does it mean for a set S to be **closed** under an operation [$]\oplus[/$] (formal)
+		- If [$]\alpha, \beta \in S[/$] then [$]\alpha \oplus \beta \in S[/$] 
+		- Combining elements (already inside the set) only produces an output that is already in the set
+	- Give an example of a set that is **NOT** closed under an operation
+		- Integers [$]\mathbb{Z}[/$] are **NOT** closed under division
+		- (e.g. [$]1 / 2 \notin \mathbb{Z}[/$])
+	- What is the intuitive meaning of **closure**?
+		- You never leave the world you started in - the system is self-contained
+		- 

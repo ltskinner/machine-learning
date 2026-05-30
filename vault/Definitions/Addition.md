@@ -34,3 +34,14 @@ Addition defines the additive structure of a system
 - [[Abelian Group]]
 - [[Subtraction]]
 - [[Vector Addition]]
+
+
+## Flash Cards
+
+- Define addition (formal)
+	- A binary operation that combines two elements into their sum  $\alpha + \beta$
+- Which key properties does addition satisfy in standard number systems?
+	- Associativity  
+	- Commutativity  
+	- Identity  
+	- Additive Inverses

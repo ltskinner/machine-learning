@@ -28,3 +28,15 @@ Not guaranteed to divide
 - $\mathbb{Z}$ (integers)
 - Polynomials
 - Matrices
+
+## Flash Cards
+
+- Intuition for: Ring (free)
+	- Freely perform **Addition** and **Multiplication**, but NOT **Division**
+- Examples of a ring (3)?
+	- [$]\mathbb{Z}[/$] (integers)  
+	- Polynomials  
+	- Matrices
+- Why are the integers [$]\mathbb{Z}[/$] NOT a field?
+	- Most integers do not have multiplicative inverses (satisfy division)
+	

@@ -27,3 +27,17 @@ Allows chaining operations without parentheses
 
 - [[Abelian Group]]
 - [[Binary Operation]]
+
+## Flash Cards
+
+
+- Associativity
+	- Formal:
+		- $(\alpha \oplus \beta) \oplus \lambda = \alpha \oplus (\beta \oplus \lambda)$
+	- Layman:
+		- Grouping of operations does not matter - only order matters, not parentheses
+	- Examples:
+		- Addition: $(\alpha + \beta) + \lambda = \alpha + (\beta + \lambda)$
+		- Multiplication: $(\alpha\beta)\lambda = \alpha(\beta\lambda)$
+	- Why are **subtraction** and **division** NOT associative?
+		- Changing grouping changes the result, e.g.:  [$](5 - 3) - 1 \neq 5 - (3 - 1) [/$]

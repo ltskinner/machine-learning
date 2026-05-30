@@ -32,3 +32,18 @@ $\mathbb{R}$ is the default scalar system for:
 - [Complex Numbers](./Complex Numbers.md) $\mathbb{C}$
 - [Field](./Field.md) $\mathbb{F}$
 - Real vector spaces $\mathbb{R}^n$
+
+
+## Flash Cards
+
+
+- What are the real numbers [$]\mathbb{R}[/$]
+	- A continuous number line containing all **rational and irrational** numbers
+- What does [$]\mathbb{R}[/$] model conceptually?
+	- **Magntiude with continuity** - filling the gaps so limits, calculus, and geometry behave smoothly
+- What do [$]\mathbb{Q}[/$] and [$]\mathbb{C}[/$] lack or add compared to [$]\mathbb{R}[/$]
+	- [$]\mathbb{Q}[/$]: is not complete
+	- [$]\mathbb{C}[/$]: extends [$]\mathbb{R}[/$] so all polynomials have roots
+- - What key algebraic structure does C form? What is a subfield?
+	- A field, with R as a subfield
+	

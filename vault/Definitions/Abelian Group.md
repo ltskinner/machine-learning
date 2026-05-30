@@ -33,4 +33,20 @@ Non-abelian groups allow order-dependent composition (e.g., rotations in 3D)
 - [[Binary Operation]]
 - [[Identity Element]]
 - [[Inverse Element]]
-- [[Field]]
+
+## Flash Cards
+
+
+- Intuition for: Abelian group (free)
+	- **Combine** and **undo** elements, with **commutativity**
+- What distinguishes an Abelian Group from a regular Group?
+	- Commutativity
+- What is an **abelian group**?
+	- A set G with a **binary operation,** satisfying:
+		- Associativity
+		- Closure
+		- Commutativity  
+		- Identity
+		- Inverses
+- Why are 3D rotations **not** an abelian group under composition?
+	- Rotation order matters -> composition is **not commutative**

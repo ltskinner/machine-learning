@@ -34,3 +34,10 @@ See [[Direct Sum Condition]]]
 Suppose $U$ and $W$ are subspaces of $V$. Then
 $U + W$ is a direct sum $\iff U \cap W = \{0\}$
 
+
+## Flash Cards
+
+
+
+- What is the **set analogy** for **direct sums** of subspaces?
+	- Disjoint unions of subsets (union, but we know which element came from which set)

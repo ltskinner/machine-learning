@@ -30,3 +30,20 @@ $\mathbb{Z}$ (integers) are not a field (no multiplicative inverse for most elem
 - [[Vector Space]]
 
 
+## Flash Cards
+
+- Intuition for: Field (free)
+	- Perform **Addition**, **Multiplication**, and **Division**
+- What operations does a **field** have?
+	- A set with addition, multiplication, distributivity, and division
+- Which **property** distinguishes a **field** from a **ring**?
+	- Existence of **multiplicative inverses** for nonzero elements
+- What algebraic **structure** does [$]\mathbb{R}[/$] form?
+	- **Field**
+- Distinguish a field from a group
+	- Field extends addition to include:  
+	- Addition is an Abelian Group (adds commutativity)  
+	- Multiplication (now two operations)  
+	- Multiplication **distributes** over Addition  
+	- Multiplicative inverse enables **Division**
+

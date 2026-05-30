@@ -36,3 +36,17 @@ Complex multiplication = rotation + scaling
 - [[Field]]
 - Complex vector space $\mathbb{C}^n$
 - [[Eigenvalues]]
+
+
+## Flash Cards
+
+- What are the complex numbers [$]\mathbb{C}[/$]? (set form formal definition)
+	- [$]\mathbb{C} = \{a + bi | a, b \in \mathbb{R} \}[/$], and  [$]i^2 = -1[/$]  
+	- Numbers with both real and imaginary components
+- Two distinct square roots of i?
+	- [$]+- (\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i)[/$]
+- How can complex numbers be interpreted **geometrically**?
+	- As points in a 2D plane, where multiplication encodes rotation and scaling
+- Why does [$]\mathbb{C}[/$] extend [$]\mathbb{R}[/$]?
+	- So that **every** polynomial has roots
+	- (e.g., solutions to [$]x^2  +1 = 0[/$])
