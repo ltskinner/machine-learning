@@ -22,13 +22,19 @@ If $\operatorname{span}(v_1, ..., v_m)$ equals V, we say that the list $v_1, ...
 
 We do this to show that two subspaces are equal
 
-1. Show [$]\operatorname{span}(v_1, ..., v_m) \subseteq \operatorname{span}(w_1, ..., w_m)[/$]  
-2. Show [$]\operatorname{span}(w_1, ..., w_m) \subseteq \operatorname{span}(v_1, ..., v_m)[/$]
-
+1. Show $\operatorname{span}(v_1, ..., v_m) \subseteq \operatorname{span}(w_1, ..., w_m)$  
+2. Show $\operatorname{span}(w_1, ..., w_m) \subseteq \operatorname{span}(v_1, ..., v_m)$
 
 ### Verbiage for claiming w defined in terms of v is a span
 
-"Because each [$]w_k[/$] is a **linear combination** of [$]v_1, .., v_m[/$], we have [$]\operatorname{span}(w_1, ..., w_k) \subseteq \operatorname{span}(v_1, ..., v_k)[/$]"
+"Because each $w_k$ is a **linear combination** of $v_1, .., v_m$, we have $\operatorname{span}(w_1, ..., w_k) \subseteq \operatorname{span}(v_1, ..., v_k)$"
+
+
+### Prove Spanning
+
+To prove spanning:  
+- take an arbitrary vector and express as linear combination of the list  
+- $w \in W$ where $w = a_1 w_1 + ... + a_n w_n$
 
 
 ### Given a list with some variables we dont like, such as $v_1 + w, ..., v_m + w$ what do we do with this shit?

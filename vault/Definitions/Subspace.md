@@ -70,7 +70,7 @@ $a \in F, u\in U \implies au \in U$
 	- additive identity  
 	- addition  
 	- scalar multiplication
-- - Which subspaces have additive inverses?
+- Which subspaces have additive inverses?
 	- Literally only trivial ones like [$]\{ 0 \}[/$] have one
 - What is a **non-homogeneous equation** and what does it tell you about **subspaces**?
 	- Have constraints (bias terms)  

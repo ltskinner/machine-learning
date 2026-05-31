@@ -25,6 +25,14 @@ Furthermore, if $k$ satisfies the condition above and the kth term is removed fr
 In a finite-dimensional vector space, the length of *every* linearly independent list of vector is less than or equal to the length of every spanning list of vectors.
 
 
+## Proof Template
+
+To prove independence:  
+- start with $a_1 v_1 + ... + a_n v_n = 0$
+- show all coeffs $a_1 = ... = a_n = 0$
+
+
+
 ## Flashcards
 
 
